@@ -913,7 +913,7 @@
             
             related.forEach(anim => {
                 const card = document.createElement('a');
-                card.href = `${anim.slug}.html`;
+                card.href = `animation-detail.html?slug=${anim.slug}`;
                 card.className = 'related-card';
                 
                 card.innerHTML = `
