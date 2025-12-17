@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     
     <!-- SEO Meta Tags -->
     <title>MotionVault - Buy Premium Motion Capture Animations</title>
@@ -1408,12 +1411,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-        // Supabase Configuration
-        const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
-        
-        // Initialize Supabase client
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        (function() {
+            // Supabase Configuration
+            const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabaseClient.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
+            
+            // Initialize Supabase client
+            const supabaseClient = window.supabaseClient.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         
         // API Helper Functions
         const API = {
@@ -1703,13 +1707,18 @@
 
 
         // Load More functionality
-        function loadMore() {
+        window.loadMore = function() {
             currentDisplayCount += itemsPerPage;
             filterAnimations(); // Re-render with new count
         }
         
-        function scrollToTop() {
+        window.scrollToTop = function() {
             document.getElementById('library').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        window.handleAddToCart = function(animationId) {
+            // For now, just show alert
+            alert('Added to cart! (Cart system will be connected to database later)');
         }
 
         // Load animations from Supabase
@@ -1754,25 +1763,6 @@
             renderAnimations(filtered);
         }
 
-        // Add to cart handler (placeholder - will use API when database is ready)
-        function handleAddToCart(animationId) {
-            // For now, just show alert
-            alert('Added to cart! (Cart system will be connected to database later)');
-            
-            // When database is ready, use this:
-            // async function handleAddToCart(animationId) {
-            //     try {
-            //         const result = await API.addToCart(animationId);
-            //         if (result.success) {
-            //             alert('Added to cart!');
-            //             updateCartBadge();
-            //         }
-            //     } catch (error) {
-            //         console.error('Error:', error);
-            //     }
-            // }
-        }
-
         // Update cart badge
         async function updateCartBadge() {
             try {
@@ -1789,6 +1779,7 @@
         // Initial render - Load from database
         loadAnimations();
         updateCartBadge();
+        })(); // End of IIFE
     </script>
 </body>
 </html>
