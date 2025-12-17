@@ -1406,7 +1406,7 @@
             const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             
             // Stripe Configuration
-            const STRIPE_PUBLISHABLE_KEY = 'pk_test_YOUR_KEY_HERE'; // Replace with your Stripe publishable key
+            const STRIPE_PUBLISHABLE_KEY = 'mk_1SfQ2CQBChX7okucaS76iAjL';
             const stripe = window.Stripe ? window.Stripe(STRIPE_PUBLISHABLE_KEY) : null;
         
         // API Helper Functions
@@ -1735,10 +1735,6 @@
 
             // Temporary: Show cart contents until payment is configured
             alert(`You have ${cartIds.length} item(s) in your cart. Payment processing will be available once Stripe and Supabase Edge Functions are configured.`);
-        }
-                console.error('Cart error:', error);
-                alert('Error processing cart.');
-            }
         }
 
         // Load animations from Supabase
