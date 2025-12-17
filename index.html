@@ -1548,7 +1548,7 @@
                 }
                 
                 card.innerHTML = `
-                    <a href="animation-detail.html" style="text-decoration: none; color: inherit; display: block;">
+                    <a href="animation-detail.html?slug=${anim.slug}" style="text-decoration: none; color: inherit; display: block;">
                         <div class="card-thumbnail">
                             ${mediaElement}
                             ${anim.popular ? '<div class="popular-badge">Popular</div>' : ''}
@@ -1568,7 +1568,7 @@
                         </div>
                     </a>
                     <div style="padding: 0 24px 24px;">
-                        <button class="buy-now-btn" onclick="event.stopPropagation(); window.location.href='animation-detail.html'">
+                        <button class="buy-now-btn" onclick="event.stopPropagation(); window.location.href='animation-detail.html?slug=${anim.slug}'">
                             💳 Buy Now
                         </button>
                         <button class="add-to-cart-btn" onclick="event.stopPropagation(); handleAddToCart('${anim.id}')">
