@@ -1029,6 +1029,10 @@
             font-size: 16px;
             transition: all 0.3s ease;
         }
+        
+        .buy-now-btn::before {
+            content: "💳 ";
+        }
 
         .buy-now-btn:hover {
             background: #34D399;
@@ -1175,7 +1179,7 @@
             </ul>
 
             <div class="nav-actions">
-                <div class="cart-icon">
+                <div class="cart-icon" onclick="checkoutCart()" style="cursor: pointer;" title="Checkout">
                     <svg class="icon" viewBox="0 0 24 24" style="color: var(--text-primary);">
                         <circle cx="9" cy="21" r="1"></circle>
                         <circle cx="20" cy="21" r="1"></circle>
@@ -1386,6 +1390,9 @@
     </div>
 
 
+    <!-- Stripe.js for Payments -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
     <!-- Supabase JavaScript Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -1397,6 +1404,10 @@
             
             // Initialize Supabase client
             const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            
+            // Stripe Configuration
+            const STRIPE_PUBLISHABLE_KEY = 'pk_test_YOUR_KEY_HERE'; // Replace with your Stripe publishable key
+            const stripe = window.Stripe ? window.Stripe(STRIPE_PUBLISHABLE_KEY) : null;
         
         // API Helper Functions
         const API = {
@@ -1583,8 +1594,8 @@
                         </div>
                     </a>
                     <div style="padding: 0 24px 24px;">
-                        <button class="buy-now-btn" onclick="event.stopPropagation(); window.location.href='animation-detail.html?slug=${anim.slug}'">
-                            💳 Buy Now
+                        <button class="buy-now-btn" onclick="event.stopPropagation(); handleBuyNow('${anim.id}', '${anim.title}', ${anim.price})">
+                            Buy Now
                         </button>
                         <button class="add-to-cart-btn" onclick="event.stopPropagation(); handleAddToCart('${anim.id}')">
                             <svg class="icon" viewBox="0 0 24 24">
@@ -1692,9 +1703,42 @@
             document.getElementById('library').scrollIntoView({ behavior: 'smooth' });
         }
 
+        // Stripe Payment Handlers
+        window.handleBuyNow = async function(animationId, animationTitle, price) {
+            // Temporary: Redirect to detail page until Stripe/Supabase Edge Functions are set up
+            alert('Payment processing will be available once Stripe and Supabase Edge Functions are configured. For now, redirecting to animation details...');
+            const anim = animations.find(a => a.id === animationId);
+            if (anim) {
+                window.location.href = `animation-detail.html?slug=${anim.slug}`;
+            }
+        }
+
         window.handleAddToCart = function(animationId) {
-            // For now, just show alert
-            alert('Added to cart! (Cart system will be connected to database later)');
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (!cart.includes(animationId)) {
+                cart.push(animationId);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartBadge();
+                alert('Added to cart!');
+            } else {
+                alert('Already in cart!');
+            }
+        }
+        
+        window.checkoutCart = async function() {
+            const cartIds = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            if (cartIds.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            // Temporary: Show cart contents until payment is configured
+            alert(`You have ${cartIds.length} item(s) in your cart. Payment processing will be available once Stripe and Supabase Edge Functions are configured.`);
+        }
+                console.error('Cart error:', error);
+                alert('Error processing cart.');
+            }
         }
 
         // Load animations from Supabase
