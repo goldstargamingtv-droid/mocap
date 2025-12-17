@@ -1705,11 +1705,40 @@
 
         // Stripe Payment Handlers
         window.handleBuyNow = async function(animationId, animationTitle, price) {
-            // Temporary: Redirect to detail page until Stripe/Supabase Edge Functions are set up
-            alert('Payment processing will be available once Stripe and Supabase Edge Functions are configured. For now, redirecting to animation details...');
-            const anim = animations.find(a => a.id === animationId);
-            if (anim) {
-                window.location.href = `animation-detail.html?slug=${anim.slug}`;
+            if (!stripe) {
+                alert('Payment system is initializing. Please try again.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify({
+                        animationId: animationId,
+                        animationTitle: animationTitle,
+                        price: price
+                    })
+                });
+
+                const { sessionId, error } = await response.json();
+
+                if (error) {
+                    alert('Error creating checkout: ' + error);
+                    return;
+                }
+
+                const { error: stripeError } = await stripe.redirectToCheckout({ sessionId });
+
+                if (stripeError) {
+                    alert('Error: ' + stripeError.message);
+                }
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert('Error processing payment. Please try again.');
             }
         }
 
@@ -1733,8 +1762,45 @@
                 return;
             }
 
-            // Temporary: Show cart contents until payment is configured
-            alert(`You have ${cartIds.length} item(s) in your cart. Payment processing will be available once Stripe and Supabase Edge Functions are configured.`);
+            if (!stripe) {
+                alert('Payment system is initializing. Please try again.');
+                return;
+            }
+
+            try {
+                const cartItems = await API.getCartItems();
+                
+                const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify({
+                        cartItems: cartItems.map(item => ({
+                            animationId: item.id,
+                            animationTitle: item.title,
+                            price: item.price
+                        }))
+                    })
+                });
+
+                const { sessionId, error } = await response.json();
+
+                if (error) {
+                    alert('Error creating checkout: ' + error);
+                    return;
+                }
+
+                const { error: stripeError } = await stripe.redirectToCheckout({ sessionId });
+
+                if (stripeError) {
+                    alert('Error: ' + stripeError.message);
+                }
+            } catch (error) {
+                console.error('Cart checkout error:', error);
+                alert('Error processing cart. Please try again.');
+            }
         }
 
         // Load animations from Supabase
