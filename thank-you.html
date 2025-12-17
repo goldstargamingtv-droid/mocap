@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    
+    <title>Thank You - Order Complete | MotionVault</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0F0F1A;
+            --bg-secondary: #1A1A2E;
+            --text-primary: #FFFFFF;
+            --text-secondary: #B8B8D1;
+            --text-muted: #6B6B8C;
+            --teal: #00D4FF;
+            --teal-dark: #00A8CC;
+            --amber: #F59E0B;
+            --green: #10B981;
+            --red: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background: var(--bg-secondary);
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, var(--green), #34D399);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: scaleIn 0.5s ease;
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        .success-icon svg {
+            width: 50px;
+            height: 50px;
+            stroke: white;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .download-section {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+        }
+
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: var(--text-secondary);
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(0, 212, 255, 0.2);
+            border-top-color: var(--teal);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: linear-gradient(135deg, var(--green), #34D399);
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(16, 185, 129, 0.6);
+        }
+
+        .download-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .order-details {
+            text-align: left;
+            background: rgba(26, 26, 46, 0.5);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .order-details h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .detail-value {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .info-box {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            text-align: left;
+        }
+
+        .info-box h4 {
+            color: var(--amber);
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-box p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .support-section {
+            margin-top: 40px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .support-section p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .support-email {
+            color: var(--teal);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .support-email:hover {
+            text-decoration: underline;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 12px 28px;
+            background: transparent;
+            border: 2px solid var(--teal);
+            color: var(--teal);
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            color: var(--red);
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">
+            <svg viewBox="0 0 24 24">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+
+        <h1>Payment Successful!</h1>
+        <p class="subtitle">Thank you for your purchase. Your download is ready!</p>
+
+        <div class="download-section" id="downloadSection">
+            <div class="loading" id="loadingState">
+                <div class="spinner"></div>
+                <span>Preparing your download...</span>
+            </div>
+
+            <div id="downloadReady" style="display: none;">
+                <a href="#" id="downloadBtn" class="download-btn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download Your Files
+                </a>
+                <p style="color: var(--text-muted); font-size: 13px; margin-top: 16px;">
+                    Download link expires in 24 hours
+                </p>
+            </div>
+
+            <div id="errorState" style="display: none;">
+                <div class="error-message">
+                    <p id="errorMessage">Unable to generate download link. Please contact support.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-details" id="orderDetails" style="display: none;">
+            <h3>Order Details</h3>
+            <div class="detail-row">
+                <span class="detail-label">Order ID</span>
+                <span class="detail-value" id="orderId">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Animation</span>
+                <span class="detail-value" id="animationTitle">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Amount Paid</span>
+                <span class="detail-value" id="amountPaid">-</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date</span>
+                <span class="detail-value" id="purchaseDate">-</span>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                Important Information
+            </h4>
+            <p>• Your download link is valid for 24 hours<br>
+               • Files are ready for Unreal Engine, Unity, Blender, and more<br>
+               • Need help? Our support team is here for you</p>
+        </div>
+
+        <div class="support-section">
+            <p>Need help or have questions?</p>
+            <a href="/cdn-cgi/l/email-protection#bbc8cecbcbd4c9cffbd6d4cfd2d4d5cddaced7cf95d8d4d6" class="support-email"><span class="__cf_email__" data-cfemail="f3808683839c8187b39e9c879a9c9d8592869f87dd909c9e">[email&#160;protected]</span></a>
+            <br>
+            <a href="index.html" class="btn-secondary">← Back to Library</a>
+        </div>
+    </div>
+
+    <!-- Supabase JavaScript Client -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        // =================================================================
+        // CONFIGURATION
+        // =================================================================
+        const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
+
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // =================================================================
+        // GET DOWNLOAD LINK
+        // =================================================================
+        async function getDownloadLink() {
+            // Get session_id from URL query parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const sessionId = urlParams.get('session_id');
+
+            if (!sessionId) {
+                showError('No session ID found. Please contact support.');
+                return;
+            }
+
+            try {
+                // Call Supabase Edge Function to get download URL
+                const response = await fetch(`${SUPABASE_URL}/functions/v1/get-download`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify({ sessionId })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    showError(data.error);
+                    return;
+                }
+
+                // Show download button with signed URL
+                showDownloadReady(data.downloadUrl, data.orderDetails);
+
+            } catch (error) {
+                console.error('Error fetching download:', error);
+                showError('Unable to retrieve download link. Please contact support with your order confirmation email.');
+            }
+        }
+
+        function showDownloadReady(downloadUrl, orderDetails) {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('downloadReady').style.display = 'block';
+            document.getElementById('downloadBtn').href = downloadUrl;
+
+            // Show order details
+            if (orderDetails) {
+                document.getElementById('orderDetails').style.display = 'block';
+                document.getElementById('orderId').textContent = orderDetails.orderId || '-';
+                document.getElementById('animationTitle').textContent = orderDetails.animationTitle || '-';
+                document.getElementById('amountPaid').textContent = orderDetails.amount ? `$${orderDetails.amount}` : '-';
+                document.getElementById('purchaseDate').textContent = orderDetails.date || new Date().toLocaleDateString();
+            }
+
+            // Clear cart
+            localStorage.removeItem('cart');
+        }
+
+        function showError(message) {
+            document.getElementById('loadingState').style.display = 'none';
+  
