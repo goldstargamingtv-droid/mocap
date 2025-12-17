@@ -1180,6 +1180,186 @@
             margin-bottom: 24px;
         }
 
+        /* Custom Request Section */
+        .custom-request-section {
+            padding: 120px 32px;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(245, 158, 11, 0.05));
+            border-top: 1px solid rgba(0, 212, 255, 0.15);
+            position: relative;
+        }
+
+        .custom-request-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: start;
+        }
+
+        .custom-request-title {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .custom-request-subtitle {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+            font-family: "Sora", sans-serif;
+        }
+
+        .custom-request-description {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+        }
+
+        .custom-request-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .custom-request-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--teal);
+            flex-shrink: 0;
+        }
+
+        .custom-request-form-wrapper {
+            background: rgba(26, 26, 46, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 24px;
+            padding: 40px;
+        }
+
+        .custom-request-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(26, 26, 46, 0.5);
+            border: 2px solid rgba(0, 212, 255, 0.15);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-family: "DM Sans", sans-serif;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .custom-request-submit {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #10B981, #34D399);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 800;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            font-family: "Sora", sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            position: relative;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3),
+                        0 0 30px rgba(52, 211, 153, 0.2);
+            animation: buttonPulse 2s ease-in-out infinite;
+        }
+
+        .custom-request-submit:hover {
+            transform: translateY(-3px);
+        }
+
+        @keyframes buttonPulse {
+            0%, 100% {
+                box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3),
+                            0 0 30px rgba(52, 211, 153, 0.2);
+            }
+            50% {
+                box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4),
+                            0 0 35px rgba(52, 211, 153, 0.3);
+            }
+        }
+
+        .form-note {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: -12px;
+        }
+
+        @media (max-width: 968px) {
+            .custom-request-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .custom-request-title {
+                font-size: 36px;
+            }
+
+            .custom-request-subtitle {
+                font-size: 24px;
+            }
+        }
+
         .hidden {
             display: none;
         }
@@ -1355,6 +1535,79 @@
             <div class="load-more">
                 <button class="btn btn-secondary" style="padding: 16px 40px;" onclick="loadMore()" id="loadMoreBtn">Load More Animations</button>
                 <button class="btn btn-primary" style="padding: 16px 40px; display: none;" onclick="scrollToTop()" id="backToTopBtn">↑ Back to Top</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Request Section -->
+    <section class="custom-request-section">
+        <div class="container">
+            <div class="custom-request-grid">
+                <div class="custom-request-content">
+                    <h2 class="custom-request-title font-sora">Need Something Unique?</h2>
+                    <h3 class="custom-request-subtitle">Request Custom Motion Capture</h3>
+                    <p class="custom-request-description">
+                        Can't find the perfect animation? We'll create custom mocap tailored to your project — from branded emotes to full character performances. Professional quality, fast turnaround.
+                    </p>
+                    <ul class="custom-request-features">
+                        <li>
+                            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>Studio-grade capture with professional actors</span>
+                        </li>
+                        <li>
+                            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>Retargeted for Unreal, Unity, Blender, and more</span>
+                        </li>
+                        <li>
+                            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>Flexible pricing — starting at $500</span>
+                        </li>
+                        <li>
+                            <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span>Free consultation & quote</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="custom-request-form-wrapper">
+                    <form class="custom-request-form" id="customRequestForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="projectType">Project Type</label>
+                            <select id="projectType" name="projectType" required>
+                                <option value="">Select project type</option>
+                                <option value="game">Game</option>
+                                <option value="film">Film</option>
+                                <option value="vtuber">VTuber</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" rows="4" required placeholder="Tell us what you need..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="budget">Budget/Timeline (Optional)</label>
+                            <input type="text" id="budget" name="budget" placeholder="e.g., $1000-2000, 2 weeks">
+                        </div>
+                        <button type="submit" class="custom-request-submit">Get Free Quote</button>
+                        <p class="form-note">We'll respond within 24 hours</p>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -1766,6 +2019,28 @@
         }
 
         // Initial render
+        
+        // Custom Request Form Handler
+        document.getElementById('customRequestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                projectType: document.getElementById('projectType').value,
+                description: document.getElementById('description').value,
+                budget: document.getElementById('budget').value
+            };
+            
+            // Show success message
+            alert('Thank you! We\'ll review your request and respond within 24 hours.');
+            
+            // Reset form
+            this.reset();
+            
+            // In production, send to backend/email service
+            console.log('Form submitted:', formData);
+        });
         renderAnimations(animations);
     </script>
 </body>
