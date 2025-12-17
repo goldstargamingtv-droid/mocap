@@ -703,13 +703,21 @@
         .card-footer {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             padding-top: 16px;
             border-top: 1px solid rgba(0, 212, 255, 0.1);
         }
 
+        .card-duration {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
         .card-price {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             background: linear-gradient(135deg, var(--teal), var(--amber));
             -webkit-background-clip: text;
@@ -1563,6 +1571,13 @@
                                 ${anim.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
                             </div>
                             <div class="card-footer">
+                                <div class="card-duration">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <span>${anim.duration}</span>
+                                </div>
                                 <div class="card-price">$${anim.price}</div>
                             </div>
                         </div>
