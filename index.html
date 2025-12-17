@@ -1453,7 +1453,9 @@
                     video: anim.video_url,
                     thumbnail: anim.thumbnail_url,
                     videoType: anim.video_type,
-                    tags: anim.animation_tags.map(at => at.tags.name),
+                    tags: anim.animation_tags && anim.animation_tags.length > 0 
+                        ? anim.animation_tags.map(at => at.tags.name)
+                        : [anim.category, anim.gender, anim.style].filter(Boolean),
                     frameRate: anim.frame_rate,
                     animationCount: anim.animation_count,
                     formats: anim.formats,
