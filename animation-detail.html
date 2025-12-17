@@ -789,6 +789,14 @@
 
         // Get slug from URL
         function getSlugFromURL() {
+            // Try query parameter first (e.g., ?slug=combat-sword-master-pack)
+            const urlParams = new URLSearchParams(window.location.search);
+            const slugParam = urlParams.get('slug');
+            if (slugParam) {
+                return slugParam;
+            }
+            
+            // Fallback to filename (e.g., combat-sword-master-pack.html)
             const path = window.location.pathname;
             const filename = path.split('/').pop();
             return filename.replace('.html', '');
