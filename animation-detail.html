@@ -717,12 +717,270 @@
 
     <!-- Supabase JavaScript Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- API Configuration -->
-    <script src="api.js"></script>
-    
-    <!-- Dynamic Page Loading -->
-    <script src="product-detail-dynamic.js"></script>
+
+    <script>
+        // Supabase Configuration
+        const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
+        
+        // Initialize Supabase client
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // API Helper Functions
+        const API = {
+            // Get single animation by slug
+            async getAnimationBySlug(slug) {
+                const { data, error } = await supabaseClient
+                    .from('animations')
+                    .select(`
+                        *,
+                        animation_tags(
+                            tag_id,
+                            tags(name)
+                        )
+                    `)
+                    .eq('slug', slug)
+                    .single();
+
+                if (error) {
+                    console.error('Error fetching animation:', error);
+                    return null;
+                }
+
+                // Transform data
+                return {
+                    id: data.id,
+                    title: data.title,
+                    slug: data.slug,
+                    description: data.description,
+                    price: parseFloat(data.price),
+                    duration: data.duration,
+                    category: data.category,
+                    gender: data.gender,
+                    style: data.style,
+                    popular: data.popular,
+                    onSale: data.on_sale,
+                    salePercentage: data.sale_percentage,
+                    video: data.video_url,
+                    thumbnail: data.thumbnail_url,
+                    videoType: data.video_type,
+                    tags: data.animation_tags.map(at => at.tags.name),
+                    frameRate: data.frame_rate,
+                    animationCount: data.animation_count,
+                    formats: data.formats,
+                    skeleton: data.skeleton,
+                    mocapProcess: data.mocap_process
+                };
+            },
+
+            // Get related animations (same category, different animation)
+            async getRelatedAnimations(category, currentSlug, limit = 4) {
+                const { data, error } = await supabaseClient
+                    .from('animations')
+                    .select('*')
+                    .eq('category', category)
+                    .neq('slug', currentSlug)
+                    .limit(limit);
+
+                if (error) {
+                    console.error('Error fetching related animations:', error);
+                    return [];
+                }
+
+                return data.map(anim => ({
+                    id: anim.id,
+                    title: anim.title,
+                    slug: anim.slug,
+                    price: parseFloat(anim.price),
+                    video: anim.video_url,
+                    thumbnail: anim.thumbnail_url
+                }));
+            },
+
+            // Add to cart (localStorage for now)
+            async addToCart(animationId) {
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                if (!cart.includes(animationId)) {
+                    cart.push(animationId);
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                }
+                return { success: true };
+            }
+        };
+
+        // Get slug from URL
+        function getSlugFromURL() {
+            const path = window.location.pathname;
+            const filename = path.split('/').pop();
+            return filename.replace('.html', '');
+        }
+
+        // Load animation data
+        async function loadAnimationData() {
+            const slug = getSlugFromURL();
+            
+            try {
+                const animation = await API.getAnimationBySlug(slug);
+                
+                if (!animation) {
+                    // Animation not found, redirect to main page
+                    alert('Animation not found');
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // Populate page with animation data
+                populateAnimationData(animation);
+                
+                // Load related animations
+                const related = await API.getRelatedAnimations(animation.category, slug, 4);
+                populateRelatedAnimations(related);
+                
+            } catch (error) {
+                console.error('Error loading animation:', error);
+                alert('Error loading animation details');
+            }
+        }
+
+        // Populate animation data into page
+        function populateAnimationData(anim) {
+            // Update preview
+            const previewImg = document.querySelector('.preview-video');
+            if (previewImg) {
+                previewImg.src = anim.video || anim.thumbnail;
+                previewImg.alt = anim.title;
+            }
+
+            // Update title
+            const titleEl = document.querySelector('.preview-title');
+            if (titleEl) {
+                titleEl.textContent = anim.title;
+            }
+
+            // Show/hide popular badge
+            const badge = document.querySelector('.preview-badge');
+            if (badge) {
+                badge.style.display = anim.popular ? 'inline-block' : 'none';
+            }
+
+            // Update description
+            const descEl = document.querySelector('.narrative-placeholder');
+            if (descEl && anim.description) {
+                descEl.textContent = anim.description;
+                descEl.style.fontStyle = 'normal';
+                descEl.style.background = 'transparent';
+                descEl.style.border = 'none';
+                descEl.style.padding = '0';
+                descEl.classList.remove('narrative-placeholder');
+            }
+
+            // Update metadata
+            updateMetadata('Duration', anim.duration || 'TBD');
+            updateMetadata('Frame Rate', anim.frameRate || 'TBD');
+            updateMetadata('Animations', anim.animationCount ? `${anim.animationCount} animations` : 'TBD');
+            updateMetadata('Formats', anim.formats ? anim.formats.join(', ') : 'TBD');
+            updateMetadata('Skeleton', anim.skeleton || 'TBD');
+            updateMetadata('Mocap Process', anim.mocapProcess || 'TBD');
+
+            // Update price
+            const priceEl = document.querySelector('.price-display');
+            if (priceEl) {
+                priceEl.textContent = `$${anim.price.toFixed(2)}`;
+                priceEl.classList.remove('price-placeholder');
+            }
+
+            const priceNote = document.querySelector('.pricing-header p');
+            if (priceNote) {
+                priceNote.style.display = 'none';
+            }
+
+            // Update page title
+            document.title = `${anim.title} - Premium Motion Capture | MotionVault`;
+
+            // Store animation ID for buy/cart buttons
+            window.currentAnimationId = anim.id;
+            window.currentAnimationSlug = anim.slug;
+        }
+
+        // Helper to update metadata items
+        function updateMetadata(label, value) {
+            const items = document.querySelectorAll('.metadata-item');
+            items.forEach(item => {
+                const labelEl = item.querySelector('.metadata-label');
+                if (labelEl && labelEl.textContent === label) {
+                    const valueEl = item.querySelector('.metadata-value');
+                    if (valueEl) {
+                        valueEl.textContent = value;
+                        valueEl.classList.remove('metadata-placeholder');
+                    }
+                }
+            });
+        }
+
+        // Populate related animations
+        function populateRelatedAnimations(related) {
+            const grid = document.querySelector('.related-grid');
+            if (!grid) return;
+
+            grid.innerHTML = '';
+            
+            related.forEach(anim => {
+                const card = document.createElement('a');
+                card.href = `${anim.slug}.html`;
+                card.className = 'related-card';
+                
+                card.innerHTML = `
+                    <div class="related-thumbnail">
+                        <img src="${anim.video || anim.thumbnail}" alt="${anim.title}">
+                    </div>
+                    <div class="related-content">
+                        <div class="related-title">${anim.title}</div>
+                        <div class="related-price">$${anim.price.toFixed(2)}</div>
+                    </div>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Buy button handler
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            // In production, this would go to checkout
+            if (window.currentAnimationSlug) {
+                alert('Proceeding to checkout...');
+                // window.location.href = `checkout.html?animation=${window.currentAnimationSlug}`;
+            }
+        });
+
+        // Add to cart handler
+        document.querySelector('.btn-secondary').addEventListener('click', async function() {
+            if (window.currentAnimationId) {
+                try {
+                    const result = await API.addToCart(window.currentAnimationId);
+                    if (result.success) {
+                        alert('Added to cart!');
+                    } else {
+                        alert('Error adding to cart');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('Error adding to cart');
+                }
+            }
+        });
+
+        // License selection
+        const licenseOptions = document.querySelectorAll('.license-option');
+        licenseOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                licenseOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Load data on page load
+        loadAnimationData();
+    </script>
 
 </body>
 </html>
