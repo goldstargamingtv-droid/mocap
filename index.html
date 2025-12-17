@@ -1869,6 +1869,7 @@
             displayAnimations.forEach(anim => {
                 const card = document.createElement('div');
                 card.className = 'animation-card';
+                card.style.cursor = 'pointer';
                 
                 let mediaElement = '';
                 if (anim.videoType === 'image/gif') {
@@ -1878,38 +1879,42 @@
                 }
                 
                 card.innerHTML = `
-                    <div class="card-thumbnail">
-                        ${mediaElement}
-                        ${anim.popular ? '<div class="popular-badge">Popular</div>' : ''}
-                        ${anim.onSale ? '<div class="sale-badge">Holiday Sale: 20% Off</div>' : ''}
-                        <div class="card-overlay" onclick="openModal(${anim.id})">
-                            <div class="play-button">
-                                <svg viewBox="0 0 24 24" fill="white" style="width: 28px; height: 28px; margin-left: 4px;">
-                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                                </svg>
+                    <a href="portal-exit.html" style="text-decoration: none; color: inherit; display: block;">
+                        <div class="card-thumbnail">
+                            ${mediaElement}
+                            ${anim.popular ? '<div class="popular-badge">Popular</div>' : ''}
+                            ${anim.onSale ? '<div class="sale-badge">Holiday Sale: 20% Off</div>' : ''}
+                            <div class="card-overlay">
+                                <div class="play-button">
+                                    <svg viewBox="0 0 24 24" fill="white" style="width: 28px; height: 28px; margin-left: 4px;">
+                                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                    </svg>
+                                </div>
+                                <div class="quick-preview-btn">View Details</div>
                             </div>
-                            <div class="quick-preview-btn">Quick Preview</div>
                         </div>
-                    </div>
-                    <div class="card-content">
-                        <h3 class="card-title">${anim.title}</h3>
-                        <div class="card-tags">
-                            ${anim.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
-                        </div>
-                        <div class="card-footer">
-                            <div class="card-duration">
-                                <svg class="icon" viewBox="0 0 24 24">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
-                                <span>${anim.duration}</span>
+                        <div class="card-content">
+                            <h3 class="card-title">${anim.title}</h3>
+                            <div class="card-tags">
+                                ${anim.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
                             </div>
-                            <div class="card-price">$${anim.price}</div>
+                            <div class="card-footer">
+                                <div class="card-duration">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <span>${anim.duration}</span>
+                                </div>
+                                <div class="card-price">$${anim.price}</div>
+                            </div>
                         </div>
-                        <button class="buy-now-btn">
+                    </a>
+                    <div style="padding: 0 24px 24px;">
+                        <button class="buy-now-btn" onclick="event.stopPropagation(); window.location.href='portal-exit.html'">
                             💳 Buy Now
                         </button>
-                        <button class="add-to-cart-btn">
+                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); alert('Added to cart!')">
                             <svg class="icon" viewBox="0 0 24 24">
                                 <circle cx="9" cy="21" r="1"></circle>
                                 <circle cx="20" cy="21" r="1"></circle>
