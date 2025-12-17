@@ -409,12 +409,29 @@
             font-size: 14px;
             color: var(--text-muted);
             flex-wrap: wrap;
+            margin-top: 60px;
         }
 
         .stat-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            padding: 12px 20px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .stat-item span {
+            font-weight: 600;
+            color: var(--text-secondary);
         }
 
         .stat-dot {
@@ -1239,15 +1256,15 @@
             <div class="hero-stats">
                 <div class="stat-item">
                     <div class="stat-dot" style="background: var(--teal);"></div>
-                    <span>12,000+ Animations</span>
+                    <span>🎬 12,000+ Animations</span>
                 </div>
                 <div class="stat-item">
                     <div class="stat-dot" style="background: var(--amber);"></div>
-                    <span>Studio Quality</span>
+                    <span>⭐ Studio Quality</span>
                 </div>
                 <div class="stat-item">
                     <div class="stat-dot" style="background: var(--teal);"></div>
-                    <span>Instant Download</span>
+                    <span>⚡ Instant Download</span>
                 </div>
             </div>
         </div>
