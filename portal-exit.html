@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Portal Exit - Premium Motion Capture Animation | MotionVault</title>
+    <meta name="description" content="Professional portal exit mocap animation. Studio-quality motion capture ready for Unreal Engine, Unity, Blender, and more.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300D4FF;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23F59E0B;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23grad)'/%3E%3Ctext x='50' y='70' font-family='Arial, sans-serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle'%3EMV%3C/text%3E%3C/svg%3E">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --bg-primary: #0F0F1A;
+            --bg-secondary: #1A1A2E;
+            --bg-card: #1A1A2E;
+            --teal: #00D4FF;
+            --teal-dark: #00A8CC;
+            --amber: #F59E0B;
+            --amber-light: #FBBF24;
+            --text-primary: #F5F5F5;
+            --text-secondary: #9CA3AF;
+            --text-muted: #6B7280;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            background-image: radial-gradient(circle at 30% 20%, rgba(0, 212, 255, 0.12), transparent 50%),
+                              radial-gradient(circle at 70% 80%, rgba(245, 158, 11, 0.12), transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: rgba(15, 15, 26, 0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            border-radius: 10px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            font-family: 'Sora', sans-serif;
+        }
+
+        .logo-text span {
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .back-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-link:hover {
+            color: var(--teal);
+        }
+
+        /* Hero Preview Section */
+        .hero-preview {
+            padding: 100px 32px 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .preview-container {
+            position: relative;
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            position: sticky;
+            top: 100px;
+        }
+
+        .preview-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+            background: linear-gradient(180deg, rgba(15, 15, 26, 0.8) 0%, transparent 100%);
+        }
+
+        .preview-title {
+            font-size: 32px;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .preview-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--amber);
+            color: #000;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 12px;
+        }
+
+        /* Content Section */
+        .content-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px 60px;
+        }
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .narrative-section h2 {
+            font-size: 24px;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .narrative-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .narrative-placeholder {
+            padding: 24px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 2px dashed rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        /* Metadata Cards */
+        .metadata-section {
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .metadata-section h3 {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .metadata-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .metadata-item:last-child {
+            border-bottom: none;
+        }
+
+        .metadata-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .metadata-value {
+            color: var(--text-primary);
+            font-weight: 600;
+            text-align: right;
+            font-size: 13px;
+        }
+
+        .metadata-placeholder {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Compatibility Section */
+        .compatibility-section {
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .compatibility-section h2 {
+            font-size: 18px;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            margin-bottom: 16px;
+        }
+
+        .compatibility-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .compatibility-badge {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .compatibility-badge:hover {
+            border-color: var(--teal);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0, 212, 255, 0.2);
+        }
+
+        .compatibility-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .compatibility-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .pricing-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .price-display {
+            font-size: 48px;
+            font-weight: 900;
+            font-family: 'Sora', sans-serif;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+        }
+
+        .price-placeholder {
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .license-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .license-option {
+            background: rgba(0, 212, 255, 0.05);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .license-option:hover,
+        .license-option.selected {
+            border-color: var(--teal);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .license-name {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .license-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Sora', sans-serif;
+            text-transform: uppercase;
+            border: none;
+        }
+
+        .btn-primary {
+            background: #10B981;
+            color: white;
+            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            color: var(--teal);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--teal);
+        }
+
+        .license-link {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .license-link a {
+            color: var(--teal);
+            text-decoration: none;
+        }
+
+        /* Related Animations */
+        .related-section {
+            margin-bottom: 60px;
+        }
+
+        .related-section h2 {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            margin-bottom: 24px;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .related-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 212, 255, 0.08);
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .related-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--teal);
+            box-shadow: 0 12px 24px rgba(0, 212, 255, 0.2);
+        }
+
+        .related-thumbnail {
+            aspect-ratio: 4/3;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(245, 158, 11, 0.1));
+        }
+
+        .related-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .related-content {
+            padding: 16px;
+        }
+
+        .related-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .related-price {
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .preview-container {
+                position: static;
+            }
+
+            .compatibility-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                padding: 0 20px;
+            }
+
+            .hero-preview {
+                padding: 90px 20px 40px;
+            }
+
+            .content-section {
+                padding: 0 20px 40px;
+            }
+
+            .license-options {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .preview-title {
+                font-size: 24px;
+            }
+
+            .price-display {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon"></div>
+                <span class="logo-text">Motion<span>Vault</span></span>
+            </a>
+            <a href="index.html#library" class="back-link">
+                ← Back to Library
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Preview Section -->
+    <section class="hero-preview">
+        <div class="main-layout">
+            <!-- Left: Preview -->
+            <div class="preview-container">
+                <img src="https://media.giphy.com/media/xT9IgDEI1iZyb2wqo8/giphy.gif" alt="Portal Exit Animation" class="preview-video">
+                <div class="preview-overlay">
+                    <h1 class="preview-title">Portal Exit</h1>
+                    <span class="preview-badge">Popular</span>
+                </div>
+            </div>
+
+            <!-- Right: All Content -->
+            <div class="right-column">
+                <!-- Narrative Description -->
+                <div class="narrative-section">
+                    <h2>Animation Description</h2>
+                    <div class="narrative-placeholder">
+                        Engaging story and description will be added here from the database.
+                    </div>
+                </div>
+
+                <!-- Metadata -->
+                <div class="metadata-section">
+                    <h3>Technical Details</h3>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Duration</span>
+                        <span class="metadata-value metadata-placeholder">TBD</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Frame Rate</span>
+                        <span class="metadata-value metadata-placeholder">TBD</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Animations</span>
+                        <span class="metadata-value metadata-placeholder">TBD</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Formats</span>
+                        <span class="metadata-value metadata-placeholder">TBD</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Skeleton</span>
+                        <span class="metadata-value metadata-placeholder">TBD</span>
+                    </div>
+                    <div class="metadata-item">
+                        <span class="metadata-label">Mocap Process</span>
+                        <span class="metadata-value metadata-placeholder">TBD</span>
+                    </div>
+                </div>
+
+                <!-- Compatibility -->
+                <div class="compatibility-section">
+                    <h2>Compatible With</h2>
+                    <div class="compatibility-grid">
+                        <div class="compatibility-badge">
+                            <div class="compatibility-icon">🎮</div>
+                            <div class="compatibility-name">Unreal Engine</div>
+                        </div>
+                        <div class="compatibility-badge">
+                            <div class="compatibility-icon">🔷</div>
+                            <div class="compatibility-name">Unity</div>
+                        </div>
+                        <div class="compatibility-badge">
+                            <div class="compatibility-icon">🎨</div>
+                            <div class="compatibility-name">Blender</div>
+                        </div>
+                        <div class="compatibility-badge">
+                            <div class="compatibility-icon">⚡</div>
+                            <div class="compatibility-name">Fortnite UEFN</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pricing & License -->
+                <div class="pricing-section">
+                    <div class="pricing-header">
+                        <div class="price-display price-placeholder">$X.XX</div>
+                        <p style="color: var(--text-secondary); font-size: 13px;">Price will be loaded from database</p>
+                    </div>
+
+                    <div class="license-options">
+                        <div class="license-option selected">
+                            <div class="license-name">Single License</div>
+                            <div class="license-desc">Individual & small projects</div>
+                        </div>
+                        <div class="license-option">
+                            <div class="license-name">Studio License</div>
+                            <div class="license-desc">Teams & commercial</div>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn btn-primary">💳 Buy Now</button>
+                        <button class="btn btn-secondary">Add to Cart</button>
+                    </div>
+
+                    <p class="license-link">
+                        <a href="#">Learn more about licenses →</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section">
+        <!-- Related Animations -->
+        <div class="related-section">
+            <h2>Related Animations</h2>
+            <div class="related-grid">
+                <a href="#" class="related-card">
+                    <div class="related-thumbnail">
+                        <img src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" alt="Walk Cycle">
+                    </div>
+                    <div class="related-content">
+                        <div class="related-title">Natural Walk Cycles</div>
+                        <div class="related-price">$1</div>
+                    </div>
+                </a>
+                <a href="#" class="related-card">
+                    <div class="related-thumbnail">
+                        <img src="https://media.giphy.com/media/3o7TKpKqb9CkSvvJxS/giphy.gif" alt="Dance">
+                    </div>
+                    <div class="related-content">
+                        <div class="related-title">Urban Dance Moves</div>
+                        <div class="related-price">$1</div>
+                    </div>
+                </a>
+                <a href="#" class="related-card">
+                    <div class="related-thumbnail">
+                        <img src="https://media.giphy.com/media/l0HlHFRbmaZtBRhXG/giphy.gif" alt="Combat">
+                    </div>
+                    <div class="related-content">
+                        <div class="related-title">Stealth Assassination</div>
+                        <div class="related-price">$1</div>
+                    </div>
+                </a>
+                <a href="#" class="related-card">
+                    <div class="related-thumbnail">
+                        <img src="https://media.giphy.com/media/l0HlQ7LRalQqdWfao/giphy.gif" alt="Parkour">
+                    </div>
+                    <div class="related-content">
+                        <div class="related-title">Parkour & Acrobatics</div>
+                        <div class="related-price">$1</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // License selection
+        const licenseOptions = document.querySelectorAll('.license-option');
+        licenseOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                licenseOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        // Buy button handler
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            alert('Purchase flow will be implemented with backend integration');
+        });
+
+        // Add to cart handler
+        document.querySelector('.btn-secondary').addEventListener('click', function() {
+            alert('Added to cart! Cart system will be implemented with backend.');
+        });
+    </script>
+</body>
+</html>
