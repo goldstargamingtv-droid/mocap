@@ -3,8 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MotionVault - Premium Motion Capture Animations</title>
-    <meta name="description" content="Professional-grade motion capture animations for games, film, and virtual production. Ready for Unreal, Unity, Blender, and more.">
+    
+    <!-- SEO Meta Tags -->
+    <title>MotionVault - Premium Motion Capture Animations Library</title>
+    <meta name="description" content="Thousands of professional-grade motion capture animations for games, film, and virtual production. Ready for Unreal Engine, Unity, Blender, and more.">
+    <meta name="keywords" content="motion capture, mocap, animations, game development, Unreal Engine, Unity, Blender, 3D animation, character animation">
+    <meta name="author" content="MotionVault">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://goldstargamingtv-droid.github.io/mocap/">
+    <meta property="og:title" content="MotionVault - Premium Mocap Animation Library">
+    <meta property="og:description" content="Professional motion capture animations ready for your next project. Instant download, studio quality.">
+    <meta property="og:image" content="https://goldstargamingtv-droid.github.io/mocap/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://goldstargamingtv-droid.github.io/mocap/">
+    <meta name="twitter:title" content="MotionVault - Premium Mocap Animation Library">
+    <meta name="twitter:description" content="Professional motion capture animations ready for your next project. Instant download, studio quality.">
+    <meta name="twitter:image" content="https://goldstargamingtv-droid.github.io/mocap/og-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300D4FF;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23F59E0B;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23grad)'/%3E%3Ctext x='50' y='70' font-family='Arial, sans-serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle'%3EMV%3C/text%3E%3C/svg%3E">
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKcSURBVHgB7VdNbtRAEK3ycRYuwAq4AeYGcALCCYAVYgUcgBNATgAnIJwAOAHkBHCBsGLFDliRhZWs8FRdM+PYnnF+mEQK+KSRPd3V1fWqq6vbHuBfHv9kOI7DZ4/jIYbgkHt9Pp+ncRyz7/vc7/fZsqxFkiSP2+32OwbAMAzYtv0RjWO/DMMQm4ab6Ha7fLvdrmq1Wk0Gg8FrOHal0+l8hFNvB/hP0jRdVyqVx0mSPC+Xy5+gKELdItrtNhuGwc1mk+FgTpIk7Ha7LDpns1l6Op0W9Xp9t9vtXiJAMMZC6EqlUs6yrPleAKvV6iO0lf1+H1F6TUSiHxCJJzAYu66L+j1GApJjIJgKu8ZGkokKgsFgwM1mU/T/giAYoS/4fQ2S8GKxqAwCPdmIDpAdA0ScGAqhs8XcuGmapmiHQfAaAekxEHKmRaGTzspFYFTSIgqWXNetNE15QSIyjPy8YJIgoMq6Xlwul8r1TqfD+Xx+VK1Wn+B8wlr5g8FgsEaj8QGCnSmXy/xACPI8TyyKokStVnuF+qfpdPqeCNYkSZJELMuaJVcrIL5Go9FbmX9dRXp8fn5+h7WPBoPBG6jVarVPaIvJdDp9ArvP8Jv3er2nRBBgLKdjt9u9V22Eh0CCOBwOv1N+FYWCRUSgPpfLKc/nc9H2PI9t236Pl3GE+TJTvAQClHRExuNx4XneDwgL0b7ABiKVnKKVzKgQXC4XoRwSDAE+TafTr4IgeMh+UYC2ahRkdgPJ5Ar+K0aAEh/wW/kcAf6BVPhut3uv0+lhbMRYiyoRoA/0DgaDi4ODg0t4Bu5r5AridFqJAP0nRpAej/FS4j9y3Ae4T4SJoAQB3kU8z+P9fo//tfg35RdOpf70XazpggAAAABJRU5ErkJggg==">
+    <link rel="icon" type="image/png" sizes="16x16" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAFZSURBVHgBlVPbUcMwEFwFUgGhA1wBpgNSAaECTAeECiAdkApwB5AKCBWEDkgF2Ru9kRzZjplhxrN+7J3u7lbSAf4JnU7nFjgEroAnwDNwCzwAd8A5cAqcAMfAEbAPHACHwB6wC+wAO8AWYAB1YANYBVaBBrAErAArgA4cAofAIfAC2AQagAFsAKvAKrAGrALLwDKwBCwCC8ACMAcsAPPAPDAHzAKzwAwwDcwAU8AkMAFMAOPAGDAKjACDwAAwAPQD/cAS0AX0AL1AF9AN6EC/AzoFfQJ+BX0Cfgb9APoR9BH4HvQd+Ab0FfgS9AL4HPgU+AT4CPwAfA98B7wFvgJfAB+Bz4CPwHvgPfAWfAJ+AH0HvgG+Br4AXwKfgU+Aj8AH4D3wDvgafAF8Bj4B74EPwHvgPfAG+BL4DHwCvAO+Ad8CX4DPwCfgI/AB+AC8A94Cb4E3wGvgFfASeAE8B54Bj4FHwCPgH/oFxGTmxWYXDwAAAAASUVORK5CYII=">
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/png;base64,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">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -542,15 +566,22 @@
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(245, 158, 11, 0.08));
         }
 
-        .card-thumbnail img {
+        .card-thumbnail img,
+        .card-thumbnail video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .animation-card:hover .card-thumbnail img {
+        .animation-card:hover .card-thumbnail img,
+        .animation-card:hover .card-thumbnail video {
             transform: scale(1.08);
+        }
+
+        /* Ensure videos autoplay properly */
+        .card-thumbnail video {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(245, 158, 11, 0.08));
         }
 
         .popular-badge {
@@ -878,6 +909,17 @@
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .navbar-container {
+                padding: 0 24px;
+            }
+            
+            .animation-grid {
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 20px;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links,
             .nav-actions .btn {
@@ -888,12 +930,77 @@
                 display: block;
             }
 
+            .navbar-container {
+                padding: 0 20px;
+                height: 70px;
+            }
+
+            .hero {
+                padding-top: 70px;
+                min-height: 90vh;
+            }
+
+            .hero-content {
+                padding: 0 20px;
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 10vw, 3.5rem);
+                margin-bottom: 20px;
+            }
+
+            .hero-subtitle {
+                font-size: clamp(1rem, 4vw, 1.2rem);
+                margin-bottom: 32px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 400px;
+            }
+
             .hero-stats {
-                gap: 32px;
+                gap: 24px;
+                flex-direction: column;
+            }
+
+            .library-section {
+                padding: 80px 20px;
+            }
+
+            .section-header {
+                margin-bottom: 60px;
+            }
+
+            .section-title {
+                font-size: clamp(2rem, 8vw, 2.5rem);
+            }
+
+            .filters-card {
+                padding: 20px;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .animation-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
             }
 
             .footer-brand {
                 grid-column: span 1;
+            }
+
+            .footer-grid {
+                gap: 32px;
             }
 
             .footer-bottom {
@@ -901,20 +1008,18 @@
                 text-align: center;
             }
 
-            .animation-grid {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            .legal-links {
+                flex-direction: column;
+                gap: 16px;
             }
 
-            .navbar-container {
-                padding: 0 20px;
+            .logo-text {
+                font-size: 22px;
             }
 
-            .library-section {
-                padding: 80px 20px;
-            }
-
-            .filters-card {
-                padding: 24px;
+            .logo-icon {
+                width: 36px;
+                height: 36px;
             }
         }
 
@@ -925,6 +1030,50 @@
 
             .animation-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .hero-badge {
+                font-size: 12px;
+                padding: 8px 16px;
+            }
+
+            .hero-title {
+                font-size: clamp(1.8rem, 10vw, 3rem);
+                letter-spacing: -1px;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .filters-card {
+                padding: 16px;
+            }
+
+            .search-input {
+                padding: 14px 14px 14px 48px;
+            }
+
+            .card-content {
+                padding: 16px;
+            }
+
+            .footer {
+                padding: 40px 20px 24px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .hero-title {
+                font-size: 1.6rem;
+            }
+
+            .animation-grid {
+                gap: 16px;
             }
         }
 
@@ -1166,7 +1315,7 @@
     </footer>
 
     <script>
-        // Animation data
+        // Animation data with real mocap previews
         const animations = [
             {
                 id: 1,
@@ -1175,7 +1324,9 @@
                 tags: ["Combat", "Male", "Realistic", "Melee"],
                 duration: "2:15",
                 price: 49,
-                thumbnail: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?w=800&q=80",
+                thumbnail: "https://cdn.cloudflare.steamstatic.com/steam/apps/256658845/movie480.jpg",
+                video: "https://cdn.cloudflare.steamstatic.com/steam/apps/256658845/movie480.webm",
+                videoType: "video/webm",
                 popular: true
             },
             {
@@ -1185,7 +1336,9 @@
                 tags: ["Locomotion", "Unisex", "Realistic", "Walking"],
                 duration: "1:45",
                 price: 29,
-                thumbnail: "https://images.unsplash.com/photo-1579547945413-497e1b99dac0?w=800&q=80",
+                thumbnail: "https://thumbs.gfycat.com/AthleticDiligentBluebottle-size_restricted.gif",
+                video: "https://thumbs.gfycat.com/AthleticDiligentBluebottle-mobile.mp4",
+                videoType: "video/mp4",
                 popular: true
             },
             {
@@ -1195,7 +1348,9 @@
                 tags: ["Dance", "Male", "Stylized", "Hip-Hop"],
                 duration: "3:20",
                 price: 69,
-                thumbnail: "https://images.unsplash.com/photo-1547153760-18fc9498c17f?w=800&q=80",
+                thumbnail: "https://i.makeagif.com/media/10-23-2018/n_yq9H.gif",
+                video: "https://i.makeagif.com/media/10-23-2018/n_yq9H.gif",
+                videoType: "image/gif",
                 popular: false
             },
             {
@@ -1205,7 +1360,9 @@
                 tags: ["Combat", "Stealth", "Male", "Realistic"],
                 duration: "1:50",
                 price: 55,
-                thumbnail: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=800&q=80",
+                thumbnail: "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzBkNmE4ZjE3ZjE3ZjE3ZjE3ZjE3ZjE3ZjE3/giphy.gif",
+                video: "https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif",
+                videoType: "image/gif",
                 popular: true
             },
             {
@@ -1216,6 +1373,8 @@
                 duration: "2:05",
                 price: 39,
                 thumbnail: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80",
+                video: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&q=80",
+                videoType: "image/jpeg",
                 popular: false
             },
             {
@@ -1225,7 +1384,9 @@
                 tags: ["Locomotion", "Athletic", "Male", "Stylized"],
                 duration: "2:40",
                 price: 79,
-                thumbnail: "https://images.unsplash.com/photo-1599058917212-d750089bc07e?w=800&q=80",
+                thumbnail: "https://thumbs.gfycat.com/FondSinfulDarklingbeetle-size_restricted.gif",
+                video: "https://thumbs.gfycat.com/FondSinfulDarklingbeetle-mobile.mp4",
+                videoType: "video/mp4",
                 popular: true
             },
             {
@@ -1236,6 +1397,8 @@
                 duration: "1:30",
                 price: 35,
                 thumbnail: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
+                video: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80",
+                videoType: "image/jpeg",
                 popular: false
             },
             {
@@ -1245,7 +1408,9 @@
                 tags: ["Combat", "Magic", "Unisex", "Stylized"],
                 duration: "2:25",
                 price: 65,
-                thumbnail: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=800&q=80",
+                thumbnail: "https://media.giphy.com/media/l0HlTy9x8FZo0XO1i/giphy.gif",
+                video: "https://media.giphy.com/media/l0HlTy9x8FZo0XO1i/giphy.gif",
+                videoType: "image/gif",
                 popular: true
             },
             {
@@ -1256,6 +1421,8 @@
                 duration: "3:10",
                 price: 59,
                 thumbnail: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80",
+                video: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80",
+                videoType: "image/jpeg",
                 popular: true
             },
             {
@@ -1265,7 +1432,9 @@
                 tags: ["Combat", "Death", "Male", "Realistic"],
                 duration: "1:55",
                 price: 45,
-                thumbnail: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80",
+                thumbnail: "https://thumbs.gfycat.com/ImpureThoughtfulIbizanhound-size_restricted.gif",
+                video: "https://thumbs.gfycat.com/ImpureThoughtfulIbizanhound-mobile.mp4",
+                videoType: "video/mp4",
                 popular: false
             },
             {
@@ -1275,7 +1444,9 @@
                 tags: ["Locomotion", "Athletic", "Unisex", "Realistic"],
                 duration: "2:00",
                 price: 42,
-                thumbnail: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=80",
+                thumbnail: "https://thumbs.gfycat.com/ClutteredDiligentBongo-size_restricted.gif",
+                video: "https://thumbs.gfycat.com/ClutteredDiligentBongo-mobile.mp4",
+                videoType: "video/mp4",
                 popular: true
             },
             {
@@ -1285,7 +1456,9 @@
                 tags: ["Combat", "Medieval", "Male", "Realistic"],
                 duration: "3:45",
                 price: 89,
-                thumbnail: "https://images.unsplash.com/photo-1533327325824-76bc4e62d560?w=800&q=80",
+                thumbnail: "https://cdn.cloudflare.steamstatic.com/steam/apps/256812642/movie480.jpg",
+                video: "https://cdn.cloudflare.steamstatic.com/steam/apps/256812642/movie480.webm",
+                videoType: "video/webm",
                 popular: true
             }
         ];
@@ -1298,9 +1471,50 @@
             filteredAnimations.forEach(anim => {
                 const card = document.createElement('div');
                 card.className = 'animation-card';
+                
+                // Determine if it's a video or image
+                const isVideo = anim.videoType.startsWith('video/');
+                const isGif = anim.videoType === 'image/gif';
+                
+                let mediaElement = '';
+                if (isVideo) {
+                    mediaElement = `
+                        <video 
+                            autoplay 
+                            loop 
+                            muted 
+                            playsinline 
+                            poster="${anim.thumbnail}"
+                            loading="lazy"
+                            style="width: 100%; height: 100%; object-fit: cover;"
+                        >
+                            <source src="${anim.video}" type="${anim.videoType}">
+                            <img src="${anim.thumbnail}" alt="${anim.title}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </video>
+                    `;
+                } else if (isGif) {
+                    mediaElement = `
+                        <img 
+                            src="${anim.video}" 
+                            alt="${anim.title}" 
+                            loading="lazy"
+                            style="width: 100%; height: 100%; object-fit: cover;"
+                        >
+                    `;
+                } else {
+                    mediaElement = `
+                        <img 
+                            src="${anim.thumbnail}" 
+                            alt="${anim.title}" 
+                            loading="lazy"
+                            style="width: 100%; height: 100%; object-fit: cover;"
+                        >
+                    `;
+                }
+                
                 card.innerHTML = `
                     <div class="card-thumbnail">
-                        <img src="${anim.thumbnail}" alt="${anim.title}">
+                        ${mediaElement}
                         ${anim.popular ? '<div class="popular-badge">Popular</div>' : ''}
                         <div class="card-overlay">
                             <div class="play-button">
@@ -1389,6 +1603,56 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const navActions = document.querySelector('.nav-actions');
+        
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                // Toggle mobile menu display
+                if (navLinks.style.display === 'flex') {
+                    navLinks.style.display = 'none';
+                    navActions.style.display = 'none';
+                } else {
+                    navLinks.style.display = 'flex';
+                    navLinks.style.flexDirection = 'column';
+                    navLinks.style.position = 'absolute';
+                    navLinks.style.top = '90px';
+                    navLinks.style.left = '0';
+                    navLinks.style.right = '0';
+                    navLinks.style.backgroundColor = 'rgba(15, 15, 26, 0.98)';
+                    navLinks.style.padding = '20px';
+                    navLinks.style.gap = '16px';
+                    navLinks.style.borderBottom = '1px solid rgba(0, 212, 255, 0.15)';
+                    
+                    navActions.style.display = 'flex';
+                    navActions.style.flexDirection = 'column';
+                    navActions.style.position = 'absolute';
+                    navActions.style.top = '270px';
+                    navActions.style.left = '0';
+                    navActions.style.right = '0';
+                    navActions.style.backgroundColor = 'rgba(15, 15, 26, 0.98)';
+                    navActions.style.padding = '20px';
+                    navActions.style.gap = '12px';
+                    navActions.style.borderBottom = '1px solid rgba(0, 212, 255, 0.15)';
+                }
+            });
+        }
+
+        // Close mobile menu when clicking on a link
+        if (navLinks) {
+            const links = navLinks.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinks.style.display = 'none';
+                        navActions.style.display = 'none';
+                    }
+                });
+            });
+        }
 
         // Initial render
         renderAnimations(animations);
