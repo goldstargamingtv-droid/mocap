@@ -1423,7 +1423,7 @@
         const API = {
             // Get all animations with optional filters
             async getAnimations(filters = {}) {
-                let query = supabase
+                let query = supabaseClient
                     .from('animations')
                     .select(`
                         *,
@@ -1493,7 +1493,7 @@
 
             // Submit custom request
             async submitCustomRequest(formData) {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('custom_requests')
                     .insert([
                         {
@@ -1528,7 +1528,7 @@
                 const cartIds = JSON.parse(localStorage.getItem('cart') || '[]');
                 if (cartIds.length === 0) return [];
                 
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('animations')
                     .select('id, title, slug, price, thumbnail_url')
                     .in('id', cartIds);
