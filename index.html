@@ -9,14 +9,14 @@
     
     <!-- SEO Meta Tags -->
     <title>MotionVault - Buy Premium Motion Capture Animations</title>
-    <meta name="description" content="Buy professional motion capture animations for games, film, and virtual production. High-quality mocap library ready for Unreal Engine, Unity, Blender, and more. From $19 with instant download.">
+    <meta name="description" content="Buy professional motion capture animations for games, film, and virtual production. High-quality mocap library ready for Unreal Engine, Unity, Blender, and more. From $1 with instant download.">
     <meta name="keywords" content="buy motion capture, mocap animations, purchase animations, game development, Unreal Engine, Unity, Blender, 3D animation">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://goldstargamingtv-droid.github.io/mocap/">
     <meta property="og:title" content="MotionVault - Premium Mocap Animation Library">
-    <meta property="og:description" content="Professional motion capture animations from $19. Instant download for Unreal, Unity, Blender, and more.">
+    <meta property="og:description" content="Professional motion capture animations from $1. Instant download for Unreal, Unity, Blender, and more.">
     <meta property="og:image" content="https://goldstargamingtv-droid.github.io/mocap/og-image.jpg">
     
     <!-- Twitter -->
@@ -755,6 +755,116 @@
         }
 
         /* Footer */
+        /* Custom Request Section */
+        .custom-request-section {
+            background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(26, 26, 46, 0.6) 100%);
+            padding: 100px 32px;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .request-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .request-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .request-subtitle {
+            color: var(--text-secondary);
+            font-size: 18px;
+            margin-top: 16px;
+            line-height: 1.6;
+        }
+
+        .request-form {
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            padding: 48px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(15, 15, 26, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 800;
+            font-size: 16px;
+            font-family: 'Sora', sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .request-form {
+                padding: 32px 24px;
+            }
+        }
+
         .footer {
             background: #0a0a12;
             border-top: 1px solid rgba(0, 212, 255, 0.15);
@@ -1328,6 +1438,55 @@
         </div>
     </section>
 
+    <!-- Custom Request Section -->
+    <section class="custom-request-section">
+        <div class="request-container">
+            <div class="request-content">
+                <div class="request-header">
+                    <h2 class="section-title font-sora">Need Custom Motion Capture?</h2>
+                    <p class="request-subtitle">Can't find what you're looking for? Our team can create bespoke animations tailored to your exact specifications.</p>
+                </div>
+                
+                <form class="request-form" id="customRequestForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Your Name</label>
+                            <input type="text" name="name" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" name="email" placeholder="john@company.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Project Type</label>
+                        <select name="projectType" required>
+                            <option value="">Select a project type</option>
+                            <option value="game">Game Development</option>
+                            <option value="film">Film/Animation</option>
+                            <option value="vr">VR/AR Experience</option>
+                            <option value="training">Training/Simulation</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Describe Your Custom Animation Needs</label>
+                        <textarea name="description" rows="5" placeholder="Tell us about the animations you need, including number of animations, style, character details, and timeline..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">
+                        <span>Submit Request</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-grid">
@@ -1878,6 +2037,39 @@
 
         // Initial render - Load from database
         loadAnimations();
+
+        // Custom request form handler
+        document.getElementById('customRequestForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = {
+                name: this.name.value,
+                email: this.email.value,
+                projectType: this.projectType.value,
+                description: this.description.value
+            };
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>Submitting...</span>';
+            
+            try {
+                const result = await API.submitCustomRequest(formData);
+                
+                if (result.success) {
+                    alert('Thank you for your request! We\'ll get back to you within 24 hours.');
+                    this.reset();
+                } else {
+                    alert('Error submitting request. Please try again.');
+                }
+            } catch (error) {
+                console.error('Form error:', error);
+                alert('Error submitting request. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>Submit Request</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+            }
+        });
         updateCartBadge();
         })(); // End of IIFE
     </script>
