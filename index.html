@@ -1406,7 +1406,7 @@
             const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             
             // Stripe Configuration
-            const STRIPE_PUBLISHABLE_KEY = 'pk_test_51SfQ2BQBChX7okucx4uosVidKjSy2aeDtIAJz3G2DdkFcnKKZWp3byJ8ZbIbSMfvUL6mFpBinviFcjs6dQStaqTN000OZa3XQn';
+            const STRIPE_PUBLISHABLE_KEY = 'mk_1SfQ2CQBChX7okucaS76iAjL';
             const stripe = window.Stripe ? window.Stripe(STRIPE_PUBLISHABLE_KEY) : null;
         
         // API Helper Functions
@@ -1710,6 +1710,12 @@
                 return;
             }
 
+            // Show loading overlay
+            const loading = document.createElement('div');
+            loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;';
+            loading.innerHTML = '<div style="background:#1A1A2E;padding:40px;border-radius:16px;text-align:center;border:2px solid #00D4FF;"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#00D4FF;">Processing Payment...</div><div style="color:#9CA3AF;margin-top:8px;">Please wait</div></div>';
+            document.body.appendChild(loading);
+
             try {
                 const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout`, {
                     method: 'POST',
@@ -1727,6 +1733,7 @@
                 const { sessionId, error } = await response.json();
 
                 if (error) {
+                    document.body.removeChild(loading);
                     alert('Error creating checkout: ' + error);
                     return;
                 }
@@ -1734,9 +1741,11 @@
                 const { error: stripeError } = await stripe.redirectToCheckout({ sessionId });
 
                 if (stripeError) {
+                    document.body.removeChild(loading);
                     alert('Error: ' + stripeError.message);
                 }
             } catch (error) {
+                document.body.removeChild(loading);
                 console.error('Payment error:', error);
                 alert('Error processing payment. Please try again.');
             }
@@ -1767,6 +1776,12 @@
                 return;
             }
 
+            // Show loading
+            const loading = document.createElement('div');
+            loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;';
+            loading.innerHTML = '<div style="background:#1A1A2E;padding:40px;border-radius:16px;text-align:center;border:2px solid #00D4FF;"><div style="font-size:24px;margin-bottom:16px;">🛒</div><div style="font-size:18px;font-weight:700;color:#00D4FF;">Processing Cart...</div><div style="color:#9CA3AF;margin-top:8px;">Please wait</div></div>';
+            document.body.appendChild(loading);
+
             try {
                 const cartItems = await API.getCartItems();
                 
@@ -1788,6 +1803,7 @@
                 const { sessionId, error } = await response.json();
 
                 if (error) {
+                    document.body.removeChild(loading);
                     alert('Error creating checkout: ' + error);
                     return;
                 }
@@ -1795,9 +1811,11 @@
                 const { error: stripeError } = await stripe.redirectToCheckout({ sessionId });
 
                 if (stripeError) {
+                    document.body.removeChild(loading);
                     alert('Error: ' + stripeError.message);
                 }
             } catch (error) {
+                document.body.removeChild(loading);
                 console.error('Cart checkout error:', error);
                 alert('Error processing cart. Please try again.');
             }
