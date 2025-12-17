@@ -1167,12 +1167,6 @@
             display: none;
         }
     </style>
-    
-    <!-- Supabase JavaScript Client -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- API Configuration - Update api.js with your Supabase credentials -->
-    <script src="api.js"></script>
 </head>
 <body>
     <!-- Grain Overlay -->
@@ -1409,10 +1403,19 @@
         </div>
     </div>
 
+
+    <!-- Supabase JavaScript Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- API Configuration -->
+    <script src="api.js"></script>
+
     <script>
         // Animation data
         // Animations will load from Supabase database
         let animations = [];
+        let currentDisplayCount = 8;
+        const itemsPerPage = 12;
 
         // Render animations
         function renderAnimations(filteredAnimations) {
@@ -1578,9 +1581,6 @@
 
 
         // Load More functionality
-        let currentDisplayCount = 8;
-        const itemsPerPage = 12;
-        
         function loadMore() {
             currentDisplayCount += itemsPerPage;
             filterAnimations(); // Re-render with new count
