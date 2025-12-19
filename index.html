@@ -1469,6 +1469,10 @@
             font-size: 14px;
         }
         
+        .password-input-wrapper {
+            position: relative;
+        }
+        
         .form-group input {
             width: 100%;
             padding: 12px 16px;
@@ -1479,6 +1483,35 @@
             font-size: 15px;
             font-family: 'DM Sans', sans-serif;
             transition: all 0.3s ease;
+        }
+        
+        .password-input-wrapper input {
+            padding-right: 45px; /* Make room for eye icon */
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+        
+        .password-toggle:hover {
+            color: var(--teal);
+        }
+        
+        .eye-icon {
+            width: 20px;
+            height: 20px;
         }
         
         .form-group input:focus {
@@ -2022,10 +2055,21 @@
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" id="loginPassword" placeholder="••••••••" required>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="loginPassword" placeholder="••••••••" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('loginPassword', this)">
+                                <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary" id="loginBtn">Sign In</button>
                 </form>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" onclick="closeAuthModal(); return false;" style="color: var(--text-muted); text-decoration: none; font-size: 14px;">Close</a>
+                </div>
             </div>
 
             <!-- Signup Form -->
@@ -2042,20 +2086,40 @@
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" id="signupPassword" placeholder="••••••••" minlength="6" required>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="signupPassword" placeholder="••••••••" minlength="6" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('signupPassword', this)">
+                                <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Confirm Password</label>
-                        <input type="password" id="signupConfirmPassword" placeholder="••••••••" minlength="6" required>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="signupConfirmPassword" placeholder="••••••••" minlength="6" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('signupConfirmPassword', this)">
+                                <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary" id="signupBtn">Create Account</button>
                 </form>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" onclick="closeAuthModal(); return false;" style="color: var(--text-muted); text-decoration: none; font-size: 14px;">Close</a>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Auth Required Modal (Keep for My Library click) -->
     <div id="authRequiredModal" class="auth-modal">
+        <div class="auth-modal-overlay" onclick="closeAuthRequiredModal()"></div>
         <div class="auth-modal-content">
             <div class="auth-modal-icon">🔒</div>
             <h2>Sign In Required</h2>
@@ -3065,6 +3129,9 @@
 
         // Auth Modal Functions
         window.showAuthModal = function(tab = 'login') {
+            // Close auth required modal first
+            document.getElementById('authRequiredModal').classList.remove('active');
+            // Show auth modal
             document.getElementById('authModal').classList.add('active');
             switchAuthTab(tab);
         }
@@ -3092,6 +3159,21 @@
             } else {
                 document.querySelectorAll('.auth-tab')[1].classList.add('active');
                 document.getElementById('signupForm').classList.add('active');
+            }
+        }
+
+        window.togglePassword = function(inputId, button) {
+            const input = document.getElementById(inputId);
+            const icon = button.querySelector('.eye-icon');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                // Change to eye-slash icon
+                icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line>';
+            } else {
+                input.type = 'password';
+                // Change back to eye icon
+                icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>';
             }
         }
 
