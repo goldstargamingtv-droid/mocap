@@ -8,6 +8,15 @@
     <title>Portal Exit - Premium Motion Capture Animation | MotionVault</title>
     <meta name="description" content="Professional portal exit mocap animation. Studio-quality motion capture ready for Unreal Engine, Unity, Blender, and more.">
     
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MFZSKB0V4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3MFZSKB0V4');
+    </script>
+    
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300D4FF;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23F59E0B;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23grad)'/%3E%3Ctext x='50' y='70' font-family='Arial, sans-serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle'%3EMV%3C/text%3E%3C/svg%3E">
     
@@ -694,9 +703,6 @@
         </div>
     </section>
 
-    <!-- Stripe.js -->
-    <script src="https://js.stripe.com/v3/"></script>
-    
     <!-- Supabase JavaScript Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -707,10 +713,6 @@
         
         // Initialize Supabase client
         const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        // Stripe
-        const STRIPE_PUBLISHABLE_KEY = 'pk_test_51SfQ2BQBChX7okucx4uosVidKjSy2aeDtIAJz3G2DdkFcnKKZWp3byJ8ZbIbSMfvUL6mFpBinviFcjs6dQStaqTN000OZa3XQn';
-        const stripe = window.Stripe ? window.Stripe(STRIPE_PUBLISHABLE_KEY) : null;
         
         // API Helper Functions
         const API = {
@@ -938,40 +940,11 @@
         }
 
         // Buy button handler
-        document.querySelector('.btn-primary').addEventListener('click', async function() {
-            if (!window.currentAnimationId || !stripe) return;
-            
-            const loading = document.createElement('div');
-            loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;';
-            loading.innerHTML = '<div style="background:#1A1A2E;padding:40px;border-radius:16px;text-align:center;border:2px solid #00D4FF;"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#00D4FF;">Processing Payment...</div></div>';
-            document.body.appendChild(loading);
-
-            try {
-                const anim = await API.getAnimationBySlug(window.currentAnimationSlug);
-                const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    },
-                    body: JSON.stringify({
-                        animationId: window.currentAnimationId,
-                        animationTitle: anim.title,
-                        price: anim.price
-                    })
-                });
-
-                const { sessionId, error } = await response.json();
-                if (error) {
-                    document.body.removeChild(loading);
-                    alert('Error: ' + error);
-                    return;
-                }
-
-                await stripe.redirectToCheckout({ sessionId });
-            } catch (error) {
-                document.body.removeChild(loading);
-                alert('Error processing payment.');
+        document.querySelector('.btn-primary').addEventListener('click', function() {
+            // In production, this would go to checkout
+            if (window.currentAnimationSlug) {
+                alert('Proceeding to checkout...');
+                // window.location.href = `checkout.html?animation=${window.currentAnimationSlug}`;
             }
         });
 
