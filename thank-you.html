@@ -9,6 +9,15 @@
     
     <title>Thank You - Order Complete | MotionVault</title>
     
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MFZSKB0V4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3MFZSKB0V4');
+    </script>
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -419,6 +428,24 @@
 
             // Show order details
             if (orderDetails) {
+                // Google Analytics: Purchase Event
+                if (typeof gtag !== 'undefined') {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const sessionId = urlParams.get('session_id');
+                    
+                    gtag('event', 'purchase', {
+                        transaction_id: sessionId || 'T_' + Date.now(),
+                        value: orderDetails.total || 0,
+                        currency: 'USD',
+                        items: orderDetails.items ? orderDetails.items.map(item => ({
+                            item_id: item.id,
+                            item_name: item.name,
+                            price: item.price,
+                            quantity: 1
+                        })) : []
+                    });
+                }
+            
                 document.getElementById('orderDetails').style.display = 'block';
                 document.getElementById('orderId').textContent = orderDetails.orderId || '-';
                 document.getElementById('animationTitle').textContent = orderDetails.animationTitle || '-';
