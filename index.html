@@ -2464,7 +2464,7 @@
     </section>
 
     <!-- Features Section -->
-    <section style="background: var(--bg-secondary); padding: 80px 20px; border-top: 1px solid rgba(0, 212, 255, 0.1);">
+    <section id="features" style="background: var(--bg-secondary); padding: 80px 20px; border-top: 1px solid rgba(0, 212, 255, 0.1);">
         <div style="max-width: 1400px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 60px;">
                 <h2 style="font-size: 42px; font-weight: 900; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
@@ -3061,7 +3061,7 @@
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             const stickyBtn = document.getElementById('stickyBrowseBtn');
-            const librarySection = document.getElementById('library');
+            const featuresSection = document.getElementById('features');
             
             if (window.scrollY > 20) {
                 navbar.classList.add('scrolled');
@@ -3069,10 +3069,12 @@
                 navbar.classList.remove('scrolled');
             }
             
-            // Show sticky button only after scrolling past the library section
-            if (librarySection) {
-                const libraryBottom = librarySection.offsetTop + librarySection.offsetHeight;
-                if (window.scrollY > libraryBottom) {
+            // Show sticky button at the start of features section
+            if (featuresSection) {
+                const rect = featuresSection.getBoundingClientRect();
+                const featuresTop = window.scrollY + rect.top;
+                
+                if (window.scrollY >= featuresTop - window.innerHeight + 200) {
                     stickyBtn.classList.add('show');
                 } else {
                     stickyBtn.classList.remove('show');
