@@ -710,6 +710,14 @@
                         0 0 20px rgba(245, 158, 11, 0.15);
         }
         
+        .feature-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--teal);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 
+                        0 0 40px rgba(0, 212, 255, 0.25),
+                        0 0 20px rgba(245, 158, 11, 0.15);
+        }
+        
         .card-checkbox {
             position: absolute;
             top: 12px;
@@ -2365,50 +2373,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section style="background: var(--bg-secondary); padding: 80px 20px; border-top: 1px solid rgba(0, 212, 255, 0.1);">
-        <div style="max-width: 1400px; margin: 0 auto;">
-            <div style="text-align: center; margin-bottom: 60px;">
-                <h2 style="font-size: 42px; font-weight: 900; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
-                    <span style="color: white;">Professional</span> <span class="gradient-text animated-gradient">Motion Capture</span> <span style="color: white;">for Every Project</span>
-                </h2>
-                <p style="color: var(--text-secondary); font-size: 18px; max-width: 700px; margin: 0 auto;">
-                    Our motion capture animations are trusted by game developers, filmmakers, and 3D artists worldwide. 
-                    Each mocap asset is studio-quality and ready for immediate use in your projects.
-                </p>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
-                <div style="background: rgba(26, 26, 46, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
-                    <div style="font-size: 36px; margin-bottom: 16px;">🎮</div>
-                    <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Game Development Ready</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.7;">
-                        Optimized motion capture animations for Unreal Engine and Unity. Perfect for AAA games, indie projects, and everything in between. 
-                        All mocap files include standard FBX format for seamless integration.
-                    </p>
-                </div>
-                
-                <div style="background: rgba(26, 26, 46, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
-                    <div style="font-size: 36px; margin-bottom: 16px;">🎬</div>
-                    <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Film & Animation</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.7;">
-                        High-quality mocap animations for film, TV, and animated content. Compatible with Blender, Maya, 3ds Max, and Cinema 4D. 
-                        Professional motion capture data captured in our studio facility.
-                    </p>
-                </div>
-                
-                <div style="background: rgba(26, 26, 46, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
-                    <div style="font-size: 36px; margin-bottom: 16px;">⚡</div>
-                    <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Instant Download</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.7;">
-                        Buy mocap animations and download immediately. No subscription required. 
-                        Get lifetime access to your purchased motion capture files with unlimited re-downloads from your dashboard.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Library Section -->
     <section id="library" class="library-section">
         <div class="container">
@@ -2495,6 +2459,50 @@
             <div class="load-more">
                 <button class="btn btn-secondary" style="padding: 16px 40px;" onclick="loadMore()" id="loadMoreBtn">Load More Animations</button>
                 <button class="btn btn-secondary" style="padding: 16px 40px; display: none;" onclick="scrollToTop()" id="backToTopBtn">↑ Back to Top</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section style="background: var(--bg-secondary); padding: 80px 20px; border-top: 1px solid rgba(0, 212, 255, 0.1);">
+        <div style="max-width: 1400px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 42px; font-weight: 900; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
+                    <span style="color: white;">Professional</span> <span class="gradient-text animated-gradient">Motion Capture</span> <span style="color: white;">for Every Project</span>
+                </h2>
+                <p style="color: var(--text-secondary); font-size: 18px; max-width: 700px; margin: 0 auto;">
+                    Our motion capture animations are trusted by game developers, filmmakers, and 3D artists worldwide. 
+                    Each mocap asset is studio-quality and ready for immediate use in your projects.
+                </p>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+                <div class="feature-card" style="background: rgba(26, 26, 46, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.3s ease; cursor: pointer;">
+                    <div style="font-size: 36px; margin-bottom: 16px;">🎮</div>
+                    <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Game Development Ready</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        Optimized motion capture animations for Unreal Engine and Unity. Perfect for AAA games, indie projects, and everything in between. 
+                        All mocap files include standard FBX format for seamless integration.
+                    </p>
+                </div>
+                
+                <div class="feature-card" style="background: rgba(26, 26, 46, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.3s ease; cursor: pointer;">
+                    <div style="font-size: 36px; margin-bottom: 16px;">🎬</div>
+                    <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Film & Animation</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        High-quality mocap animations for film, TV, and animated content. Compatible with Blender, Maya, 3ds Max, and Cinema 4D. 
+                        Professional motion capture data captured in our studio facility.
+                    </p>
+                </div>
+                
+                <div class="feature-card" style="background: rgba(26, 26, 46, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.3s ease; cursor: pointer;">
+                    <div style="font-size: 36px; margin-bottom: 16px;">⚡</div>
+                    <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Instant Download</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        Buy mocap animations and download immediately. No subscription required. 
+                        Get lifetime access to your purchased motion capture files with unlimited re-downloads from your dashboard.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
