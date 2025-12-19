@@ -290,7 +290,7 @@
                     Download Your Files
                 </a>
                 <p style="color: var(--text-muted); font-size: 13px; margin-top: 16px;">
-                    Download link expires in 24 hours
+                    This link expires in 24 hours. You can re-download anytime from your <a href="dashboard.html" style="color: var(--teal); text-decoration: none;">Dashboard</a>
                 </p>
             </div>
 
@@ -330,14 +330,14 @@
                 </svg>
                 Important Information
             </h4>
-            <p>• Your download link is valid for 24 hours<br>
+            <p>• Access your purchased animations anytime from your <a href="dashboard.html" style="color: var(--teal); text-decoration: none; font-weight: 600;">Dashboard</a><br>
                • Files are ready for Unreal Engine, Unity, Blender, and more<br>
                • Need help? Our support team is here for you</p>
         </div>
 
         <div class="support-section">
             <p>Need help or have questions?</p>
-            <a href="/cdn-cgi/l/email-protection#bbc8cecbcbd4c9cffbd6d4cfd2d4d5cddaced7cf95d8d4d6" class="support-email"><span class="__cf_email__" data-cfemail="f3808683839c8187b39e9c879a9c9d8592869f87dd909c9e">[email&#160;protected]</span></a>
+            <a href="/cdn-cgi/l/email-protection#60131510100f1214200d0f14090f0e1601150c144e030f0d" class="support-email"><span class="__cf_email__" data-cfemail="c2b1b7b2b2adb0b682afadb6abadacb4a3b7aeb6eca1adaf">[email&#160;protected]</span></a>
             <br>
             <a href="index.html" class="btn-secondary">← Back to Library</a>
         </div>
@@ -369,6 +369,23 @@
             }
 
             try {
+                // First, record the purchase in database
+                const recordResponse = await fetch(`${SUPABASE_URL}/functions/v1/record-purchase`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify({ sessionId })
+                });
+
+                const recordData = await recordResponse.json();
+                
+                if (recordData.error) {
+                    console.error('Error recording purchase:', recordData.error);
+                    // Continue anyway to show download link
+                }
+
                 // Call Supabase Edge Function to get download URL
                 const response = await fetch(`${SUPABASE_URL}/functions/v1/get-download`, {
                     method: 'POST',
@@ -415,4 +432,3 @@
 
         function showError(message) {
             document.getElementById('loadingState').style.display = 'none';
-  
