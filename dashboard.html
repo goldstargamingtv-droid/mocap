@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library - MotionVault</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='url(%23grad)'/%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300D4FF'/%3E%3Cstop offset='100%25' style='stop-color:%23F59E0B'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='50' y='70' font-family='Arial Black' font-size='60' font-weight='900' fill='white' text-anchor='middle'%3EMV%3C/text%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --bg-primary: #0F0F1A;
+            --bg-secondary: #1A1A2E;
+            --teal: #00D4FF;
+            --amber: #F59E0B;
+            --text-primary: #F5F5F5;
+            --text-secondary: #9CA3AF;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            background-image: radial-gradient(circle at 30% 20%, rgba(0, 212, 255, 0.12), transparent 50%),
+                              radial-gradient(circle at 70% 80%, rgba(245, 158, 11, 0.12), transparent 50%);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .navbar {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+        .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-icon { width: 40px; height: 40px; background: linear-gradient(135deg, var(--teal), var(--amber)); border-radius: 10px; }
+        .logo-text { font-size: 24px; font-weight: 800; color: var(--text-primary); font-family: 'Sora', sans-serif; }
+        .logo-text span { background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--teal); }
+        .btn-logout { padding: 10px 24px; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: #FCA5A5; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .btn-logout:hover { background: rgba(239, 68, 68, 0.3); }
+        .container { max-width: 1400px; margin: 60px auto; padding: 0 40px; }
+        h1 { font-size: 48px; font-weight: 900; font-family: 'Sora', sans-serif; margin-bottom: 16px; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .subtitle { color: var(--text-secondary); margin-bottom: 48px; font-size: 18px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+        .purchase-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        .purchase-card:hover { border-color: var(--teal); transform: translateY(-4px); }
+        .card-image { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 20px; }
+        .card-title { font-weight: 700; font-size: 18px; margin-bottom: 8px; }
+        .card-date { color: var(--text-secondary); font-size: 14px; margin-bottom: 16px; }
+        .btn-download {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4); }
+        .empty-state { text-align: center; padding: 100px 20px; color: var(--text-secondary); }
+        .empty-state svg { width: 120px; height: 120px; margin-bottom: 24px; opacity: 0.3; }
+        .loading { text-align: center; padding: 100px 20px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <div class="logo-icon"></div>
+            <span class="logo-text">Motion<span>Vault</span></span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="dashboard.html">My Library</a></li>
+        </ul>
+        <button class="btn-logout" onclick="logout()">Sign Out</button>
+    </nav>
+
+    <div class="container">
+        <h1>My Library</h1>
+        <p class="subtitle" id="userEmail"></p>
+        
+        <div id="content" class="loading">Loading your purchases...</div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQzNzM1OTEsImV4cCI6MjA0OTk0OTU5MX0.GGkqh-1B1W35EI0Mu_wFBqPbFbGe_WlqZV4rV4jvzRQ';
+
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        async function checkAuth() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                window.location.href = 'login.html';
+                return null;
+            }
+            document.getElementById('userEmail').textContent = session.user.email;
+            return session.user;
+        }
+
+        async function loadPurchases() {
+            const user = await checkAuth();
+            if (!user) return;
+
+            try {
+                const { data: purchases, error } = await supabaseClient
+                    .from('purchases')
+                    .select(`
+                        *,
+                        animations (
+                            id,
+                            title,
+                            slug,
+                            thumbnail_url,
+                            video_url,
+                            video_type
+                        )
+                    `)
+                    .eq('user_id', user.id)
+                    .order('purchase_date', { ascending: false });
+
+                if (error) throw error;
+
+                const content = document.getElementById('content');
+
+                if (purchases.length === 0) {
+                    content.innerHTML = `
+                        <div class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                                <polyline points="17 2 12 7 7 2"></polyline>
+                            </svg>
+                            <h2>No purchases yet</h2>
+                            <p>Head to the library to find your perfect animations</p>
+                            <br>
+                            <a href="index.html" style="color: var(--teal); text-decoration: none; font-weight: 700;">Browse Library →</a>
+                        </div>
+                    `;
+                    return;
+                }
+
+                content.className = 'grid';
+                content.innerHTML = purchases.map(purchase => {
+                    const anim = purchase.animations;
+                    const imageUrl = anim.video_type === 'image/gif' ? anim.video_url : anim.thumbnail_url;
+                    const date = new Date(purchase.purchase_date).toLocaleDateString();
+
+                    return `
+                        <div class="purchase-card">
+                            <img src="${imageUrl}" alt="${anim.title}" class="card-image">
+                            <div class="card-content">
+                                <div class="card-title">${anim.title}</div>
+                                <div class="card-date">Purchased ${date}</div>
+                                <button class="btn-download" onclick="downloadAnimation('${anim.id}', '${anim.title}')">
+                                    Download Now
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (error) {
+                console.error('Error loading purchases:', error);
+                document.getElementById('content').innerHTML = `
+                    <div class="empty-state">
+                        <p>Error loading purchases. Please try again.</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function downloadAnimation(animationId, animationTitle) {
+            // TODO: Call get-download Edge Function with purchase verification
+            alert(`Download feature coming soon for: ${animationTitle}`);
+            // This will generate a signed URL after verifying ownership
+        }
+
+        async function logout() {
+            await supabaseClient.auth.signOut();
+            window.location.href = 'index.html';
+        }
+
+        loadPurchases();
+    </script>
+</body>
+</html>
