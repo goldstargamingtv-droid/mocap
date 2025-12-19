@@ -178,7 +178,7 @@
 
         .btn-primary {
             background: linear-gradient(135deg, var(--teal), var(--amber));
-            color: white;
+            color: #000000;
             box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
         }
 
@@ -486,6 +486,7 @@
             margin-bottom: 28px;
             letter-spacing: -2px;
             font-family: 'Sora', sans-serif;
+            color: #000000;
         }
 
         .hero-subtitle {
@@ -989,7 +990,7 @@
             background: linear-gradient(135deg, var(--teal), var(--amber));
             border: none;
             border-radius: 12px;
-            color: white;
+            color: #000000;
             font-weight: 800;
             font-size: 16px;
             font-family: 'Sora', sans-serif;
@@ -1177,6 +1178,38 @@
             50% {
                 transform: translateX(-50%) translateY(-12px);
             }
+        }
+
+        /* Sticky Browse Library Button */
+        .sticky-browse-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            color: #000000;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            font-family: 'Sora', sans-serif;
+            border-radius: 50px;
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+        }
+
+        .sticky-browse-btn.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .sticky-browse-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.6);
         }
 
         /* Responsive */
@@ -1866,7 +1899,7 @@
             text-align: center;
             font-weight: 700;
             font-size: 18px;
-            color: white;
+            color: #000000;
             margin-bottom: 60px;
             border-radius: 16px;
             box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
@@ -1875,6 +1908,7 @@
         .pricing-banner span {
             font-size: 24px;
             margin: 0 8px;
+            color: #000000;
         }
 
         /* Sale Badge */
@@ -1902,10 +1936,10 @@
             width: 100%;
             margin-top: 20px;
             padding: 16px;
-            background: #10B981;
-            border: none;
+            background: #FFFFFF;
+            border: 2px solid #10B981;
             border-radius: 12px;
-            color: white;
+            color: #000000;
             font-weight: 800;
             cursor: pointer;
             font-family: "Sora", sans-serif;
@@ -1918,7 +1952,8 @@
         }
 
         .buy-now-btn:hover {
-            background: #34D399;
+            background: #10B981;
+            border-color: #10B981;
             box-shadow: 0 12px 32px rgba(16, 185, 129, 0.5);
             transform: translateY(-3px);
         }
@@ -2121,6 +2156,11 @@
             <button class="mobile-menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
         </div>
     </nav>
+
+    <!-- Sticky Browse Library Button -->
+    <a href="#library" class="sticky-browse-btn" id="stickyBrowseBtn">
+        📚 Browse Library
+    </a>
 
     <!-- Auth Modal (Login/Signup) -->
     <div id="authModal" class="auth-modal">
@@ -2998,13 +3038,22 @@
         document.getElementById('styleFilter').addEventListener('change', filterAnimations);
         document.getElementById('sortFilter').addEventListener('change', filterAnimations);
 
-        // Navbar scroll effect
+        // Navbar scroll effect & Sticky Browse Button
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
+            const stickyBtn = document.getElementById('stickyBrowseBtn');
+            
             if (window.scrollY > 20) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
+            }
+            
+            // Show sticky button after scrolling past hero (800px)
+            if (window.scrollY > 800) {
+                stickyBtn.classList.add('show');
+            } else {
+                stickyBtn.classList.remove('show');
             }
         });
 
