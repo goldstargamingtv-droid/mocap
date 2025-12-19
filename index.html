@@ -1372,14 +1372,15 @@
         
         .auth-close {
             position: absolute;
-            top: -16px;
-            right: -16px;
-            width: 40px;
-            height: 40px;
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            background: var(--bg-secondary);
+            top: -20px;
+            right: -20px;
+            width: 48px;
+            height: 48px;
+            border: 2px solid var(--teal);
+            background: var(--bg-primary);
             color: var(--text-primary);
-            font-size: 22px;
+            font-size: 24px;
+            font-weight: bold;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -1387,12 +1388,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
         
         .auth-close:hover {
-            background: rgba(0, 212, 255, 0.2);
-            border-color: var(--teal);
-            transform: rotate(90deg);
+            background: var(--teal);
+            color: white;
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
         }
         
         .auth-tabs {
