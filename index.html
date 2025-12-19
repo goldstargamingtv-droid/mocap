@@ -1288,6 +1288,10 @@
                 max-width: 100%;
             }
             
+            .auth-close {
+                display: flex; /* Show X button on mobile */
+            }
+            
             .auth-form {
                 padding: 32px 24px;
             }
@@ -1372,30 +1376,27 @@
         
         .auth-close {
             position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 48px;
-            height: 48px;
-            border: 2px solid var(--teal);
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            top: 16px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: rgba(239, 68, 68, 0.2);
+            color: #FCA5A5;
             font-size: 24px;
             font-weight: bold;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
             z-index: 2;
-            display: flex;
+            display: none; /* Hidden on desktop */
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
         
         .auth-close:hover {
-            background: var(--teal);
-            color: white;
-            transform: rotate(90deg) scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
+            background: rgba(239, 68, 68, 0.3);
+            transform: scale(1.1);
         }
         
         .auth-tabs {
