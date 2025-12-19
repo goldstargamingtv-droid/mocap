@@ -9,6 +9,15 @@
     
     <!-- SEO Meta Tags -->
     <title>MotionVault - Buy Premium Motion Capture Animations for Games & Film</title>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MFZSKB0V4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3MFZSKB0V4');
+    </script>
     <meta name="description" content="Buy professional motion capture animations for games, film, and virtual production. High-quality mocap library ready for Unreal Engine, Unity, Blender, and more. From $19 with instant download.">
     <meta name="keywords" content="buy motion capture, mocap animations, purchase animations, game development, Unreal Engine, Unity, Blender, 3D animation, motion capture library, professional mocap">
     <meta name="author" content="MotionVault">
@@ -3100,6 +3109,22 @@
                 cart.push(animationId);
                 localStorage.setItem('cart', JSON.stringify(cart));
                 updateCartBadge();
+                
+                // Google Analytics: Add to Cart
+                const animation = animations.find(a => a.id === animationId);
+                if (animation && typeof gtag !== 'undefined') {
+                    gtag('event', 'add_to_cart', {
+                        currency: 'USD',
+                        value: animation.price,
+                        items: [{
+                            item_id: animation.id,
+                            item_name: animation.title,
+                            price: animation.price,
+                            quantity: 1
+                        }]
+                    });
+                }
+                
                 alert('Added to cart!');
             } else {
                 alert('Already in cart!');
@@ -3529,6 +3554,13 @@
                 });
                 
                 if (error) throw error;
+                
+                // Google Analytics: Sign Up Event
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'sign_up', {
+                        method: 'Email'
+                    });
+                }
                 
                 messageDiv.innerHTML = '<div class="auth-message success">Account created! Logging you in...</div>';
                 setTimeout(() => {
