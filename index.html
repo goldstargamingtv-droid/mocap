@@ -220,10 +220,14 @@
         }
 
         .nav-links {
-            display: flex;
+            display: none; /* Hidden on desktop - mobile only */
             gap: 40px;
             list-style: none;
             align-items: center;
+        }
+        
+        .mobile-menu-close {
+            display: none; /* Only visible on mobile */
         }
 
         .nav-links a {
@@ -1137,6 +1141,7 @@
             
             /* Mobile menu overlay */
             .nav-links {
+                display: flex; /* Show on mobile */
                 position: fixed;
                 top: 0;
                 right: -100%;
@@ -1151,6 +1156,10 @@
                 transition: right 0.3s ease;
                 z-index: 9999;
                 overflow-y: auto;
+            }
+            
+            .mobile-menu-close {
+                display: flex; /* Show on mobile */
             }
             
             .nav-links.active {
