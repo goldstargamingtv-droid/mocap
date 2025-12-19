@@ -177,13 +177,15 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--teal), var(--amber));
-            color: #000000;
+            background: rgba(26, 26, 46, 0.8);
+            border: 2px solid var(--teal);
+            color: #FFFFFF;
             box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
+            background: var(--teal);
             box-shadow: 0 8px 30px rgba(0, 212, 255, 0.5), 0 4px 15px rgba(245, 158, 11, 0.3);
         }
 
@@ -344,16 +346,22 @@
         
         .btn-login {
             padding: 10px 28px;
-            background: #FFFFFF;
+            background: rgba(26, 26, 46, 0.8);
             border-radius: 10px;
             border: 2px solid var(--teal);
-            color: #000000 !important;
+            color: #FFFFFF !important;
             text-decoration: none;
             font-weight: 700;
             font-size: 15px;
             font-family: 'Sora', sans-serif;
             transition: all 0.3s ease;
             display: inline-block;
+        }
+        
+        .btn-login:hover {
+            background: var(--teal);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
         }
         
         .btn-login:hover {
@@ -987,10 +995,10 @@
         .submit-btn {
             width: 100%;
             padding: 18px;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
-            border: none;
+            background: rgba(26, 26, 46, 0.8);
+            border: 2px solid var(--teal);
             border-radius: 12px;
-            color: #000000;
+            color: #FFFFFF;
             font-weight: 800;
             font-size: 16px;
             font-family: 'Sora', sans-serif;
@@ -1000,6 +1008,12 @@
             justify-content: center;
             gap: 12px;
             transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--teal);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
         }
 
         .submit-btn:hover {
@@ -1187,8 +1201,9 @@
             right: 30px;
             z-index: 1000;
             padding: 12px 24px;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
-            color: #000000;
+            background: rgba(26, 26, 46, 0.9);
+            border: 2px solid var(--teal);
+            color: #FFFFFF;
             text-decoration: none;
             font-weight: 700;
             font-size: 14px;
@@ -1209,6 +1224,7 @@
 
         .sticky-browse-btn:hover {
             transform: translateY(-4px);
+            background: var(--teal);
             box-shadow: 0 12px 32px rgba(0, 212, 255, 0.6);
         }
 
@@ -2138,7 +2154,7 @@
                 <a href="#faq" class="nav-action-link">FAQ</a>
                 <a href="#" onclick="handleDashboardClick(event)" class="nav-action-link">My Library</a>
                 <div id="authLinks">
-                    <a href="#" onclick="showAuthModal('login'); return false;" class="btn-login" style="color: #000000 !important;">Sign In</a>
+                    <a href="#" onclick="showAuthModal('login'); return false;" class="btn-login">Sign In</a>
                 </div>
                 <div id="userMenu" style="display: none; margin-right: 16px;">
                     <button onclick="logout()" style="padding: 8px 16px; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: #FCA5A5; border-radius: 6px; cursor: pointer; font-weight: 600;">Sign Out</button>
@@ -2401,11 +2417,6 @@
                     Explore Our <span class="gradient-text animated-gradient">Animation Library</span>
                 </h2>
                 <p class="section-subtitle">Professional mocap animations for every project</p>
-            </div>
-
-            <!-- Pricing Banner -->
-            <div class="pricing-banner">
-                Premium Animations from <span>$1</span> — Instant Download
             </div>
 
             <!-- Filters -->
