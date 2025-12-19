@@ -259,6 +259,52 @@
             gap: 16px;
             align-items: center;
         }
+        
+        .nav-action-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-action-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--teal);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-action-link:hover {
+            color: var(--text-primary);
+        }
+        
+        .nav-action-link:hover::after {
+            width: 100%;
+        }
+        
+        .btn-login {
+            padding: 10px 28px;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            font-family: 'Sora', sans-serif;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+        }
 
         .cart-icon {
             position: relative;
@@ -1580,14 +1626,19 @@
             </a>
 
             <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#library">Library</a></li>
-                <li><a href="#">Pricing</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <!-- Nav links moved to nav-actions -->
             </ul>
 
             <div class="nav-actions">
+                <a href="#library" class="nav-action-link">Library</a>
+                <a href="#contact" class="nav-action-link">Contact</a>
+                <div id="authLinks">
+                    <a href="login.html" class="btn-login">Sign In</a>
+                </div>
+                <div id="userMenu" style="display: none; margin-right: 16px;">
+                    <a href="dashboard.html" style="color: var(--teal); text-decoration: none; font-weight: 600; margin-right: 16px;">My Library</a>
+                    <button onclick="logout()" style="padding: 8px 16px; background: rgba(239, 68, 68, 0.2); border: 1px solid rgba(239, 68, 68, 0.4); color: #FCA5A5; border-radius: 6px; cursor: pointer; font-weight: 600;">Sign Out</button>
+                </div>
                 <div class="cart-icon" onclick="openCart()" style="cursor: pointer;" title="View Cart">
                     <svg class="icon" viewBox="0 0 24 24" style="color: var(--text-primary);">
                         <circle cx="9" cy="21" r="1"></circle>
@@ -1656,7 +1707,6 @@
             
             <div class="hero-buttons">
                 <a href="#library" class="btn btn-primary" style="padding: 18px 36px; font-size: 16px;">Browse Library</a>
-                <button class="btn btn-secondary" style="padding: 18px 36px; font-size: 16px;">View Pricing</button>
             </div>
 
             <div class="hero-stats">
@@ -2220,6 +2270,14 @@
 
         // Stripe Payment Handlers
         window.handleBuyNow = async function(animationId, animationTitle, price) {
+            // Check if user is logged in
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) {
+                alert('Please login to purchase animations');
+                window.location.href = 'login.html';
+                return;
+            }
+
             if (!stripe) {
                 alert('Payment system is initializing. Please try again.');
                 return;
@@ -2239,6 +2297,7 @@
                         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
                     },
                     body: JSON.stringify({
+                        userId: user.id,
                         animationId: animationId,
                         animationTitle: animationTitle,
                         price: price
@@ -2451,6 +2510,14 @@
                 return;
             }
 
+            // Check if user is logged in
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) {
+                alert('Please login to purchase animations');
+                window.location.href = 'login.html';
+                return;
+            }
+
             if (!stripe) {
                 alert('Payment system is initializing. Please try again.');
                 return;
@@ -2472,6 +2539,7 @@
                         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
                     },
                     body: JSON.stringify({
+                        userId: user.id,
                         cartItems: cartItems.map(item => ({
                             animationId: item.id,
                             animationTitle: item.title,
@@ -2558,6 +2626,23 @@
 
         // Initial render - Load from database
         loadAnimations();
+
+        // Check authentication status
+        async function checkAuth() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) {
+                document.getElementById('authLinks').style.display = 'none';
+                document.getElementById('userMenu').style.display = 'block';
+            }
+            return session?.user || null;
+        }
+
+        window.logout = async function() {
+            await supabaseClient.auth.signOut();
+            location.reload();
+        }
+
+        checkAuth();
 
         // Mobile menu toggle
         document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
