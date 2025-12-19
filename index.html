@@ -544,7 +544,7 @@
 
         .scroll-indicator {
             position: absolute;
-            bottom: 40px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
             animation: bounce 2s infinite;
@@ -3053,6 +3053,7 @@
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
             const stickyBtn = document.getElementById('stickyBrowseBtn');
+            const librarySection = document.getElementById('library');
             
             if (window.scrollY > 20) {
                 navbar.classList.add('scrolled');
@@ -3060,11 +3061,14 @@
                 navbar.classList.remove('scrolled');
             }
             
-            // Show sticky button after scrolling past hero (800px)
-            if (window.scrollY > 800) {
-                stickyBtn.classList.add('show');
-            } else {
-                stickyBtn.classList.remove('show');
+            // Show sticky button only after scrolling past the library section
+            if (librarySection) {
+                const libraryBottom = librarySection.offsetTop + librarySection.offsetHeight;
+                if (window.scrollY > libraryBottom) {
+                    stickyBtn.classList.add('show');
+                } else {
+                    stickyBtn.classList.remove('show');
+                }
             }
         });
 
