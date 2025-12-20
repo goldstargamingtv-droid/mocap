@@ -1555,10 +1555,10 @@
             
             <!-- Load More & Back to Top -->
             <div style="display: flex; gap: 16px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
-                <button id="loadMoreRelated" class="btn-secondary" style="display: none;">
+                <button id="loadMoreRelated" class="btn btn-secondary" style="padding: 16px 40px; font-size: 16px; display: none;">
                     Load More Animations
                 </button>
-                <button id="backToTopRelated" class="btn-outline" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <button id="backToTopRelated" class="btn btn-secondary" style="padding: 16px 40px; font-size: 16px; display: none;" onclick="scrollToRelatedSection()">
                     ↑ Back to Top
                 </button>
             </div>
@@ -1649,6 +1649,14 @@
             const answer = document.getElementById('faq' + id);
             if (answer) {
                 answer.classList.toggle('active');
+            }
+        }
+        
+        // Scroll to You May Also Like section
+        function scrollToRelatedSection() {
+            const relatedSection = document.querySelector('.related-section');
+            if (relatedSection) {
+                relatedSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
         
@@ -2073,10 +2081,13 @@
         // Setup Load More button
         function setupLoadMoreButton() {
             const loadMoreBtn = document.getElementById('loadMoreRelated');
+            const backToTopBtn = document.getElementById('backToTopRelated');
+            
             if (loadMoreBtn) {
                 // Show button only if there are more products to load
                 if (window.displayedRelatedCount < window.allRelatedProducts.length) {
                     loadMoreBtn.style.display = 'inline-flex';
+                    backToTopBtn.style.display = 'none'; // Hide back to top while loading more
                     
                     loadMoreBtn.onclick = function() {
                         const loadCount = 4; // Load 4 more each time
@@ -2106,13 +2117,16 @@
                         
                         window.displayedRelatedCount = newCount;
                         
-                        // Hide button if all loaded
+                        // If all loaded, hide Load More and show Back to Top
                         if (newCount >= window.allRelatedProducts.length) {
                             loadMoreBtn.style.display = 'none';
+                            backToTopBtn.style.display = 'inline-flex';
                         }
                     };
                 } else {
+                    // All products already loaded, show only Back to Top
                     loadMoreBtn.style.display = 'none';
+                    backToTopBtn.style.display = 'inline-flex';
                 }
             }
         }
