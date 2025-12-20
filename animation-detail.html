@@ -1106,6 +1106,138 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Footer */
+        .footer {
+            background: #0a0a12;
+            border-top: 1px solid rgba(0, 212, 255, 0.15);
+            padding: 60px 32px 32px;
+            margin-top: 80px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 48px;
+            max-width: 1400px;
+            margin: 0 auto 48px;
+        }
+
+        .footer-brand {
+            grid-column: span 2;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-description {
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            max-width: 400px;
+            line-height: 1.7;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 12px;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: var(--teal);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+        }
+
+        .footer-section h4 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            font-size: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .footer-links a:hover {
+            color: var(--teal);
+            padding-left: 4px;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 32px;
+            border-top: 1px solid rgba(0, 212, 255, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .legal-links {
+            display: flex;
+            gap: 28px;
+            font-size: 14px;
+        }
+
+        .legal-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .legal-links a:hover {
+            color: var(--teal);
+        }
+
+        @media (max-width: 768px) {
+            .footer-brand {
+                grid-column: span 1;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1383,14 +1515,7 @@
                 <div class="tags-section">
                     <h3>🏷️ Tags</h3>
                     <div class="tags">
-                        <span class="tag">Combat</span>
-                        <span class="tag">Sword</span>
-                        <span class="tag">Attack</span>
-                        <span class="tag">Melee</span>
-                        <span class="tag">Realistic</span>
-                        <span class="tag">Male</span>
-                        <span class="tag">Action</span>
-                        <span class="tag">RPG</span>
+                        <!-- Tags will be loaded dynamically from database -->
                     </div>
                 </div>
             </div>
@@ -2285,5 +2410,58 @@
         
         }); // End window.addEventListener('load')
     </script>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="logo.png" alt="MocapWork Logo" style="width: 50px; height: 50px; border-radius: 10px;">
+                    <span class="logo-text font-sora">
+                        Mocap<span>Work</span>
+                    </span>
+                </div>
+                <p class="footer-description">
+                    The premier destination for professional motion capture animations. 
+                    Elevate your projects with studio-quality mocap data.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">𝕏</a>
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">📷</a>
+                    <a href="#" class="social-link">▶️</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#library">Browse Library</a></li>
+                    <li><a href="index.html#pricing">Pricing Plans</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="index.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Support</h4>
+                <ul class="footer-links">
+                    <li><a href="index.html#faq">Documentation</a></li>
+                    <li><a href="index.html#faq">Tutorials</a></li>
+                    <li><a href="index.html#contact">Contact Us</a></li>
+                    <li><a href="index.html#faq">FAQ</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="copyright">© 2024 MocapWork. All rights reserved.</p>
+            <div class="legal-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">License Agreement</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
