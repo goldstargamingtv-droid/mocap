@@ -3957,7 +3957,21 @@
             renderCartItems();
         }
         
-        window.proceedToCheckout = function() {
+        window.proceedToCheckout = async function() {
+            const cartIds = JSON.parse(localStorage.getItem('cart') || '[]');
+            
+            // Check if cart is empty first
+            if (cartIds.length === 0) {
+                // Show notification without closing cart
+                const notification = document.createElement('div');
+                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #EF4444;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(239,68,68,0.4);';
+                notification.innerHTML = '<div style="color:#FCA5A5;font-weight:600;font-size:14px;">🛒 Your cart is empty!</div><div style="color:#9CA3AF;font-size:12px;margin-top:4px;">Add some animations to get started.</div>';
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 3000);
+                return;
+            }
+            
+            // Cart has items, proceed with checkout
             closeCart();
             checkoutCart();
         }
@@ -3966,12 +3980,6 @@
             const cartIds = JSON.parse(localStorage.getItem('cart') || '[]');
             
             if (cartIds.length === 0) {
-                // Create a nice notification instead of alert
-                const notification = document.createElement('div');
-                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #EF4444;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(239,68,68,0.4);';
-                notification.innerHTML = '<div style="color:#FCA5A5;font-weight:600;font-size:14px;">🛒 Your cart is empty!</div><div style="color:#9CA3AF;font-size:12px;margin-top:4px;">Add some animations to get started.</div>';
-                document.body.appendChild(notification);
-                setTimeout(() => notification.remove(), 3000);
                 return;
             }
 
