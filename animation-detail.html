@@ -1199,8 +1199,14 @@
         <div class="product-grid">
             <!-- Left: Preview -->
             <div class="preview-section">
-                <div class="preview-main">
-                    <img src="https://media.giphy.com/media/xT9IgDEI1iZyb2wqo8/giphy.gif" alt="Combat Sword Master Pack" id="mainPreview">
+                <div class="preview-main" id="previewContainer" style="opacity: 0; transition: opacity 0.3s ease;">
+                    <img src="" alt="Loading..." id="mainPreview" style="display: none;">
+                    <div id="previewLoader" style="display: flex; align-items: center; justify-content: center; height: 100%; background: rgba(26, 26, 46, 0.8); border-radius: 16px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 48px; margin-bottom: 16px;">⏳</div>
+                            <div style="color: var(--text-secondary);">Loading animation...</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="preview-thumbnails">
                     <div class="preview-thumb active">
@@ -1535,9 +1541,28 @@
 
             // Preview images
             const mainPreview = document.getElementById('mainPreview');
+            const previewLoader = document.getElementById('previewLoader');
+            const previewContainer = document.getElementById('previewContainer');
+            
             if (mainPreview) {
                 // Use video_url if available, otherwise fall back to thumbnail_url
-                mainPreview.src = anim.video_url || anim.thumbnail_url || mainPreview.src;
+                const imageUrl = anim.video_url || anim.thumbnail_url;
+                
+                if (imageUrl) {
+                    mainPreview.src = imageUrl;
+                    mainPreview.alt = anim.title;
+                    
+                    // Show image once loaded
+                    mainPreview.onload = function() {
+                        if (previewLoader) previewLoader.style.display = 'none';
+                        mainPreview.style.display = 'block';
+                        if (previewContainer) previewContainer.style.opacity = '1';
+                    };
+                } else {
+                    // No image available, hide loader
+                    if (previewLoader) previewLoader.style.display = 'none';
+                    if (previewContainer) previewContainer.style.opacity = '1';
+                }
             }
 
             // Technical specs
@@ -2045,17 +2070,22 @@
             });
         }
 
-        // Check auth and update navbar
+        // Check auth and update navbar (non-blocking)
         async function checkAuth() {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (session) {
-                const authLinks = document.getElementById('authLinks');
-                const userMenu = document.getElementById('userMenu');
-                const mobileAuthLink = document.getElementById('mobileAuthLink');
-                
-                if (authLinks) authLinks.style.display = 'none';
-                if (userMenu) userMenu.style.display = 'block';
-                if (mobileAuthLink) mobileAuthLink.style.display = 'none';
+            try {
+                const { data: { session } } = await supabaseClient.auth.getSession();
+                if (session) {
+                    const authLinks = document.getElementById('authLinks');
+                    const userMenu = document.getElementById('userMenu');
+                    const mobileAuthLink = document.getElementById('mobileAuthLink');
+                    
+                    if (authLinks) authLinks.style.display = 'none';
+                    if (userMenu) userMenu.style.display = 'block';
+                    if (mobileAuthLink) mobileAuthLink.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Auth check error:', error);
+                // Silently fail - don't affect user experience
             }
         }
 
@@ -2066,10 +2096,16 @@
         }
 
         // Load animation data on page load
-        loadAnimationData();
-        checkAuth();
-        loadAnimationsForSearch();
-        updateCartBadge(); // Initialize cart badge
+        Promise.all([
+            loadAnimationData(),
+            checkAuth(),
+            loadAnimationsForSearch()
+        ]).then(() => {
+            console.log('All data loaded');
+            updateCartBadge();
+        }).catch(error => {
+            console.error('Error loading page:', error);
+        });
         
         }); // End window.addEventListener('load')
     </script>
