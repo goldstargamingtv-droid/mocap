@@ -1171,6 +1171,35 @@
             color: #000;
         }
 
+        /* New badge chips for below thumbnail */
+        .badge-chip {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-popular-chip {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--amber);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+        
+        .badge-sale-chip {
+            background: rgba(34, 197, 94, 0.2);
+            color: #86EFAC;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+        
+        .badge-holiday-chip {
+            background: rgba(239, 68, 68, 0.2);
+            color: #FCA5A5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
         .card-overlay {
             position: absolute;
             inset: 0;
@@ -3470,14 +3499,17 @@
                     <a href="animation-detail.html?slug=${anim.slug}" style="text-decoration: none; color: inherit; display: block;">
                         <div class="card-thumbnail">
                             ${mediaElement}
-                            ${anim.popular ? '<div class="popular-badge">Popular</div>' : ''}
-                            ${anim.onSale ? `<div class="sale-badge${!anim.popular ? ' no-popular' : ''}">🏷️ ON SALE</div>` : ''}
-                            ${anim.holidaySale ? `<div class="holiday-sale-badge${!anim.popular ? ' no-popular' : ''}${!anim.onSale ? ' no-sale' : ''}">🎄 HOLIDAY SALE</div>` : ''}
                             <div class="card-overlay">
                                 <div class="quick-preview-btn">View Details</div>
                             </div>
                         </div>
                         <div class="card-content">
+                            <!-- Badges above title -->
+                            <div class="card-badges" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
+                                ${anim.popular ? '<span class="badge-chip badge-popular-chip">⭐ POPULAR</span>' : ''}
+                                ${anim.onSale ? '<span class="badge-chip badge-sale-chip">🏷️ ON SALE</span>' : ''}
+                                ${anim.holidaySale ? '<span class="badge-chip badge-holiday-chip">🎄 HOLIDAY SALE</span>' : ''}
+                            </div>
                             <h3 class="card-title">${anim.title}</h3>
                             <div class="card-tags">
                                 ${anim.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
