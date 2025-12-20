@@ -3524,8 +3524,8 @@
                                 ${anim.onSale ? '<span class="badge-chip badge-sale-chip">🏷️ ON SALE</span>' : ''}
                                 ${anim.holidaySale ? '<span class="badge-chip badge-holiday-chip">🎄 HOLIDAY SALE</span>' : ''}
                             </div>
-                            <h3 class="card-title">${anim.title}</h3>
-                            <div class="card-tags">
+                            <h3 class="card-title" style="min-height: 50px;">${anim.title}</h3>
+                            <div class="card-tags" style="min-height: 40px;">
                                 ${anim.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
                             </div>
                             <!-- Bottom section pushed to bottom -->
@@ -3538,13 +3538,21 @@
                                         </svg>
                                         <span>${anim.duration}</span>
                                     </div>
-                                    <div class="card-price">
+                                    <div class="card-price" style="min-height: 56px; display: flex; align-items: flex-end; justify-content: flex-end;">
                                         ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? `
-                                            <div style="display: flex; flex-direction: column; align-items: flex-end;">
-                                                <span style="font-size: 14px; color: var(--text-muted); text-decoration: line-through; font-weight: 500;">$${anim.price.toFixed(2)}</span>
-                                                <span style="font-size: 22px; font-weight: 700; background: linear-gradient(135deg, #10B981, #86EFAC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Sora', sans-serif;">$${(anim.price * (1 - anim.salePercentage / 100)).toFixed(2)}</span>
+                                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px;">
+                                                <span style="font-size: 14px; color: var(--text-muted); text-decoration: line-through; font-weight: 500;">
+                                                    <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: var(--text-muted);">${anim.price.toFixed(2)}</span>
+                                                </span>
+                                                <span style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif;">
+                                                    <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: white;">${(anim.price * (1 - anim.salePercentage / 100)).toFixed(2)}</span>
+                                                </span>
                                             </div>
-                                        ` : `$${anim.price.toFixed(2)}`}
+                                        ` : `
+                                            <span style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif;">
+                                                <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: white;">${anim.price.toFixed(2)}</span>
+                                            </span>
+                                        `}
                                     </div>
                                 </div>
                             </div>
