@@ -3252,6 +3252,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
+        // Detect when user comes back from Stripe (browser back button)
+        window.addEventListener('pageshow', function(event) {
+            // If page is being restored from cache (user clicked back)
+            if (event.persisted) {
+                const overlay = document.getElementById('stripe-loading-overlay');
+                if (overlay) {
+                    overlay.remove();
+                }
+            }
+        });
+        
         (function() {
             // Supabase Configuration
             const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
@@ -3702,6 +3713,7 @@
 
             // Show loading overlay
             const loading = document.createElement('div');
+            loading.id = 'stripe-loading-overlay';
             loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;';
             loading.innerHTML = '<div style="background:#1A1A2E;padding:40px;border-radius:16px;text-align:center;border:2px solid #00D4FF;"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#00D4FF;">Processing Payment...</div><div style="color:#9CA3AF;margin-top:8px;">Please wait</div></div>';
             document.body.appendChild(loading);
