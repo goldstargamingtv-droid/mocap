@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-20-v10 - FORCE SCROLL TO TOP ON REFRESH -->
+    <!-- VERSION: 2024-12-20-v11 - ICON BADGES BELOW GIF! -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -1156,49 +1156,41 @@
             transform: scale(1.1);
         }
 
-        .popular-badge {
-            position: absolute;
-            top: 16px;
-            left: 16px;
-            padding: 6px 14px;
-            background: linear-gradient(135deg, var(--amber), var(--amber-light));
+        /* Icon badges - below GIF, above title */
+        .icon-badge {
+            width: 32px;
+            height: 32px;
             border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            z-index: 10;
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
-            color: #000;
-        }
-
-        /* New badge chips for below thumbnail */
-        .badge-chip {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: help;
         }
         
-        .badge-popular-chip {
-            background: rgba(245, 158, 11, 0.2);
+        .icon-badge:hover {
+            transform: scale(1.1);
+        }
+        
+        .icon-badge-popular {
+            background: rgba(245, 158, 11, 0.15);
             color: var(--amber);
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(245, 158, 11, 0.4);
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
         }
         
-        .badge-sale-chip {
-            background: rgba(34, 197, 94, 0.2);
-            color: #86EFAC;
-            border: 1px solid rgba(34, 197, 94, 0.3);
+        .icon-badge-sale {
+            background: rgba(34, 197, 94, 0.15);
+            color: #10B981;
+            border: 2px solid rgba(34, 197, 94, 0.4);
+            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
         }
         
-        .badge-holiday-chip {
-            background: rgba(239, 68, 68, 0.2);
-            color: #FCA5A5;
-            border: 1px solid rgba(239, 68, 68, 0.3);
+        .icon-badge-holiday {
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
+            border: 2px solid rgba(239, 68, 68, 0.4);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
         }
 
         .card-overlay {
@@ -2377,48 +2369,6 @@
         }
 
         /* Sale Badge */
-        .sale-badge {
-            position: absolute;
-            top: 56px;
-            left: 16px;
-            padding: 6px 14px;
-            background: rgba(34, 197, 94, 0.9);
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            z-index: 10;
-            color: white;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        .sale-badge.no-popular {
-            top: 16px;
-        }
-
-        .holiday-sale-badge {
-            position: absolute;
-            top: 92px;
-            left: 16px;
-            padding: 6px 14px;
-            background: rgba(239, 68, 68, 0.9);
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            z-index: 10;
-            color: white;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        .holiday-sale-badge.no-popular {
-            top: 56px;
-        }
-        
-        .holiday-sale-badge.no-popular.no-sale {
-            top: 16px;
-        }
-
         /* Buy Now Button */
         .buy-now-btn {
             width: 100%;
@@ -3316,7 +3266,7 @@
     <script>
         // CACHE BUSTER - v9 - BUTTON TYPE + LOGGING
         console.log('========================================');
-        console.log('INDEX.HTML VERSION 10 - SCROLL TO TOP ON REFRESH!');
+        console.log('INDEX.HTML VERSION 11 - ICON BADGES!');
         console.log('Loaded at:', new Date().toISOString());
         console.log('========================================');
         
@@ -3520,14 +3470,35 @@
                     <a href="animation-detail.html?slug=${anim.slug}" style="text-decoration: none; color: inherit; display: block;">
                         <div class="card-thumbnail">
                             ${mediaElement}
-                            ${anim.popular ? '<div class="popular-badge">Popular</div>' : ''}
-                            ${anim.onSale ? `<div class="sale-badge${!anim.popular ? ' no-popular' : ''}">🏷️ ON SALE</div>` : ''}
-                            ${anim.holidaySale ? `<div class="holiday-sale-badge${!anim.popular ? ' no-popular' : ''}${!anim.onSale ? ' no-sale' : ''}">🎄 HOLIDAY SALE</div>` : ''}
                             <div class="card-overlay">
                                 <div class="quick-preview-btn">View Details</div>
                             </div>
                         </div>
                         <div class="card-content">
+                            <!-- Icon badges below GIF, above title -->
+                            <div style="display: flex; gap: 8px; margin-bottom: 12px; min-height: 32px; align-items: center;">
+                                ${anim.popular ? `
+                                    <div class="icon-badge icon-badge-popular" title="Popular">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                                        </svg>
+                                    </div>
+                                ` : ''}
+                                ${anim.onSale ? `
+                                    <div class="icon-badge icon-badge-sale" title="On Sale">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M21.41 11.58L12.41 2.58C12.05 2.22 11.55 2 11 2H4C2.9 2 2 2.9 2 4V11C2 11.55 2.22 12.05 2.59 12.42L11.59 21.42C11.95 21.78 12.45 22 13 22C13.55 22 14.05 21.78 14.41 21.41L21.41 14.41C21.78 14.05 22 13.55 22 13C22 12.45 21.77 11.94 21.41 11.58ZM5.5 7C4.67 7 4 6.33 4 5.5C4 4.67 4.67 4 5.5 4C6.33 4 7 4.67 7 5.5C7 6.33 6.33 7 5.5 7Z" fill="currentColor"/>
+                                        </svg>
+                                    </div>
+                                ` : ''}
+                                ${anim.holidaySale ? `
+                                    <div class="icon-badge icon-badge-holiday" title="Holiday Sale">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M6 3L8 8H16L18 3M8 8L3 21H21L16 8M8 8H16M12 11V17M9 14H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                ` : ''}
+                            </div>
                             <h3 class="card-title">${anim.title}</h3>
                             <div class="card-tags">
                                 ${anim.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
