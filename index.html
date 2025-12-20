@@ -1889,6 +1889,11 @@
             to { transform: scale(1); opacity: 1; }
         }
         
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
         .auth-close {
             position: absolute;
             top: 16px;
@@ -3856,6 +3861,13 @@
             const modal = document.getElementById('cartModal');
             modal.classList.remove('active');
             selectedCartItems = [];
+            
+            // Check if there's a return URL from animation-detail page
+            const returnUrl = sessionStorage.getItem('returnUrl');
+            if (returnUrl) {
+                sessionStorage.removeItem('returnUrl');
+                window.location.href = returnUrl;
+            }
         }
         
         async function renderCartItems() {
@@ -3954,7 +3966,12 @@
             const cartIds = JSON.parse(localStorage.getItem('cart') || '[]');
             
             if (cartIds.length === 0) {
-                alert('Your cart is empty!');
+                // Create a nice notification instead of alert
+                const notification = document.createElement('div');
+                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #EF4444;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(239,68,68,0.4);';
+                notification.innerHTML = '<div style="color:#FCA5A5;font-weight:600;font-size:14px;">🛒 Your cart is empty!</div><div style="color:#9CA3AF;font-size:12px;margin-top:4px;">Add some animations to get started.</div>';
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 3000);
                 return;
             }
 
@@ -4132,6 +4149,18 @@
         }
 
         checkAuth();
+        
+        // Check URL hash for modal triggers (from animation-detail page)
+        window.addEventListener('load', function() {
+            const hash = window.location.hash;
+            
+            if (hash.startsWith('#auth=')) {
+                const authType = hash.split('=')[1];
+                showAuthModal(authType);
+            } else if (hash === '#cart') {
+                openCart();
+            }
+        });
 
         // Auth Modal Functions
         window.showAuthModal = function(tab = 'login') {
@@ -4144,6 +4173,15 @@
 
         window.closeAuthModal = function() {
             document.getElementById('authModal').classList.remove('active');
+            
+            // Check if there's a return URL from animation-detail page
+            const returnUrl = sessionStorage.getItem('returnUrl');
+            if (returnUrl) {
+                sessionStorage.removeItem('returnUrl');
+                window.location.href = returnUrl;
+                return;
+            }
+            
             // Clear forms
             document.getElementById('loginEmail').value = '';
             document.getElementById('loginPassword').value = '';
