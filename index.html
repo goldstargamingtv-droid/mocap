@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-20-v3 - Alignment Fix + Price Colors Fixed -->
+    <!-- VERSION: 2024-12-20-v4 - Back to GIF Badges + Debug Logging -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -1075,9 +1075,6 @@
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid rgba(0, 212, 255, 0.08);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
         }
 
         .animation-card:hover {
@@ -1243,9 +1240,6 @@
 
         .card-content {
             padding: 24px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
         }
 
         .card-title {
@@ -3510,47 +3504,41 @@
                     <a href="animation-detail.html?slug=${anim.slug}" style="text-decoration: none; color: inherit; display: block;">
                         <div class="card-thumbnail">
                             ${mediaElement}
+                            ${anim.popular ? '<div class="popular-badge">Popular</div>' : ''}
+                            ${anim.onSale ? `<div class="sale-badge${!anim.popular ? ' no-popular' : ''}">🏷️ ON SALE</div>` : ''}
+                            ${anim.holidaySale ? `<div class="holiday-sale-badge${!anim.popular ? ' no-popular' : ''}${!anim.onSale ? ' no-sale' : ''}">🎄 HOLIDAY SALE</div>` : ''}
                             <div class="card-overlay">
                                 <div class="quick-preview-btn">View Details</div>
                             </div>
                         </div>
                         <div class="card-content">
-                            <!-- Badges above title -->
-                            <div class="card-badges" style="min-height: 60px; display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
-                                ${anim.popular ? '<span class="badge-chip badge-popular-chip">⭐ POPULAR</span>' : ''}
-                                ${anim.onSale ? '<span class="badge-chip badge-sale-chip">🏷️ ON SALE</span>' : ''}
-                                ${anim.holidaySale ? '<span class="badge-chip badge-holiday-chip">🎄 HOLIDAY SALE</span>' : ''}
-                            </div>
-                            <h3 class="card-title" style="min-height: 72px; display: flex; align-items: flex-start;">${anim.title}</h3>
-                            <div class="card-tags" style="min-height: 76px; display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start;">
+                            <h3 class="card-title">${anim.title}</h3>
+                            <div class="card-tags">
                                 ${anim.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
                             </div>
-                            <!-- Bottom section pushed to bottom -->
-                            <div style="margin-top: auto;">
-                                <div class="card-footer">
-                                    <div class="card-duration">
-                                        <svg class="icon" viewBox="0 0 24 24">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>
-                                        <span>${anim.duration}</span>
-                                    </div>
-                                    <div class="card-price" style="min-height: 56px; display: flex; align-items: flex-end; justify-content: flex-end;">
-                                        ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? `
-                                            <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px;">
-                                                <span style="font-size: 14px; font-weight: 500; text-decoration: line-through; text-decoration-color: var(--text-muted);">
-                                                    <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: var(--text-muted); text-decoration: line-through;">${anim.price.toFixed(2)}</span>
-                                                </span>
-                                                <span style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; line-height: 1;">
-                                                    <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: #FFFFFF;">${(anim.price * (1 - anim.salePercentage / 100)).toFixed(2)}</span>
-                                                </span>
-                                            </div>
-                                        ` : `
-                                            <span style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; line-height: 1;">
-                                                <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: #FFFFFF;">${anim.price.toFixed(2)}</span>
+                            <div class="card-footer">
+                                <div class="card-duration">
+                                    <svg class="icon" viewBox="0 0 24 24">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <span>${anim.duration}</span>
+                                </div>
+                                <div class="card-price">
+                                    ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? `
+                                        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px;">
+                                            <span style="font-size: 14px; font-weight: 500; text-decoration: line-through; text-decoration-color: var(--text-muted);">
+                                                <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: var(--text-muted); text-decoration: line-through;">${anim.price.toFixed(2)}</span>
                                             </span>
-                                        `}
-                                    </div>
+                                            <span style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; line-height: 1;">
+                                                <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: #FFFFFF;">${(anim.price * (1 - anim.salePercentage / 100)).toFixed(2)}</span>
+                                            </span>
+                                        </div>
+                                    ` : `
+                                        <span style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; line-height: 1;">
+                                            <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: #FFFFFF;">${anim.price.toFixed(2)}</span>
+                                        </span>
+                                    `}
                                 </div>
                             </div>
                         </div>
@@ -3583,11 +3571,14 @@
 
         // Filter function
         function filterAnimations() {
+            console.log('=== FILTER ANIMATIONS CALLED ===');
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const category = document.getElementById('categoryFilter').value;
             const gender = document.getElementById('genderFilter').value;
             const style = document.getElementById('styleFilter').value;
             const sort = document.getElementById('sortFilter').value;
+            
+            console.log('Sort value:', sort);
 
             let filtered = animations.filter(anim => {
                 const matchesSearch = !searchQuery || 
@@ -3599,6 +3590,9 @@
 
                 return matchesSearch && matchesCategory && matchesGender && matchesStyle;
             });
+            
+            console.log('Filtered animations count:', filtered.length);
+            console.log('First 3 titles BEFORE sort:', filtered.slice(0, 3).map(a => a.title));
 
             // Sort (stable - maintains original database order when values are equal)
             filtered.sort((a, b) => {
@@ -3616,6 +3610,9 @@
                 }
                 return a._originalIndex - b._originalIndex; // Default: maintain database order
             });
+            
+            console.log('First 3 titles AFTER sort:', filtered.slice(0, 3).map(a => a.title));
+            console.log('First 3 _originalIndex:', filtered.slice(0, 3).map(a => a._originalIndex));
 
             renderAnimations(filtered);
         }
@@ -3793,7 +3790,11 @@
 
         // Load More functionality
         window.loadMore = function() {
+            console.log('=== LOAD MORE CLICKED ===');
+            console.log('Current display count BEFORE:', currentDisplayCount);
             currentDisplayCount += itemsPerPage;
+            console.log('Current display count AFTER:', currentDisplayCount);
+            console.log('About to call filterAnimations()...');
             filterAnimations(); // Re-render with new count
         }
         
