@@ -1109,6 +1109,9 @@
     </style>
 </head>
 <body>
+    <!-- Loading Progress Bar -->
+    <div id="loadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--amber)); z-index: 99999; transition: width 0.3s ease;"></div>
+
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
@@ -2183,16 +2186,46 @@
             location.reload();
         }
 
+        // Start loading bar animation
+        const loadingBar = document.getElementById('loadingBar');
+        
+        // Animate to 30% quickly on page start
+        setTimeout(() => {
+            loadingBar.style.width = '30%';
+        }, 100);
+        
         // Load animation data on page load
         Promise.all([
-            loadAnimationData(),
+            loadAnimationData().then(() => {
+                // Jump to 70% when main data loaded
+                loadingBar.style.width = '70%';
+            }),
             checkAuth(),
             loadAnimationsForSearch()
         ]).then(() => {
             console.log('All data loaded');
             updateCartBadge();
+            
+            // Complete to 100%
+            loadingBar.style.width = '100%';
+            
+            // Fade out and remove after a brief moment
+            setTimeout(() => {
+                loadingBar.style.opacity = '0';
+                loadingBar.style.transition = 'width 0.3s ease, opacity 0.3s ease';
+                setTimeout(() => {
+                    loadingBar.style.display = 'none';
+                }, 300);
+            }, 200);
         }).catch(error => {
             console.error('Error loading page:', error);
+            // On error, complete the bar in red
+            loadingBar.style.width = '100%';
+            loadingBar.style.background = 'linear-gradient(90deg, #ef4444, #f59e0b)';
+            setTimeout(() => {
+                loadingBar.style.opacity = '0';
+                setTimeout(() => loadingBar.style.display = 'none', 300);
+            }, 500);
         });
         
         }); // End window.addEventListener('load')
