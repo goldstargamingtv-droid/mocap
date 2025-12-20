@@ -1883,9 +1883,9 @@
 
                 <!-- Share -->
                 <div class="share-section" style="margin-top: 24px;">
-                    <button class="share-btn" onclick="share('twitter')">🐦 Tweet</button>
-                    <button class="share-btn" onclick="share('facebook')">👍 Share</button>
-                    <button class="share-btn" onclick="copyLink()">🔗 Copy</button>
+                    <button class="share-btn" onclick="openShareModal()" style="width: 100%;">
+                        📤 Share
+                    </button>
                 </div>
             </div>
 
@@ -2947,20 +2947,54 @@
         });
 
         // Share functions
-        function share(platform) {
+        // Share Modal Functions
+        function openShareModal() {
+            document.getElementById('shareModal').classList.add('active');
+        }
+        
+        function closeShareModal() {
+            document.getElementById('shareModal').classList.remove('active');
+        }
+        
+        function shareToTwitter() {
             const url = window.location.href;
             const title = document.querySelector('.product-title')?.textContent || 'MocapWork Animation';
-            
-            if (platform === 'twitter') {
-                window.open(`https://twitter.com/intent/tweet?url=${url}&text=${title}`, '_blank');
-            } else if (platform === 'facebook') {
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-            }
+            window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, '_blank');
+            closeShareModal();
         }
-
-        function copyLink() {
-            navigator.clipboard.writeText(window.location.href);
-            alert('Link copied to clipboard!');
+        
+        function shareToFacebook() {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+            closeShareModal();
+        }
+        
+        function shareToLinkedIn() {
+            const url = window.location.href;
+            const title = document.querySelector('.product-title')?.textContent || 'MocapWork Animation';
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+            closeShareModal();
+        }
+        
+        function shareToReddit() {
+            const url = window.location.href;
+            const title = document.querySelector('.product-title')?.textContent || 'MocapWork Animation';
+            window.open(`https://reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`, '_blank');
+            closeShareModal();
+        }
+        
+        function copyLinkToClipboard() {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                // Create success notification
+                const notification = document.createElement('div');
+                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #10B981;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(16,185,129,0.4);';
+                notification.innerHTML = '<div style="color:#86EFAC;font-weight:600;font-size:14px;">✅ Link copied to clipboard!</div>';
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 2000);
+                closeShareModal();
+            }).catch(() => {
+                alert('Failed to copy link');
+            });
         }
 
         // Mobile menu toggle
@@ -3298,6 +3332,45 @@
         
         }); // End window.addEventListener('load')
     </script>
+
+    <!-- Share Modal -->
+    <div id="shareModal" class="auth-modal">
+        <div class="auth-modal-overlay" onclick="closeShareModal()"></div>
+        <div class="auth-modal-box" style="max-width: 400px;">
+            <button class="auth-close" onclick="closeShareModal()" style="display: flex;">✕</button>
+            
+            <div style="padding: 40px;">
+                <h2 style="font-size: 24px; font-weight: 800; font-family: 'Sora', sans-serif; margin-bottom: 8px; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    Share Animation
+                </h2>
+                <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">
+                    Share this animation with your friends
+                </p>
+                
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <button onclick="shareToTwitter()" style="width: 100%; padding: 14px; background: rgba(29, 161, 242, 0.1); border: 2px solid rgba(29, 161, 242, 0.3); border-radius: 12px; color: #1DA1F2; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Sora', sans-serif;">
+                        <span style="font-size: 20px;">𝕏</span> Share on X (Twitter)
+                    </button>
+                    
+                    <button onclick="shareToFacebook()" style="width: 100%; padding: 14px; background: rgba(66, 103, 178, 0.1); border: 2px solid rgba(66, 103, 178, 0.3); border-radius: 12px; color: #4267B2; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Sora', sans-serif;">
+                        <span style="font-size: 20px;">📘</span> Share on Facebook
+                    </button>
+                    
+                    <button onclick="shareToLinkedIn()" style="width: 100%; padding: 14px; background: rgba(0, 119, 181, 0.1); border: 2px solid rgba(0, 119, 181, 0.3); border-radius: 12px; color: #0077B5; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Sora', sans-serif;">
+                        <span style="font-size: 20px;">💼</span> Share on LinkedIn
+                    </button>
+                    
+                    <button onclick="shareToReddit()" style="width: 100%; padding: 14px; background: rgba(255, 69, 0, 0.1); border: 2px solid rgba(255, 69, 0, 0.3); border-radius: 12px; color: #FF4500; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Sora', sans-serif;">
+                        <span style="font-size: 20px;">🤖</span> Share on Reddit
+                    </button>
+                    
+                    <button onclick="copyLinkToClipboard()" style="width: 100%; padding: 14px; background: rgba(0, 212, 255, 0.1); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; color: var(--teal); font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Sora', sans-serif;">
+                        <span style="font-size: 20px;">🔗</span> Copy Link
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Auth Modal -->
     <div id="authModal" class="auth-modal">
