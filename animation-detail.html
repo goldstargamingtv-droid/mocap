@@ -1023,6 +1023,11 @@
             font-weight: 700;
         }
 
+        .load-more {
+            text-align: center;
+            margin-top: 60px;
+        }
+
         /* Share */
         .share-section {
             display: flex;
@@ -1554,13 +1559,9 @@
             </div>
             
             <!-- Load More & Back to Top -->
-            <div style="display: flex; gap: 16px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
-                <button id="loadMoreRelated" class="btn btn-secondary" style="padding: 16px 40px; font-size: 16px; display: none;">
-                    Load More Animations
-                </button>
-                <button id="backToTopRelated" class="btn btn-secondary" style="padding: 16px 40px; font-size: 16px; display: none;" onclick="scrollToRelatedSection()">
-                    ↑ Back to Top
-                </button>
+            <div class="load-more">
+                <button class="btn btn-secondary" style="padding: 16px 40px;" onclick="loadMoreRelated()" id="loadMoreRelated">Load More Animations</button>
+                <button class="btn btn-secondary" style="padding: 16px 40px; display: none;" onclick="scrollToRelatedSection()" id="backToTopRelated">↑ Back to Top</button>
             </div>
         </div>
 
@@ -2078,6 +2079,45 @@
             }
         }
 
+        // Load More Related Products
+        function loadMoreRelated() {
+            const loadCount = 4; // Load 4 more each time
+            const currentCount = window.displayedRelatedCount;
+            const newCount = Math.min(currentCount + loadCount, window.allRelatedProducts.length);
+            
+            // Append new products
+            const relatedGrid = document.getElementById('relatedProductsGrid');
+            const newProducts = window.allRelatedProducts.slice(currentCount, newCount);
+            
+            newProducts.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'related-card';
+                card.onclick = () => window.location.href = `animation-detail.html?slug=${item.slug}`;
+                card.innerHTML = `
+                    <img src="${item.video_url || item.thumbnail_url || 'https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent(item.title)}" 
+                         class="related-image" 
+                         alt="${item.title}"
+                         onerror="this.src='https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent('${item.title}')">
+                    <div class="related-info">
+                        <div class="related-title">${item.title}</div>
+                        <div class="related-price"><span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${item.price.toFixed(2)}</div>
+                    </div>
+                `;
+                relatedGrid.appendChild(card);
+            });
+            
+            window.displayedRelatedCount = newCount;
+            
+            const loadMoreBtn = document.getElementById('loadMoreRelated');
+            const backToTopBtn = document.getElementById('backToTopRelated');
+            
+            // If all loaded, hide Load More and show Back to Top
+            if (newCount >= window.allRelatedProducts.length) {
+                if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+                if (backToTopBtn) backToTopBtn.style.display = 'inline-block';
+            }
+        }
+        
         // Setup Load More button
         function setupLoadMoreButton() {
             const loadMoreBtn = document.getElementById('loadMoreRelated');
@@ -2086,47 +2126,12 @@
             if (loadMoreBtn) {
                 // Show button only if there are more products to load
                 if (window.displayedRelatedCount < window.allRelatedProducts.length) {
-                    loadMoreBtn.style.display = 'inline-flex';
-                    backToTopBtn.style.display = 'none'; // Hide back to top while loading more
-                    
-                    loadMoreBtn.onclick = function() {
-                        const loadCount = 4; // Load 4 more each time
-                        const currentCount = window.displayedRelatedCount;
-                        const newCount = Math.min(currentCount + loadCount, window.allRelatedProducts.length);
-                        
-                        // Append new products
-                        const relatedGrid = document.getElementById('relatedProductsGrid');
-                        const newProducts = window.allRelatedProducts.slice(currentCount, newCount);
-                        
-                        newProducts.forEach(item => {
-                            const card = document.createElement('div');
-                            card.className = 'related-card';
-                            card.onclick = () => window.location.href = `animation-detail.html?slug=${item.slug}`;
-                            card.innerHTML = `
-                                <img src="${item.video_url || item.thumbnail_url || 'https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent(item.title)}" 
-                                     class="related-image" 
-                                     alt="${item.title}"
-                                     onerror="this.src='https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent('${item.title}')">
-                                <div class="related-info">
-                                    <div class="related-title">${item.title}</div>
-                                    <div class="related-price"><span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${item.price.toFixed(2)}</div>
-                                </div>
-                            `;
-                            relatedGrid.appendChild(card);
-                        });
-                        
-                        window.displayedRelatedCount = newCount;
-                        
-                        // If all loaded, hide Load More and show Back to Top
-                        if (newCount >= window.allRelatedProducts.length) {
-                            loadMoreBtn.style.display = 'none';
-                            backToTopBtn.style.display = 'inline-flex';
-                        }
-                    };
+                    loadMoreBtn.style.display = 'inline-block';
+                    if (backToTopBtn) backToTopBtn.style.display = 'none';
                 } else {
                     // All products already loaded, show only Back to Top
                     loadMoreBtn.style.display = 'none';
-                    backToTopBtn.style.display = 'inline-flex';
+                    if (backToTopBtn) backToTopBtn.style.display = 'inline-block';
                 }
             }
         }
