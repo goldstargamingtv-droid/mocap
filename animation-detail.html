@@ -1535,8 +1535,9 @@
 
             // Preview images
             const mainPreview = document.getElementById('mainPreview');
-            if (mainPreview && anim.thumbnail_url) {
-                mainPreview.src = anim.thumbnail_url;
+            if (mainPreview) {
+                // Use video_url if available, otherwise fall back to thumbnail_url
+                mainPreview.src = anim.video_url || anim.thumbnail_url || mainPreview.src;
             }
 
             // Technical specs
@@ -1592,7 +1593,7 @@
                 // Get 4 animations from the same category, excluding current one
                 const { data: related, error } = await supabaseClient
                     .from('animations')
-                    .select('slug, title, price, thumbnail_url, category')
+                    .select('slug, title, price, thumbnail_url, video_url, category')
                     .eq('category', category)
                     .neq('id', currentAnimationId)
                     .limit(4);
@@ -1604,7 +1605,7 @@
                     // Try to get any 4 animations instead
                     const { data: anyAnimations } = await supabaseClient
                         .from('animations')
-                        .select('slug, title, price, thumbnail_url, category')
+                        .select('slug, title, price, thumbnail_url, video_url, category')
                         .neq('id', currentAnimationId)
                         .limit(4);
                     
@@ -1622,7 +1623,7 @@
                     // No products in same category, try to get any other animations
                     const { data: anyAnimations } = await supabaseClient
                         .from('animations')
-                        .select('slug, title, price, thumbnail_url, category')
+                        .select('slug, title, price, thumbnail_url, video_url, category')
                         .neq('id', currentAnimationId)
                         .limit(4);
                     
@@ -1643,7 +1644,7 @@
             if (relatedGrid) {
                 relatedGrid.innerHTML = products.map(item => `
                     <div class="related-card" onclick="window.location.href='animation-detail.html?slug=${item.slug}'">
-                        <img src="${item.thumbnail_url || 'https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent(item.title)}" 
+                        <img src="${item.video_url || item.thumbnail_url || 'https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent(item.title)}" 
                              class="related-image" 
                              alt="${item.title}"
                              onerror="this.src='https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent('${item.title}')">
