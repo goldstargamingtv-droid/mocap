@@ -3069,10 +3069,11 @@
                 navbar.classList.remove('scrolled');
             }
             
-            // Show sticky button only after scrolling past the library section
+            // Show sticky button when scrolling past library (into features section)
             if (librarySection) {
-                const libraryBottom = librarySection.offsetTop + librarySection.offsetHeight;
-                if (window.scrollY > libraryBottom) {
+                const libraryRect = librarySection.getBoundingClientRect();
+                // Show when library section scrolls above viewport
+                if (libraryRect.bottom < window.innerHeight - 200) {
                     stickyBtn.classList.add('show');
                 } else {
                     stickyBtn.classList.remove('show');
