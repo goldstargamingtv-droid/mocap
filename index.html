@@ -4008,7 +4008,40 @@
                 animations = await API.getAnimations();
                 window.animations = animations; // Make available in console for debugging
                 console.log('Loaded animations:', animations);
-                renderAnimations(animations);
+                
+                // Check for URL parameters (from animation detail page tags/category)
+                const urlParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
+                const categoryParam = urlParams.get('category');
+                const searchParam = urlParams.get('search');
+                
+                if (categoryParam) {
+                    // Set category filter
+                    const categorySelect = document.getElementById('categoryFilter');
+                    if (categorySelect) {
+                        categorySelect.value = categoryParam;
+                    }
+                    // Scroll to library
+                    setTimeout(() => {
+                        document.getElementById('library')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                } else if (searchParam) {
+                    // Set search query
+                    const searchInput = document.getElementById('searchInput');
+                    if (searchInput) {
+                        searchInput.value = searchParam;
+                    }
+                    // Scroll to library
+                    setTimeout(() => {
+                        document.getElementById('library')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                }
+                
+                // Filter and render animations
+                if (categoryParam || searchParam) {
+                    filterAnimations();
+                } else {
+                    renderAnimations(animations);
+                }
             } catch (error) {
                 console.error('Error loading animations:', error);
                 alert('Error loading animations. Please make sure you have run the SQL schema in Supabase.');
