@@ -2362,6 +2362,29 @@
             top: 16px;
         }
 
+        .holiday-sale-badge {
+            position: absolute;
+            top: 92px;
+            left: 16px;
+            padding: 6px 14px;
+            background: rgba(239, 68, 68, 0.9);
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            z-index: 10;
+            color: white;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .holiday-sale-badge.no-popular {
+            top: 56px;
+        }
+        
+        .holiday-sale-badge.no-popular.no-sale {
+            top: 16px;
+        }
+
         /* Buy Now Button */
         .buy-now-btn {
             width: 100%;
@@ -3339,6 +3362,7 @@
                     style: anim.style,
                     popular: anim.popular,
                     onSale: anim.on_sale,
+                    holidaySale: anim.holiday_sale,
                     salePercentage: anim.sale_percentage,
                     video: anim.video_url,
                     thumbnail: anim.thumbnail_url,
@@ -3448,6 +3472,7 @@
                             ${mediaElement}
                             ${anim.popular ? '<div class="popular-badge">Popular</div>' : ''}
                             ${anim.onSale ? `<div class="sale-badge${!anim.popular ? ' no-popular' : ''}">🏷️ ON SALE</div>` : ''}
+                            ${anim.holidaySale ? `<div class="holiday-sale-badge${!anim.popular ? ' no-popular' : ''}${!anim.onSale ? ' no-sale' : ''}">🎄 HOLIDAY SALE</div>` : ''}
                             <div class="card-overlay">
                                 <div class="quick-preview-btn">View Details</div>
                             </div>
