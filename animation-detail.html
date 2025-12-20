@@ -1137,10 +1137,10 @@
 
             <!-- Right Side Actions -->
             <div class="nav-right">
-                <div id="authLinks">
+                <div id="authLinks" style="display: none;">
                     <a href="#" onclick="showAuthModal('login'); return false;" class="btn-login">Sign In</a>
                 </div>
-                <div id="userMenu" style="display: none;">
+                <div id="userMenu" style="display: block;">
                     <button onclick="logout()" class="btn-logout-nav">Sign Out</button>
                 </div>
                 <div class="cart-container">
@@ -1181,7 +1181,7 @@
                 <li><a href="#" onclick="handleDashboardClick(event); toggleMobileMenu()">My Library</a></li>
                 <li><a href="index.html#contact" onclick="toggleMobileMenu()">Contact</a></li>
                 <li><a href="index.html#faq" onclick="toggleMobileMenu()">FAQ</a></li>
-                <li id="mobileAuthLink"><a href="#" onclick="showAuthModal('login'); toggleMobileMenu(); return false;">Sign In</a></li>
+                <li id="mobileAuthLink" style="display: none;"><a href="#" onclick="showAuthModal('login'); toggleMobileMenu(); return false;">Sign In</a></li>
             </ul>
         </div>
     </nav>
@@ -2070,22 +2070,39 @@
             });
         }
 
-        // Check auth and update navbar (non-blocking)
+        // Check auth and update navbar (immediate from cache, then verify)
         async function checkAuth() {
+            // First, check session storage immediately (no API call)
+            const cachedSession = localStorage.getItem('supabase.auth.token');
+            
+            // Immediately update UI if we have a cached session
+            if (cachedSession) {
+                updateAuthUI(true);
+            }
+            
+            // Then verify with actual auth check in background
             try {
                 const { data: { session } } = await supabaseClient.auth.getSession();
-                if (session) {
-                    const authLinks = document.getElementById('authLinks');
-                    const userMenu = document.getElementById('userMenu');
-                    const mobileAuthLink = document.getElementById('mobileAuthLink');
-                    
-                    if (authLinks) authLinks.style.display = 'none';
-                    if (userMenu) userMenu.style.display = 'block';
-                    if (mobileAuthLink) mobileAuthLink.style.display = 'none';
-                }
+                updateAuthUI(!!session);
             } catch (error) {
                 console.error('Auth check error:', error);
                 // Silently fail - don't affect user experience
+            }
+        }
+        
+        function updateAuthUI(isLoggedIn) {
+            const authLinks = document.getElementById('authLinks');
+            const userMenu = document.getElementById('userMenu');
+            const mobileAuthLink = document.getElementById('mobileAuthLink');
+            
+            if (isLoggedIn) {
+                if (authLinks) authLinks.style.display = 'none';
+                if (userMenu) userMenu.style.display = 'block';
+                if (mobileAuthLink) mobileAuthLink.style.display = 'none';
+            } else {
+                if (authLinks) authLinks.style.display = 'block';
+                if (userMenu) userMenu.style.display = 'none';
+                if (mobileAuthLink) mobileAuthLink.style.display = 'block';
             }
         }
 
