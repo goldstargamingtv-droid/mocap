@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-20-v5 - DATABASE ORDERING FIX - CARDS WON'T REORDER! -->
+    <!-- VERSION: 2024-12-20-v6 - REMOVED DUPLICATE FUNCTION! -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -3314,12 +3314,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-        // CACHE BUSTER - v5 - DATABASE ORDERING FIX
+        // CACHE BUSTER - v6 - DUPLICATE FUNCTION REMOVED
         console.log('========================================');
-        console.log('INDEX.HTML VERSION 5 - DATABASE ORDERING FIXED!');
+        console.log('INDEX.HTML VERSION 6 - DUPLICATE FUNCTION REMOVED!');
         console.log('Loaded at:', new Date().toISOString());
-        console.log('If you see v3 or v4, do HARD REFRESH!');
-        console.log('Windows/Linux: Ctrl+Shift+R | Mac: Cmd+Shift+R');
+        console.log('Cards should NOT reorder now!');
         console.log('========================================');
         
         // Detect when user comes back from Stripe (browser back button)
@@ -4247,36 +4246,6 @@
         }
 
         // Update filter function to work with database
-        function filterAnimations() {
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-            const category = document.getElementById('categoryFilter').value;
-            const gender = document.getElementById('genderFilter').value;
-            const style = document.getElementById('styleFilter').value;
-            const sort = document.getElementById('sortFilter').value;
-
-            let filtered = animations.filter(anim => {
-                const matchesSearch = !searchQuery || 
-                    anim.title.toLowerCase().includes(searchQuery) ||
-                    anim.tags.some(tag => tag.toLowerCase().includes(searchQuery));
-                const matchesCategory = category === 'All' || anim.category === category;
-                const matchesGender = gender === 'All' || anim.tags.includes(gender);
-                const matchesStyle = style === 'All' || anim.tags.includes(style);
-
-                return matchesSearch && matchesCategory && matchesGender && matchesStyle;
-            });
-
-            // Sort
-            if (sort === 'popular') {
-                filtered.sort((a, b) => b.popular - a.popular);
-            } else if (sort === 'price-low') {
-                filtered.sort((a, b) => a.price - b.price);
-            } else if (sort === 'price-high') {
-                filtered.sort((a, b) => b.price - a.price);
-            }
-
-            renderAnimations(filtered);
-        }
-
         // Update cart badge
         async function updateCartBadge() {
             try {
