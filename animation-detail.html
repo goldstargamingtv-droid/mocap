@@ -1535,8 +1535,8 @@
 
             // Preview images
             const mainPreview = document.getElementById('mainPreview');
-            if (mainPreview && anim.preview_url) {
-                mainPreview.src = anim.preview_url;
+            if (mainPreview && anim.thumbnail_url) {
+                mainPreview.src = anim.thumbnail_url;
             }
 
             // Technical specs
@@ -1587,54 +1587,79 @@
 
         async function loadRelatedProducts(category, currentAnimationId) {
             try {
+                console.log('Loading related products for category:', category, 'excluding ID:', currentAnimationId);
+                
                 // Get 4 animations from the same category, excluding current one
                 const { data: related, error } = await supabaseClient
                     .from('animations')
-                    .select('slug, title, price, preview_url, category')
+                    .select('slug, title, price, thumbnail_url, category')
                     .eq('category', category)
                     .neq('id', currentAnimationId)
                     .limit(4);
 
-                console.log('Related products query:', { category, currentAnimationId, related, error });
+                console.log('Related products response:', { related, error });
 
                 if (error) {
-                    console.error('Error loading related products:', error);
-                    // Hide section on error
-                    const relatedSection = document.querySelector('.related-section');
-                    if (relatedSection) {
-                        relatedSection.style.display = 'none';
+                    console.error('Supabase error loading related products:', error);
+                    // Try to get any 4 animations instead
+                    const { data: anyAnimations } = await supabaseClient
+                        .from('animations')
+                        .select('slug, title, price, thumbnail_url, category')
+                        .neq('id', currentAnimationId)
+                        .limit(4);
+                    
+                    if (anyAnimations && anyAnimations.length > 0) {
+                        populateRelatedProducts(anyAnimations);
+                    } else {
+                        hideRelatedSection();
                     }
                     return;
                 }
 
-                const relatedGrid = document.getElementById('relatedProductsGrid');
-                if (relatedGrid && related && related.length > 0) {
-                    relatedGrid.innerHTML = related.map(item => `
-                        <div class="related-card" onclick="window.location.href='animation-detail.html?slug=${item.slug}'">
-                            <img src="${item.preview_url || 'https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent(item.title)}" 
-                                 class="related-image" 
-                                 alt="${item.title}"
-                                 onerror="this.src='https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent('${item.title}')">
-                            <div class="related-info">
-                                <div class="related-title">${item.title}</div>
-                                <div class="related-price"><span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${item.price.toFixed(2)}</div>
-                            </div>
-                        </div>
-                    `).join('');
+                if (related && related.length > 0) {
+                    populateRelatedProducts(related);
                 } else {
-                    // If no related products, hide the section
-                    const relatedSection = document.querySelector('.related-section');
-                    if (relatedSection) {
-                        relatedSection.style.display = 'none';
+                    // No products in same category, try to get any other animations
+                    const { data: anyAnimations } = await supabaseClient
+                        .from('animations')
+                        .select('slug, title, price, thumbnail_url, category')
+                        .neq('id', currentAnimationId)
+                        .limit(4);
+                    
+                    if (anyAnimations && anyAnimations.length > 0) {
+                        populateRelatedProducts(anyAnimations);
+                    } else {
+                        hideRelatedSection();
                     }
                 }
             } catch (error) {
                 console.error('Error loading related products:', error);
-                // Hide section on error
-                const relatedSection = document.querySelector('.related-section');
-                if (relatedSection) {
-                    relatedSection.style.display = 'none';
-                }
+                hideRelatedSection();
+            }
+        }
+
+        function populateRelatedProducts(products) {
+            const relatedGrid = document.getElementById('relatedProductsGrid');
+            if (relatedGrid) {
+                relatedGrid.innerHTML = products.map(item => `
+                    <div class="related-card" onclick="window.location.href='animation-detail.html?slug=${item.slug}'">
+                        <img src="${item.thumbnail_url || 'https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent(item.title)}" 
+                             class="related-image" 
+                             alt="${item.title}"
+                             onerror="this.src='https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent('${item.title}')">
+                        <div class="related-info">
+                            <div class="related-title">${item.title}</div>
+                            <div class="related-price"><span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${item.price.toFixed(2)}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function hideRelatedSection() {
+            const relatedSection = document.querySelector('.related-section');
+            if (relatedSection) {
+                relatedSection.style.display = 'none';
             }
         }
 
@@ -1664,7 +1689,7 @@
                     slug: anim.slug,
                     title: anim.title,
                     price: anim.price,
-                    preview_url: anim.preview_url
+                    thumbnail_url: anim.thumbnail_url
                 });
                 localStorage.setItem('mocapwork_cart', JSON.stringify(cart));
                 
