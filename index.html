@@ -2348,7 +2348,7 @@
             top: 56px;
             left: 16px;
             padding: 6px 14px;
-            background: var(--coral);
+            background: rgba(34, 197, 94, 0.9);
             border-radius: 8px;
             font-size: 11px;
             font-weight: 700;
@@ -2376,16 +2376,13 @@
             font-family: "Sora", sans-serif;
             font-size: 16px;
             transition: all 0.3s ease;
-        }
-        
-        .buy-now-btn::before {
-            content: "💳 ";
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
         }
 
         .buy-now-btn:hover {
             background: #10B981;
             border-color: #10B981;
-            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5), 0 4px 15px rgba(16, 185, 129, 0.3);
             transform: translateY(-2px);
         }
 
@@ -3450,7 +3447,7 @@
                         <div class="card-thumbnail">
                             ${mediaElement}
                             ${anim.popular ? '<div class="popular-badge">Popular</div>' : ''}
-                            ${anim.onSale ? `<div class="sale-badge${!anim.popular ? ' no-popular' : ''}">Holiday Sale: 20% Off</div>` : ''}
+                            ${anim.onSale ? `<div class="sale-badge${!anim.popular ? ' no-popular' : ''}">🏷️ ON SALE</div>` : ''}
                             <div class="card-overlay">
                                 <div class="quick-preview-btn">View Details</div>
                             </div>
