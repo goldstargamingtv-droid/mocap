@@ -1248,8 +1248,8 @@
                 <div class="price-card">
                     <div class="price-display"><span class="dollar-sign">$</span>1.00</div>
                     <div class="purchase-buttons">
-                        <button class="btn btn-primary">Buy Now</button>
-                        <button class="btn btn-secondary">
+                        <button class="btn btn-primary" id="buyNowBtn" onclick="handleBuyNow()">Buy Now</button>
+                        <button class="btn btn-secondary" id="addToCartBtn" onclick="handleAddToCart()">
                             <svg class="icon" viewBox="0 0 24 24">
                                 <circle cx="9" cy="21" r="1"></circle>
                                 <circle cx="20" cy="21" r="1"></circle>
@@ -1417,11 +1417,31 @@
         let searchClearNav;
         let searchDropdownNav;
         let allAnimations = [];
+        let currentAnimation = null; // Store current animation data
+        
+        // Global button handlers
+        function handleBuyNow() {
+            if (currentAnimation) {
+                buyAnimation(currentAnimation);
+            } else {
+                console.error('No animation data loaded');
+                alert('Animation data not loaded. Please refresh the page.');
+            }
+        }
+        
+        function handleAddToCart() {
+            if (currentAnimation) {
+                addToCart(currentAnimation);
+            } else {
+                console.error('No animation data loaded');
+                alert('Animation data not loaded. Please refresh the page.');
+            }
+        }
         
         // Wait for Supabase to load
         window.addEventListener('load', function() {
             // Supabase Client
-            const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
+            const SUPABASE_URL = 'https://dvbyxtkghbsjiglxjnvt.supabase.co';
             const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
             supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
             
@@ -1479,6 +1499,9 @@
 
         function populatePage(anim) {
             console.log('Populating page with animation data:', anim);
+            
+            // Store animation globally for button handlers
+            currentAnimation = anim;
             
             // Update page title
             document.title = `${anim.title} - MocapWork`;
@@ -1558,18 +1581,6 @@
                 }
             }
 
-            // Buy Now button
-            const buyNowBtn = document.querySelector('.btn-primary');
-            if (buyNowBtn) {
-                buyNowBtn.onclick = () => buyAnimation(anim);
-            }
-
-            // Add to Cart button
-            const addToCartBtn = document.querySelector('.btn-secondary');
-            if (addToCartBtn) {
-                addToCartBtn.onclick = () => addToCart(anim);
-            }
-
             // Load related products
             loadRelatedProducts(anim.category, anim.id);
         }
@@ -1584,8 +1595,15 @@
                     .neq('id', currentAnimationId)
                     .limit(4);
 
+                console.log('Related products query:', { category, currentAnimationId, related, error });
+
                 if (error) {
                     console.error('Error loading related products:', error);
+                    // Hide section on error
+                    const relatedSection = document.querySelector('.related-section');
+                    if (relatedSection) {
+                        relatedSection.style.display = 'none';
+                    }
                     return;
                 }
 
@@ -1612,6 +1630,11 @@
                 }
             } catch (error) {
                 console.error('Error loading related products:', error);
+                // Hide section on error
+                const relatedSection = document.querySelector('.related-section');
+                if (relatedSection) {
+                    relatedSection.style.display = 'none';
+                }
             }
         }
 
@@ -1626,11 +1649,9 @@
                 return;
             }
 
-            // Add to cart
-            await addToCart(anim);
-            
-            // Redirect to index.html with cart open (you can integrate checkout later)
-            window.location.href = 'index.html#cart';
+            // For now, redirect to index.html to use the checkout there
+            // In the future, you can implement Stripe checkout directly here
+            window.location.href = `index.html#buy=${anim.id}`;
         }
 
         async function addToCart(anim) {
