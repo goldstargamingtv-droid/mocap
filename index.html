@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- VERSION: 2024-12-20-v3 - Alignment Fix + Price Colors Fixed -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -1268,7 +1269,7 @@
         }
         
         .card-badges {
-            min-height: 52px;
+            min-height: 60px;
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
@@ -1303,12 +1304,7 @@
         }
 
         .card-price {
-            font-size: 22px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-family: 'Sora', sans-serif;
+            /* Styling moved to inline - see renderAnimations() */
         }
 
         .add-to-cart-btn {
@@ -3520,13 +3516,13 @@
                         </div>
                         <div class="card-content">
                             <!-- Badges above title -->
-                            <div class="card-badges" style="min-height: 52px; display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
+                            <div class="card-badges" style="min-height: 60px; display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
                                 ${anim.popular ? '<span class="badge-chip badge-popular-chip">⭐ POPULAR</span>' : ''}
                                 ${anim.onSale ? '<span class="badge-chip badge-sale-chip">🏷️ ON SALE</span>' : ''}
                                 ${anim.holidaySale ? '<span class="badge-chip badge-holiday-chip">🎄 HOLIDAY SALE</span>' : ''}
                             </div>
-                            <h3 class="card-title" style="min-height: 66px; display: flex; align-items: flex-start;">${anim.title}</h3>
-                            <div class="card-tags" style="min-height: 68px; display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start;">
+                            <h3 class="card-title" style="min-height: 72px; display: flex; align-items: flex-start;">${anim.title}</h3>
+                            <div class="card-tags" style="min-height: 76px; display: flex; flex-wrap: wrap; gap: 8px; align-content: flex-start;">
                                 ${anim.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
                             </div>
                             <!-- Bottom section pushed to bottom -->
@@ -3575,6 +3571,11 @@
                 `;
                 grid.appendChild(card);
             });
+            
+            // Debug: Log alignment values
+            console.log('ALIGNMENT CHECK - Min Heights Applied:');
+            console.log('  Badges: 60px, Title: 72px, Tags: 76px, Price: 56px');
+            console.log('  Version: 2024-12-20-v3 - PRICE COLORS FIXED');
 
             document.getElementById('resultsCount').textContent = 
                 `Showing ${Math.min(displayAnimations.length, filteredAnimations.length)} of ${filteredAnimations.length} animations`;
@@ -3599,21 +3600,21 @@
                 return matchesSearch && matchesCategory && matchesGender && matchesStyle;
             });
 
-            // Sort (stable - maintains order when equal)
+            // Sort (stable - maintains original database order when values are equal)
             filtered.sort((a, b) => {
                 if (sort === 'popular') {
                     if (b.popular !== a.popular) return b.popular - a.popular;
-                    return animations.indexOf(a) - animations.indexOf(b); // Maintain original order
+                    return a._originalIndex - b._originalIndex; // Maintain original order
                 }
                 if (sort === 'price-low') {
                     if (a.price !== b.price) return a.price - b.price;
-                    return animations.indexOf(a) - animations.indexOf(b);
+                    return a._originalIndex - b._originalIndex;
                 }
                 if (sort === 'price-high') {
                     if (b.price !== a.price) return b.price - a.price;
-                    return animations.indexOf(a) - animations.indexOf(b);
+                    return a._originalIndex - b._originalIndex;
                 }
-                return animations.indexOf(a) - animations.indexOf(b); // Default: maintain database order
+                return a._originalIndex - b._originalIndex; // Default: maintain database order
             });
 
             renderAnimations(filtered);
@@ -4188,6 +4189,8 @@
         async function loadAnimations() {
             try {
                 animations = await API.getAnimations();
+                // Add original index to each animation for stable sorting
+                animations = animations.map((anim, index) => ({ ...anim, _originalIndex: index }));
                 window.animations = animations; // Make available in console for debugging
                 console.log('Loaded animations:', animations);
                 console.log('Popular flags:', animations.map(a => ({ title: a.title, popular: a.popular, onSale: a.onSale, holidaySale: a.holidaySale })));
