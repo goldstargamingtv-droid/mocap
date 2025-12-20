@@ -1268,11 +1268,12 @@
         }
         
         .card-badges {
-            min-height: 28px;
+            min-height: 52px;
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
             margin-bottom: 8px;
+            align-content: flex-start;
         }
 
         .tag {
@@ -3519,7 +3520,7 @@
                         </div>
                         <div class="card-content">
                             <!-- Badges above title -->
-                            <div class="card-badges" style="min-height: 28px; display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
+                            <div class="card-badges" style="min-height: 52px; display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px;">
                                 ${anim.popular ? '<span class="badge-chip badge-popular-chip">⭐ POPULAR</span>' : ''}
                                 ${anim.onSale ? '<span class="badge-chip badge-sale-chip">🏷️ ON SALE</span>' : ''}
                                 ${anim.holidaySale ? '<span class="badge-chip badge-holiday-chip">🎄 HOLIDAY SALE</span>' : ''}
@@ -3598,12 +3599,21 @@
                 return matchesSearch && matchesCategory && matchesGender && matchesStyle;
             });
 
-            // Sort
+            // Sort (stable - maintains order when equal)
             filtered.sort((a, b) => {
-                if (sort === 'popular') return b.popular - a.popular;
-                if (sort === 'price-low') return a.price - b.price;
-                if (sort === 'price-high') return b.price - a.price;
-                return 0;
+                if (sort === 'popular') {
+                    if (b.popular !== a.popular) return b.popular - a.popular;
+                    return animations.indexOf(a) - animations.indexOf(b); // Maintain original order
+                }
+                if (sort === 'price-low') {
+                    if (a.price !== b.price) return a.price - b.price;
+                    return animations.indexOf(a) - animations.indexOf(b);
+                }
+                if (sort === 'price-high') {
+                    if (b.price !== a.price) return b.price - a.price;
+                    return animations.indexOf(a) - animations.indexOf(b);
+                }
+                return animations.indexOf(a) - animations.indexOf(b); // Default: maintain database order
             });
 
             renderAnimations(filtered);
