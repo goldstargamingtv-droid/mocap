@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-20-v6 - REMOVED DUPLICATE FUNCTION! -->
+    <!-- VERSION: 2024-12-20-v7 - LOAD MORE FIX - NO RE-SORTING! -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -3314,11 +3314,11 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-        // CACHE BUSTER - v6 - DUPLICATE FUNCTION REMOVED
+        // CACHE BUSTER - v7 - LOAD MORE FIX
         console.log('========================================');
-        console.log('INDEX.HTML VERSION 6 - DUPLICATE FUNCTION REMOVED!');
+        console.log('INDEX.HTML VERSION 7 - LOAD MORE FIXED!');
         console.log('Loaded at:', new Date().toISOString());
-        console.log('Cards should NOT reorder now!');
+        console.log('Cards will NOT re-sort when loading more!');
         console.log('========================================');
         
         // Detect when user comes back from Stripe (browser back button)
@@ -3471,6 +3471,7 @@
         // Animation data
         // Animations will load from Supabase database
         let animations = [];
+        let filteredAnimations = []; // Store current filtered/sorted results
         let selectedAnimations = [];
         let currentDisplayCount = 8;
         const itemsPerPage = 12;
@@ -3624,7 +3625,10 @@
             console.log('First 3 titles AFTER sort:', filtered.slice(0, 3).map(a => a.title));
             console.log('First 3 _originalIndex:', filtered.slice(0, 3).map(a => a._originalIndex));
 
-            renderAnimations(filtered);
+            // Save filtered results and reset display count
+            filteredAnimations = filtered;
+            currentDisplayCount = 8; // Reset to 8 when filters change
+            renderAnimations(filteredAnimations);
         }
 
         // Event listeners
@@ -3804,8 +3808,9 @@
             console.log('Current display count BEFORE:', currentDisplayCount);
             currentDisplayCount += itemsPerPage;
             console.log('Current display count AFTER:', currentDisplayCount);
-            console.log('About to call filterAnimations()...');
-            filterAnimations(); // Re-render with new count
+            console.log('Re-rendering with same filter/sort...');
+            // Just re-render with increased count - DON'T re-filter or re-sort!
+            renderAnimations(filteredAnimations);
         }
         
         window.scrollToTop = function() {
