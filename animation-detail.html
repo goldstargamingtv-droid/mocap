@@ -1443,6 +1443,10 @@
         
         // Global button handlers
         function handleBuyNow() {
+            console.log('Buy Now clicked!');
+            console.log('Current animation:', currentAnimation);
+            console.log('Stripe:', stripe);
+            
             if (currentAnimation) {
                 buyAnimation(currentAnimation);
             } else {
@@ -1452,12 +1456,137 @@
         }
         
         function handleAddToCart() {
+            console.log('Add to Cart clicked!');
+            console.log('Current animation:', currentAnimation);
+            
             if (currentAnimation) {
                 addToCart(currentAnimation);
             } else {
                 console.error('No animation data loaded');
                 alert('Animation data not loaded. Please refresh the page.');
             }
+        }
+        
+        // Buy Animation function
+        async function buyAnimation(anim) {
+            // Check if user is logged in
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                if (confirm('Please sign in to purchase. Go to sign in page?')) {
+                    window.location.href = 'index.html#auth=login';
+                }
+                return;
+            }
+
+            if (!stripe) {
+                alert('Payment system is initializing. Please try again in a moment.');
+                return;
+            }
+
+            // Show loading overlay
+            const loading = document.createElement('div');
+            loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:99999;';
+            loading.innerHTML = '<div style="background:#1A1A2E;padding:40px;border-radius:16px;text-align:center;border:2px solid #00D4FF;"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#00D4FF;">Processing Payment...</div><div style="color:#9CA3AF;margin-top:8px;">Please wait</div></div>';
+            document.body.appendChild(loading);
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    },
+                    body: JSON.stringify({
+                        userId: session.user.id,
+                        animationId: anim.id,
+                        animationTitle: anim.title,
+                        price: anim.price
+                    })
+                });
+
+                const { sessionId, error } = await response.json();
+
+                if (error) {
+                    document.body.removeChild(loading);
+                    alert('Error creating checkout: ' + error);
+                    return;
+                }
+
+                const { error: stripeError } = await stripe.redirectToCheckout({ sessionId });
+
+                if (stripeError) {
+                    document.body.removeChild(loading);
+                    alert('Error: ' + stripeError.message);
+                }
+            } catch (error) {
+                document.body.removeChild(loading);
+                console.error('Payment error:', error);
+                alert('Error processing payment. Please try again.');
+            }
+        }
+
+        // Add to Cart function
+        async function addToCart(anim) {
+            // Get current cart from localStorage
+            let cart = JSON.parse(localStorage.getItem('mocapwork_cart') || '[]');
+            
+            // Check if already in cart
+            if (!cart.find(item => item.slug === anim.slug)) {
+                cart.push({
+                    slug: anim.slug,
+                    title: anim.title,
+                    price: anim.price,
+                    thumbnail_url: anim.thumbnail_url
+                });
+                localStorage.setItem('mocapwork_cart', JSON.stringify(cart));
+                
+                // Update cart badge
+                updateCartBadge();
+                
+                // Show success message
+                showNotification('✓ Added to cart!');
+            } else {
+                showNotification('Already in cart!');
+            }
+        }
+
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('mocapwork_cart') || '[]');
+            const badge = document.querySelector('.cart-badge');
+            if (badge) {
+                badge.textContent = cart.length;
+            }
+        }
+
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: rgba(26, 26, 46, 0.95);
+                border: 2px solid #10B981;
+                color: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
         }
         
         // Wait for Supabase and Stripe to load
@@ -1705,123 +1834,6 @@
             if (relatedSection) {
                 relatedSection.style.display = 'none';
             }
-        }
-
-        async function buyAnimation(anim) {
-            // Check if user is logged in
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) {
-                if (confirm('Please sign in to purchase. Go to sign in page?')) {
-                    window.location.href = 'index.html#auth=login';
-                }
-                return;
-            }
-
-            if (!stripe) {
-                alert('Payment system is initializing. Please try again in a moment.');
-                return;
-            }
-
-            // Show loading overlay
-            const loading = document.createElement('div');
-            loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:99999;';
-            loading.innerHTML = '<div style="background:#1A1A2E;padding:40px;border-radius:16px;text-align:center;border:2px solid #00D4FF;"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#00D4FF;">Processing Payment...</div><div style="color:#9CA3AF;margin-top:8px;">Please wait</div></div>';
-            document.body.appendChild(loading);
-
-            try {
-                const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${SUPABASE_KEY}`
-                    },
-                    body: JSON.stringify({
-                        userId: session.user.id,
-                        animationId: anim.id,
-                        animationTitle: anim.title,
-                        price: anim.price
-                    })
-                });
-
-                const { sessionId, error } = await response.json();
-
-                if (error) {
-                    document.body.removeChild(loading);
-                    alert('Error creating checkout: ' + error);
-                    return;
-                }
-
-                const { error: stripeError } = await stripe.redirectToCheckout({ sessionId });
-
-                if (stripeError) {
-                    document.body.removeChild(loading);
-                    alert('Error: ' + stripeError.message);
-                }
-            } catch (error) {
-                document.body.removeChild(loading);
-                console.error('Payment error:', error);
-                alert('Error processing payment. Please try again.');
-            }
-        }
-
-        async function addToCart(anim) {
-            // Get current cart from localStorage
-            let cart = JSON.parse(localStorage.getItem('mocapwork_cart') || '[]');
-            
-            // Check if already in cart
-            if (!cart.find(item => item.slug === anim.slug)) {
-                cart.push({
-                    slug: anim.slug,
-                    title: anim.title,
-                    price: anim.price,
-                    thumbnail_url: anim.thumbnail_url
-                });
-                localStorage.setItem('mocapwork_cart', JSON.stringify(cart));
-                
-                // Update cart badge
-                updateCartBadge();
-                
-                // Show success message
-                showNotification('✓ Added to cart!');
-            } else {
-                showNotification('Already in cart!');
-            }
-        }
-
-        function updateCartBadge() {
-            const cart = JSON.parse(localStorage.getItem('mocapwork_cart') || '[]');
-            const badge = document.querySelector('.cart-badge');
-            if (badge) {
-                badge.textContent = cart.length;
-            }
-        }
-
-        function showNotification(message) {
-            // Create notification element
-            const notification = document.createElement('div');
-            notification.textContent = message;
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: rgba(26, 26, 46, 0.95);
-                border: 2px solid #10B981;
-                color: white;
-                padding: 16px 24px;
-                border-radius: 12px;
-                font-weight: 600;
-                z-index: 10000;
-                animation: slideIn 0.3s ease;
-                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            `;
-            
-            document.body.appendChild(notification);
-            
-            // Remove after 3 seconds
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease';
-                setTimeout(() => notification.remove(), 300);
-            }, 3000);
         }
 
         // Preview thumbnails
