@@ -1717,6 +1717,27 @@
             }
         }
         
+        // Handle Dashboard/Library click - Global function
+        async function handleDashboardClick(e) {
+            e.preventDefault();
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                showAuthModal('login');
+            } else {
+                window.location.href = 'dashboard.html';
+            }
+        }
+
+        // Show auth modal - Global function
+        function showAuthModal(type) {
+            window.location.href = 'index.html#auth=' + type;
+        }
+        
+        // Open cart - Global function
+        function openCart() {
+            window.location.href = 'index.html#cart';
+        }
+        
         // Global button handlers
         function handleBuyNow() {
             console.log('Buy Now clicked!');
@@ -2317,27 +2338,6 @@
         }
 
         // Handle dashboard click
-        async function handleDashboardClick(e) {
-            e.preventDefault();
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (!session) {
-                showAuthModal('login');
-            } else {
-                window.location.href = 'dashboard.html';
-            }
-        }
-
-        // Open cart (placeholder - integrate with your existing cart)
-        function openCart() {
-            // You'll integrate this with your existing cart modal
-            window.location.href = 'index.html#cart';
-        }
-
-        // Show auth modal (placeholder - integrate with your existing auth)
-        function showAuthModal(type) {
-            // You'll integrate this with your existing auth modal
-            window.location.href = 'index.html#auth=' + type;
-        }
 
         // Clear navbar search
         function clearSearchNav() {
