@@ -697,6 +697,29 @@
             }
         }
 
+        .btn-outline {
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--text-secondary);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            font-weight: 600;
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--teal);
+            color: var(--teal);
+            transform: translateY(-2px);
+        }
+
         .icon {
             width: 20px;
             height: 20px;
@@ -1529,6 +1552,16 @@
             <div class="related-grid" id="relatedProductsGrid">
                 <!-- Related products will be loaded dynamically -->
             </div>
+            
+            <!-- Load More & Back to Top -->
+            <div style="display: flex; gap: 16px; justify-content: center; margin-top: 40px; flex-wrap: wrap;">
+                <button id="loadMoreRelated" class="btn-secondary" style="display: none;">
+                    Load More Animations
+                </button>
+                <button id="backToTopRelated" class="btn-outline" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                    ↑ Back to Top
+                </button>
+            </div>
         </div>
 
         <!-- FAQ -->
@@ -1974,27 +2007,35 @@
             try {
                 console.log('Loading related products for category:', category, 'excluding ID:', currentAnimationId);
                 
-                // Get 4 animations from the same category, excluding current one
+                // Store all related products globally
+                window.allRelatedProducts = [];
+                window.displayedRelatedCount = 0;
+                const initialDisplayCount = 4; // Show 4 initially
+                
+                // Get 20 animations from the same category, excluding current one
                 const { data: related, error } = await supabaseClient
                     .from('animations')
                     .select('slug, title, price, thumbnail_url, video_url, category')
                     .eq('category', category)
                     .neq('id', currentAnimationId)
-                    .limit(4);
+                    .limit(20);
 
                 console.log('Related products response:', { related, error });
 
                 if (error) {
                     console.error('Supabase error loading related products:', error);
-                    // Try to get any 4 animations instead
+                    // Try to get any 20 animations instead
                     const { data: anyAnimations } = await supabaseClient
                         .from('animations')
                         .select('slug, title, price, thumbnail_url, video_url, category')
                         .neq('id', currentAnimationId)
-                        .limit(4);
+                        .limit(20);
                     
                     if (anyAnimations && anyAnimations.length > 0) {
-                        populateRelatedProducts(anyAnimations);
+                        window.allRelatedProducts = anyAnimations;
+                        populateRelatedProducts(anyAnimations.slice(0, initialDisplayCount));
+                        window.displayedRelatedCount = initialDisplayCount;
+                        setupLoadMoreButton();
                     } else {
                         hideRelatedSection();
                     }
@@ -2002,17 +2043,23 @@
                 }
 
                 if (related && related.length > 0) {
-                    populateRelatedProducts(related);
+                    window.allRelatedProducts = related;
+                    populateRelatedProducts(related.slice(0, initialDisplayCount));
+                    window.displayedRelatedCount = initialDisplayCount;
+                    setupLoadMoreButton();
                 } else {
                     // No products in same category, try to get any other animations
                     const { data: anyAnimations } = await supabaseClient
                         .from('animations')
                         .select('slug, title, price, thumbnail_url, video_url, category')
                         .neq('id', currentAnimationId)
-                        .limit(4);
+                        .limit(20);
                     
                     if (anyAnimations && anyAnimations.length > 0) {
-                        populateRelatedProducts(anyAnimations);
+                        window.allRelatedProducts = anyAnimations;
+                        populateRelatedProducts(anyAnimations.slice(0, initialDisplayCount));
+                        window.displayedRelatedCount = initialDisplayCount;
+                        setupLoadMoreButton();
                     } else {
                         hideRelatedSection();
                     }
@@ -2020,6 +2067,53 @@
             } catch (error) {
                 console.error('Error loading related products:', error);
                 hideRelatedSection();
+            }
+        }
+
+        // Setup Load More button
+        function setupLoadMoreButton() {
+            const loadMoreBtn = document.getElementById('loadMoreRelated');
+            if (loadMoreBtn) {
+                // Show button only if there are more products to load
+                if (window.displayedRelatedCount < window.allRelatedProducts.length) {
+                    loadMoreBtn.style.display = 'inline-flex';
+                    
+                    loadMoreBtn.onclick = function() {
+                        const loadCount = 4; // Load 4 more each time
+                        const currentCount = window.displayedRelatedCount;
+                        const newCount = Math.min(currentCount + loadCount, window.allRelatedProducts.length);
+                        
+                        // Append new products
+                        const relatedGrid = document.getElementById('relatedProductsGrid');
+                        const newProducts = window.allRelatedProducts.slice(currentCount, newCount);
+                        
+                        newProducts.forEach(item => {
+                            const card = document.createElement('div');
+                            card.className = 'related-card';
+                            card.onclick = () => window.location.href = `animation-detail.html?slug=${item.slug}`;
+                            card.innerHTML = `
+                                <img src="${item.video_url || item.thumbnail_url || 'https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent(item.title)}" 
+                                     class="related-image" 
+                                     alt="${item.title}"
+                                     onerror="this.src='https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent('${item.title}')">
+                                <div class="related-info">
+                                    <div class="related-title">${item.title}</div>
+                                    <div class="related-price"><span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${item.price.toFixed(2)}</div>
+                                </div>
+                            `;
+                            relatedGrid.appendChild(card);
+                        });
+                        
+                        window.displayedRelatedCount = newCount;
+                        
+                        // Hide button if all loaded
+                        if (newCount >= window.allRelatedProducts.length) {
+                            loadMoreBtn.style.display = 'none';
+                        }
+                    };
+                } else {
+                    loadMoreBtn.style.display = 'none';
+                }
             }
         }
 
