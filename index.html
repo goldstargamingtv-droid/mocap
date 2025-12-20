@@ -1074,6 +1074,9 @@
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid rgba(0, 212, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .animation-card:hover {
@@ -1239,6 +1242,9 @@
 
         .card-content {
             padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
         .card-title {
@@ -1259,6 +1265,14 @@
             flex-wrap: wrap;
             gap: 8px;
             margin-bottom: 16px;
+        }
+        
+        .card-badges {
+            min-height: 28px;
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
         }
 
         .tag {
@@ -3514,20 +3528,30 @@
                             <div class="card-tags">
                                 ${anim.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
                             </div>
-                            <div class="card-footer">
-                                <div class="card-duration">
-                                    <svg class="icon" viewBox="0 0 24 24">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <polyline points="12 6 12 12 16 14"></polyline>
-                                    </svg>
-                                    <span>${anim.duration}</span>
+                            <!-- Bottom section pushed to bottom -->
+                            <div style="margin-top: auto;">
+                                <div class="card-footer">
+                                    <div class="card-duration">
+                                        <svg class="icon" viewBox="0 0 24 24">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
+                                        </svg>
+                                        <span>${anim.duration}</span>
+                                    </div>
+                                    <div class="card-price">
+                                        ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? `
+                                            <div style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                <span style="font-size: 14px; color: var(--text-muted); text-decoration: line-through; font-weight: 500;">$${anim.price.toFixed(2)}</span>
+                                                <span style="font-size: 22px; font-weight: 700; background: linear-gradient(135deg, #10B981, #86EFAC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Sora', sans-serif;">$${(anim.price * (1 - anim.salePercentage / 100)).toFixed(2)}</span>
+                                            </div>
+                                        ` : `$${anim.price.toFixed(2)}`}
+                                    </div>
                                 </div>
-                                <div class="card-price">$${anim.price}</div>
                             </div>
                         </div>
                     </a>
                     <div style="padding: 0 24px 24px;">
-                        <button class="buy-now-btn" onclick="event.stopPropagation(); handleBuyNow('${anim.id}', '${anim.title}', ${anim.price})">
+                        <button class="buy-now-btn" onclick="event.stopPropagation(); handleBuyNow('${anim.id}', '${anim.title}', ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? (anim.price * (1 - anim.salePercentage / 100)).toFixed(2) : anim.price})">
                             Buy Now
                         </button>
                         <button class="add-to-cart-btn" onclick="event.stopPropagation(); handleAddToCart('${anim.id}')">
@@ -3838,9 +3862,19 @@
                     });
                 }
                 
-                alert('Added to cart!');
+                // Show success notification
+                const notification = document.createElement('div');
+                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #10B981;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(16,185,129,0.4);';
+                notification.innerHTML = '<div style="color:#86EFAC;font-weight:600;font-size:14px;">🛒 Added to cart!</div>';
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 2000);
             } else {
-                alert('Already in cart!');
+                // Show already in cart notification
+                const notification = document.createElement('div');
+                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #F59E0B;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(245,158,11,0.4);';
+                notification.innerHTML = '<div style="color:#FCD34D;font-weight:600;font-size:14px;">ℹ️ Already in cart!</div>';
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 2000);
             }
         }
         
@@ -3861,23 +3895,48 @@
         
         window.addSelectedToCart = function() {
             if (selectedAnimations.length === 0) {
-                alert('Please select animations first');
+                // Show warning notification
+                const notification = document.createElement('div');
+                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #F59E0B;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(245,158,11,0.4);';
+                notification.innerHTML = '<div style="color:#FCD34D;font-weight:600;font-size:14px;">⚠️ Please select animations first</div>';
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 2000);
                 return;
             }
             
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             let addedCount = 0;
+            let alreadyInCartCount = 0;
             
             selectedAnimations.forEach(id => {
                 if (!cart.includes(id)) {
                     cart.push(id);
                     addedCount++;
+                } else {
+                    alreadyInCartCount++;
                 }
             });
             
             localStorage.setItem('cart', JSON.stringify(cart));
             updateCartBadge();
-            alert(`Added ${addedCount} animation(s) to cart!`);
+            
+            // Show success notification
+            if (addedCount > 0) {
+                const notification = document.createElement('div');
+                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #10B981;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(16,185,129,0.4);';
+                notification.innerHTML = `
+                    <div style="color:#86EFAC;font-weight:600;font-size:14px;">🛒 Added ${addedCount} animation${addedCount > 1 ? 's' : ''} to cart!</div>
+                    ${alreadyInCartCount > 0 ? `<div style="color:#9CA3AF;font-size:12px;margin-top:4px;">${alreadyInCartCount} already in cart</div>` : ''}
+                `;
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 3000);
+            } else if (alreadyInCartCount > 0) {
+                const notification = document.createElement('div');
+                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #F59E0B;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(245,158,11,0.4);';
+                notification.innerHTML = '<div style="color:#FCD34D;font-weight:600;font-size:14px;">ℹ️ All selected items already in cart!</div>';
+                document.body.appendChild(notification);
+                setTimeout(() => notification.remove(), 2000);
+            }
             
             clearSelection();
         }
@@ -3949,7 +4008,11 @@
                 let total = 0;
                 
                 cartItemsContainer.innerHTML = cartItems.map(item => {
-                    total += item.price;
+                    // Calculate sale price if applicable
+                    const isOnSale = (item.on_sale || item.holiday_sale) && item.sale_percentage;
+                    const finalPrice = isOnSale ? item.price * (1 - item.sale_percentage / 100) : item.price;
+                    total += finalPrice;
+                    
                     const imageUrl = item.video_type === 'image/gif' ? item.video_url : item.thumbnail_url;
                     return `
                         <div class="cart-item">
@@ -3962,7 +4025,14 @@
                             </div>
                             <div class="cart-item-info">
                                 <div class="cart-item-title">${item.title}</div>
-                                <div class="cart-item-price">$${item.price}</div>
+                                <div class="cart-item-price">
+                                    ${isOnSale ? `
+                                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                                            <span style="font-size: 12px; color: var(--text-muted); text-decoration: line-through;">$${item.price.toFixed(2)}</span>
+                                            <span style="font-size: 18px; font-weight: 800; background: linear-gradient(135deg, #10B981, #86EFAC); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$${finalPrice.toFixed(2)}</span>
+                                        </div>
+                                    ` : `$${item.price.toFixed(2)}`}
+                                </div>
                             </div>
                         </div>
                     `;
