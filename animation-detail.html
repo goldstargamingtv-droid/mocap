@@ -1461,12 +1461,17 @@
         const urlParams = new URLSearchParams(window.location.search);
         const animationSlug = urlParams.get('slug');
 
+        console.log('Animation slug from URL:', animationSlug);
+
         // Load animation data
         async function loadAnimationData() {
             if (!animationSlug) {
-                console.error('No animation slug provided');
+                console.error('No animation slug provided in URL');
+                alert('No animation specified. Please use: animation-detail.html?slug=your-animation-slug');
                 return;
             }
+
+            console.log('Loading animation data for:', animationSlug);
 
             try {
                 // Fetch animation from database
@@ -1476,22 +1481,35 @@
                     .eq('slug', animationSlug)
                     .single();
 
-                if (error) throw error;
+                console.log('Supabase response:', { animation, error });
+
+                if (error) {
+                    console.error('Supabase error:', error);
+                    throw error;
+                }
+                
                 if (!animation) {
-                    console.error('Animation not found');
+                    console.error('Animation not found for slug:', animationSlug);
+                    alert('Animation not found');
                     return;
                 }
 
+                console.log('Animation loaded successfully:', animation);
+                
                 // Populate page with data
                 populatePage(animation);
             } catch (error) {
                 console.error('Error loading animation:', error);
+                alert('Error loading animation: ' + error.message);
             }
         }
 
         function populatePage(anim) {
+            console.log('Populating page with animation data:', anim);
+            
             // Update page title
             document.title = `${anim.title} - MocapWork`;
+            console.log('Set page title:', document.title);
             
             // Update meta description
             const metaDesc = document.querySelector('meta[name="description"]');
