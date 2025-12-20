@@ -1240,18 +1240,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="preview-thumbnails">
+                <div class="preview-thumbnails" id="previewThumbnails">
+                    <!-- Thumbnails will be loaded dynamically from database -->
                     <div class="preview-thumb active">
-                        <img src="https://via.placeholder.com/200x200/1A1A2E/00D4FF?text=1" alt="Preview 1">
+                        <img src="" alt="Preview 1" class="thumb-img">
                     </div>
                     <div class="preview-thumb">
-                        <img src="https://via.placeholder.com/200x200/1A1A2E/F59E0B?text=2" alt="Preview 2">
+                        <img src="" alt="Preview 2" class="thumb-img">
                     </div>
                     <div class="preview-thumb">
-                        <img src="https://via.placeholder.com/200x200/1A1A2E/00D4FF?text=3" alt="Preview 3">
+                        <img src="" alt="Preview 3" class="thumb-img">
                     </div>
                     <div class="preview-thumb">
-                        <img src="https://via.placeholder.com/200x200/1A1A2E/F59E0B?text=4" alt="Preview 4">
+                        <img src="" alt="Preview 4" class="thumb-img">
                     </div>
                 </div>
 
@@ -1747,6 +1748,23 @@
                         mainPreview.style.display = 'block';
                         if (previewContainer) previewContainer.style.opacity = '1';
                     };
+                    
+                    // Populate thumbnail previews
+                    // If preview_images array exists in database, use those
+                    // Otherwise, show the same video_url 4 times
+                    const thumbImages = document.querySelectorAll('.thumb-img');
+                    
+                    if (anim.preview_images && Array.isArray(anim.preview_images) && anim.preview_images.length > 0) {
+                        // Use preview_images from database
+                        thumbImages.forEach((img, index) => {
+                            img.src = anim.preview_images[index] || imageUrl;
+                        });
+                    } else {
+                        // Default: show same GIF 4 times
+                        thumbImages.forEach(img => {
+                            img.src = imageUrl;
+                        });
+                    }
                 } else {
                     // No image available, hide loader
                     if (previewLoader) previewLoader.style.display = 'none';
@@ -1878,13 +1896,19 @@
             }
         }
 
-        // Preview thumbnails
+        // Preview thumbnails - click to change main image
         const thumbs = document.querySelectorAll('.preview-thumb');
         thumbs.forEach((thumb, index) => {
             thumb.addEventListener('click', () => {
                 thumbs.forEach(t => t.classList.remove('active'));
                 thumb.classList.add('active');
-                // In real implementation, change main preview image
+                
+                // Change main preview image
+                const mainPreview = document.getElementById('mainPreview');
+                const thumbImg = thumb.querySelector('img');
+                if (mainPreview && thumbImg) {
+                    mainPreview.src = thumbImg.src;
+                }
             });
         });
 
