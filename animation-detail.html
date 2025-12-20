@@ -3,24 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- SEO Meta Tags -->
-    <title>Portal Exit - Premium Motion Capture Animation | MocapWork</title>
-    <meta name="description" content="Professional portal exit mocap animation. Studio-quality motion capture ready for Unreal Engine, Unity, Blender, and more.">
+    <title>Combat Sword Master Pack - MocapWork</title>
+    <meta name="description" content="Professional combat sword mocap animation pack. Studio-quality motion capture ready for Unreal Engine, Unity, Blender.">
     
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MFZSKB0V4"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag(){dataLayer.push(arguments);};
       gtag('js', new Date());
       gtag('config', 'G-3MFZSKB0V4');
     </script>
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%2300D4FF;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23F59E0B;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='url(%23grad)'/%3E%3Ctext x='50' y='70' font-family='Arial, sans-serif' font-size='45' font-weight='bold' fill='white' text-anchor='middle'%3EMV%3C/text%3E%3C/svg%3E">
-    
-    <!-- Google Fonts -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -32,18 +27,12 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         :root {
             --bg-primary: #0F0F1A;
             --bg-secondary: #1A1A2E;
             --bg-card: #1A1A2E;
             --teal: #00D4FF;
-            --teal-dark: #00A8CC;
             --amber: #F59E0B;
-            --amber-light: #FBBF24;
             --text-primary: #F5F5F5;
             --text-secondary: #9CA3AF;
             --text-muted: #6B7280;
@@ -56,7 +45,6 @@
                               radial-gradient(circle at 70% 80%, rgba(245, 158, 11, 0.12), transparent 50%);
             background-attachment: fixed;
             color: var(--text-primary);
-            overflow-x: hidden;
             line-height: 1.6;
         }
 
@@ -66,20 +54,261 @@
             top: 0;
             left: 0;
             right: 0;
-            z-index: 50;
+            z-index: 10002;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             background: rgba(15, 15, 26, 0.92);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 212, 255, 0.15);
         }
 
         .navbar-container {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 0 32px;
+            padding: 0 40px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            height: 80px;
+            gap: 24px;
+            height: 70px;
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            margin-left: 16px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--teal);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Navbar Search */
+        .nav-search {
+            flex: 1;
+            position: relative;
+            margin-left: 24px;
+            margin-right: 24px;
+        }
+
+        .search-input-nav {
+            width: 100%;
+            padding: 10px 40px 10px 40px;
+            background: rgba(26, 26, 46, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 25px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-input-nav:focus {
+            outline: none;
+            border-color: var(--teal);
+            background: rgba(26, 26, 46, 0.8);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .search-input-nav::placeholder {
+            color: var(--text-muted);
+        }
+
+        .search-icon-nav {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            opacity: 0.6;
+        }
+
+        .search-clear-nav {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .search-clear-nav:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .search-dropdown-nav {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .search-dropdown-nav.active {
+            display: block;
+        }
+
+        .search-section {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .search-section:last-child {
+            border-bottom: none;
+        }
+
+        .search-section-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .search-result-item {
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+
+        .search-result-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .search-result-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .search-result-text {
+            flex: 1;
+            color: var(--text-primary);
+        }
+
+        .search-result-text strong {
+            color: var(--teal);
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .cart-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .cart-icon {
+            position: relative !important;
+            cursor: pointer;
+            padding: 8px;
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            isolation: isolate;
+        }
+
+        .cart-icon:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+
+        .cart-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--teal);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .cart-badge {
+            position: absolute !important;
+            top: -4px !important;
+            right: -4px !important;
+            background: var(--amber);
+            color: #000000;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 5px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            z-index: 10;
+        }
+
+        .btn-logout-nav {
+            padding: 8px 16px;
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #FCA5A5;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .btn-logout-nav:hover {
+            background: rgba(239, 68, 68, 0.3);
         }
 
         .logo {
@@ -90,17 +319,59 @@
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             background: linear-gradient(135deg, var(--teal), var(--amber));
-            border-radius: 10px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            background: var(--bg-primary);
+            border-radius: 6px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
         }
 
         .logo-text {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
+            letter-spacing: -0.5px;
             color: var(--text-primary);
-            font-family: 'Sora', sans-serif;
         }
 
         .logo-text span {
@@ -109,397 +380,706 @@
             -webkit-text-fill-color: transparent;
         }
 
-        .back-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-            display: flex;
+        .nav-links {
+            display: none;
+            gap: 40px;
+            list-style: none;
             align-items: center;
-            gap: 8px;
+        }
+        
+        .mobile-menu-close {
+            display: none;
         }
 
-        .back-link:hover {
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--teal);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .btn-login {
+            padding: 10px 28px;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 10px;
+            border: 2px solid var(--teal);
+            color: #FFFFFF !important;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            font-family: 'Sora', sans-serif;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .btn-login:hover {
+            background: var(--teal);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+        }
+
+        .hamburger-menu {
+            display: none !important;
+            background: none;
+            border: none;
+            color: var(--teal);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        @media (min-width: 769px) {
+            .hamburger-menu {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+                pointer-events: none !important;
+            }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 40px 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .breadcrumb a:hover {
             color: var(--teal);
         }
 
-        /* Hero Preview Section */
-        .hero-preview {
-            padding: 100px 32px 60px;
-            max-width: 1400px;
-            margin: 0 auto;
+        .breadcrumb span {
+            color: var(--text-primary);
         }
 
-        .main-layout {
+        /* Main Layout */
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px 80px;
+        }
+
+        .product-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            grid-template-columns: 1fr 500px;
+            gap: 60px;
             margin-bottom: 60px;
         }
 
-        .preview-container {
-            position: relative;
-            background: rgba(26, 26, 46, 0.6);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 20px;
-            overflow: hidden;
-            aspect-ratio: 4/3;
+        /* Preview Section */
+        .preview-section {
             position: sticky;
             top: 100px;
+            height: fit-content;
         }
 
-        .preview-video {
+        .preview-main {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .preview-main img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            display: block;
         }
 
-        .preview-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 24px;
-            background: linear-gradient(180deg, rgba(15, 15, 26, 0.8) 0%, transparent 100%);
-        }
-
-        .preview-title {
-            font-size: 32px;
-            font-weight: 800;
-            font-family: 'Sora', sans-serif;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .preview-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            background: var(--amber);
-            color: #000;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-top: 12px;
-        }
-
-        /* Content Section */
-        .content-section {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 32px 60px;
-        }
-
-        .right-column {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .narrative-section h2 {
-            font-size: 24px;
-            font-weight: 800;
-            font-family: 'Sora', sans-serif;
-            margin-bottom: 16px;
-            color: var(--text-primary);
-        }
-
-        .narrative-text {
-            font-size: 16px;
-            line-height: 1.7;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
-
-        .narrative-placeholder {
-            padding: 24px;
-            background: rgba(0, 212, 255, 0.05);
-            border: 2px dashed rgba(0, 212, 255, 0.2);
-            border-radius: 12px;
-            text-align: center;
-            color: var(--text-muted);
-            font-style: italic;
-            font-size: 14px;
-        }
-
-        /* Metadata Cards */
-        .metadata-section {
-            background: rgba(26, 26, 46, 0.6);
-            border: 1px solid rgba(0, 212, 255, 0.15);
-            border-radius: 16px;
-            padding: 24px;
-        }
-
-        .metadata-section h3 {
-            font-size: 18px;
-            font-weight: 700;
-            font-family: 'Sora', sans-serif;
-            margin-bottom: 16px;
-            color: var(--text-primary);
-        }
-
-        .metadata-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
-        }
-
-        .metadata-item:last-child {
-            border-bottom: none;
-        }
-
-        .metadata-label {
-            font-weight: 600;
-            color: var(--text-secondary);
-            font-size: 13px;
-        }
-
-        .metadata-value {
-            color: var(--text-primary);
-            font-weight: 600;
-            text-align: right;
-            font-size: 13px;
-        }
-
-        .metadata-placeholder {
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        /* Compatibility Section */
-        .compatibility-section {
-            background: rgba(26, 26, 46, 0.6);
-            border: 1px solid rgba(0, 212, 255, 0.15);
-            border-radius: 16px;
-            padding: 24px;
-        }
-
-        .compatibility-section h2 {
-            font-size: 18px;
-            font-weight: 800;
-            font-family: 'Sora', sans-serif;
-            margin-bottom: 16px;
-        }
-
-        .compatibility-grid {
+        .preview-thumbnails {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 12px;
         }
 
-        .compatibility-badge {
-            background: rgba(0, 212, 255, 0.05);
-            border: 1px solid rgba(0, 212, 255, 0.15);
+        .preview-thumb {
+            background: var(--bg-secondary);
             border-radius: 12px;
-            padding: 16px 12px;
-            text-align: center;
-            transition: all 0.3s ease;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
         }
 
-        .compatibility-badge:hover {
+        .preview-thumb:hover,
+        .preview-thumb.active {
             border-color: var(--teal);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(0, 212, 255, 0.2);
         }
 
-        .compatibility-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
+        .preview-thumb img {
+            width: 100%;
+            display: block;
         }
 
-        .compatibility-name {
+        /* Info Section */
+        .info-section {
+        }
+
+        .product-header {
+            margin-bottom: 24px;
+        }
+
+        .product-title {
+            font-size: 36px;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .product-badges {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
+        }
+
+        .badge-popular {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--amber);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .badge-category {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--teal);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .rating-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stars {
+            color: var(--amber);
+            font-size: 18px;
+        }
+
+        .rating-number {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .rating-count {
             color: var(--text-secondary);
+            font-size: 14px;
         }
 
-        /* Pricing Section */
-        .pricing-section {
-            background: rgba(26, 26, 46, 0.6);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 16px;
-            padding: 24px;
+        .description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 32px;
+            font-size: 16px;
         }
 
-        .pricing-header {
-            text-align: center;
-            margin-bottom: 20px;
+        /* Price & Purchase */
+        .price-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
         }
 
         .price-display {
             font-size: 48px;
-            font-weight: 900;
+            font-weight: 800;
             font-family: 'Sora', sans-serif;
+            color: #FFFFFF;
+            margin-bottom: 24px;
+        }
+
+        .price-display .dollar-sign {
             background: linear-gradient(135deg, var(--teal), var(--amber));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 4px;
+            background-clip: text;
         }
 
-        .price-placeholder {
-            color: var(--text-muted);
-            font-style: italic;
-        }
-
-        .license-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .license-option {
-            background: rgba(0, 212, 255, 0.05);
-            border: 2px solid rgba(0, 212, 255, 0.2);
-            border-radius: 12px;
-            padding: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .license-option:hover,
-        .license-option.selected {
-            border-color: var(--teal);
-            background: rgba(0, 212, 255, 0.1);
-        }
-
-        .license-name {
-            font-weight: 700;
-            font-size: 14px;
-            margin-bottom: 6px;
-        }
-
-        .license-desc {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .action-buttons {
+        .purchase-buttons {
             display: flex;
             gap: 12px;
             margin-bottom: 16px;
         }
 
         .btn {
-            flex: 1;
-            padding: 14px;
-            border-radius: 10px;
+            padding: 16px 32px;
+            border-radius: 12px;
             font-weight: 800;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
+            flex: 1;
             font-family: 'Sora', sans-serif;
-            text-transform: uppercase;
-            border: none;
         }
 
         .btn-primary {
-            background: #10B981;
-            color: white;
-            box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+            background: rgba(26, 26, 46, 0.8);
+            border: 2px solid #10B981;
+            color: #FFFFFF;
+        }
+
+        .btn-primary::before {
+            content: "💳 ";
         }
 
         .btn-primary:hover {
+            background: #10B981;
+            border-color: #10B981;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.5);
         }
 
         .btn-secondary {
             background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.3);
             color: var(--teal);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            font-weight: 600;
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .btn-secondary:hover {
             background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
+            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4), 0 4px 12px rgba(245, 158, 11, 0.3);
+            transform: translateY(-2px);
         }
 
-        .license-link {
-            text-align: center;
+        .icon {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .license-note {
+            color: var(--text-secondary);
             font-size: 13px;
-            color: var(--text-muted);
+            text-align: center;
         }
 
-        .license-link a {
+        .license-note a {
             color: var(--teal);
             text-decoration: none;
         }
 
-        /* Related Animations */
+        /* File Info */
+        .file-info-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .file-info-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .file-list {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .file-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        .file-list li:last-child {
+            border-bottom: none;
+        }
+
+        .file-size {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Specs Table */
+        .specs-table {
+            width: 100%;
+            margin-bottom: 32px;
+        }
+
+        .specs-table tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .specs-table td {
+            padding: 16px 0;
+        }
+
+        .specs-table td:first-child {
+            color: var(--text-secondary);
+            width: 40%;
+        }
+
+        .specs-table td:last-child {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Compatibility */
+        .compatibility-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .compat-badge {
+            background: rgba(0, 212, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .compat-badge:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--teal);
+        }
+
+        .compat-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .compat-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Tags */
+        .tags-section {
+            margin-bottom: 32px;
+        }
+
+        .tags-section h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 8px 16px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--teal);
+        }
+
+        /* Reviews */
+        .reviews-section {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .reviews-section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .review-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .reviewer-name {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .review-stars {
+            color: var(--amber);
+        }
+
+        .review-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 8px;
+        }
+
+        .review-date {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* FAQ */
+        .faq-section {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .faq-section h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 32px;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .faq-question:hover {
+            color: var(--teal);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: var(--text-secondary);
+            padding-top: 0;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+            padding-top: 12px;
+        }
+
+        /* Related */
         .related-section {
-            margin-bottom: 60px;
+            margin-bottom: 40px;
         }
 
         .related-section h2 {
             font-size: 28px;
-            font-weight: 800;
+            font-weight: 700;
+            margin-bottom: 32px;
             font-family: 'Sora', sans-serif;
-            margin-bottom: 24px;
         }
 
         .related-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
         }
 
         .related-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(0, 212, 255, 0.08);
-            border-radius: 14px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 16px;
             overflow: hidden;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
+            transition: all 0.3s;
         }
 
         .related-card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-8px);
             border-color: var(--teal);
-            box-shadow: 0 12px 24px rgba(0, 212, 255, 0.2);
         }
 
-        .related-thumbnail {
-            aspect-ratio: 4/3;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(245, 158, 11, 0.1));
-        }
-
-        .related-thumbnail img {
+        .related-image {
             width: 100%;
-            height: 100%;
+            aspect-ratio: 1;
             object-fit: cover;
         }
 
-        .related-content {
+        .related-info {
             padding: 16px;
         }
 
         .related-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 6px;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
 
         .related-price {
-            font-size: 18px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--teal);
+            font-weight: 700;
         }
 
-        /* Responsive */
-        @media (max-width: 968px) {
-            .main-layout {
+        /* Share */
+        .share-section {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .share-btn {
+            padding: 10px 20px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .share-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--teal);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-center,
+            .nav-search {
+                display: none;
+            }
+
+            .hamburger-menu {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                pointer-events: all !important;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 280px;
+                height: 100vh;
+                background: var(--bg-secondary);
+                border-left: 1px solid rgba(0, 212, 255, 0.2);
+                flex-direction: column;
+                padding: 80px 24px 24px;
+                gap: 0;
+                box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .nav-links li a {
+                display: block;
+                padding: 16px 0;
+                width: 100%;
+            }
+
+            .mobile-menu-close {
+                display: block;
+                position: absolute;
+                top: 24px;
+                right: 24px;
+                background: none;
+                border: none;
+                color: var(--text-primary);
+                font-size: 24px;
+                cursor: pointer;
+                padding: 8px;
+            }
+
+            .product-grid {
                 grid-template-columns: 1fr;
             }
 
-            .preview-container {
-                position: static;
+            .preview-section {
+                position: relative;
+                top: 0;
+            }
+
+            .related-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .compatibility-grid {
@@ -507,476 +1087,909 @@
             }
         }
 
-        @media (max-width: 768px) {
-            .navbar-container {
-                padding: 0 20px;
-            }
-
-            .hero-preview {
-                padding: 90px 20px 40px;
-            }
-
-            .content-section {
-                padding: 0 20px 40px;
-            }
-
-            .license-options {
-                grid-template-columns: 1fr;
-            }
-
-            .action-buttons {
+        @media (max-width: 640px) {
+            .purchase-buttons {
                 flex-direction: column;
             }
 
-            .preview-title {
-                font-size: 24px;
-            }
-
-            .price-display {
-                font-size: 36px;
+            .related-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <div class="navbar-container">
+            <!-- Logo -->
             <a href="index.html" class="logo">
                 <div class="logo-icon"></div>
-                <span class="logo-text">Motion<span>Work</span></span>
+                <span class="logo-text font-sora">
+                    Mocap<span>Work</span>
+                </span>
             </a>
-            <a href="index.html#library" class="back-link">
-                ← Back to Library
-            </a>
+
+            <!-- Main Nav Links -->
+            <div class="nav-center">
+                <a href="index.html#library" class="nav-link">Animations</a>
+                <a href="#" onclick="handleDashboardClick(event); return false;" class="nav-link">My Library</a>
+                <a href="index.html#contact" class="nav-link">Contact</a>
+                <a href="index.html#faq" class="nav-link">FAQ</a>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="nav-search">
+                <span class="search-icon-nav">🔍</span>
+                <input 
+                    type="text" 
+                    class="search-input-nav" 
+                    id="searchInputNav" 
+                    placeholder="Search animations..."
+                    autocomplete="off"
+                >
+                <button class="search-clear-nav" id="searchClearNav" onclick="clearSearchNav()">✕</button>
+                
+                <div class="search-dropdown-nav" id="searchDropdownNav">
+                    <!-- Results populated here -->
+                </div>
+            </div>
+
+            <!-- Right Side Actions -->
+            <div class="nav-right">
+                <div id="authLinks">
+                    <a href="#" onclick="showAuthModal('login'); return false;" class="btn-login">Sign In</a>
+                </div>
+                <div id="userMenu" style="display: none;">
+                    <button onclick="logout()" class="btn-logout-nav">Sign Out</button>
+                </div>
+                <div class="cart-container">
+                    <div class="cart-icon" onclick="openCart()" title="View Cart" role="button" aria-label="Shopping cart" tabindex="0">
+                        <svg viewBox="0 0 24 24">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <span class="cart-badge">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <button class="hamburger-menu" aria-label="Toggle navigation menu">☰</button>
+            
+            <ul class="nav-links">
+                <button class="mobile-menu-close">✕</button>
+                
+                <!-- Mobile Search -->
+                <li style="padding: 20px; border-bottom: 1px solid rgba(0, 212, 255, 0.1);">
+                    <div style="position: relative;" id="mobileSearchWrapper">
+                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.6;">🔍</span>
+                        <input 
+                            type="text" 
+                            id="mobileSearchInput"
+                            placeholder="Search animations..."
+                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(26, 26, 46, 0.6); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
+                        >
+                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 10000;">
+                            <!-- Results populated here -->
+                        </div>
+                    </div>
+                </li>
+                
+                <li><a href="index.html#library" onclick="toggleMobileMenu()">Animations</a></li>
+                <li><a href="#" onclick="handleDashboardClick(event); toggleMobileMenu()">My Library</a></li>
+                <li><a href="index.html#contact" onclick="toggleMobileMenu()">Contact</a></li>
+                <li><a href="index.html#faq" onclick="toggleMobileMenu()">FAQ</a></li>
+                <li id="mobileAuthLink"><a href="#" onclick="showAuthModal('login'); toggleMobileMenu(); return false;">Sign In</a></li>
+            </ul>
         </div>
     </nav>
 
-    <!-- Hero Preview Section -->
-    <section class="hero-preview">
-        <div class="main-layout">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> / 
+        <a href="index.html#library">Animations</a> / 
+        <a href="#">Combat</a> / 
+        <span>Combat Sword Master Pack</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <div class="product-grid">
             <!-- Left: Preview -->
-            <div class="preview-container">
-                <img src="https://media.giphy.com/media/xT9IgDEI1iZyb2wqo8/giphy.gif" alt="Portal Exit Animation" class="preview-video">
-                <div class="preview-overlay">
-                    <h1 class="preview-title">Portal Exit</h1>
-                    <span class="preview-badge">Popular</span>
+            <div class="preview-section">
+                <div class="preview-main">
+                    <img src="https://media.giphy.com/media/xT9IgDEI1iZyb2wqo8/giphy.gif" alt="Combat Sword Master Pack" id="mainPreview">
+                </div>
+                <div class="preview-thumbnails">
+                    <div class="preview-thumb active">
+                        <img src="https://via.placeholder.com/200x200/1A1A2E/00D4FF?text=1" alt="Preview 1">
+                    </div>
+                    <div class="preview-thumb">
+                        <img src="https://via.placeholder.com/200x200/1A1A2E/F59E0B?text=2" alt="Preview 2">
+                    </div>
+                    <div class="preview-thumb">
+                        <img src="https://via.placeholder.com/200x200/1A1A2E/00D4FF?text=3" alt="Preview 3">
+                    </div>
+                    <div class="preview-thumb">
+                        <img src="https://via.placeholder.com/200x200/1A1A2E/F59E0B?text=4" alt="Preview 4">
+                    </div>
+                </div>
+
+                <!-- Share -->
+                <div class="share-section" style="margin-top: 24px;">
+                    <button class="share-btn" onclick="share('twitter')">🐦 Tweet</button>
+                    <button class="share-btn" onclick="share('facebook')">👍 Share</button>
+                    <button class="share-btn" onclick="copyLink()">🔗 Copy</button>
                 </div>
             </div>
 
-            <!-- Right: All Content -->
-            <div class="right-column">
-                <!-- Narrative Description -->
-                <div class="narrative-section">
-                    <h2>Animation Description</h2>
-                    <div class="narrative-placeholder">
-                        Engaging story and description will be added here from the database.
+            <!-- Right: Info -->
+            <div class="info-section">
+                <!-- Header -->
+                <div class="product-header">
+                    <div class="product-badges">
+                        <span class="badge badge-popular">⭐ POPULAR</span>
+                        <span class="badge badge-category">Combat</span>
                     </div>
+                    <h1 class="product-title">Combat Sword Master Pack</h1>
                 </div>
 
-                <!-- Pricing & License -->
-                <div class="pricing-section">
-                    <div class="pricing-header">
-                        <div class="price-display price-placeholder">$X.XX</div>
-                        <p style="color: var(--text-secondary); font-size: 13px;">Price will be loaded from database</p>
-                    </div>
+                <!-- Description -->
+                <p class="description">
+                    Professional sword combat animation pack featuring 12 high-quality mocap animations. 
+                    Perfect for action games, RPGs, and cinematic sequences. Includes attack combos, 
+                    defensive stances, and special moves. Captured with professional actors in a studio environment 
+                    for maximum realism and quality. Purchase once, use forever with unlimited commercial rights.
+                </p>
 
-                    <div class="license-options">
-                        <div class="license-option selected">
-                            <div class="license-name">Single License</div>
-                            <div class="license-desc">Individual & small projects</div>
-                        </div>
-                        <div class="license-option">
-                            <div class="license-name">Studio License</div>
-                            <div class="license-desc">Teams & commercial</div>
-                        </div>
+                <!-- Price & Purchase -->
+                <div class="price-card">
+                    <div class="price-display"><span class="dollar-sign">$</span>1.00</div>
+                    <div class="purchase-buttons">
+                        <button class="btn btn-primary">Buy Now</button>
+                        <button class="btn btn-secondary">
+                            <svg class="icon" viewBox="0 0 24 24">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Add to Cart
+                        </button>
                     </div>
-
-                    <div class="action-buttons">
-                        <button class="btn btn-primary">💳 Buy Now</button>
-                        <button class="btn btn-secondary">Add to Cart</button>
-                    </div>
-
-                    <p class="license-link">
-                        <a href="#">Learn more about licenses →</a>
+                    <p class="license-note">
+                        Royalty-Free License • Lifetime access in your library • Unlimited commercial use
                     </p>
                 </div>
 
-                <!-- Metadata -->
-                <div class="metadata-section">
-                    <h3>Technical Details</h3>
-                    <div class="metadata-item">
-                        <span class="metadata-label">Duration</span>
-                        <span class="metadata-value metadata-placeholder">TBD</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="metadata-label">Frame Rate</span>
-                        <span class="metadata-value metadata-placeholder">TBD</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="metadata-label">Animations</span>
-                        <span class="metadata-value metadata-placeholder">TBD</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="metadata-label">Formats</span>
-                        <span class="metadata-value metadata-placeholder">TBD</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="metadata-label">Skeleton</span>
-                        <span class="metadata-value metadata-placeholder">TBD</span>
-                    </div>
-                    <div class="metadata-item">
-                        <span class="metadata-label">Mocap Process</span>
-                        <span class="metadata-value metadata-placeholder">TBD</span>
-                    </div>
+                <!-- File Info -->
+                <div class="file-info-card">
+                    <h3>📁 What's Included</h3>
+                    <ul class="file-list">
+                        <li>✓ 1 FBX animation file (Unreal/Unity ready)</li>
+                        <li>✓ BVH files for Blender & other tools</li>
+                        <li>✓ Documentation PDF with setup guide</li>
+                        <li>✓ Lifetime access in your library</li>
+                        <li>✓ Re-download anytime, forever</li>
+                    </ul>
+                    <div class="file-size" id="fileSizeDisplay">Total Download Size: Loading...</div>
+                </div>
+
+                <!-- Technical Specs -->
+                <div class="file-info-card">
+                    <h3>⚙️ Technical Specifications</h3>
+                    <table class="specs-table">
+                        <tr>
+                            <td>File Formats</td>
+                            <td>FBX, BVH, USD</td>
+                        </tr>
+                        <tr>
+                            <td>Frame Rate</td>
+                            <td>30 FPS (retargetable)</td>
+                        </tr>
+                        <tr>
+                            <td>Animations Included</td>
+                            <td>12 unique movements</td>
+                        </tr>
+                        <tr>
+                            <td>Skeleton</td>
+                            <td>UE5 Mannequin, Mixamo compatible</td>
+                        </tr>
+                        <tr>
+                            <td>Root Motion</td>
+                            <td>Included & removable</td>
+                        </tr>
+                        <tr>
+                            <td>Loopable</td>
+                            <td>Yes (select animations)</td>
+                        </tr>
+                        <tr>
+                            <td>Gender</td>
+                            <td>Male</td>
+                        </tr>
+                        <tr>
+                            <td>Style</td>
+                            <td>Realistic</td>
+                        </tr>
+                    </table>
                 </div>
 
                 <!-- Compatibility -->
-                <div class="compatibility-section">
-                    <h2>Compatible With</h2>
+                <div class="file-info-card">
+                    <h3>🎮 Compatible With</h3>
                     <div class="compatibility-grid">
-                        <div class="compatibility-badge">
-                            <div class="compatibility-icon">🎮</div>
-                            <div class="compatibility-name">Unreal Engine</div>
+                        <div class="compat-badge">
+                            <div class="compat-icon">
+                                <img src="unreal-white.svg" alt="Unreal Engine" style="height: 32px; opacity: 0.8;">
+                            </div>
+                            <div class="compat-name">Unreal Engine</div>
                         </div>
-                        <div class="compatibility-badge">
-                            <div class="compatibility-icon">🔷</div>
-                            <div class="compatibility-name">Unity</div>
+                        <div class="compat-badge">
+                            <div class="compat-icon">
+                                <img src="unity-white.svg" alt="Unity" style="height: 32px; opacity: 0.8;">
+                            </div>
+                            <div class="compat-name">Unity</div>
                         </div>
-                        <div class="compatibility-badge">
-                            <div class="compatibility-icon">🎨</div>
-                            <div class="compatibility-name">Blender</div>
+                        <div class="compat-badge">
+                            <div class="compat-icon">
+                                <img src="blender-white.svg" alt="Blender" style="height: 32px; opacity: 0.8;">
+                            </div>
+                            <div class="compat-name">Blender</div>
                         </div>
-                        <div class="compatibility-badge">
-                            <div class="compatibility-icon">⚡</div>
-                            <div class="compatibility-name">Fortnite UEFN</div>
-                        </div>
+                    </div>
+                </div>
+
+                <!-- Tags -->
+                <div class="tags-section">
+                    <h3>🏷️ Tags</h3>
+                    <div class="tags">
+                        <span class="tag">Combat</span>
+                        <span class="tag">Sword</span>
+                        <span class="tag">Attack</span>
+                        <span class="tag">Melee</span>
+                        <span class="tag">Realistic</span>
+                        <span class="tag">Male</span>
+                        <span class="tag">Action</span>
+                        <span class="tag">RPG</span>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Main Content -->
-    <section class="content-section">
-        <!-- Related Animations -->
-        <div class="related-section">
-            <h2>Related Animations</h2>
-            <div class="related-grid">
-                <a href="#" class="related-card">
-                    <div class="related-thumbnail">
-                        <img src="https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif" alt="Walk Cycle">
-                    </div>
-                    <div class="related-content">
-                        <div class="related-title">Natural Walk Cycles</div>
-                        <div class="related-price">$1</div>
-                    </div>
-                </a>
-                <a href="#" class="related-card">
-                    <div class="related-thumbnail">
-                        <img src="https://media.giphy.com/media/3o7TKpKqb9CkSvvJxS/giphy.gif" alt="Dance">
-                    </div>
-                    <div class="related-content">
-                        <div class="related-title">Urban Dance Moves</div>
-                        <div class="related-price">$1</div>
-                    </div>
-                </a>
-                <a href="#" class="related-card">
-                    <div class="related-thumbnail">
-                        <img src="https://media.giphy.com/media/l0HlHFRbmaZtBRhXG/giphy.gif" alt="Combat">
-                    </div>
-                    <div class="related-content">
-                        <div class="related-title">Stealth Assassination</div>
-                        <div class="related-price">$1</div>
-                    </div>
-                </a>
-                <a href="#" class="related-card">
-                    <div class="related-thumbnail">
-                        <img src="https://media.giphy.com/media/l0HlQ7LRalQqdWfao/giphy.gif" alt="Parkour">
-                    </div>
-                    <div class="related-content">
-                        <div class="related-title">Parkour & Acrobatics</div>
-                        <div class="related-price">$1</div>
-                    </div>
-                </a>
+        <!-- FAQ -->
+        <div class="faq-section">
+            <h2>❓ Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(1)">
+                    Can I use this commercially? <span>▼</span>
+                </div>
+                <div class="faq-answer" id="faq1">
+                    Yes! Your purchase includes full commercial rights with no additional fees or royalties. 
+                    Use in unlimited projects, games, films, or any commercial work.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(2)">
+                    Can I download it again later? <span>▼</span>
+                </div>
+                <div class="faq-answer" id="faq2">
+                    Absolutely! Once purchased, the animation is added to your library permanently. 
+                    You can re-download it anytime from your dashboard, forever.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(3)">
+                    What skeleton rig is this for? <span>▼</span>
+                </div>
+                <div class="faq-answer" id="faq3">
+                    These animations are compatible with UE5 Mannequin and Mixamo skeleton. 
+                    They can be retargeted to custom rigs using standard retargeting tools.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(4)">
+                    Do I need special software? <span>▼</span>
+                </div>
+                <div class="faq-answer" id="faq4">
+                    No special software required! Works with Unreal Engine, Unity, Blender, and most 3D animation tools 
+                    that support FBX or BVH formats.
+                </div>
             </div>
         </div>
-    </section>
 
-    <!-- Supabase JavaScript Client -->
+        <!-- Related -->
+        <div class="related-section">
+            <h2>You May Also Like</h2>
+            <div class="related-grid">
+                <div class="related-card">
+                    <img src="https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=Axe+Combat" class="related-image" alt="Axe Combat">
+                    <div class="related-info">
+                        <div class="related-title">Axe Combat Pack</div>
+                        <div class="related-price">$1.00</div>
+                    </div>
+                </div>
+                <div class="related-card">
+                    <img src="https://via.placeholder.com/300x300/1A1A2E/F59E0B?text=Dual+Wield" class="related-image" alt="Dual Wield">
+                    <div class="related-info">
+                        <div class="related-title">Dual Wield Animations</div>
+                        <div class="related-price">$1.00</div>
+                    </div>
+                </div>
+                <div class="related-card">
+                    <img src="https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=Shield+Defense" class="related-image" alt="Shield Defense">
+                    <div class="related-info">
+                        <div class="related-title">Shield Defense Pack</div>
+                        <div class="related-price">$1.00</div>
+                    </div>
+                </div>
+                <div class="related-card">
+                    <img src="https://via.placeholder.com/300x300/1A1A2E/F59E0B?text=Archery" class="related-image" alt="Archery">
+                    <div class="related-info">
+                        <div class="related-title">Archery Master Pack</div>
+                        <div class="related-price">$1.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Supabase first -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+    
     <script>
-        // Supabase Configuration
-        const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
+        // Global variables
+        let supabaseClient;
+        let searchInputNav;
+        let searchClearNav;
+        let searchDropdownNav;
+        let allAnimations = [];
         
-        // Initialize Supabase client
-        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        // API Helper Functions
-        const API = {
-            // Get single animation by slug
-            async getAnimationBySlug(slug) {
-                const { data, error } = await supabaseClient
-                    .from('animations')
-                    .select(`
-                        *,
-                        animation_tags(
-                            tag_id,
-                            tags(name)
-                        )
-                    `)
-                    .eq('slug', slug)
-                    .single();
-
-                if (error) {
-                    console.error('Error fetching animation:', error);
-                    return null;
-                }
-
-                // Transform data
-                return {
-                    id: data.id,
-                    title: data.title,
-                    slug: data.slug,
-                    description: data.description,
-                    price: parseFloat(data.price),
-                    duration: data.duration,
-                    category: data.category,
-                    gender: data.gender,
-                    style: data.style,
-                    popular: data.popular,
-                    onSale: data.on_sale,
-                    salePercentage: data.sale_percentage,
-                    video: data.video_url,
-                    thumbnail: data.thumbnail_url,
-                    videoType: data.video_type,
-                    tags: data.animation_tags.map(at => at.tags.name),
-                    frameRate: data.frame_rate,
-                    animationCount: data.animation_count,
-                    formats: data.formats,
-                    skeleton: data.skeleton,
-                    mocapProcess: data.mocap_process
-                };
-            },
-
-            // Get related animations (same category, different animation)
-            async getRelatedAnimations(category, currentSlug, limit = 4) {
-                const { data, error } = await supabaseClient
-                    .from('animations')
-                    .select('*')
-                    .eq('category', category)
-                    .neq('slug', currentSlug)
-                    .limit(limit);
-
-                if (error) {
-                    console.error('Error fetching related animations:', error);
-                    return [];
-                }
-
-                return data.map(anim => ({
-                    id: anim.id,
-                    title: anim.title,
-                    slug: anim.slug,
-                    price: parseFloat(anim.price),
-                    video: anim.video_url,
-                    thumbnail: anim.thumbnail_url
-                }));
-            },
-
-            // Add to cart (localStorage for now)
-            async addToCart(animationId) {
-                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-                if (!cart.includes(animationId)) {
-                    cart.push(animationId);
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                }
-                return { success: true };
-            }
-        };
-
-        // Get slug from URL
-        function getSlugFromURL() {
-            // Try query parameter first (e.g., ?slug=combat-sword-master-pack)
-            const urlParams = new URLSearchParams(window.location.search);
-            const slugParam = urlParams.get('slug');
-            if (slugParam) {
-                return slugParam;
-            }
+        // Wait for Supabase to load
+        window.addEventListener('load', function() {
+            // Supabase Client
+            const SUPABASE_URL = 'https://your-project.supabase.co';
+            const SUPABASE_KEY = 'your-anon-key';
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
             
-            // Fallback to filename (e.g., combat-sword-master-pack.html)
-            const path = window.location.pathname;
-            const filename = path.split('/').pop();
-            return filename.replace('.html', '');
-        }
+            // Initialize search elements
+            searchInputNav = document.getElementById('searchInputNav');
+            searchClearNav = document.getElementById('searchClearNav');
+            searchDropdownNav = document.getElementById('searchDropdownNav');
+
+        // Get animation slug from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const animationSlug = urlParams.get('slug');
 
         // Load animation data
         async function loadAnimationData() {
-            const slug = getSlugFromURL();
-            
+            if (!animationSlug) {
+                console.error('No animation slug provided');
+                return;
+            }
+
             try {
-                const animation = await API.getAnimationBySlug(slug);
-                
+                // Fetch animation from database
+                const { data: animation, error } = await supabaseClient
+                    .from('animations')
+                    .select('*')
+                    .eq('slug', animationSlug)
+                    .single();
+
+                if (error) throw error;
                 if (!animation) {
-                    // Animation not found, redirect to main page
-                    alert('Animation not found');
-                    window.location.href = 'index.html';
+                    console.error('Animation not found');
                     return;
                 }
 
-                // Populate page with animation data
-                populateAnimationData(animation);
-                
-                // Load related animations
-                const related = await API.getRelatedAnimations(animation.category, slug, 4);
-                populateRelatedAnimations(related);
-                
+                // Populate page with data
+                populatePage(animation);
             } catch (error) {
                 console.error('Error loading animation:', error);
-                alert('Error loading animation details');
             }
         }
 
-        // Populate animation data into page
-        function populateAnimationData(anim) {
-            // Update preview
-            const previewImg = document.querySelector('.preview-video');
-            if (previewImg) {
-                previewImg.src = anim.video || anim.thumbnail;
-                previewImg.alt = anim.title;
-            }
-
-            // Update title
-            const titleEl = document.querySelector('.preview-title');
-            if (titleEl) {
-                titleEl.textContent = anim.title;
-            }
-
-            // Show/hide popular badge
-            const badge = document.querySelector('.preview-badge');
-            if (badge) {
-                badge.style.display = anim.popular ? 'inline-block' : 'none';
-            }
-
-            // Update description
-            const descEl = document.querySelector('.narrative-placeholder');
-            if (descEl && anim.description) {
-                descEl.textContent = anim.description;
-                descEl.style.fontStyle = 'normal';
-                descEl.style.background = 'transparent';
-                descEl.style.border = 'none';
-                descEl.style.padding = '0';
-                descEl.classList.remove('narrative-placeholder');
-            }
-
-            // Update metadata
-            updateMetadata('Duration', anim.duration || 'TBD');
-            updateMetadata('Frame Rate', anim.frameRate || 'TBD');
-            updateMetadata('Animations', anim.animationCount ? `${anim.animationCount} animations` : 'TBD');
-            updateMetadata('Formats', anim.formats ? anim.formats.join(', ') : 'TBD');
-            updateMetadata('Skeleton', anim.skeleton || 'TBD');
-            updateMetadata('Mocap Process', anim.mocapProcess || 'TBD');
-
-            // Update price
-            const priceEl = document.querySelector('.price-display');
-            if (priceEl) {
-                priceEl.textContent = `$${anim.price.toFixed(2)}`;
-                priceEl.classList.remove('price-placeholder');
-            }
-
-            const priceNote = document.querySelector('.pricing-header p');
-            if (priceNote) {
-                priceNote.style.display = 'none';
-            }
-
+        function populatePage(anim) {
             // Update page title
-            document.title = `${anim.title} - Premium Motion Capture | MocapWork`;
-
-            // Store animation ID for buy/cart buttons
-            window.currentAnimationId = anim.id;
-            window.currentAnimationSlug = anim.slug;
-        }
-
-        // Helper to update metadata items
-        function updateMetadata(label, value) {
-            const items = document.querySelectorAll('.metadata-item');
-            items.forEach(item => {
-                const labelEl = item.querySelector('.metadata-label');
-                if (labelEl && labelEl.textContent === label) {
-                    const valueEl = item.querySelector('.metadata-value');
-                    if (valueEl) {
-                        valueEl.textContent = value;
-                        valueEl.classList.remove('metadata-placeholder');
-                    }
-                }
-            });
-        }
-
-        // Populate related animations
-        function populateRelatedAnimations(related) {
-            const grid = document.querySelector('.related-grid');
-            if (!grid) return;
-
-            grid.innerHTML = '';
+            document.title = `${anim.title} - MocapWork`;
             
-            related.forEach(anim => {
-                const card = document.createElement('a');
-                card.href = `animation-detail.html?slug=${anim.slug}`;
-                card.className = 'related-card';
+            // Update meta description
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) metaDesc.content = anim.description || '';
+
+            // Breadcrumb
+            const breadcrumbCategory = document.querySelector('.breadcrumb a[href="#"]');
+            if (breadcrumbCategory) breadcrumbCategory.textContent = anim.category;
+            const breadcrumbTitle = document.querySelector('.breadcrumb span');
+            if (breadcrumbTitle) breadcrumbTitle.textContent = anim.title;
+
+            // Product title
+            const titleEl = document.querySelector('.product-title');
+            if (titleEl) titleEl.textContent = anim.title;
+
+            // Category badge
+            const categoryBadge = document.querySelector('.badge-category');
+            if (categoryBadge) categoryBadge.textContent = anim.category;
+
+            // Description
+            const descEl = document.querySelector('.description');
+            if (descEl) descEl.textContent = anim.description || '';
+
+            // Price
+            const priceEl = document.querySelector('.price-display');
+            if (priceEl) priceEl.innerHTML = `<span class="dollar-sign">$</span>${anim.price.toFixed(2)}`;
+
+            // Preview images
+            const mainPreview = document.getElementById('mainPreview');
+            if (mainPreview && anim.preview_url) {
+                mainPreview.src = anim.preview_url;
+            }
+
+            // Technical specs
+            const specsData = {
+                'File Formats': anim.file_formats || 'FBX, BVH, USD',
+                'Frame Rate': anim.frame_rate || '30 FPS (retargetable)',
+                'Animations Included': anim.animation_count || '1',
+                'Skeleton': anim.skeleton || 'UE5 Mannequin, Mixamo compatible',
+                'Root Motion': anim.root_motion ? 'Included & removable' : 'Not included',
+                'Loopable': anim.loopable ? 'Yes' : 'No',
+                'Gender': anim.gender || 'Unisex',
+                'Style': anim.style || 'Realistic'
+            };
+
+            const specsTable = document.querySelector('.specs-table');
+            if (specsTable) {
+                specsTable.innerHTML = Object.entries(specsData).map(([key, value]) => `
+                    <tr>
+                        <td>${key}</td>
+                        <td>${value}</td>
+                    </tr>
+                `).join('');
+            }
+
+            // File size
+            const fileSizeEl = document.getElementById('fileSizeDisplay');
+            if (fileSizeEl) {
+                if (anim.file_size) {
+                    fileSizeEl.textContent = `Total Download Size: ${anim.file_size}`;
+                } else {
+                    fileSizeEl.textContent = `Total Download Size: ~20 MB`;
+                }
+            }
+
+            // Tags
+            if (anim.tags && Array.isArray(anim.tags)) {
+                const tagsContainer = document.querySelector('.tags');
+                if (tagsContainer) {
+                    tagsContainer.innerHTML = anim.tags.map(tag => 
+                        `<span class="tag">${tag}</span>`
+                    ).join('');
+                }
+            }
+
+            // Buy Now button
+            const buyNowBtn = document.querySelector('.btn-primary');
+            if (buyNowBtn) {
+                buyNowBtn.onclick = () => buyAnimation(anim);
+            }
+
+            // Add to Cart button
+            const addToCartBtn = document.querySelector('.btn-secondary');
+            if (addToCartBtn) {
+                addToCartBtn.onclick = () => addToCart(anim);
+            }
+        }
+
+        async function buyAnimation(anim) {
+            // Check if user is logged in
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                // Redirect to index with auth modal
+                if (confirm('Please sign in to purchase. Go to sign in page?')) {
+                    window.location.href = 'index.html#auth=login';
+                }
+                return;
+            }
+
+            // Add to cart
+            await addToCart(anim);
+            
+            // Redirect to index.html with cart open (you can integrate checkout later)
+            window.location.href = 'index.html#cart';
+        }
+
+        async function addToCart(anim) {
+            // Get current cart from localStorage
+            let cart = JSON.parse(localStorage.getItem('mocapwork_cart') || '[]');
+            
+            // Check if already in cart
+            if (!cart.find(item => item.slug === anim.slug)) {
+                cart.push({
+                    slug: anim.slug,
+                    title: anim.title,
+                    price: anim.price,
+                    preview_url: anim.preview_url
+                });
+                localStorage.setItem('mocapwork_cart', JSON.stringify(cart));
                 
-                card.innerHTML = `
-                    <div class="related-thumbnail">
-                        <img src="${anim.video || anim.thumbnail}" alt="${anim.title}">
-                    </div>
-                    <div class="related-content">
-                        <div class="related-title">${anim.title}</div>
-                        <div class="related-price">$${anim.price.toFixed(2)}</div>
-                    </div>
-                `;
+                // Update cart badge
+                updateCartBadge();
                 
-                grid.appendChild(card);
+                // Show success message
+                showNotification('✓ Added to cart!');
+            } else {
+                showNotification('Already in cart!');
+            }
+        }
+
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('mocapwork_cart') || '[]');
+            const badge = document.querySelector('.cart-badge');
+            if (badge) {
+                badge.textContent = cart.length;
+            }
+        }
+
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: rgba(26, 26, 46, 0.95);
+                border: 2px solid #10B981;
+                color: white;
+                padding: 16px 24px;
+                border-radius: 12px;
+                font-weight: 600;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Preview thumbnails
+        const thumbs = document.querySelectorAll('.preview-thumb');
+        thumbs.forEach((thumb, index) => {
+            thumb.addEventListener('click', () => {
+                thumbs.forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+                // In real implementation, change main preview image
+            });
+        });
+
+        // FAQ toggle
+        function toggleFAQ(id) {
+            const answer = document.getElementById('faq' + id);
+            answer.classList.toggle('active');
+        }
+
+        // Share functions
+        function share(platform) {
+            const url = window.location.href;
+            const title = document.querySelector('.product-title')?.textContent || 'MocapWork Animation';
+            
+            if (platform === 'twitter') {
+                window.open(`https://twitter.com/intent/tweet?url=${url}&text=${title}`, '_blank');
+            } else if (platform === 'facebook') {
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+            }
+        }
+
+        function copyLink() {
+            navigator.clipboard.writeText(window.location.href);
+            alert('Link copied to clipboard!');
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Mobile close button
+        const mobileCloseBtn = document.querySelector('.mobile-menu-close');
+        if (mobileCloseBtn) {
+            mobileCloseBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMobileMenu();
             });
         }
 
-        // Buy button handler
-        document.querySelector('.btn-primary').addEventListener('click', function() {
-            // In production, this would go to checkout
-            if (window.currentAnimationSlug) {
-                alert('Proceeding to checkout...');
-                // window.location.href = `checkout.html?animation=${window.currentAnimationSlug}`;
-            }
-        });
-
-        // Add to cart handler
-        document.querySelector('.btn-secondary').addEventListener('click', async function() {
-            if (window.currentAnimationId) {
-                try {
-                    const result = await API.addToCart(window.currentAnimationId);
-                    if (result.success) {
-                        alert('Added to cart!');
-                    } else {
-                        alert('Error adding to cart');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Error adding to cart');
+        // Mobile search
+        const mobileSearchInput = document.getElementById('mobileSearchInput');
+        const searchDropdownMobile = document.getElementById('searchDropdownMobile');
+        let mobileSearchTimeout;
+        
+        if (mobileSearchInput) {
+            // Input event for dropdown
+            mobileSearchInput.addEventListener('input', function(e) {
+                const query = e.target.value.trim();
+                
+                clearTimeout(mobileSearchTimeout);
+                
+                if (query.length === 0) {
+                    searchDropdownMobile.style.display = 'none';
+                    return;
                 }
+                
+                if (query.length < 2) return;
+                
+                mobileSearchTimeout = setTimeout(() => {
+                    performMobileSearch(query);
+                }, 300);
+            });
+            
+            // Enter key
+            mobileSearchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const query = e.target.value.trim();
+                    if (query) {
+                        searchDropdownMobile.style.display = 'none';
+                        toggleMobileMenu();
+                        window.location.href = `index.html#library?search=${encodeURIComponent(query)}`;
+                    }
+                }
+            });
+        }
+        
+        function performMobileSearch(query) {
+            const lowerQuery = query.toLowerCase();
+            
+            // Filter animations
+            const results = allAnimations.filter(anim => 
+                anim.title.toLowerCase().includes(lowerQuery) ||
+                anim.category.toLowerCase().includes(lowerQuery) ||
+                (anim.style && anim.style.toLowerCase().includes(lowerQuery))
+            ).slice(0, 6);
+            
+            // Suggested searches
+            const suggestions = [
+                query,
+                'fantasy ' + query,
+                query + ' pack'
+            ].slice(0, 3);
+            
+            // Build dropdown
+            let html = '';
+            
+            // Suggested searches
+            if (suggestions.length > 0) {
+                html += '<div class="search-section">';
+                html += '<div class="search-section-title">Suggested</div>';
+                suggestions.forEach(sugg => {
+                    const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
+                    html += `<div class="search-result-item" onclick="window.location.href='index.html#library?search=${encodeURIComponent(sugg)}'">`;
+                    html += '<div class="search-result-icon">🔍</div>';
+                    html += `<div class="search-result-text">${highlighted}</div>`;
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+            
+            // Animation results
+            if (results.length > 0) {
+                html += '<div class="search-section">';
+                html += '<div class="search-section-title">Animations</div>';
+                results.forEach(anim => {
+                    const highlighted = anim.title.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
+                    html += `<div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'">`;
+                    html += '<div class="search-result-icon">🎬</div>';
+                    html += `<div class="search-result-text">${highlighted}</div>`;
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+            
+            searchDropdownMobile.innerHTML = html;
+            searchDropdownMobile.style.display = 'block';
+        }
+
+        // Handle dashboard click
+        async function handleDashboardClick(e) {
+            e.preventDefault();
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                showAuthModal('login');
+            } else {
+                window.location.href = 'dashboard.html';
+            }
+        }
+
+        // Open cart (placeholder - integrate with your existing cart)
+        function openCart() {
+            // You'll integrate this with your existing cart modal
+            window.location.href = 'index.html#cart';
+        }
+
+        // Show auth modal (placeholder - integrate with your existing auth)
+        function showAuthModal(type) {
+            // You'll integrate this with your existing auth modal
+            window.location.href = 'index.html#auth=' + type;
+        }
+
+        // Clear navbar search
+        function clearSearchNav() {
+            const searchInput = document.getElementById('searchInputNav');
+            const searchClear = document.getElementById('searchClearNav');
+            const searchDropdown = document.getElementById('searchDropdownNav');
+            
+            if (searchInput) searchInput.value = '';
+            if (searchClear) searchClear.style.display = 'none';
+            if (searchDropdown) searchDropdown.classList.remove('active');
+        }
+
+        // Navbar search with dynamic dropdown
+        let searchTimeout;
+        
+        // Load animations for search
+        async function loadAnimationsForSearch() {
+            try {
+                const { data: animations, error } = await supabaseClient
+                    .from('animations')
+                    .select('slug, title, category, style')
+                    .limit(100);
+                
+                if (!error && animations) {
+                    allAnimations = animations;
+                }
+            } catch (error) {
+                console.error('Error loading animations:', error);
+            }
+        }
+        
+        if (searchInputNav) {
+            searchInputNav.addEventListener('input', function(e) {
+                const query = e.target.value.trim();
+                
+                // Show/hide clear button
+                if (searchClearNav) {
+                    searchClearNav.style.display = query ? 'block' : 'none';
+                }
+                
+                // Debounce search
+                clearTimeout(searchTimeout);
+                
+                if (query.length === 0) {
+                    searchDropdownNav.classList.remove('active');
+                    return;
+                }
+                
+                if (query.length < 2) return;
+                
+                searchTimeout = setTimeout(() => {
+                    performSearchNav(query);
+                }, 300);
+            });
+
+            searchInputNav.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const query = e.target.value.trim();
+                    if (query) {
+                        window.location.href = `index.html#library?search=${encodeURIComponent(query)}`;
+                    }
+                }
+            });
+        }
+        
+        function performSearchNav(query) {
+            const lowerQuery = query.toLowerCase();
+            
+            // Filter animations
+            const results = allAnimations.filter(anim => 
+                anim.title.toLowerCase().includes(lowerQuery) ||
+                anim.category.toLowerCase().includes(lowerQuery) ||
+                (anim.style && anim.style.toLowerCase().includes(lowerQuery))
+            ).slice(0, 6);
+            
+            // Suggested searches
+            const suggestions = [
+                query,
+                'fantasy ' + query,
+                query + ' pack'
+            ].slice(0, 3);
+            
+            // Build dropdown
+            let html = '';
+            
+            // Suggested searches
+            if (suggestions.length > 0) {
+                html += '<div class="search-section">';
+                html += '<div class="search-section-title">Suggested</div>';
+                suggestions.forEach(sugg => {
+                    const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
+                    html += `<div class="search-result-item" onclick="window.location.href='index.html#library?search=${encodeURIComponent(sugg)}'">`;
+                    html += '<div class="search-result-icon">🔍</div>';
+                    html += `<div class="search-result-text">${highlighted}</div>`;
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+            
+            // Animation results
+            if (results.length > 0) {
+                html += '<div class="search-section">';
+                html += '<div class="search-section-title">Animations</div>';
+                results.forEach(anim => {
+                    const highlighted = anim.title.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
+                    html += `<div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'">`;
+                    html += '<div class="search-result-icon">🎬</div>';
+                    html += `<div class="search-result-text">${highlighted}</div>`;
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+            
+            searchDropdownNav.innerHTML = html;
+            searchDropdownNav.classList.add('active');
+        }
+        
+        // Close dropdown on outside click and mobile menu
+        document.addEventListener('click', function(e) {
+            // Close search dropdown
+            if (searchDropdownNav && searchInputNav && 
+                !searchInputNav.contains(e.target) && 
+                !searchDropdownNav.contains(e.target)) {
+                searchDropdownNav.classList.remove('active');
+            }
+            
+            // Close mobile menu when clicking outside
+            const navLinks = document.querySelector('.nav-links');
+            const mobileMenuBtn = document.querySelector('.hamburger-menu');
+            
+            if (navLinks && navLinks.classList.contains('active') && 
+                !navLinks.contains(e.target) && 
+                mobileMenuBtn && !mobileMenuBtn.contains(e.target)) {
+                navLinks.classList.remove('active');
             }
         });
 
-        // License selection
-        const licenseOptions = document.querySelectorAll('.license-option');
-        licenseOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                licenseOptions.forEach(opt => opt.classList.remove('selected'));
-                this.classList.add('selected');
+        // Hamburger menu
+        const hamburger = document.querySelector('.hamburger-menu');
+        if (hamburger) {
+            hamburger.addEventListener('click', function(e) {
+                e.stopPropagation();
+                toggleMobileMenu();
             });
-        });
+        }
 
-        // Load data on page load
+        // Check auth and update navbar
+        async function checkAuth() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (session) {
+                const authLinks = document.getElementById('authLinks');
+                const userMenu = document.getElementById('userMenu');
+                const mobileAuthLink = document.getElementById('mobileAuthLink');
+                
+                if (authLinks) authLinks.style.display = 'none';
+                if (userMenu) userMenu.style.display = 'block';
+                if (mobileAuthLink) mobileAuthLink.style.display = 'none';
+            }
+        }
+
+        // Logout function
+        async function logout() {
+            await supabaseClient.auth.signOut();
+            location.reload();
+        }
+
+        // Load animation data on page load
         loadAnimationData();
+        checkAuth();
+        loadAnimationsForSearch();
+        updateCartBadge(); // Initialize cart badge
+        
+        }); // End window.addEventListener('load')
     </script>
-
 </body>
 </html>
