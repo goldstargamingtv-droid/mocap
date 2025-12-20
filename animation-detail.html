@@ -580,6 +580,12 @@
             border: 1px solid rgba(34, 197, 94, 0.3);
         }
 
+        .badge-holiday {
+            background: rgba(239, 68, 68, 0.2);
+            color: #FCA5A5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
         .badge-category {
             background: rgba(0, 212, 255, 0.1);
             color: var(--teal);
@@ -2685,9 +2691,14 @@
                     badges += '<span class="badge badge-popular">⭐ POPULAR</span>';
                 }
                 
-                // Holiday Sale badge - show if on_sale field is true
+                // On Sale badge - show if on_sale field is true
                 if (anim.on_sale === true) {
                     badges += '<span class="badge badge-sale">🏷️ ON SALE</span>';
+                }
+                
+                // Holiday Sale badge - show if holiday_sale field is true
+                if (anim.holiday_sale === true) {
+                    badges += '<span class="badge badge-holiday">🎄 HOLIDAY SALE</span>';
                 }
                 
                 // Category badge - always show
