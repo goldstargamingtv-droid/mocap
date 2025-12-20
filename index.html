@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-20-v9 - BUTTON TYPE FIX + LOGGING -->
+    <!-- VERSION: 2024-12-20-v10 - FORCE SCROLL TO TOP ON REFRESH -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -3316,9 +3316,15 @@
     <script>
         // CACHE BUSTER - v9 - BUTTON TYPE + LOGGING
         console.log('========================================');
-        console.log('INDEX.HTML VERSION 9 - BUTTON TYPE FIX!');
+        console.log('INDEX.HTML VERSION 10 - SCROLL TO TOP ON REFRESH!');
         console.log('Loaded at:', new Date().toISOString());
         console.log('========================================');
+        
+        // Force scroll to top immediately on page load
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
         
         // Detect when user comes back from Stripe (browser back button)
         window.addEventListener('pageshow', function(event) {
@@ -4305,6 +4311,9 @@
         
         // Check URL hash for modal triggers (from animation-detail page)
         window.addEventListener('load', function() {
+            // Force scroll to top on page load/refresh
+            window.scrollTo(0, 0);
+            
             const hash = window.location.hash;
             
             if (hash.startsWith('#auth=')) {
