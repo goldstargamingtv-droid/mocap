@@ -668,23 +668,36 @@
         }
 
         .btn-secondary {
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--teal);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(245, 245, 245, 0.05);
+            border: 2px solid rgba(245, 245, 245, 0.12);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
             font-weight: 600;
             font-family: 'Sora', sans-serif;
             font-size: 14px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
         }
 
         .btn-secondary:hover {
+            background: rgba(245, 245, 245, 0.1);
+            border-color: var(--teal);
+            transform: translateY(-2px);
+        }
+        
+        /* Add to Cart button special glow */
+        #addToCartBtn {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--teal);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        #addToCartBtn:hover {
             background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
             box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4), 0 4px 12px rgba(245, 158, 11, 0.3);
-            transform: translateY(-2px);
             animation: glow 2s ease-in-out infinite;
         }
         
@@ -1661,6 +1674,45 @@
             }
         }
         
+        // Load More Related Products - Global function
+        function loadMoreRelated() {
+            const loadCount = 4; // Load 4 more each time
+            const currentCount = window.displayedRelatedCount;
+            const newCount = Math.min(currentCount + loadCount, window.allRelatedProducts.length);
+            
+            // Append new products
+            const relatedGrid = document.getElementById('relatedProductsGrid');
+            const newProducts = window.allRelatedProducts.slice(currentCount, newCount);
+            
+            newProducts.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'related-card';
+                card.onclick = () => window.location.href = `animation-detail.html?slug=${item.slug}`;
+                card.innerHTML = `
+                    <img src="${item.video_url || item.thumbnail_url || 'https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent(item.title)}" 
+                         class="related-image" 
+                         alt="${item.title}"
+                         onerror="this.src='https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent('${item.title}')">
+                    <div class="related-info">
+                        <div class="related-title">${item.title}</div>
+                        <div class="related-price"><span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${item.price.toFixed(2)}</div>
+                    </div>
+                `;
+                relatedGrid.appendChild(card);
+            });
+            
+            window.displayedRelatedCount = newCount;
+            
+            const loadMoreBtn = document.getElementById('loadMoreRelated');
+            const backToTopBtn = document.getElementById('backToTopRelated');
+            
+            // If all loaded, hide Load More and show Back to Top
+            if (newCount >= window.allRelatedProducts.length) {
+                if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+                if (backToTopBtn) backToTopBtn.style.display = 'inline-block';
+            }
+        }
+        
         // Global button handlers
         function handleBuyNow() {
             console.log('Buy Now clicked!');
@@ -2079,44 +2131,6 @@
             }
         }
 
-        // Load More Related Products
-        function loadMoreRelated() {
-            const loadCount = 4; // Load 4 more each time
-            const currentCount = window.displayedRelatedCount;
-            const newCount = Math.min(currentCount + loadCount, window.allRelatedProducts.length);
-            
-            // Append new products
-            const relatedGrid = document.getElementById('relatedProductsGrid');
-            const newProducts = window.allRelatedProducts.slice(currentCount, newCount);
-            
-            newProducts.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'related-card';
-                card.onclick = () => window.location.href = `animation-detail.html?slug=${item.slug}`;
-                card.innerHTML = `
-                    <img src="${item.video_url || item.thumbnail_url || 'https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent(item.title)}" 
-                         class="related-image" 
-                         alt="${item.title}"
-                         onerror="this.src='https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent('${item.title}')">
-                    <div class="related-info">
-                        <div class="related-title">${item.title}</div>
-                        <div class="related-price"><span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${item.price.toFixed(2)}</div>
-                    </div>
-                `;
-                relatedGrid.appendChild(card);
-            });
-            
-            window.displayedRelatedCount = newCount;
-            
-            const loadMoreBtn = document.getElementById('loadMoreRelated');
-            const backToTopBtn = document.getElementById('backToTopRelated');
-            
-            // If all loaded, hide Load More and show Back to Top
-            if (newCount >= window.allRelatedProducts.length) {
-                if (loadMoreBtn) loadMoreBtn.style.display = 'none';
-                if (backToTopBtn) backToTopBtn.style.display = 'inline-block';
-            }
-        }
         
         // Setup Load More button
         function setupLoadMoreButton() {
