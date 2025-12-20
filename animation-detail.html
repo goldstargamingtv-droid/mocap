@@ -1401,35 +1401,8 @@
         <!-- Related -->
         <div class="related-section">
             <h2>You May Also Like</h2>
-            <div class="related-grid">
-                <div class="related-card">
-                    <img src="https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=Axe+Combat" class="related-image" alt="Axe Combat">
-                    <div class="related-info">
-                        <div class="related-title">Axe Combat Pack</div>
-                        <div class="related-price">$1.00</div>
-                    </div>
-                </div>
-                <div class="related-card">
-                    <img src="https://via.placeholder.com/300x300/1A1A2E/F59E0B?text=Dual+Wield" class="related-image" alt="Dual Wield">
-                    <div class="related-info">
-                        <div class="related-title">Dual Wield Animations</div>
-                        <div class="related-price">$1.00</div>
-                    </div>
-                </div>
-                <div class="related-card">
-                    <img src="https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=Shield+Defense" class="related-image" alt="Shield Defense">
-                    <div class="related-info">
-                        <div class="related-title">Shield Defense Pack</div>
-                        <div class="related-price">$1.00</div>
-                    </div>
-                </div>
-                <div class="related-card">
-                    <img src="https://via.placeholder.com/300x300/1A1A2E/F59E0B?text=Archery" class="related-image" alt="Archery">
-                    <div class="related-info">
-                        <div class="related-title">Archery Master Pack</div>
-                        <div class="related-price">$1.00</div>
-                    </div>
-                </div>
+            <div class="related-grid" id="relatedProductsGrid">
+                <!-- Related products will be loaded dynamically -->
             </div>
         </div>
     </div>
@@ -1595,6 +1568,50 @@
             const addToCartBtn = document.querySelector('.btn-secondary');
             if (addToCartBtn) {
                 addToCartBtn.onclick = () => addToCart(anim);
+            }
+
+            // Load related products
+            loadRelatedProducts(anim.category, anim.id);
+        }
+
+        async function loadRelatedProducts(category, currentAnimationId) {
+            try {
+                // Get 4 animations from the same category, excluding current one
+                const { data: related, error } = await supabaseClient
+                    .from('animations')
+                    .select('slug, title, price, preview_url, category')
+                    .eq('category', category)
+                    .neq('id', currentAnimationId)
+                    .limit(4);
+
+                if (error) {
+                    console.error('Error loading related products:', error);
+                    return;
+                }
+
+                const relatedGrid = document.getElementById('relatedProductsGrid');
+                if (relatedGrid && related && related.length > 0) {
+                    relatedGrid.innerHTML = related.map(item => `
+                        <div class="related-card" onclick="window.location.href='animation-detail.html?slug=${item.slug}'">
+                            <img src="${item.preview_url || 'https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent(item.title)}" 
+                                 class="related-image" 
+                                 alt="${item.title}"
+                                 onerror="this.src='https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent('${item.title}')">
+                            <div class="related-info">
+                                <div class="related-title">${item.title}</div>
+                                <div class="related-price"><span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${item.price.toFixed(2)}</div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    // If no related products, hide the section
+                    const relatedSection = document.querySelector('.related-section');
+                    if (relatedSection) {
+                        relatedSection.style.display = 'none';
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading related products:', error);
             }
         }
 
