@@ -685,6 +685,16 @@
             border-color: var(--teal);
             box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4), 0 4px 12px rgba(245, 158, 11, 0.3);
             transform: translateY(-2px);
+            animation: glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4), 0 4px 12px rgba(245, 158, 11, 0.3);
+            }
+            50% {
+                box-shadow: 0 8px 32px rgba(0, 212, 255, 0.6), 0 4px 16px rgba(245, 158, 11, 0.5);
+            }
         }
 
         .icon {
@@ -1413,7 +1423,10 @@
         </div>
     </div>
 
-    <!-- Load Supabase first -->
+    <!-- Load Stripe first -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <!-- Load Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     
     <script>
@@ -1424,6 +1437,9 @@
         let searchDropdownNav;
         let allAnimations = [];
         let currentAnimation = null; // Store current animation data
+        let stripe = null; // Stripe instance
+        const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
         
         // Global button handlers
         function handleBuyNow() {
@@ -1444,12 +1460,14 @@
             }
         }
         
-        // Wait for Supabase to load
+        // Wait for Supabase and Stripe to load
         window.addEventListener('load', function() {
             // Supabase Client
-            const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
-            const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
             supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+            
+            // Stripe Client
+            const STRIPE_PUBLISHABLE_KEY = 'pk_test_51SfQ2BQBChX7okucx4uosVidKjSy2aeDtIAJz3G2DdkFcnKKZWp3byJ8ZbIbSMfvUL6mFpBinviFcjs6dQStaqTN000OZa3XQn';
+            stripe = window.Stripe ? window.Stripe(STRIPE_PUBLISHABLE_KEY) : null;
             
             // Initialize search elements
             searchInputNav = document.getElementById('searchInputNav');
@@ -1693,16 +1711,57 @@
             // Check if user is logged in
             const { data: { session } } = await supabaseClient.auth.getSession();
             if (!session) {
-                // Redirect to index with auth modal
                 if (confirm('Please sign in to purchase. Go to sign in page?')) {
                     window.location.href = 'index.html#auth=login';
                 }
                 return;
             }
 
-            // For now, redirect to index.html to use the checkout there
-            // In the future, you can implement Stripe checkout directly here
-            window.location.href = `index.html#buy=${anim.id}`;
+            if (!stripe) {
+                alert('Payment system is initializing. Please try again in a moment.');
+                return;
+            }
+
+            // Show loading overlay
+            const loading = document.createElement('div');
+            loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:99999;';
+            loading.innerHTML = '<div style="background:#1A1A2E;padding:40px;border-radius:16px;text-align:center;border:2px solid #00D4FF;"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#00D4FF;">Processing Payment...</div><div style="color:#9CA3AF;margin-top:8px;">Please wait</div></div>';
+            document.body.appendChild(loading);
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    },
+                    body: JSON.stringify({
+                        userId: session.user.id,
+                        animationId: anim.id,
+                        animationTitle: anim.title,
+                        price: anim.price
+                    })
+                });
+
+                const { sessionId, error } = await response.json();
+
+                if (error) {
+                    document.body.removeChild(loading);
+                    alert('Error creating checkout: ' + error);
+                    return;
+                }
+
+                const { error: stripeError } = await stripe.redirectToCheckout({ sessionId });
+
+                if (stripeError) {
+                    document.body.removeChild(loading);
+                    alert('Error: ' + stripeError.message);
+                }
+            } catch (error) {
+                document.body.removeChild(loading);
+                console.error('Payment error:', error);
+                alert('Error processing payment. Please try again.');
+            }
         }
 
         async function addToCart(anim) {
