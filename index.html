@@ -4006,6 +4006,8 @@
         async function loadAnimations() {
             try {
                 animations = await API.getAnimations();
+                window.animations = animations; // Make available in console for debugging
+                console.log('Loaded animations:', animations);
                 renderAnimations(animations);
             } catch (error) {
                 console.error('Error loading animations:', error);
