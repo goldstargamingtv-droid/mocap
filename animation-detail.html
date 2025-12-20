@@ -936,14 +936,16 @@
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
             color: var(--text-secondary);
-            padding-top: 0;
+            padding: 0 16px;
+            opacity: 0;
         }
 
         .faq-answer.active {
-            max-height: 200px;
-            padding-top: 12px;
+            max-height: 300px;
+            padding: 12px 16px;
+            opacity: 1;
         }
 
         /* Related */
@@ -1521,6 +1523,14 @@
             </div>
         </div>
 
+        <!-- Related -->
+        <div class="related-section">
+            <h2>You May Also Like</h2>
+            <div class="related-grid" id="relatedProductsGrid">
+                <!-- Related products will be loaded dynamically -->
+            </div>
+        </div>
+
         <!-- FAQ -->
         <div class="faq-section">
             <h2>❓ Frequently Asked Questions</h2>
@@ -1570,14 +1580,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Related -->
-        <div class="related-section">
-            <h2>You May Also Like</h2>
-            <div class="related-grid" id="relatedProductsGrid">
-                <!-- Related products will be loaded dynamically -->
-            </div>
-        </div>
     </div>
 
     <!-- Load Stripe first -->
@@ -1597,6 +1599,17 @@
         let stripe = null; // Stripe instance
         const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
+        
+        // Detect when user comes back from Stripe (browser back button)
+        window.addEventListener('pageshow', function(event) {
+            // If page is being restored from cache (user clicked back)
+            if (event.persisted) {
+                const overlay = document.getElementById('stripe-loading-overlay');
+                if (overlay) {
+                    overlay.remove();
+                }
+            }
+        });
         
         // FAQ toggle - Global function
         function toggleFAQ(id) {
@@ -1650,6 +1663,7 @@
 
             // Show loading overlay
             const loading = document.createElement('div');
+            loading.id = 'stripe-loading-overlay';
             loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:99999;';
             loading.innerHTML = '<div style="background:#1A1A2E;padding:40px;border-radius:16px;text-align:center;border:2px solid #00D4FF;"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#00D4FF;">Processing Payment...</div><div style="color:#9CA3AF;margin-top:8px;">Please wait</div></div>';
             document.body.appendChild(loading);
@@ -1930,10 +1944,23 @@
             }
 
             // Tags - make them clickable
-            if (anim.tags && Array.isArray(anim.tags)) {
+            if (anim.tags && Array.isArray(anim.tags) && anim.tags.length > 0) {
                 const tagsContainer = document.querySelector('.tags');
                 if (tagsContainer) {
                     tagsContainer.innerHTML = anim.tags.map(tag => 
+                        `<a href="index.html#library?search=${encodeURIComponent(tag)}" class="tag" style="text-decoration: none; cursor: pointer;">${tag}</a>`
+                    ).join('');
+                }
+            } else {
+                // Fallback: Generate tags from category, style, gender
+                const defaultTags = [];
+                if (anim.category) defaultTags.push(anim.category);
+                if (anim.style) defaultTags.push(anim.style);
+                if (anim.gender) defaultTags.push(anim.gender);
+                
+                const tagsContainer = document.querySelector('.tags');
+                if (tagsContainer && defaultTags.length > 0) {
+                    tagsContainer.innerHTML = defaultTags.map(tag => 
                         `<a href="index.html#library?search=${encodeURIComponent(tag)}" class="tag" style="text-decoration: none; cursor: pointer;">${tag}</a>`
                     ).join('');
                 }
