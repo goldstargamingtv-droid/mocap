@@ -2372,7 +2372,11 @@
             if (animations && animations.length > 0) {
                 let total = 0;
                 cartItemsContainer.innerHTML = animations.map(item => {
-                    total += item.price;
+                    // Calculate sale price if applicable
+                    const isOnSale = (item.on_sale || item.holiday_sale) && item.sale_percentage;
+                    const finalPrice = isOnSale ? item.price * (1 - item.sale_percentage / 100) : item.price;
+                    total += finalPrice;
+                    
                     return `
                         <div class="cart-item">
                             <div class="cart-item-image">
@@ -2381,7 +2385,14 @@
                             <div class="cart-item-info">
                                 <div class="cart-item-title">${item.title}</div>
                                 <div class="cart-item-duration">${item.duration || 'N/A'}</div>
-                                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                                <div class="cart-item-price">
+                                    ${isOnSale ? `
+                                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                                            <span style="font-size: 12px; color: var(--text-muted); text-decoration: line-through;">$${item.price.toFixed(2)}</span>
+                                            <span style="font-size: 18px; font-weight: 800; background: linear-gradient(135deg, #10B981, #86EFAC); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$${finalPrice.toFixed(2)}</span>
+                                        </div>
+                                    ` : `$${item.price.toFixed(2)}`}
+                                </div>
                             </div>
                         </div>
                     `;
@@ -2488,6 +2499,10 @@
             document.body.appendChild(loading);
 
             try {
+                // Calculate sale price if applicable
+                const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
+                const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
+                
                 const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout`, {
                     method: 'POST',
                     headers: {
@@ -2498,7 +2513,7 @@
                         userId: session.user.id,
                         animationId: anim.id,
                         animationTitle: anim.title,
-                        price: anim.price
+                        price: finalPrice
                     })
                 });
 
@@ -2525,34 +2540,30 @@
 
         // Add to Cart function
         async function addToCart(anim) {
-            // Get current cart from localStorage
-            let cart = JSON.parse(localStorage.getItem('mocapwork_cart') || '[]');
+            // Get current cart from localStorage (using 'cart' key to match index.html)
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
             
-            // Check if already in cart
-            if (!cart.find(item => item.slug === anim.slug)) {
-                cart.push({
-                    slug: anim.slug,
-                    title: anim.title,
-                    price: anim.price,
-                    thumbnail_url: anim.thumbnail_url
-                });
-                localStorage.setItem('mocapwork_cart', JSON.stringify(cart));
+            // Check if already in cart (cart stores animation IDs)
+            if (!cart.includes(anim.id)) {
+                cart.push(anim.id);
+                localStorage.setItem('cart', JSON.stringify(cart));
                 
                 // Update cart badge
                 updateCartBadge();
                 
                 // Show success message
-                showNotification('✓ Added to cart!');
+                showNotification('Added to cart!', 'success');
             } else {
-                showNotification('Already in cart!');
+                showNotification('Already in cart!', 'error');
             }
         }
 
         function updateCartBadge() {
-            const cart = JSON.parse(localStorage.getItem('mocapwork_cart') || '[]');
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             const badge = document.querySelector('.cart-badge');
             if (badge) {
                 badge.textContent = cart.length;
+                badge.style.display = cart.length > 0 ? 'flex' : 'none';
             }
         }
 
@@ -2713,9 +2724,24 @@
             const descEl = document.querySelector('.description');
             if (descEl) descEl.textContent = anim.description || '';
 
-            // Price
+            // Price - show sale price if applicable
             const priceEl = document.querySelector('.price-display');
-            if (priceEl) priceEl.innerHTML = `<span class="dollar-sign">$</span>${anim.price.toFixed(2)}`;
+            if (priceEl) {
+                const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
+                if (isOnSale) {
+                    const salePrice = anim.price * (1 - anim.sale_percentage / 100);
+                    priceEl.innerHTML = `
+                        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
+                            <span style="font-size: 18px; color: var(--text-muted); text-decoration: line-through; font-weight: 500;">$${anim.price.toFixed(2)}</span>
+                            <div style="font-size: 42px; font-weight: 900; background: linear-gradient(135deg, #10B981, #86EFAC); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Sora', sans-serif;">
+                                <span class="dollar-sign" style="background: linear-gradient(135deg, #10B981, #86EFAC); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${salePrice.toFixed(2)}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    priceEl.innerHTML = `<span class="dollar-sign">$</span>${anim.price.toFixed(2)}`;
+                }
+            }
 
             // Preview images
             const mainPreview = document.getElementById('mainPreview');
