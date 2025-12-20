@@ -1111,6 +1111,25 @@
 <body>
     <!-- Loading Progress Bar -->
     <div id="loadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--amber)); z-index: 99999; transition: width 0.3s ease;"></div>
+    
+    <!-- Start loading bar immediately -->
+    <script>
+        // Start the loading bar as soon as this script runs (before page fully loads)
+        const loadingBar = document.getElementById('loadingBar');
+        
+        // Immediately start at 10%
+        loadingBar.style.width = '10%';
+        
+        // Progress to 30% over next 200ms
+        setTimeout(() => {
+            loadingBar.style.width = '30%';
+        }, 200);
+        
+        // Slowly creep to 50% while waiting for page to load
+        setTimeout(() => {
+            loadingBar.style.width = '50%';
+        }, 600);
+    </script>
 
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
@@ -2186,19 +2205,17 @@
             location.reload();
         }
 
-        // Start loading bar animation
+        // Continue loading bar animation from where it left off (50%)
         const loadingBar = document.getElementById('loadingBar');
         
-        // Animate to 30% quickly on page start
-        setTimeout(() => {
-            loadingBar.style.width = '30%';
-        }, 100);
+        // Jump to 60% when scripts are loaded
+        loadingBar.style.width = '60%';
         
         // Load animation data on page load
         Promise.all([
             loadAnimationData().then(() => {
-                // Jump to 70% when main data loaded
-                loadingBar.style.width = '70%';
+                // Jump to 85% when main data loaded
+                loadingBar.style.width = '85%';
             }),
             checkAuth(),
             loadAnimationsForSearch()
