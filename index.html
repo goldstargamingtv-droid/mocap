@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-20-v8 - FIX EMPTY FILTERED ANIMATIONS -->
+    <!-- VERSION: 2024-12-20-v9 - BUTTON TYPE FIX + LOGGING -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -2973,8 +2973,8 @@
             </div>
 
             <div class="load-more">
-                <button class="btn btn-secondary" style="padding: 16px 40px;" onclick="loadMore()" id="loadMoreBtn">Load More Animations</button>
-                <button class="btn btn-secondary" style="padding: 16px 40px; display: none;" onclick="scrollToTop()" id="backToTopBtn">↑ Back to Top</button>
+                <button type="button" class="btn btn-secondary" style="padding: 16px 40px;" onclick="loadMore(); return false;" id="loadMoreBtn">Load More Animations</button>
+                <button type="button" class="btn btn-secondary" style="padding: 16px 40px; display: none;" onclick="scrollToTop(); return false;" id="backToTopBtn">↑ Back to Top</button>
             </div>
         </div>
     </section>
@@ -3314,9 +3314,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-        // CACHE BUSTER - v8 - FILTERED ANIMATIONS INIT FIX
+        // CACHE BUSTER - v9 - BUTTON TYPE + LOGGING
         console.log('========================================');
-        console.log('INDEX.HTML VERSION 8 - FILTERED ANIMATIONS INITIALIZED!');
+        console.log('INDEX.HTML VERSION 9 - BUTTON TYPE FIX!');
         console.log('Loaded at:', new Date().toISOString());
         console.log('========================================');
         
@@ -4216,6 +4216,9 @@
                 // Add original index to each animation for stable sorting
                 animations = animations.map((anim, index) => ({ ...anim, _originalIndex: index }));
                 window.animations = animations; // Make available in console for debugging
+                console.log('========================================');
+                console.log('TOTAL ANIMATIONS IN DATABASE:', animations.length);
+                console.log('========================================');
                 console.log('Loaded animations:', animations);
                 console.log('Popular flags:', animations.map(a => ({ title: a.title, popular: a.popular, onSale: a.onSale, holidaySale: a.holidaySale })));
                 
