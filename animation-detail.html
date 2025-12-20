@@ -1222,7 +1222,7 @@
     <div class="breadcrumb">
         <a href="index.html">Home</a> / 
         <a href="index.html#library">Animations</a> / 
-        <a href="#">Combat</a> / 
+        <a href="index.html#library" id="breadcrumbCategory">Combat</a> / 
         <span>Combat Sword Master Pack</span>
     </div>
 
@@ -1302,18 +1302,6 @@
                 </div>
 
                 <!-- File Info -->
-                <div class="file-info-card">
-                    <h3>📁 What's Included</h3>
-                    <ul class="file-list">
-                        <li>✓ 1 FBX animation file (Unreal/Unity ready)</li>
-                        <li>✓ BVH files for Blender & other tools</li>
-                        <li>✓ Documentation PDF with setup guide</li>
-                        <li>✓ Lifetime access in your library</li>
-                        <li>✓ Re-download anytime, forever</li>
-                    </ul>
-                    <div class="file-size" id="fileSizeDisplay">Total Download Size: Loading...</div>
-                </div>
-
                 <!-- Technical Specs -->
                 <div class="file-info-card">
                     <h3>⚙️ Technical Specifications</h3>
@@ -1351,6 +1339,18 @@
                             <td>Realistic</td>
                         </tr>
                     </table>
+                </div>
+
+                <div class="file-info-card">
+                    <h3>📁 What's Included</h3>
+                    <ul class="file-list">
+                        <li>✓ 1 FBX animation file (Unreal/Unity ready)</li>
+                        <li>✓ BVH files for Blender & other tools</li>
+                        <li>✓ Documentation PDF with setup guide</li>
+                        <li>✓ Lifetime access in your library</li>
+                        <li>✓ Re-download anytime, forever</li>
+                    </ul>
+                    <div class="file-size" id="fileSizeDisplay">Total Download Size: Loading...</div>
                 </div>
 
                 <!-- Compatibility -->
@@ -1434,6 +1434,15 @@
                     that support FBX or BVH formats.
                 </div>
             </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(5)">
+                    What is your refund policy? <span>▼</span>
+                </div>
+                <div class="faq-answer" id="faq5">
+                    All animation purchases are final. We do not offer refunds on digital animation files. 
+                    Please review the preview and technical specifications carefully before purchasing.
+                </div>
+            </div>
         </div>
 
         <!-- Related -->
@@ -1462,6 +1471,14 @@
         let stripe = null; // Stripe instance
         const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
+        
+        // FAQ toggle - Global function
+        function toggleFAQ(id) {
+            const answer = document.getElementById('faq' + id);
+            if (answer) {
+                answer.classList.toggle('active');
+            }
+        }
         
         // Global button handlers
         function handleBuyNow() {
@@ -1687,8 +1704,11 @@
             if (metaDesc) metaDesc.content = anim.description || '';
 
             // Breadcrumb
-            const breadcrumbCategory = document.querySelector('.breadcrumb a[href="#"]');
-            if (breadcrumbCategory) breadcrumbCategory.textContent = anim.category;
+            const breadcrumbCategory = document.getElementById('breadcrumbCategory');
+            if (breadcrumbCategory && anim.category) {
+                breadcrumbCategory.textContent = anim.category;
+                breadcrumbCategory.href = `index.html#library?category=${encodeURIComponent(anim.category)}`;
+            }
             const breadcrumbTitle = document.querySelector('.breadcrumb span');
             if (breadcrumbTitle) breadcrumbTitle.textContent = anim.title;
 
@@ -1766,12 +1786,12 @@
                 }
             }
 
-            // Tags
+            // Tags - make them clickable
             if (anim.tags && Array.isArray(anim.tags)) {
                 const tagsContainer = document.querySelector('.tags');
                 if (tagsContainer) {
                     tagsContainer.innerHTML = anim.tags.map(tag => 
-                        `<span class="tag">${tag}</span>`
+                        `<a href="index.html#library?search=${encodeURIComponent(tag)}" class="tag" style="text-decoration: none; cursor: pointer;">${tag}</a>`
                     ).join('');
                 }
             }
@@ -1867,12 +1887,6 @@
                 // In real implementation, change main preview image
             });
         });
-
-        // FAQ toggle
-        function toggleFAQ(id) {
-            const answer = document.getElementById('faq' + id);
-            answer.classList.toggle('active');
-        }
 
         // Share functions
         function share(platform) {
