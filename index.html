@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-20-v4 - Back to GIF Badges + Debug Logging -->
+    <!-- VERSION: 2024-12-20-v5 - DATABASE ORDERING FIX - CARDS WON'T REORDER! -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -3314,6 +3314,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
+        // CACHE BUSTER - v5 - DATABASE ORDERING FIX
+        console.log('========================================');
+        console.log('INDEX.HTML VERSION 5 - DATABASE ORDERING FIXED!');
+        console.log('Loaded at:', new Date().toISOString());
+        console.log('If you see v3 or v4, do HARD REFRESH!');
+        console.log('Windows/Linux: Ctrl+Shift+R | Mac: Cmd+Shift+R');
+        console.log('========================================');
+        
         // Detect when user comes back from Stripe (browser back button)
         window.addEventListener('pageshow', function(event) {
             // If page is being restored from cache (user clicked back)
@@ -3365,15 +3373,18 @@
                     query = query.ilike('title', `%${filters.search}%`);
                 }
 
-                // Apply sorting
+                // Apply sorting - ALWAYS include ID as secondary sort for consistency
                 if (filters.sort === 'popular') {
-                    query = query.order('popular', { ascending: false });
+                    query = query.order('popular', { ascending: false }).order('id', { ascending: true });
                 } else if (filters.sort === 'price-low') {
-                    query = query.order('price', { ascending: true });
+                    query = query.order('price', { ascending: true }).order('id', { ascending: true });
                 } else if (filters.sort === 'price-high') {
-                    query = query.order('price', { ascending: false });
+                    query = query.order('price', { ascending: false }).order('id', { ascending: true });
                 } else if (filters.sort === 'newest') {
-                    query = query.order('created_at', { ascending: false });
+                    query = query.order('created_at', { ascending: false }).order('id', { ascending: true });
+                } else {
+                    // DEFAULT: Order by ID for consistent results
+                    query = query.order('id', { ascending: true });
                 }
 
                 const { data, error } = await query;
