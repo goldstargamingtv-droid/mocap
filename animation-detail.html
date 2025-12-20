@@ -1155,6 +1155,431 @@
         }
 
         /* Footer */
+        /* Auth Modal */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 20000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .auth-modal.active {
+            display: flex;
+        }
+        
+        .auth-modal-overlay {
+            position: absolute;
+            inset: 0;
+        }
+        
+        .auth-modal-box {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            padding: 0;
+            max-width: 480px;
+            width: 90%;
+            animation: modalSlideIn 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        @keyframes modalSlideIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .auth-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 44px;
+            height: 44px;
+            border: none;
+            background: rgba(239, 68, 68, 0.2);
+            color: #FCA5A5;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .auth-close:hover {
+            background: rgba(239, 68, 68, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+        }
+        
+        .auth-tab {
+            flex: 1;
+            padding: 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .auth-tab.active {
+            color: var(--text-primary);
+        }
+        
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+        }
+        
+        .auth-form {
+            padding: 40px;
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        .auth-form h2 {
+            font-size: 28px;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .auth-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            font-size: 14px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .password-input-wrapper {
+            position: relative;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(15, 15, 26, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        .password-input-wrapper input {
+            padding-right: 45px;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+        
+        .password-toggle:hover {
+            color: var(--teal);
+        }
+        
+        .eye-icon {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+        
+        .auth-form .btn {
+            width: 100%;
+            margin-top: 8px;
+        }
+        
+        .auth-message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .auth-message.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #FCA5A5;
+        }
+        
+        .auth-message.success {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            color: #86EFAC;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 20000;
+            display: none;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        .cart-modal.active {
+            display: flex;
+        }
+        
+        .cart-modal-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+        }
+        
+        .cart-modal-content {
+            position: relative;
+            width: 500px;
+            max-width: 90vw;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-left: 1px solid rgba(0, 212, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        
+        .cart-header {
+            padding: 24px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .cart-header h2 {
+            font-size: 24px;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .cart-close {
+            width: 40px;
+            height: 40px;
+            border: none;
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--text-primary);
+            font-size: 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-close:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+        
+        .cart-item {
+            background: rgba(26, 26, 46, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 16px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .cart-item:hover {
+            border-color: var(--teal);
+        }
+        
+        .cart-item-checkbox {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+        }
+        
+        .cart-item-checkbox input[type="checkbox"] {
+            display: none;
+        }
+        
+        .cart-item-checkbox label {
+            display: block;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--teal);
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .cart-item-checkbox input[type="checkbox"]:checked + label {
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+        }
+        
+        .cart-item-checkbox input[type="checkbox"]:checked + label::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .cart-item-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .cart-item-title {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+        
+        .cart-item-duration {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        
+        .cart-item-price {
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .cart-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+        
+        .cart-empty svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+        
+        .cart-footer {
+            padding: 24px;
+            border-top: 1px solid rgba(0, 212, 255, 0.15);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .cart-total-price {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Sora', sans-serif;
+        }
+
+        /* Footer */
         .footer {
             background: #0a0a12;
             border-top: 1px solid rgba(0, 212, 255, 0.15);
@@ -1288,8 +1713,11 @@
     </style>
 </head>
 <body>
-    <!-- Loading Progress Bar -->
+    <!-- Loading Progress Bar (Page Load) -->
     <div id="loadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--amber)); z-index: 99999; transition: width 0.3s ease;"></div>
+    
+    <!-- Loading Progress Bar (Auth) -->
+    <div id="authLoadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #00D4FF, #F59E0B); z-index: 99999; transition: width 0.3s ease; display: none;"></div>
     
     <!-- Start loading bar immediately -->
     <script>
@@ -1730,12 +2158,266 @@
 
         // Show auth modal - Global function
         function showAuthModal(type) {
-            window.location.href = 'index.html#auth=' + type;
+            document.getElementById('authModal').classList.add('active');
+            switchAuthTab(type);
         }
         
         // Open cart - Global function
         function openCart() {
-            window.location.href = 'index.html#cart';
+            document.getElementById('cartModal').classList.add('active');
+            renderCartItems();
+        }
+        
+        // Close auth modal
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+            document.getElementById('loginEmail').value = '';
+            document.getElementById('loginPassword').value = '';
+            document.getElementById('signupEmail').value = '';
+            document.getElementById('signupPassword').value = '';
+            document.getElementById('signupConfirmPassword').value = '';
+            document.getElementById('loginMessage').innerHTML = '';
+            document.getElementById('signupMessage').innerHTML = '';
+        }
+        
+        // Close cart modal
+        function closeCart() {
+            document.getElementById('cartModal').classList.remove('active');
+        }
+        
+        // Switch auth tabs
+        function switchAuthTab(tab) {
+            const tabs = document.querySelectorAll('.auth-tab');
+            const forms = document.querySelectorAll('.auth-form');
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            forms.forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                tabs[0].classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                tabs[1].classList.add('active');
+                document.getElementById('signupForm').classList.add('active');
+            }
+        }
+        
+        // Toggle password visibility
+        function togglePassword(inputId, button) {
+            const input = document.getElementById(inputId);
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        }
+        
+        // Handle login
+        async function handleLogin(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const loginBtn = document.getElementById('loginBtn');
+            const messageDiv = document.getElementById('loginMessage');
+            const loadingBar = document.getElementById('authLoadingBar');
+            
+            // Show and animate loading bar
+            if (loadingBar) {
+                loadingBar.style.display = 'block';
+                loadingBar.style.width = '30%';
+            }
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Signing in...';
+            messageDiv.innerHTML = '';
+            
+            try {
+                // Progress to 60%
+                setTimeout(() => { if (loadingBar) loadingBar.style.width = '60%'; }, 200);
+                
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email,
+                    password
+                });
+                
+                if (error) throw error;
+                
+                // Complete to 100%
+                if (loadingBar) loadingBar.style.width = '100%';
+                
+                messageDiv.innerHTML = '<div class="auth-message success">Login successful! Redirecting...</div>';
+                setTimeout(() => {
+                    closeAuthModal();
+                    location.reload();
+                }, 1000);
+                
+            } catch (error) {
+                // Hide loading bar on error
+                if (loadingBar) {
+                    loadingBar.style.width = '0';
+                    setTimeout(() => { loadingBar.style.display = 'none'; }, 300);
+                }
+                
+                messageDiv.innerHTML = `<div class="auth-message error">${error.message}</div>`;
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Sign In';
+            }
+        }
+        
+        // Handle signup
+        async function handleSignup(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            const signupBtn = document.getElementById('signupBtn');
+            const messageDiv = document.getElementById('signupMessage');
+            const loadingBar = document.getElementById('authLoadingBar');
+            
+            if (password !== confirmPassword) {
+                messageDiv.innerHTML = '<div class="auth-message error">Passwords do not match</div>';
+                return;
+            }
+            
+            if (password.length < 6) {
+                messageDiv.innerHTML = '<div class="auth-message error">Password must be at least 6 characters</div>';
+                return;
+            }
+            
+            // Show and animate loading bar
+            if (loadingBar) {
+                loadingBar.style.display = 'block';
+                loadingBar.style.width = '30%';
+            }
+            
+            signupBtn.disabled = true;
+            signupBtn.textContent = 'Creating account...';
+            messageDiv.innerHTML = '';
+            
+            try {
+                // Progress to 60%
+                setTimeout(() => { if (loadingBar) loadingBar.style.width = '60%'; }, 200);
+                
+                const { data, error } = await supabaseClient.auth.signUp({
+                    email,
+                    password
+                });
+                
+                if (error) throw error;
+                
+                // Complete to 100%
+                if (loadingBar) loadingBar.style.width = '100%';
+                
+                messageDiv.innerHTML = '<div class="auth-message success">Account created! Logging you in...</div>';
+                setTimeout(() => {
+                    closeAuthModal();
+                    location.reload();
+                }, 1500);
+                
+            } catch (error) {
+                // Hide loading bar on error
+                if (loadingBar) {
+                    loadingBar.style.width = '0';
+                    setTimeout(() => { loadingBar.style.display = 'none'; }, 300);
+                }
+                
+                messageDiv.innerHTML = `<div class="auth-message error">${error.message}</div>`;
+                signupBtn.disabled = false;
+                signupBtn.textContent = 'Create Account';
+            }
+        }
+        
+        // Render cart items
+        async function renderCartItems() {
+            const cartIds = JSON.parse(localStorage.getItem('cart') || '[]');
+            const cartItemsContainer = document.getElementById('cartItems');
+            
+            if (cartIds.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="cart-empty">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some animations to get started!</p>
+                    </div>
+                `;
+                document.querySelector('.cart-total-price').textContent = '$0.00';
+                return;
+            }
+            
+            const { data: animations } = await supabaseClient
+                .from('animations')
+                .select('*')
+                .in('id', cartIds);
+            
+            if (animations && animations.length > 0) {
+                let total = 0;
+                cartItemsContainer.innerHTML = animations.map(item => {
+                    total += item.price;
+                    return `
+                        <div class="cart-item">
+                            <div class="cart-item-image">
+                                <img src="${item.thumbnail_url || item.video_url}" alt="${item.title}">
+                            </div>
+                            <div class="cart-item-info">
+                                <div class="cart-item-title">${item.title}</div>
+                                <div class="cart-item-duration">${item.duration || 'N/A'}</div>
+                                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                document.querySelector('.cart-total-price').textContent = `$${total.toFixed(2)}`;
+            }
+        }
+        
+        // Proceed to checkout
+        async function proceedToCheckout() {
+            const cartIds = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (cartIds.length === 0) return;
+            
+            // Use existing buyAnimation logic
+            const { data: animations } = await supabaseClient
+                .from('animations')
+                .select('*')
+                .in('id', cartIds);
+            
+            if (animations && animations.length > 0) {
+                // Create loading overlay
+                const loading = document.createElement('div');
+                loading.id = 'stripe-loading-overlay';
+                loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:99999;';
+                loading.innerHTML = '<div style="background:#1A1A2E;padding:40px;border-radius:16px;text-align:center;border:2px solid #00D4FF;"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#00D4FF;">Processing Payment...</div><div style="color:#9CA3AF;margin-top:8px;">Please wait</div></div>';
+                document.body.appendChild(loading);
+
+                try {
+                    const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${SUPABASE_KEY}`
+                        },
+                        body: JSON.stringify({
+                            animationIds: cartIds,
+                            successUrl: window.location.origin + '/success.html',
+                            cancelUrl: window.location.href
+                        })
+                    });
+
+                    const { sessionId } = await response.json();
+                    const stripe = window.Stripe('pk_test_51SfQ2BQBChX7okucx4uosVidKjSy2aeDtIAJz3G2DdkFcnKKZWp3byJ8ZbIbSMfvUL6mFpBinviFcjs6dQStaqTN000OZa3XQn');
+                    await stripe.redirectToCheckout({ sessionId });
+                } catch (error) {
+                    console.error('Checkout error:', error);
+                    alert('Error creating checkout session');
+                    loading.remove();
+                }
+            }
         }
         
         // Global button handlers
@@ -2568,6 +3250,122 @@
         
         }); // End window.addEventListener('load')
     </script>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="auth-modal">
+        <div class="auth-modal-overlay" onclick="closeAuthModal()"></div>
+        <div class="auth-modal-box">
+            <button class="auth-close" onclick="closeAuthModal()">✕</button>
+            
+            <!-- Tabs -->
+            <div class="auth-tabs">
+                <button class="auth-tab active" onclick="switchAuthTab('login')">Sign In</button>
+                <button class="auth-tab" onclick="switchAuthTab('signup')">Create Account</button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form active">
+                <h2>Welcome Back</h2>
+                <p class="auth-subtitle">Sign in to access your motion capture library</p>
+                
+                <div id="loginMessage"></div>
+                
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" placeholder="you@example.com" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="loginPassword" placeholder="••••••••" required aria-required="true">
+                            <button type="button" class="password-toggle" onclick="togglePassword('loginPassword', this)" aria-label="Toggle password visibility">
+                                <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="loginBtn">Sign In</button>
+                </form>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" onclick="closeAuthModal(); return false;" style="color: var(--text-muted); text-decoration: none; font-size: 14px;">Close</a>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-form">
+                <h2>Create Account</h2>
+                <p class="auth-subtitle">Join MocapWork to access premium animations</p>
+                
+                <div id="signupMessage"></div>
+                
+                <form onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label for="signupEmail">Email</label>
+                        <input type="email" id="signupEmail" placeholder="you@example.com" required aria-required="true">
+                    </div>
+                    <div class="form-group">
+                        <label for="signupPassword">Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="signupPassword" placeholder="••••••••" minlength="6" required aria-required="true">
+                            <button type="button" class="password-toggle" onclick="togglePassword('signupPassword', this)">
+                                <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="signupConfirmPassword">Confirm Password</label>
+                        <div class="password-input-wrapper">
+                            <input type="password" id="signupConfirmPassword" placeholder="••••••••" minlength="6" required aria-required="true">
+                            <button type="button" class="password-toggle" onclick="togglePassword('signupConfirmPassword', this)">
+                                <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="signupBtn">Create Account</button>
+                </form>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="#" onclick="closeAuthModal(); return false;" style="color: var(--text-muted); text-decoration: none; font-size: 14px;">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="cart-modal">
+        <div class="cart-modal-overlay" onclick="closeCart()"></div>
+        <div class="cart-modal-content">
+            <div class="cart-header">
+                <h2>Shopping Cart</h2>
+                <button class="cart-close" onclick="closeCart()">✕</button>
+            </div>
+            
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be dynamically inserted -->
+            </div>
+            
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span class="cart-total-price">$0.00</span>
+                </div>
+                <button class="btn btn-secondary" onclick="removeSelectedFromCart()" id="removeSelectedBtn" style="display: none;">
+                    Remove Selected
+                </button>
+                <button class="btn btn-primary" onclick="proceedToCheckout()">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
