@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-20-v7 - LOAD MORE FIX - NO RE-SORTING! -->
+    <!-- VERSION: 2024-12-20-v8 - FIX EMPTY FILTERED ANIMATIONS -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -3314,11 +3314,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-        // CACHE BUSTER - v7 - LOAD MORE FIX
+        // CACHE BUSTER - v8 - FILTERED ANIMATIONS INIT FIX
         console.log('========================================');
-        console.log('INDEX.HTML VERSION 7 - LOAD MORE FIXED!');
+        console.log('INDEX.HTML VERSION 8 - FILTERED ANIMATIONS INITIALIZED!');
         console.log('Loaded at:', new Date().toISOString());
-        console.log('Cards will NOT re-sort when loading more!');
         console.log('========================================');
         
         // Detect when user comes back from Stripe (browser back button)
@@ -3806,6 +3805,15 @@
         window.loadMore = function() {
             console.log('=== LOAD MORE CLICKED ===');
             console.log('Current display count BEFORE:', currentDisplayCount);
+            console.log('filteredAnimations length:', filteredAnimations.length);
+            console.log('filteredAnimations:', filteredAnimations);
+            
+            if (!filteredAnimations || filteredAnimations.length === 0) {
+                console.error('ERROR: filteredAnimations is empty!');
+                alert('Error: No animations to display. Please refresh the page.');
+                return;
+            }
+            
             currentDisplayCount += itemsPerPage;
             console.log('Current display count AFTER:', currentDisplayCount);
             console.log('Re-rendering with same filter/sort...');
@@ -4242,6 +4250,8 @@
                 if (categoryParam || searchParam) {
                     filterAnimations();
                 } else {
+                    // Initial load - set filteredAnimations
+                    filteredAnimations = animations;
                     renderAnimations(animations);
                 }
             } catch (error) {
