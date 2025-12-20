@@ -574,6 +574,12 @@
             border: 1px solid rgba(245, 158, 11, 0.3);
         }
 
+        .badge-sale {
+            background: rgba(239, 68, 68, 0.2);
+            color: #FCA5A5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
         .badge-category {
             background: rgba(0, 212, 255, 0.1);
             color: var(--teal);
@@ -1839,6 +1845,11 @@
         <div class="product-grid">
             <!-- Left: Preview -->
             <div class="preview-section">
+                <!-- Badges above preview -->
+                <div class="product-badges" id="productBadges" style="margin-bottom: 16px;">
+                    <!-- Badges will be populated dynamically -->
+                </div>
+                
                 <div class="preview-main" id="previewContainer" style="opacity: 0; transition: opacity 0.3s ease;">
                     <img src="" alt="Loading..." id="mainPreview" style="display: none;">
                     <div id="previewLoader" style="display: flex; align-items: center; justify-content: center; height: 100%; background: rgba(26, 26, 46, 0.8); border-radius: 16px;">
@@ -1876,10 +1887,6 @@
             <div class="info-section">
                 <!-- Header -->
                 <div class="product-header">
-                    <div class="product-badges">
-                        <span class="badge badge-popular">⭐ POPULAR</span>
-                        <span class="badge badge-category">Combat</span>
-                    </div>
                     <h1 class="product-title">Combat Sword Master Pack</h1>
                 </div>
 
@@ -2668,9 +2675,28 @@
             const titleEl = document.querySelector('.product-title');
             if (titleEl) titleEl.textContent = anim.title;
 
-            // Category badge
-            const categoryBadge = document.querySelector('.badge-category');
-            if (categoryBadge) categoryBadge.textContent = anim.category;
+            // Populate badges dynamically
+            const badgesContainer = document.getElementById('productBadges');
+            if (badgesContainer) {
+                let badges = '';
+                
+                // Popular badge - show if popular field is true
+                if (anim.popular === true) {
+                    badges += '<span class="badge badge-popular">⭐ POPULAR</span>';
+                }
+                
+                // Holiday Sale badge - show if on_sale field is true
+                if (anim.on_sale === true) {
+                    badges += '<span class="badge badge-sale">🎄 HOLIDAY SALE</span>';
+                }
+                
+                // Category badge - always show
+                if (anim.category) {
+                    badges += `<span class="badge badge-category">${anim.category}</span>`;
+                }
+                
+                badgesContainer.innerHTML = badges;
+            }
 
             // Description
             const descEl = document.querySelector('.description');
