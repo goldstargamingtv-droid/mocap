@@ -2801,7 +2801,7 @@
             
             <div class="hero-buttons">
                 <a href="#library" class="btn btn-primary" style="padding: 18px 36px; font-size: 16px;">Browse Library</a>
-                <a href="#" onclick="showAuthModal('signup'); return false;" class="btn btn-primary" style="padding: 18px 36px; font-size: 16px;">Sign Up</a>
+                <a href="#" id="heroSignUpBtn" onclick="showAuthModal('signup'); return false;" class="btn btn-primary" style="padding: 18px 36px; font-size: 16px;">Sign Up</a>
             </div>
 
             <div class="hero-stats">
@@ -4069,6 +4069,9 @@
                 // Hide mobile auth link when logged in
                 const mobileAuthLink = document.getElementById('mobileAuthLink');
                 if (mobileAuthLink) mobileAuthLink.style.display = 'none';
+                // Hide hero Sign Up button when logged in
+                const heroSignUpBtn = document.getElementById('heroSignUpBtn');
+                if (heroSignUpBtn) heroSignUpBtn.style.display = 'none';
             }
             return session?.user || null;
         }
