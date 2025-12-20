@@ -2533,6 +2533,9 @@
     </script>
 </head>
 <body>
+    <!-- Loading Progress Bar for Auth -->
+    <div id="authLoadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #00D4FF, #F59E0B); z-index: 99999; transition: width 0.3s ease; display: none;"></div>
+    
     <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -4187,18 +4190,29 @@
             const password = document.getElementById('loginPassword').value;
             const loginBtn = document.getElementById('loginBtn');
             const messageDiv = document.getElementById('loginMessage');
+            const loadingBar = document.getElementById('authLoadingBar');
+            
+            // Show and animate loading bar
+            loadingBar.style.display = 'block';
+            loadingBar.style.width = '30%';
             
             loginBtn.disabled = true;
             loginBtn.textContent = 'Signing in...';
             messageDiv.innerHTML = '';
             
             try {
+                // Progress to 60%
+                setTimeout(() => { loadingBar.style.width = '60%'; }, 200);
+                
                 const { data, error } = await supabaseClient.auth.signInWithPassword({
                     email,
                     password
                 });
                 
                 if (error) throw error;
+                
+                // Complete to 100%
+                loadingBar.style.width = '100%';
                 
                 messageDiv.innerHTML = '<div class="auth-message success">Login successful! Redirecting...</div>';
                 setTimeout(() => {
@@ -4207,6 +4221,10 @@
                 }, 1000);
                 
             } catch (error) {
+                // Hide loading bar on error
+                loadingBar.style.width = '0';
+                setTimeout(() => { loadingBar.style.display = 'none'; }, 300);
+                
                 messageDiv.innerHTML = `<div class="auth-message error">${error.message}</div>`;
                 loginBtn.disabled = false;
                 loginBtn.textContent = 'Sign In';
@@ -4221,6 +4239,7 @@
             const confirmPassword = document.getElementById('signupConfirmPassword').value;
             const signupBtn = document.getElementById('signupBtn');
             const messageDiv = document.getElementById('signupMessage');
+            const loadingBar = document.getElementById('authLoadingBar');
             
             if (password !== confirmPassword) {
                 messageDiv.innerHTML = '<div class="auth-message error">Passwords do not match</div>';
@@ -4232,17 +4251,27 @@
                 return;
             }
             
+            // Show and animate loading bar
+            loadingBar.style.display = 'block';
+            loadingBar.style.width = '30%';
+            
             signupBtn.disabled = true;
             signupBtn.textContent = 'Creating account...';
             messageDiv.innerHTML = '';
             
             try {
+                // Progress to 60%
+                setTimeout(() => { loadingBar.style.width = '60%'; }, 200);
+                
                 const { data, error } = await supabaseClient.auth.signUp({
                     email,
                     password
                 });
                 
                 if (error) throw error;
+                
+                // Complete to 100%
+                loadingBar.style.width = '100%';
                 
                 // Google Analytics: Sign Up Event
                 if (typeof gtag !== 'undefined') {
@@ -4258,6 +4287,10 @@
                 }, 1500);
                 
             } catch (error) {
+                // Hide loading bar on error
+                loadingBar.style.width = '0';
+                setTimeout(() => { loadingBar.style.display = 'none'; }, 300);
+                
                 messageDiv.innerHTML = `<div class="auth-message error">${error.message}</div>`;
                 signupBtn.disabled = false;
                 signupBtn.textContent = 'Create Account';
