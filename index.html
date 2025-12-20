@@ -4102,6 +4102,7 @@
                 animations = await API.getAnimations();
                 window.animations = animations; // Make available in console for debugging
                 console.log('Loaded animations:', animations);
+                console.log('Popular flags:', animations.map(a => ({ title: a.title, popular: a.popular, onSale: a.onSale, holidaySale: a.holidaySale })));
                 
                 // Check for URL parameters (from animation detail page tags/category)
                 const urlParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
