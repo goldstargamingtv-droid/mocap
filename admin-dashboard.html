@@ -1080,7 +1080,7 @@
 
     <script>
         console.log('========================================');
-        console.log('ADMIN DASHBOARD v3.1 LOADED - ALL REFS FIXED');
+        console.log('ADMIN DASHBOARD v3.2 - ALL SUPABASE REFS FIXED');
         console.log('Timestamp:', new Date().toISOString());
         console.log('========================================');
         
@@ -1169,7 +1169,7 @@
                 currentUser = data.user;
                 
                 // Check if user is admin
-                const { data: userRole } = await supabase
+                const { data: userRole } = await supabaseAdmin
                     .from('user_roles')
                     .select('role')
                     .eq('user_id', currentUser.id)
@@ -1222,7 +1222,7 @@
 
         // Load Overview Stats
         async function loadOverviewStats() {
-            const { data: animations, error } = await supabase
+            const { data: animations, error } = await supabaseAdmin
                 .from('animations')
                 .select('*');
 
@@ -1270,7 +1270,7 @@
         async function loadAllAnimations() {
             document.getElementById('animationsTable').innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
             
-            const { data: animations, error } = await supabase
+            const { data: animations, error } = await supabaseAdmin
                 .from('animations')
                 .select('*')
                 .order('created_at', { ascending: false });
@@ -1374,7 +1374,7 @@
                 video_type: 'image/png'
             };
 
-            const { data, error } = await supabase
+            const { data, error } = await supabaseAdmin
                 .from('animations')
                 .insert([animationData])
                 .select();
@@ -1400,7 +1400,7 @@
         async function deleteAnimation(id, title) {
             if (!confirm(`Are you sure you want to delete "${title}"?`)) return;
 
-            const { error } = await supabase
+            const { error } = await supabaseAdmin
                 .from('animations')
                 .delete()
                 .eq('id', id);
@@ -1484,7 +1484,7 @@
             }
 
             // Get user roles
-            const { data: roles } = await supabase
+            const { data: roles } = await supabaseAdmin
                 .from('user_roles')
                 .select('*');
 
@@ -1533,7 +1533,7 @@
         async function loadAdmins() {
             document.getElementById('adminsList').innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
             
-            const { data: admins, error } = await supabase
+            const { data: admins, error } = await supabaseAdmin
                 .from('user_roles')
                 .select(`
                     *,
@@ -1597,7 +1597,7 @@
             }
 
             // Add admin role
-            const { error } = await supabase
+            const { error } = await supabaseAdmin
                 .from('user_roles')
                 .upsert({ 
                     user_id: user.id, 
@@ -1617,7 +1617,7 @@
         async function makeAdmin(userId, email) {
             if (!confirm(`Make ${email} an admin?`)) return;
 
-            const { error } = await supabase
+            const { error } = await supabaseAdmin
                 .from('user_roles')
                 .upsert({ 
                     user_id: userId, 
@@ -1636,7 +1636,7 @@
         async function removeAdmin(userId, email) {
             if (!confirm(`Remove admin access from ${email}?`)) return;
 
-            const { error } = await supabase
+            const { error } = await supabaseAdmin
                 .from('user_roles')
                 .update({ role: 'user' })
                 .eq('user_id', userId);
