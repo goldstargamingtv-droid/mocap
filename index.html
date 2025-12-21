@@ -4862,6 +4862,10 @@
                 // Force scroll to top for cart modal
                 window.scrollTo(0, 0);
                 openCart();
+            } else if (hash === '#checkout') {
+                // Handle checkout from other pages
+                window.scrollTo(0, 0);
+                handleCartHoverCheckout();
             } else if (hash === '#library' || hash === '#contact' || hash === '#faq') {
                 // Scroll to the section after a brief delay to ensure page is loaded
                 setTimeout(() => {
