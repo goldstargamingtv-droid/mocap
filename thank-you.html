@@ -442,8 +442,12 @@
 
                 console.log('Showing download button...');
 
-                // Show download button
+                // Show download button with order details
                 showDownloadReady(downloadUrl, {
+                    orderId: purchase.stripe_session_id.substring(0, 20) + '...',
+                    animationTitle: purchase.animations.title,
+                    amount: purchase.amount_paid,
+                    date: new Date(purchase.purchase_date).toLocaleDateString(),
                     total: purchase.amount_paid,
                     items: [{
                         name: purchase.animations.title,
