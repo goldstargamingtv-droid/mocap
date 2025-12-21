@@ -1078,7 +1078,13 @@
         // Supabase Configuration
         const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+            auth: {
+                persistSession: true,
+                autoRefreshToken: true,
+                detectSessionInUrl: true
+            }
+        });
 
         let currentUser = null;
         let uploadedFiles = {
@@ -1088,9 +1094,17 @@
 
         // Initialize
         async function init() {
-            const { data: { session } } = await supabase.auth.getSession();
+            console.log('=== ADMIN DASHBOARD INIT ===');
+            
+            const { data: { session }, error } = await supabase.auth.getSession();
+            
+            console.log('Session:', session);
+            console.log('Session error:', error);
+            console.log('User:', session?.user);
+            
             if (session) {
                 currentUser = session.user;
+                console.log('User logged in:', currentUser.email);
                 
                 // Check if user is actually an admin
                 const { data: userRole } = await supabase
@@ -1099,15 +1113,20 @@
                     .eq('user_id', currentUser.id)
                     .single();
                 
+                console.log('User role:', userRole);
+                
                 if (userRole && userRole.role === 'admin') {
+                    console.log('✅ User is admin - showing dashboard');
                     // User is admin, show dashboard
                     showDashboard();
                 } else {
+                    console.log('❌ User is NOT admin');
                     // User is logged in but NOT admin
                     alert('Access Denied: You must be an admin to access this page.');
                     window.location.href = 'index.html';
                 }
             } else {
+                console.log('❌ No session found - showing login');
                 // Not logged in at all
                 showLogin();
             }
