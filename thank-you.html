@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- THANK YOU PAGE v2.0 - 2024-12-21 CACHE BUSTER -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -357,12 +358,18 @@
 
     <script>
         // =================================================================
-        // CONFIGURATION
+        // VERSION & CONFIGURATION
         // =================================================================
+        console.log('========================================');
+        console.log('THANK YOU PAGE v2.0 LOADED');
+        console.log('Timestamp:', new Date().toISOString());
+        console.log('========================================');
+        
         const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
 
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Use unique variable name to avoid cache conflicts
+        const supabaseTY = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // =================================================================
         // GET DOWNLOAD LINK
@@ -385,7 +392,7 @@
             try {
                 // Check if user is logged in
                 console.log('Checking user session...');
-                const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+                const { data: { session }, error: sessionError } = await supabaseTY.auth.getSession();
                 
                 console.log('User session:', session);
                 console.log('Session error:', sessionError);
