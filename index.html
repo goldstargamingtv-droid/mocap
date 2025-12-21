@@ -4302,17 +4302,30 @@
 
         // Check if user has admin role and show admin button
         async function checkAdminStatus(userId) {
+            console.log('=== ADMIN CHECK ===');
+            console.log('Checking admin status for user ID:', userId);
+            
             const { data: userRole, error } = await supabaseClient
                 .from('user_roles')
                 .select('role')
                 .eq('user_id', userId)
                 .single();
             
+            console.log('User role query result:', userRole);
+            console.log('User role query error:', error);
+            
             if (userRole && userRole.role === 'admin') {
+                console.log('✅ User IS admin - showing button');
                 const adminBtn = document.getElementById('adminDashboardBtn');
+                console.log('Admin button element:', adminBtn);
                 if (adminBtn) {
                     adminBtn.style.display = 'inline-flex';
+                    console.log('Admin button should now be visible');
+                } else {
+                    console.error('❌ Admin button element not found in DOM');
                 }
+            } else {
+                console.log('❌ User is NOT admin');
             }
         }
 
