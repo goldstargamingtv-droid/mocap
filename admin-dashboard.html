@@ -1080,7 +1080,7 @@
 
     <script>
         console.log('========================================');
-        console.log('ADMIN DASHBOARD v3.0 LOADED - NEW VAR NAME');
+        console.log('ADMIN DASHBOARD v3.1 LOADED - ALL REFS FIXED');
         console.log('Timestamp:', new Date().toISOString());
         console.log('========================================');
         
@@ -1116,7 +1116,7 @@
                 console.log('User logged in:', currentUser.email);
                 
                 // Check if user is actually an admin
-                const { data: userRole } = await supabase
+                const { data: userRole } = await supabaseAdmin
                     .from('user_roles')
                     .select('role')
                     .eq('user_id', currentUser.id)
