@@ -908,6 +908,17 @@
                                 <div id="thumbnailPreview" class="file-preview"></div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="form-label">Downloadable File (FBX, BVH, etc.)</label>
+                                <div class="file-upload" id="downloadUpload" onclick="document.getElementById('downloadFile').click()">
+                                    <div class="upload-icon">📦</div>
+                                    <div class="upload-text">Click to upload downloadable file</div>
+                                    <div class="upload-hint">FBX, BVH, ZIP (Max 100MB) - This is what users download</div>
+                                </div>
+                                <input type="file" id="downloadFile" accept=".fbx,.bvh,.zip,.rar,.7z" style="display:none" onchange="handleFileSelect(event, 'download')">
+                                <div id="downloadPreview" class="file-preview"></div>
+                            </div>
+
                             <!-- Toggles -->
                             <div class="form-grid">
                                 <div class="form-group">
@@ -1080,7 +1091,7 @@
 
     <script>
         console.log('========================================');
-        console.log('ADMIN DASHBOARD v3.2 - ALL SUPABASE REFS FIXED');
+        console.log('ADMIN DASHBOARD v4.0 - FILE UPLOADS WORKING!');
         console.log('Timestamp:', new Date().toISOString());
         console.log('========================================');
         
@@ -1098,7 +1109,8 @@
         let currentUser = null;
         let uploadedFiles = {
             video: null,
-            thumbnail: null
+            thumbnail: null,
+            download: null
         };
 
         // Initialize
@@ -1350,43 +1362,136 @@
             event.preventDefault();
             const formData = new FormData(event.target);
             
-            // TODO: Upload files to Supabase Storage or Cloudinary
-            // For now, using placeholder URLs
-            
-            const animationData = {
-                title: formData.get('title'),
-                slug: formData.get('slug') || formData.get('title').toLowerCase().replace(/\s+/g, '-'),
-                description: formData.get('description'),
-                price: parseFloat(formData.get('price')),
-                duration: formData.get('duration'),
-                category: formData.get('category'),
-                sale_percentage: parseInt(formData.get('sale_percentage')) || null,
-                file_size: formData.get('file_size'),
-                frame_rate: formData.get('frame_rate'),
-                resolution: formData.get('resolution'),
-                format: formData.get('format'),
-                compatible_with: formData.get('compatible_with'),
-                popular: formData.get('popular') === 'on',
-                on_sale: formData.get('on_sale') === 'on',
-                holiday_sale: formData.get('holiday_sale') === 'on',
-                video_url: 'https://via.placeholder.com/400x300/1a1a2e/00d4ff?text=Animation',
-                thumbnail_url: 'https://via.placeholder.com/400x300/1a1a2e/00d4ff?text=Thumbnail',
-                video_type: 'image/png'
-            };
+            try {
+                // Show loading state
+                const submitBtn = event.target.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="animation: spin 1s linear infinite;"><circle cx="12" cy="12" r="10" stroke-width="4" stroke-dasharray="31.4" stroke-dashoffset="15.7"/></svg> Uploading...';
+                
+                let videoUrl = null;
+                let thumbnailUrl = null;
+                let downloadUrl = null;
+                let videoType = 'image/gif';
+                
+                // Upload video/GIF file
+                if (uploadedFiles.video) {
+                    const file = uploadedFiles.video;
+                    const fileExt = file.name.split('.').pop();
+                    const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+                    
+                    const { data: uploadData, error: uploadError } = await supabaseAdmin.storage
+                        .from('animations')
+                        .upload(fileName, file, {
+                            cacheControl: '3600',
+                            upsert: false
+                        });
+                    
+                    if (uploadError) throw uploadError;
+                    
+                    // Get public URL
+                    const { data: { publicUrl } } = supabaseAdmin.storage
+                        .from('animations')
+                        .getPublicUrl(fileName);
+                    
+                    videoUrl = publicUrl;
+                    videoType = file.type || 'image/gif';
+                }
+                
+                // Upload thumbnail image
+                if (uploadedFiles.thumbnail) {
+                    const file = uploadedFiles.thumbnail;
+                    const fileExt = file.name.split('.').pop();
+                    const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+                    
+                    const { data: uploadData, error: uploadError } = await supabaseAdmin.storage
+                        .from('thumbnails')
+                        .upload(fileName, file, {
+                            cacheControl: '3600',
+                            upsert: false
+                        });
+                    
+                    if (uploadError) throw uploadError;
+                    
+                    // Get public URL
+                    const { data: { publicUrl } } = supabaseAdmin.storage
+                        .from('thumbnails')
+                        .getPublicUrl(fileName);
+                    
+                    thumbnailUrl = publicUrl;
+                }
+                
+                // Upload downloadable file (if provided)
+                if (uploadedFiles.download) {
+                    const file = uploadedFiles.download;
+                    const fileExt = file.name.split('.').pop();
+                    const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+                    
+                    const { data: uploadData, error: uploadError } = await supabaseAdmin.storage
+                        .from('downloads')
+                        .upload(fileName, file, {
+                            cacheControl: '3600',
+                            upsert: false
+                        });
+                    
+                    if (uploadError) throw uploadError;
+                    
+                    // Get public URL (for admin reference)
+                    const { data: { publicUrl } } = supabaseAdmin.storage
+                        .from('downloads')
+                        .getPublicUrl(fileName);
+                    
+                    downloadUrl = publicUrl;
+                }
+                
+                const animationData = {
+                    title: formData.get('title'),
+                    slug: formData.get('slug') || formData.get('title').toLowerCase().replace(/\s+/g, '-'),
+                    description: formData.get('description'),
+                    price: parseFloat(formData.get('price')),
+                    duration: formData.get('duration'),
+                    category: formData.get('category'),
+                    sale_percentage: parseInt(formData.get('sale_percentage')) || null,
+                    file_size: formData.get('file_size'),
+                    frame_rate: formData.get('frame_rate'),
+                    resolution: formData.get('resolution'),
+                    format: formData.get('format'),
+                    compatible_with: formData.get('compatible_with'),
+                    popular: formData.get('popular') === 'on',
+                    on_sale: formData.get('on_sale') === 'on',
+                    holiday_sale: formData.get('holiday_sale') === 'on',
+                    video_url: videoUrl || 'https://via.placeholder.com/400x300/1a1a2e/00d4ff?text=No+Video',
+                    thumbnail_url: thumbnailUrl || videoUrl || 'https://via.placeholder.com/400x300/1a1a2e/00d4ff?text=No+Thumbnail',
+                    file_url: downloadUrl,
+                    video_type: videoType
+                };
 
-            const { data, error } = await supabaseAdmin
-                .from('animations')
-                .insert([animationData])
-                .select();
+                const { data, error } = await supabaseAdmin
+                    .from('animations')
+                    .insert([animationData])
+                    .select();
 
-            if (error) {
-                showNotification('Error: ' + error.message, 'error');
-            } else {
+                if (error) throw error;
+                
                 showNotification('Animation created successfully!', 'success');
                 event.target.reset();
-                uploadedFiles = { video: null, thumbnail: null };
+                uploadedFiles = { video: null, thumbnail: null, download: null };
                 document.getElementById('videoPreview').innerHTML = '';
                 document.getElementById('thumbnailPreview').innerHTML = '';
+                document.getElementById('downloadPreview').innerHTML = '';
+                
+                // Restore button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+                
+            } catch (error) {
+                console.error('Upload error:', error);
+                showNotification('Error: ' + error.message, 'error');
+                
+                // Restore button
+                const submitBtn = event.target.querySelector('button[type="submit"]');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg> Create Animation';
             }
         }
 
@@ -1427,7 +1532,7 @@
         }
 
         // Drag and drop
-        ['videoUpload', 'thumbnailUpload'].forEach(id => {
+        ['videoUpload', 'thumbnailUpload', 'downloadUpload'].forEach(id => {
             const element = document.getElementById(id);
             if (element) {
                 element.addEventListener('dragover', (e) => {
@@ -1442,7 +1547,7 @@
                 element.addEventListener('drop', (e) => {
                     e.preventDefault();
                     element.classList.remove('dragover');
-                    const type = id === 'videoUpload' ? 'video' : 'thumbnail';
+                    const type = id === 'videoUpload' ? 'video' : id === 'thumbnailUpload' ? 'thumbnail' : 'download';
                     const file = e.dataTransfer.files[0];
                     if (file) {
                         const fileInput = document.getElementById(type + 'File');
