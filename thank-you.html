@@ -378,42 +378,48 @@
             }
 
             try {
-                // First, record the purchase in database
-                const recordResponse = await fetch(`${SUPABASE_URL}/functions/v1/record-purchase`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    },
-                    body: JSON.stringify({ sessionId })
-                });
-
-                const recordData = await recordResponse.json();
+                // Check if user is logged in
+                const { data: { session } } = await supabase.auth.getSession();
                 
-                if (recordData.error) {
-                    console.error('Error recording purchase:', recordData.error);
-                    // Continue anyway to show download link
-                }
-
-                // Call Supabase Edge Function to get download URL
-                const response = await fetch(`${SUPABASE_URL}/functions/v1/get-download`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    },
-                    body: JSON.stringify({ sessionId })
-                });
-
-                const data = await response.json();
-
-                if (data.error) {
-                    showError(data.error);
+                if (!session) {
+                    showError('Please log in to download your file.');
                     return;
                 }
 
-                // Show download button with signed URL
-                showDownloadReady(data.downloadUrl, data.orderDetails);
+                // Check if purchase already exists
+                const { data: existingPurchase } = await supabase
+                    .from('purchases')
+                    .select('*, animations(*)')
+                    .eq('stripe_session_id', sessionId)
+                    .eq('user_id', session.user.id)
+                    .single();
+
+                let purchase = existingPurchase;
+
+                // If no purchase record, we need to get Stripe session details
+                if (!purchase) {
+                    // For now, show error - we need to record purchase first
+                    showError('Purchase record not found. Please contact support with session ID: ' + sessionId);
+                    return;
+                }
+
+                // Get the download URL from the animation
+                const downloadUrl = purchase.animations.file_url;
+
+                if (!downloadUrl) {
+                    showError('Download file not available for this animation. Please contact support.');
+                    return;
+                }
+
+                // Show download button
+                showDownloadReady(downloadUrl, {
+                    total: purchase.amount_paid,
+                    items: [{
+                        name: purchase.animations.title,
+                        price: purchase.amount_paid,
+                        id: purchase.animations.id
+                    }]
+                });
 
             } catch (error) {
                 console.error('Error fetching download:', error);
