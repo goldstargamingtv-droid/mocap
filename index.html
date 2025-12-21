@@ -4668,25 +4668,19 @@
                     return;
                 }
 
-                // Get cart items from database
-                const { data: cartData, error: cartError } = await supabaseClient
-                    .from('cart_items')
-                    .select('animation_id')
-                    .eq('user_id', session.user.id);
-
-                if (cartError) throw cartError;
-                if (!cartData || cartData.length === 0) {
+                // Get cart items from localStorage
+                const cartIds = JSON.parse(localStorage.getItem('cart') || '[]');
+                
+                if (cartIds.length === 0) {
                     alert('Your cart is empty');
                     return;
                 }
-
-                const animationIds = cartData.map(item => item.animation_id);
 
                 // Get animation details
                 const { data: animations, error: animError } = await supabaseClient
                     .from('animations')
                     .select('*')
-                    .in('id', animationIds);
+                    .in('id', cartIds);
 
                 if (animError) throw animError;
 
