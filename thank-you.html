@@ -368,48 +368,72 @@
         // GET DOWNLOAD LINK
         // =================================================================
         async function getDownloadLink() {
+            console.log('=== DOWNLOAD DEBUG START ===');
+            
             // Get session_id from URL query parameters
             const urlParams = new URLSearchParams(window.location.search);
             const sessionId = urlParams.get('session_id');
+            
+            console.log('Session ID from URL:', sessionId);
 
             if (!sessionId) {
+                console.error('No session ID found');
                 showError('No session ID found. Please contact support.');
                 return;
             }
 
             try {
                 // Check if user is logged in
-                const { data: { session } } = await supabase.auth.getSession();
+                console.log('Checking user session...');
+                const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+                
+                console.log('User session:', session);
+                console.log('Session error:', sessionError);
                 
                 if (!session) {
+                    console.error('User not logged in');
                     showError('Please log in to download your file.');
                     return;
                 }
 
+                console.log('User ID:', session.user.id);
+                console.log('Querying purchases table...');
+
                 // Check if purchase already exists
-                const { data: existingPurchase } = await supabase
+                const { data: existingPurchase, error: purchaseError } = await supabase
                     .from('purchases')
                     .select('*, animations(*)')
                     .eq('stripe_session_id', sessionId)
                     .eq('user_id', session.user.id)
                     .single();
 
+                console.log('Purchase query result:', existingPurchase);
+                console.log('Purchase query error:', purchaseError);
+
                 let purchase = existingPurchase;
 
                 // If no purchase record, we need to get Stripe session details
                 if (!purchase) {
-                    // For now, show error - we need to record purchase first
+                    console.error('No purchase record found for session:', sessionId);
                     showError('Purchase record not found. Please contact support with session ID: ' + sessionId);
                     return;
                 }
 
+                console.log('Purchase found:', purchase);
+                console.log('Animation:', purchase.animations);
+
                 // Get the download URL from the animation
                 const downloadUrl = purchase.animations.file_url;
+                
+                console.log('Download URL:', downloadUrl);
 
                 if (!downloadUrl) {
+                    console.error('No file_url in animation');
                     showError('Download file not available for this animation. Please contact support.');
                     return;
                 }
+
+                console.log('Showing download button...');
 
                 // Show download button
                 showDownloadReady(downloadUrl, {
@@ -421,8 +445,12 @@
                     }]
                 });
 
+                console.log('=== DOWNLOAD DEBUG END ===');
+
             } catch (error) {
+                console.error('=== DOWNLOAD ERROR ===');
                 console.error('Error fetching download:', error);
+                console.error('Error details:', error.message, error.stack);
                 showError('Unable to retrieve download link. Please contact support with your order confirmation email.');
             }
         }
