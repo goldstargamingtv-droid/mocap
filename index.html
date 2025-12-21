@@ -932,7 +932,7 @@
 
         .scroll-indicator {
             position: absolute;
-            bottom: 20px;
+            bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
             animation: bounce 2s infinite;
@@ -3699,11 +3699,11 @@
         function performLibrarySearch(query) {
             const lowerQuery = query.toLowerCase();
             
-            // Filter animations
+            // Filter animations (handle null values)
             const results = animations.filter(anim => 
-                anim.title.toLowerCase().includes(lowerQuery) ||
-                anim.category.toLowerCase().includes(lowerQuery) ||
-                anim.style.toLowerCase().includes(lowerQuery)
+                (anim.title && anim.title.toLowerCase().includes(lowerQuery)) ||
+                (anim.category && anim.category.toLowerCase().includes(lowerQuery)) ||
+                (anim.style && anim.style.toLowerCase().includes(lowerQuery))
             ).slice(0, 6);
             
             // Suggested searches
@@ -4722,11 +4722,11 @@
             
             const lowerQuery = query.toLowerCase();
             
-            // Filter animations
+            // Filter animations (handle null values)
             const results = animations.filter(anim => 
-                anim.title.toLowerCase().includes(lowerQuery) ||
-                anim.category.toLowerCase().includes(lowerQuery) ||
-                anim.style.toLowerCase().includes(lowerQuery)
+                (anim.title && anim.title.toLowerCase().includes(lowerQuery)) ||
+                (anim.category && anim.category.toLowerCase().includes(lowerQuery)) ||
+                (anim.style && anim.style.toLowerCase().includes(lowerQuery))
             ).slice(0, 6);
             
             console.log('Search results:', results);
