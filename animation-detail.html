@@ -3006,42 +3006,42 @@
 
         // Share functions
         // Share Modal Functions
-        function openShareModal() {
+        window.openShareModal = function() {
             document.getElementById('shareModal').classList.add('active');
         }
         
-        function closeShareModal() {
+        window.closeShareModal = function() {
             document.getElementById('shareModal').classList.remove('active');
         }
         
-        function shareToTwitter() {
+        window.shareToTwitter = function() {
             const url = window.location.href;
             const title = document.querySelector('.product-title')?.textContent || 'MocapWork Animation';
             window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, '_blank');
             closeShareModal();
         }
         
-        function shareToFacebook() {
+        window.shareToFacebook = function() {
             const url = window.location.href;
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
             closeShareModal();
         }
         
-        function shareToLinkedIn() {
+        window.shareToLinkedIn = function() {
             const url = window.location.href;
             const title = document.querySelector('.product-title')?.textContent || 'MocapWork Animation';
             window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
             closeShareModal();
         }
         
-        function shareToReddit() {
+        window.shareToReddit = function() {
             const url = window.location.href;
             const title = document.querySelector('.product-title')?.textContent || 'MocapWork Animation';
             window.open(`https://reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`, '_blank');
             closeShareModal();
         }
         
-        function copyLinkToClipboard() {
+        window.copyLinkToClipboard = function() {
             navigator.clipboard.writeText(window.location.href).then(() => {
                 // Create success notification
                 const notification = document.createElement('div');
