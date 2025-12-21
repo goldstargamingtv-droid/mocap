@@ -4716,6 +4716,10 @@
         }
         
         function performSearchNav(query) {
+            console.log('performSearchNav called with query:', query);
+            console.log('animations array:', animations);
+            console.log('animations length:', animations ? animations.length : 'undefined');
+            
             const lowerQuery = query.toLowerCase();
             
             // Filter animations
@@ -4724,6 +4728,8 @@
                 anim.category.toLowerCase().includes(lowerQuery) ||
                 anim.style.toLowerCase().includes(lowerQuery)
             ).slice(0, 6);
+            
+            console.log('Search results:', results);
             
             // Suggested searches
             const suggestions = [
@@ -4763,6 +4769,7 @@
                 html += '</div>';
             }
             
+            console.log('Generated HTML:', html);
             searchDropdownNav.innerHTML = html;
             searchDropdownNav.classList.add('active');
         }
