@@ -661,6 +661,9 @@
     <div id="loginPage" class="login-container">
         <div class="login-card">
             <div class="login-logo">MocapWork Admin</div>
+            <p style="text-align: center; color: var(--text-muted); margin-bottom: 24px;">
+                You must be logged in as an admin to access this page
+            </p>
             <form id="loginForm" onsubmit="handleLogin(event)">
                 <div class="form-group">
                     <label class="form-label">Email</label>
@@ -673,6 +676,9 @@
                 <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 24px;">
                     Sign In to Admin
                 </button>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="index.html" style="color: var(--teal); text-decoration: none; font-size: 14px;">← Back to Main Site</a>
+                </div>
             </form>
         </div>
     </div>
@@ -1085,8 +1091,24 @@
             const { data: { session } } = await supabase.auth.getSession();
             if (session) {
                 currentUser = session.user;
-                showDashboard();
+                
+                // Check if user is actually an admin
+                const { data: userRole } = await supabase
+                    .from('user_roles')
+                    .select('role')
+                    .eq('user_id', currentUser.id)
+                    .single();
+                
+                if (userRole && userRole.role === 'admin') {
+                    // User is admin, show dashboard
+                    showDashboard();
+                } else {
+                    // User is logged in but NOT admin
+                    alert('Access Denied: You must be an admin to access this page.');
+                    window.location.href = 'index.html';
+                }
             } else {
+                // Not logged in at all
                 showLogin();
             }
         }
@@ -1117,7 +1139,23 @@
                 showNotification('Login failed: ' + error.message, 'error');
             } else {
                 currentUser = data.user;
-                showDashboard();
+                
+                // Check if user is admin
+                const { data: userRole } = await supabase
+                    .from('user_roles')
+                    .select('role')
+                    .eq('user_id', currentUser.id)
+                    .single();
+                
+                if (userRole && userRole.role === 'admin') {
+                    showDashboard();
+                } else {
+                    showNotification('Access Denied: You are not an admin.', 'error');
+                    await supabase.auth.signOut();
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }
             }
         }
 
