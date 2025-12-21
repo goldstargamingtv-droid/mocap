@@ -89,6 +89,24 @@
             color: white;
         }
 
+        .back-to-site-btn {
+            padding: 8px 16px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--teal);
+            border-radius: 8px;
+            color: var(--teal);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-to-site-btn:hover {
+            background: var(--teal);
+            color: var(--bg-primary);
+        }
+
         /* Main Layout */
         .admin-container {
             display: flex;
@@ -694,6 +712,7 @@
             <div class="admin-logo">MocapWork Admin</div>
             <div class="admin-user">
                 <span class="user-email" id="userEmail"></span>
+                <a href="index.html" class="back-to-site-btn">← Back to Site</a>
                 <button class="logout-btn" onclick="handleLogout()">Logout</button>
             </div>
         </header>
