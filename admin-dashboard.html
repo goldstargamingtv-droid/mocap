@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ADMIN DASHBOARD v2.0 - 2024-12-21 -->
+    <!-- ADMIN DASHBOARD v3.0 - 2024-12-21 - CACHE BUSTER -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -1080,14 +1080,14 @@
 
     <script>
         console.log('========================================');
-        console.log('ADMIN DASHBOARD v2.0 LOADED');
+        console.log('ADMIN DASHBOARD v3.0 LOADED - NEW VAR NAME');
         console.log('Timestamp:', new Date().toISOString());
         console.log('========================================');
         
         // Supabase Configuration
         const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        const supabaseAdmin = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
             auth: {
                 persistSession: true,
                 autoRefreshToken: true,
@@ -1105,7 +1105,7 @@
         async function init() {
             console.log('=== ADMIN DASHBOARD INIT ===');
             
-            const { data: { session }, error } = await supabase.auth.getSession();
+            const { data: { session }, error } = await supabaseAdmin.auth.getSession();
             
             console.log('Session:', session);
             console.log('Session error:', error);
@@ -1158,7 +1158,7 @@
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
 
-            const { data, error } = await supabase.auth.signInWithPassword({
+            const { data, error } = await supabaseAdmin.auth.signInWithPassword({
                 email,
                 password
             });
@@ -1179,7 +1179,7 @@
                     showDashboard();
                 } else {
                     showNotification('Access Denied: You are not an admin.', 'error');
-                    await supabase.auth.signOut();
+                    await supabaseAdmin.auth.signOut();
                     setTimeout(() => {
                         window.location.href = 'index.html';
                     }, 2000);
@@ -1188,7 +1188,7 @@
         }
 
         async function handleLogout() {
-            await supabase.auth.signOut();
+            await supabaseAdmin.auth.signOut();
             currentUser = null;
             showLogin();
         }
@@ -1476,7 +1476,7 @@
             // Load all users
             document.getElementById('allUsersList').innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
             
-            const { data: users, error } = await supabase.auth.admin.listUsers();
+            const { data: users, error } = await supabaseAdmin.auth.admin.listUsers();
             
             if (error) {
                 document.getElementById('allUsersList').innerHTML = '<p style="color: var(--red);">Error loading users. Make sure you have admin privileges.</p>';
@@ -1588,7 +1588,7 @@
             const email = event.target.admin_email.value;
 
             // First, get the user ID from email
-            const { data: users } = await supabase.auth.admin.listUsers();
+            const { data: users } = await supabaseAdmin.auth.admin.listUsers();
             const user = users.find(u => u.email === email);
 
             if (!user) {
