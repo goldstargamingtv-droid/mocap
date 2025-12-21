@@ -4338,16 +4338,29 @@
         
         // Check URL hash for modal triggers (from animation-detail page)
         window.addEventListener('load', function() {
-            // Force scroll to top on page load/refresh
-            window.scrollTo(0, 0);
-            
             const hash = window.location.hash;
             
+            // Handle auth and cart modals
             if (hash.startsWith('#auth=')) {
+                // Force scroll to top for auth modal
+                window.scrollTo(0, 0);
                 const authType = hash.split('=')[1];
                 showAuthModal(authType);
             } else if (hash === '#cart') {
+                // Force scroll to top for cart modal
+                window.scrollTo(0, 0);
                 openCart();
+            } else if (hash === '#library' || hash === '#contact' || hash === '#faq') {
+                // Scroll to the section after a brief delay to ensure page is loaded
+                setTimeout(() => {
+                    const section = document.querySelector(hash);
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 100);
+            } else {
+                // No hash or unknown hash - scroll to top
+                window.scrollTo(0, 0);
             }
         });
 
