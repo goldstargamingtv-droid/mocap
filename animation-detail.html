@@ -2932,7 +2932,7 @@
                         <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">Any animations you add to your cart will be displayed here.</div>
                     </div>
                 `;
-                cartHoverTotal.textContent = '$0.00';
+                cartHoverTotal.innerHTML = '<span class="price-dollar">$</span>0.00';
                 if (checkoutBtn) checkoutBtn.style.display = 'none';
             } else {
                 // Show cart items
