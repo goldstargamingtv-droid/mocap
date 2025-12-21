@@ -416,6 +416,159 @@
             z-index: 10;
         }
 
+        /* Cart Hover Dropdown */
+        .cart-hover-dropdown {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            width: 350px;
+            max-height: 500px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            z-index: 10000;
+            overflow: hidden;
+        }
+
+        .cart-icon:hover .cart-hover-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .cart-hover-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--text-primary);
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .cart-hover-items {
+            max-height: 320px;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .cart-hover-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .cart-hover-items::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
+        }
+
+        .cart-hover-items::-webkit-scrollbar-thumb {
+            background: var(--teal);
+            border-radius: 3px;
+        }
+
+        .cart-hover-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(26, 26, 46, 0.4);
+            margin-bottom: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .cart-hover-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .cart-hover-item-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .cart-hover-item-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .cart-hover-item-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cart-hover-item-price {
+            font-size: 12px;
+            color: var(--teal);
+            font-weight: 600;
+        }
+
+        .cart-hover-item-remove {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .cart-hover-item-remove:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: scale(1.1);
+        }
+
+        .cart-hover-empty {
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .cart-hover-empty-icon {
+            font-size: 48px;
+            opacity: 0.3;
+            margin-bottom: 12px;
+        }
+
+        .cart-hover-footer {
+            padding: 16px 20px;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .cart-hover-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .cart-hover-total span:last-child {
+            color: var(--teal);
+            font-size: 18px;
+        }
+
         .btn-logout-nav {
             padding: 8px 16px;
             background: rgba(239, 68, 68, 0.2);
@@ -2649,6 +2802,23 @@
                             <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                         </svg>
                         <span class="cart-badge">0</span>
+                        
+                        <!-- Cart Hover Dropdown -->
+                        <div class="cart-hover-dropdown" id="cartHoverDropdown">
+                            <div class="cart-hover-header">Shopping Cart</div>
+                            <div class="cart-hover-items" id="cartHoverItems">
+                                <!-- Items populated by JavaScript -->
+                            </div>
+                            <div class="cart-hover-footer">
+                                <div class="cart-hover-total">
+                                    <span>Total:</span>
+                                    <span id="cartHoverTotal">$0.00</span>
+                                </div>
+                                <button class="btn btn-primary" onclick="openCart(); event.stopPropagation();" style="width: 100%; margin-top: 12px;">
+                                    View Cart
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -4297,8 +4467,64 @@
                 if (badge) {
                     badge.textContent = cartItems.length;
                 }
+                
+                // Update hover dropdown
+                updateCartHoverDropdown(cartItems);
             } catch (error) {
                 console.error('Error updating cart badge:', error);
+            }
+        }
+
+        // Update cart hover dropdown
+        function updateCartHoverDropdown(cartItems) {
+            const cartHoverItems = document.getElementById('cartHoverItems');
+            const cartHoverTotal = document.getElementById('cartHoverTotal');
+            
+            if (!cartHoverItems || !cartHoverTotal) return;
+            
+            if (cartItems.length === 0) {
+                // Show empty state
+                cartHoverItems.innerHTML = `
+                    <div class="cart-hover-empty">
+                        <div class="cart-hover-empty-icon">🛒</div>
+                        <div>Your cart is empty</div>
+                        <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">Any animations you add to your cart will be displayed here.</div>
+                    </div>
+                `;
+                cartHoverTotal.textContent = '$0.00';
+            } else {
+                // Show cart items
+                let total = 0;
+                let html = '';
+                
+                cartItems.forEach(item => {
+                    total += item.price;
+                    html += `
+                        <div class="cart-hover-item" onclick="window.location.href='animation-detail.html?slug=${item.slug}'; event.stopPropagation();">
+                            <img src="${item.video_url}" alt="${item.title}" class="cart-hover-item-img">
+                            <div class="cart-hover-item-info">
+                                <div class="cart-hover-item-title">${item.title}</div>
+                                <div class="cart-hover-item-price">$${item.price.toFixed(2)}</div>
+                            </div>
+                            <button class="cart-hover-item-remove" onclick="removeFromCartHover(${item.id}); event.stopPropagation();" title="Remove from cart">
+                                ✕
+                            </button>
+                        </div>
+                    `;
+                });
+                
+                cartHoverItems.innerHTML = html;
+                cartHoverTotal.textContent = '$' + total.toFixed(2);
+            }
+        }
+
+        // Remove item from cart (from hover dropdown)
+        window.removeFromCartHover = async function(animationId) {
+            try {
+                await API.removeFromCart(animationId);
+                await updateCartBadge();
+            } catch (error) {
+                console.error('Error removing from cart:', error);
             }
         }
 
