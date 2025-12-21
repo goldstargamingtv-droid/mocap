@@ -412,8 +412,15 @@
 
         .cart-hover-item-price {
             font-size: 12px;
-            color: var(--teal);
+            color: #FFFFFF;
             font-weight: 600;
+        }
+
+        .cart-hover-item-price .price-dollar {
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .cart-hover-item-remove {
@@ -467,8 +474,15 @@
         }
 
         .cart-hover-total span:last-child {
-            color: var(--teal);
+            color: #FFFFFF;
             font-size: 18px;
+        }
+        
+        .cart-hover-total .price-dollar {
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .btn-logout-nav {
@@ -1761,9 +1775,38 @@
         .cart-item-price {
             font-size: 18px;
             font-weight: 800;
+            color: #FFFFFF;
+        }
+        
+        .cart-item-price .price-dollar {
             background: linear-gradient(135deg, var(--teal), var(--amber));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .cart-item-remove {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        
+        .cart-item-remove:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: scale(1.1);
         }
         
         .cart-empty {
@@ -2609,16 +2652,42 @@
                                 <div class="cart-item-price">
                                     ${isOnSale ? `
                                         <div style="display: flex; flex-direction: column; gap: 4px;">
-                                            <span style="font-size: 12px; color: var(--text-muted); text-decoration: line-through;">$${item.price.toFixed(2)}</span>
-                                            <span style="font-size: 18px; font-weight: 800; background: linear-gradient(135deg, #10B981, #86EFAC); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$${finalPrice.toFixed(2)}</span>
+                                            <span style="font-size: 12px; color: var(--text-muted); text-decoration: line-through; text-decoration-color: #EF4444;">$${item.price.toFixed(2)}</span>
+                                            <span style="font-size: 18px; font-weight: 800; color: #FFFFFF;"><span class="price-dollar">$</span>${finalPrice.toFixed(2)}</span>
                                         </div>
-                                    ` : `$${item.price.toFixed(2)}`}
+                                    ` : `<span class="price-dollar">$</span>${item.price.toFixed(2)}`}
                                 </div>
                             </div>
+                            <button class="cart-item-remove" data-id="${item.id}" title="Remove from cart">
+                                ✕
+                            </button>
                         </div>
                     `;
                 }).join('');
                 document.querySelector('.cart-total-price').textContent = `$${total.toFixed(2)}`;
+                
+                // Add event listeners to remove buttons
+                const removeButtons = cartItemsContainer.querySelectorAll('.cart-item-remove');
+                removeButtons.forEach(btn => {
+                    btn.addEventListener('click', async () => {
+                        const animId = btn.getAttribute('data-id');
+                        await removeFromCart(animId);
+                    });
+                });
+            }
+        }
+        
+        // Remove single item from cart
+        async function removeFromCart(animationId) {
+            try {
+                let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                cart = cart.filter(id => id !== animationId && id !== String(animationId));
+                localStorage.setItem('cart', JSON.stringify(cart));
+                await renderCartItems();
+                await updateCartBadge();
+                showNotification('Removed from cart');
+            } catch (error) {
+                console.error('Error removing from cart:', error);
             }
         }
         
@@ -2850,6 +2919,7 @@
         function updateCartHoverDropdown(cartItems) {
             const cartHoverItems = document.getElementById('cartHoverItems');
             const cartHoverTotal = document.getElementById('cartHoverTotal');
+            const checkoutBtn = document.getElementById('cartHoverCheckoutBtn');
             
             if (!cartHoverItems || !cartHoverTotal) return;
             
@@ -2863,19 +2933,23 @@
                     </div>
                 `;
                 cartHoverTotal.textContent = '$0.00';
+                if (checkoutBtn) checkoutBtn.style.display = 'none';
             } else {
                 // Show cart items
                 let total = 0;
                 let html = '';
                 
                 cartItems.forEach(item => {
-                    total += item.price;
+                    const isOnSale = (item.on_sale || item.holiday_sale) && item.sale_percentage;
+                    const finalPrice = isOnSale ? item.price * (1 - item.sale_percentage / 100) : item.price;
+                    total += finalPrice;
+                    
                     html += `
                         <div class="cart-hover-item" data-slug="${item.slug}">
                             <img src="${item.video_url}" alt="${item.title}" class="cart-hover-item-img">
                             <div class="cart-hover-item-info">
                                 <div class="cart-hover-item-title">${item.title}</div>
-                                <div class="cart-hover-item-price">$${item.price.toFixed(2)}</div>
+                                <div class="cart-hover-item-price"><span class="price-dollar">$</span>${finalPrice.toFixed(2)}</div>
                             </div>
                             <button class="cart-hover-item-remove" data-id="${item.id}" title="Remove from cart">
                                 ✕
@@ -2885,7 +2959,8 @@
                 });
                 
                 cartHoverItems.innerHTML = html;
-                cartHoverTotal.textContent = '$' + total.toFixed(2);
+                cartHoverTotal.innerHTML = '<span class="price-dollar">$</span>' + total.toFixed(2);
+                if (checkoutBtn) checkoutBtn.style.display = 'block';
                 
                 // Add event listeners to items and remove buttons
                 const items = cartHoverItems.querySelectorAll('.cart-hover-item');
@@ -2902,7 +2977,7 @@
                     if (removeBtn) {
                         removeBtn.addEventListener('click', async (e) => {
                             e.stopPropagation();
-                            const animId = parseInt(removeBtn.getAttribute('data-id'));
+                            const animId = removeBtn.getAttribute('data-id');
                             await removeFromCartHover(animId);
                         });
                     }
@@ -2921,6 +2996,12 @@
             } catch (error) {
                 console.error('Error removing from cart:', error);
             }
+        }
+
+        // Handle checkout from cart hover dropdown
+        window.handleCartHoverCheckout = function() {
+            // Just redirect to index page with checkout hash
+            window.location.href = 'index.html#checkout';
         }
 
         // Position and show/hide cart hover dropdown
@@ -2969,20 +3050,8 @@
                 notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #EF4444;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(239,68,68,0.4);';
                 notification.innerHTML = `<div style="color:#FCA5A5;font-weight:600;font-size:14px;">🛒 ${message}</div>`;
             } else {
-                notification.style.cssText = `
-                    position: fixed;
-                    top: 100px;
-                    right: 20px;
-                    background: rgba(26, 26, 46, 0.95);
-                    border: 2px solid #10B981;
-                    color: white;
-                    padding: 16px 24px;
-                    border-radius: 12px;
-                    font-weight: 600;
-                    z-index: 10000;
-                    animation: slideInRight 0.3s ease-out;
-                `;
-                notification.textContent = message;
+                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #10B981;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(16,185,129,0.4);';
+                notification.innerHTML = `<div style="color:#86EFAC;font-weight:600;font-size:14px;">🛒 ${message}</div>`;
             }
             
             document.body.appendChild(notification);
@@ -4208,8 +4277,11 @@
                 <span>Total:</span>
                 <span id="cartHoverTotal">$0.00</span>
             </div>
-            <button class="btn btn-primary" onclick="openCart(); event.stopPropagation();" style="width: 100%; margin-top: 12px;">
-                View Cart
+            <button id="cartHoverCheckoutBtn" class="btn btn-primary" onclick="handleCartHoverCheckout()" style="width: 100%; margin-top: 12px; display: none;">
+                Proceed to Checkout
+            </button>
+            <button class="btn btn-secondary" onclick="openCart(); event.stopPropagation();" style="width: 100%; margin-top: 12px;">
+                View Full Cart
             </button>
         </div>
     </div>
