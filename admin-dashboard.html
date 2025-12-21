@@ -1061,6 +1061,43 @@
                         <p class="page-subtitle">Manage admin access and user roles</p>
                     </div>
 
+                    <!-- User Stats -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 212, 255, 0.05));">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--teal);">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-label">Total Users</div>
+                                <div class="stat-value" id="totalUsersCount">-</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.05));">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--amber);">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-label">Admins</div>
+                                <div class="stat-value" id="totalAdminsCount">-</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05));">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--green);">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <div class="stat-content">
+                                <div class="stat-label">Regular Users</div>
+                                <div class="stat-value" id="regularUsersCount">-</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Add Admin Form -->
                     <div class="content-card">
                         <h2 class="card-title">Add New Admin</h2>
@@ -1617,6 +1654,15 @@
                 roles.forEach(r => rolesMap[r.user_id] = r.role);
             }
 
+            // Update statistics
+            const totalUsers = users.length;
+            const adminCount = roles ? roles.filter(r => r.role === 'admin').length : 0;
+            const regularUsers = totalUsers - adminCount;
+
+            document.getElementById('totalUsersCount').textContent = totalUsers;
+            document.getElementById('totalAdminsCount').textContent = adminCount;
+            document.getElementById('regularUsersCount').textContent = regularUsers;
+
             const usersHTML = `
                 <table class="data-table">
                     <thead>
@@ -1657,15 +1703,10 @@
         async function loadAdmins() {
             document.getElementById('adminsList').innerHTML = '<div class="loading"><div class="spinner"></div>Loading...</div>';
             
-            const { data: admins, error } = await supabaseAdmin
+            // Get admin roles
+            const { data: adminRoles, error } = await supabaseAdmin
                 .from('user_roles')
-                .select(`
-                    *,
-                    auth.users (
-                        email,
-                        created_at
-                    )
-                `)
+                .select('*')
                 .eq('role', 'admin');
 
             if (error) {
@@ -1673,9 +1714,16 @@
                 return;
             }
 
-            if (!admins || admins.length === 0) {
+            if (!adminRoles || adminRoles.length === 0) {
                 document.getElementById('adminsList').innerHTML = '<p style="color: var(--text-muted);">No admins found.</p>';
                 return;
+            }
+
+            // Get all users to match emails
+            const { data: allUsers } = await supabaseAdmin.auth.admin.listUsers();
+            const userMap = {};
+            if (allUsers) {
+                allUsers.forEach(u => userMap[u.id] = u);
             }
 
             const adminsHTML = `
@@ -1688,17 +1736,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        ${admins.map(admin => `
-                            <tr>
-                                <td>${admin.user_id}</td>
-                                <td>${new Date(admin.created_at).toLocaleDateString()}</td>
-                                <td>
-                                    ${admin.user_id !== currentUser.id 
-                                        ? `<button class="action-btn delete" onclick="removeAdmin('${admin.user_id}', 'admin')">Remove</button>`
-                                        : '<span style="color: var(--text-muted); font-size: 12px;">You</span>'}
-                                </td>
-                            </tr>
-                        `).join('')}
+                        ${adminRoles.map(admin => {
+                            const user = userMap[admin.user_id];
+                            return `
+                                <tr>
+                                    <td>${user?.email || admin.user_id}</td>
+                                    <td>${new Date(admin.created_at).toLocaleDateString()}</td>
+                                    <td>
+                                        ${admin.user_id !== currentUser.id 
+                                            ? `<button class="action-btn delete" onclick="removeAdmin('${admin.user_id}', '${user?.email || 'this user'}')">Remove</button>`
+                                            : '<span style="color: var(--text-muted); font-size: 12px;">You</span>'}
+                                    </td>
+                                </tr>
+                            `;
+                        }).join('')}
                     </tbody>
                 </table>
             `;
