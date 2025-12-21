@@ -493,3 +493,13 @@
 
         function showError(message) {
             document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('errorState').style.display = 'block';
+            document.getElementById('errorMessage').textContent = message;
+        }
+
+        // Initialize on page load
+        console.log('Page loaded, calling getDownloadLink...');
+        getDownloadLink();
+    </script>
+</body>
+</html>
