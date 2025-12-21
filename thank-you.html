@@ -291,6 +291,14 @@
             </div>
 
             <div id="downloadReady" style="display: none;">
+                <!-- Animation Preview -->
+                <div id="animationPreview" style="margin-bottom: 24px; display: none;">
+                    <div style="background: var(--bg-secondary); border-radius: 12px; padding: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                        <img id="previewGif" src="" alt="Animation Preview" style="width: 100%; max-width: 400px; border-radius: 8px; display: block; margin: 0 auto;">
+                        <p id="animationName" style="text-align: center; margin-top: 12px; font-weight: 600; color: var(--text-primary);"></p>
+                    </div>
+                </div>
+                
                 <a href="#" id="downloadBtn" class="download-btn">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -448,6 +456,7 @@
                     animationTitle: purchase.animations.title,
                     amount: purchase.amount_paid,
                     date: new Date(purchase.purchase_date).toLocaleDateString(),
+                    previewUrl: purchase.animations.video_url, // Add the GIF preview
                     total: purchase.amount_paid,
                     items: [{
                         name: purchase.animations.title,
@@ -470,6 +479,13 @@
             document.getElementById('loadingState').style.display = 'none';
             document.getElementById('downloadReady').style.display = 'block';
             document.getElementById('downloadBtn').href = downloadUrl;
+
+            // Show animation preview if available
+            if (orderDetails && orderDetails.previewUrl && orderDetails.animationTitle) {
+                document.getElementById('animationPreview').style.display = 'block';
+                document.getElementById('previewGif').src = orderDetails.previewUrl;
+                document.getElementById('animationName').textContent = orderDetails.animationTitle;
+            }
 
             // Show order details
             if (orderDetails) {
