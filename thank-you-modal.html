@@ -1,0 +1,192 @@
+<!-- Thank You Modal -->
+<div id="thankYouModal" class="auth-modal">
+    <div class="auth-modal-overlay"></div>
+    <div class="auth-modal-box" style="max-width: 600px;">
+        <button class="auth-close" onclick="closeThankYouModal()">✕</button>
+        
+        <div style="padding: 48px;">
+            <!-- Success Icon -->
+            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                <svg width="40" height="40" fill="none" stroke="#10B981" stroke-width="3" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+
+            <h2 style="font-size: 32px; font-weight: 800; font-family: 'Sora', sans-serif; margin-bottom: 8px; text-align: center; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                Payment Successful!
+            </h2>
+            <p style="color: var(--text-secondary); margin-bottom: 32px; font-size: 16px; text-align: center;">
+                Thank you for your purchase. Your download is ready!
+            </p>
+
+            <!-- Loading State -->
+            <div id="thankYouLoading" style="text-align: center; padding: 24px;">
+                <div class="spinner" style="margin: 0 auto 16px;"></div>
+                <span style="color: var(--text-muted);">Preparing your download...</span>
+            </div>
+
+            <!-- Animation Preview -->
+            <div id="thankYouPreview" style="display: none; margin-bottom: 24px;">
+                <div style="background: var(--bg-secondary); border-radius: 12px; padding: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                    <img id="thankYouGif" src="" alt="Animation Preview" style="width: 100%; max-width: 300px; border-radius: 8px; display: block; margin: 0 auto;">
+                    <p id="thankYouAnimationName" style="text-align: center; margin-top: 12px; font-weight: 600; color: var(--text-primary);"></p>
+                </div>
+            </div>
+
+            <!-- Download Button -->
+            <div id="thankYouDownload" style="display: none; text-align: center; margin-bottom: 24px;">
+                <a href="#" id="thankYouDownloadBtn" class="btn btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none; padding: 16px 32px; font-size: 16px;">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download Your Files
+                </a>
+                <p style="color: var(--text-muted); font-size: 13px; margin-top: 12px;">
+                    You can re-download anytime from your <a href="#" onclick="handleDashboardClick(event); closeThankYouModal(); return false;" style="color: var(--teal); text-decoration: none;">Dashboard</a>
+                </p>
+            </div>
+
+            <!-- Order Details -->
+            <div id="thankYouOrderDetails" style="display: none; background: rgba(26, 26, 46, 0.4); border-radius: 12px; padding: 20px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--text-primary);">Order Details</h3>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted); font-size: 14px;">Order ID</span>
+                        <span id="thankYouOrderId" style="color: var(--text-primary); font-size: 14px; font-family: monospace;">-</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted); font-size: 14px;">Animation</span>
+                        <span id="thankYouOrderAnimation" style="color: var(--text-primary); font-size: 14px;">-</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted); font-size: 14px;">Amount Paid</span>
+                        <span id="thankYouOrderAmount" style="color: var(--text-primary); font-size: 14px; font-weight: 600;">-</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: var(--text-muted); font-size: 14px;">Date</span>
+                        <span id="thankYouOrderDate" style="color: var(--text-primary); font-size: 14px;">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div id="thankYouError" style="display: none; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; padding: 16px; text-align: center;">
+                <p id="thankYouErrorMessage" style="color: #EF4444; font-size: 14px; margin: 0;"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Thank You Modal Spinner */
+#thankYouModal .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 212, 255, 0.1);
+    border-top-color: var(--teal);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+</style>
+
+<script>
+// Thank You Modal Functions
+let thankYouModalOpen = false;
+
+function closeThankYouModal() {
+    document.getElementById('thankYouModal').classList.remove('active');
+    thankYouModalOpen = false;
+    
+    // Clear the success parameter from URL without reloading
+    const url = new URL(window.location);
+    url.searchParams.delete('session_id');
+    url.searchParams.delete('payment_success');
+    window.history.replaceState({}, '', url);
+    
+    // Clear cart since purchase was successful
+    localStorage.removeItem('cart');
+    if (typeof updateCartBadge === 'function') updateCartBadge();
+}
+
+async function showThankYouModal(sessionId) {
+    thankYouModalOpen = true;
+    document.getElementById('thankYouModal').classList.add('active');
+    
+    // Show loading state
+    document.getElementById('thankYouLoading').style.display = 'block';
+    document.getElementById('thankYouPreview').style.display = 'none';
+    document.getElementById('thankYouDownload').style.display = 'none';
+    document.getElementById('thankYouOrderDetails').style.display = 'none';
+    document.getElementById('thankYouError').style.display = 'none';
+    
+    try {
+        // Get user session
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        
+        if (!session) {
+            throw new Error('Please sign in to view your purchase');
+        }
+        
+        // Query purchase from database
+        const { data: purchase, error } = await supabaseClient
+            .from('purchases')
+            .select('*, animations(*)')
+            .eq('stripe_session_id', sessionId)
+            .eq('user_id', session.user.id)
+            .single();
+        
+        if (error || !purchase) {
+            throw new Error('Purchase not found. Please contact support if you were charged.');
+        }
+        
+        // Hide loading
+        document.getElementById('thankYouLoading').style.display = 'none';
+        
+        // Show animation preview
+        if (purchase.animations.video_url) {
+            document.getElementById('thankYouPreview').style.display = 'block';
+            document.getElementById('thankYouGif').src = purchase.animations.video_url;
+            document.getElementById('thankYouAnimationName').textContent = purchase.animations.title;
+        }
+        
+        // Show download button
+        if (purchase.animations.file_url) {
+            document.getElementById('thankYouDownload').style.display = 'block';
+            document.getElementById('thankYouDownloadBtn').href = purchase.animations.file_url;
+        }
+        
+        // Show order details
+        document.getElementById('thankYouOrderDetails').style.display = 'block';
+        document.getElementById('thankYouOrderId').textContent = sessionId.substring(0, 20) + '...';
+        document.getElementById('thankYouOrderAnimation').textContent = purchase.animations.title;
+        document.getElementById('thankYouOrderAmount').textContent = '$' + purchase.amount_paid.toFixed(2);
+        document.getElementById('thankYouOrderDate').textContent = new Date(purchase.purchase_date).toLocaleDateString();
+        
+    } catch (error) {
+        console.error('Error loading purchase:', error);
+        document.getElementById('thankYouLoading').style.display = 'none';
+        document.getElementById('thankYouError').style.display = 'block';
+        document.getElementById('thankYouErrorMessage').textContent = error.message || 'Unable to load purchase details. Please contact support.';
+    }
+}
+
+// Check URL for payment success on page load
+window.addEventListener('load', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sessionId = urlParams.get('session_id');
+    const paymentSuccess = urlParams.get('payment_success');
+    
+    if (sessionId && paymentSuccess === 'true') {
+        // Small delay to ensure page is loaded
+        setTimeout(() => {
+            showThankYouModal(sessionId);
+        }, 500);
+    }
+});
+</script>
