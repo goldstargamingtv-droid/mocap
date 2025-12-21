@@ -2558,8 +2558,30 @@
     </script>
 </head>
 <body>
+    <!-- Loading Progress Bar -->
+    <div id="loadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--amber)); z-index: 99999; transition: width 0.3s ease;"></div>
+    
     <!-- Loading Progress Bar for Auth -->
     <div id="authLoadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #00D4FF, #F59E0B); z-index: 99999; transition: width 0.3s ease; display: none;"></div>
+    
+    <!-- Start loading bar immediately -->
+    <script>
+        // Start the loading bar as soon as this script runs (before page fully loads)
+        const loadingBar = document.getElementById('loadingBar');
+        
+        // Immediately start at 10%
+        loadingBar.style.width = '10%';
+        
+        // Progress to 30% over next 200ms
+        setTimeout(() => {
+            loadingBar.style.width = '30%';
+        }, 200);
+        
+        // Slowly creep to 50% while waiting for page to load
+        setTimeout(() => {
+            loadingBar.style.width = '50%';
+        }, 600);
+    </script>
     
     <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -4278,8 +4300,44 @@
             }
         }
 
-        // Initial render - Load from database
-        loadAnimations();
+        // Initial render - Load from database with progressive loading bar
+        const loadingBar = document.getElementById('loadingBar');
+        
+        // Jump to 60% when scripts are loaded
+        if (loadingBar) loadingBar.style.width = '60%';
+        
+        Promise.all([
+            loadAnimations().then(() => {
+                // Jump to 85% when animations loaded
+                if (loadingBar) loadingBar.style.width = '85%';
+            }),
+            checkAuth()
+        ]).then(() => {
+            // Page fully loaded - complete to 100%
+            if (loadingBar) {
+                loadingBar.style.width = '100%';
+                
+                // Fade out and remove
+                setTimeout(() => {
+                    loadingBar.style.opacity = '0';
+                    loadingBar.style.transition = 'width 0.3s ease, opacity 0.3s ease';
+                    setTimeout(() => {
+                        loadingBar.style.display = 'none';
+                    }, 300);
+                }, 200);
+            }
+        }).catch(error => {
+            console.error('Error loading page:', error);
+            // On error, complete in red
+            if (loadingBar) {
+                loadingBar.style.width = '100%';
+                loadingBar.style.background = 'linear-gradient(90deg, #ef4444, #f59e0b)';
+                setTimeout(() => {
+                    loadingBar.style.opacity = '0';
+                    setTimeout(() => loadingBar.style.display = 'none', 300);
+                }, 500);
+            }
+        });
 
         // Check authentication status
         async function checkAuth() {
@@ -4334,8 +4392,6 @@
             location.reload();
         }
 
-        checkAuth();
-        
         // Check URL hash for modal triggers (from animation-detail page)
         window.addEventListener('load', function() {
             const hash = window.location.hash;
