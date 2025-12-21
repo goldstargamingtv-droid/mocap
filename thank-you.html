@@ -407,7 +407,7 @@
                 console.log('Querying purchases table...');
 
                 // Check if purchase already exists
-                const { data: existingPurchase, error: purchaseError } = await supabase
+                const { data: existingPurchase, error: purchaseError } = await supabaseTY
                     .from('purchases')
                     .select('*, animations(*)')
                     .eq('stripe_session_id', sessionId)
