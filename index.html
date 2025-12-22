@@ -1057,6 +1057,7 @@
             pointer-events: none;
             z-index: 5;
             animation: float-up linear infinite;
+            opacity: 0; /* Start invisible */
         }
 
         @keyframes float-up {
@@ -1064,11 +1065,17 @@
                 transform: translateY(0) translateX(0);
                 opacity: 0;
             }
-            5% {
+            3% {
+                opacity: 0.6;
+            }
+            10% {
                 opacity: 1;
             }
-            95% {
+            90% {
                 opacity: 1;
+            }
+            97% {
+                opacity: 0.6;
             }
             100% {
                 transform: translateY(-100vh) translateX(50px);
@@ -6223,8 +6230,8 @@
     <script>
         // Create floating particles in hero
         function createParticles() {
-            const library = document.querySelector('.library-section');
-            if (!library) return;
+            const hero = document.querySelector('.hero');
+            if (!hero) return;
             
             const particleCount = 20;
             
@@ -6235,11 +6242,10 @@
                 // Random horizontal position
                 particle.style.left = Math.random() * 100 + '%';
                 
-                // Start particles at various points within library section (not at top)
-                // This keeps them below the fold initially
-                const startPosition = 50 + Math.random() * 50; // 50-100% into library section
-                particle.style.top = startPosition + '%';
-                particle.style.bottom = 'auto'; // Override bottom positioning
+                // Stagger particles throughout the entire vertical animation range
+                // This prevents a visible line on page load
+                const verticalSpread = Math.random() * 100; // 0-100% up the hero
+                particle.style.bottom = verticalSpread + 'vh';
                 
                 // Random animation duration (15-30 seconds)
                 const duration = 15 + Math.random() * 15;
@@ -6253,7 +6259,7 @@
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
                 
-                library.appendChild(particle);
+                hero.appendChild(particle);
             }
         }
         
