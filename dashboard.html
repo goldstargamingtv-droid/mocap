@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Library - MocapWork</title>
     
-    <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MFZSKB0V4"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -40,7 +39,7 @@
             padding-top: 70px;
         }
         
-        /* Navbar - Same as index.html */
+        /* Navbar */
         .navbar {
             position: fixed;
             top: 0;
@@ -67,7 +66,6 @@
             align-items: center;
             gap: 12px;
             text-decoration: none;
-            margin-right: 16px;
         }
 
         .logo-icon {
@@ -137,6 +135,112 @@
 
         .nav-link.active::after {
             width: 100%;
+        }
+
+        /* Navbar Search */
+        .nav-search {
+            flex: 1;
+            position: relative;
+            margin-left: 24px;
+            margin-right: 24px;
+        }
+
+        .search-input-nav {
+            width: 100%;
+            padding: 10px 40px 10px 40px;
+            background: rgba(26, 26, 46, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 25px;
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-input-nav:focus {
+            outline: none;
+            border-color: var(--teal);
+            background: rgba(26, 26, 46, 0.8);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        .search-icon-nav {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            opacity: 0.6;
+        }
+
+        .search-clear-nav {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+            padding: 4px;
+        }
+
+        .search-dropdown-nav {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .search-dropdown-nav.active {
+            display: block;
+        }
+
+        .search-result-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .search-result-item:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .search-result-thumb {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .search-result-info {
+            flex: 1;
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .search-result-price {
+            font-size: 14px;
+            color: var(--teal);
+            font-weight: 600;
         }
 
         .nav-right {
@@ -228,17 +332,144 @@
             font-family: 'Sora', sans-serif;
         }
 
-        .hamburger-menu {
+        /* Cart Hover Dropdown */
+        .cart-hover-dropdown {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 350px;
+            max-height: 500px;
+            background: #1A1A2E;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             display: none;
-            background: none;
-            border: none;
-            color: var(--teal);
-            font-size: 28px;
-            cursor: pointer;
-            padding: 8px;
+            z-index: 10003;
+            overflow: hidden;
         }
 
-        /* Container & Header */
+        .cart-hover-dropdown::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: #0F0F1A;
+            border-radius: 12px;
+            z-index: -2;
+            opacity: 1;
+        }
+
+        .cart-hover-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .cart-hover-items {
+            max-height: 320px;
+            overflow-y: auto;
+            background: #1A1A2E;
+        }
+
+        .cart-hover-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            margin: 8px;
+            border-radius: 8px;
+            background: #1A1A2E;
+            margin-bottom: 8px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .cart-hover-item:hover {
+            background: rgba(0, 212, 255, 0.15);
+        }
+
+        .cart-hover-item-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        .cart-hover-item-info {
+            flex: 1;
+        }
+
+        .cart-hover-item-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .cart-hover-item-price {
+            font-size: 12px;
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        .cart-hover-item-price .price-dollar {
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cart-hover-item-remove {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #EF4444;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s ease;
+        }
+
+        .cart-hover-item-remove:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: scale(1.1);
+        }
+
+        .cart-hover-empty {
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .cart-hover-empty-icon {
+            font-size: 48px;
+            opacity: 0.3;
+            margin-bottom: 12px;
+        }
+
+        .cart-hover-footer {
+            padding: 16px 20px;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .cart-hover-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .cart-hover-total .price-dollar {
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Container */
         .container { 
             max-width: 1400px; 
             margin: 40px auto; 
@@ -296,50 +527,11 @@
             font-weight: 500;
         }
 
-        /* Search & Filter */
-        .library-controls {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 32px;
-            flex-wrap: wrap;
-        }
-
-        .search-box {
-            flex: 1;
-            min-width: 300px;
-            position: relative;
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 12px 40px;
-            background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.2);
-            border-radius: 12px;
-            color: var(--text-primary);
-            font-size: 15px;
-            font-family: 'DM Sans', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .search-box input:focus {
-            outline: none;
-            border-color: var(--teal);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 18px;
-            opacity: 0.6;
-        }
-
+        /* Filter Buttons */
         .filter-buttons {
             display: flex;
             gap: 12px;
+            margin-bottom: 32px;
             flex-wrap: wrap;
         }
 
@@ -367,21 +559,20 @@
             color: var(--teal);
         }
 
-        /* Grid */
+        /* Grid - Smaller Cards */
         .grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-            gap: 24px; 
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+            gap: 20px; 
         }
 
-        /* Purchase Cards */
+        /* Purchase Cards - Smaller & Square */
         .purchase-card {
             background: var(--bg-secondary);
             border: 1px solid rgba(0, 212, 255, 0.1);
             border-radius: 16px;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
         }
 
         .purchase-card:hover {
@@ -393,15 +584,18 @@
         .card-media {
             position: relative;
             width: 100%;
-            height: 220px;
+            padding-bottom: 100%; /* Square aspect ratio */
             overflow: hidden;
             background: #000;
         }
 
         .card-image {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* Show full GIF */
             transition: transform 0.4s ease;
         }
 
@@ -411,33 +605,33 @@
 
         .card-badge {
             position: absolute;
-            top: 12px;
-            right: 12px;
-            padding: 6px 12px;
+            top: 10px;
+            right: 10px;
+            padding: 4px 10px;
             background: rgba(0, 212, 255, 0.9);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: #000;
         }
 
         .card-content {
-            padding: 20px;
+            padding: 16px;
         }
 
         .card-title {
             font-weight: 700;
-            font-size: 18px;
-            margin-bottom: 12px;
+            font-size: 16px;
+            margin-bottom: 10px;
             color: var(--text-primary);
         }
 
         .card-meta {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-bottom: 16px;
+            gap: 6px;
+            margin-bottom: 12px;
         }
 
         .card-meta-item {
@@ -445,7 +639,7 @@
             justify-content: space-between;
             align-items: center;
             color: var(--text-secondary);
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .card-meta-label {
@@ -459,7 +653,7 @@
 
         .card-price {
             font-weight: 800;
-            font-size: 18px;
+            font-size: 16px;
             background: linear-gradient(135deg, var(--teal), var(--amber));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -467,25 +661,30 @@
 
         .card-actions {
             display: flex;
-            gap: 12px;
+            flex-direction: column;
+            gap: 8px;
         }
 
+        /* Download Button - Browse Library Style */
         .btn-download {
-            flex: 1;
-            padding: 12px;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
-            border: none;
-            border-radius: 8px;
-            color: white;
+            width: 100%;
+            padding: 10px 20px;
+            background: rgba(26, 26, 46, 0.9);
+            border: 2px solid var(--teal);
+            color: #FFFFFF;
             font-weight: 700;
+            font-size: 13px;
+            font-family: 'Sora', sans-serif;
+            border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
         }
 
         .btn-download:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+            background: var(--teal);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.5);
         }
 
         .btn-download:disabled {
@@ -494,12 +693,14 @@
         }
 
         .btn-view {
-            padding: 12px 20px;
+            width: 100%;
+            padding: 10px 20px;
             background: rgba(0, 212, 255, 0.1);
             border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 8px;
+            border-radius: 50px;
             color: var(--teal);
             font-weight: 600;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.3s;
             font-family: 'DM Sans', sans-serif;
@@ -562,19 +763,14 @@
             color: var(--text-secondary);
         }
 
-        /* Mobile Responsiveness */
+        /* Mobile */
         @media (max-width: 768px) {
             .navbar-container {
                 padding: 0 20px;
-                gap: 12px;
             }
 
-            .nav-center {
+            .nav-center, .nav-search {
                 display: none;
-            }
-
-            .hamburger-menu {
-                display: block;
             }
 
             .container {
@@ -582,37 +778,20 @@
             }
 
             h1 {
-                font-size: 36px;
-            }
-
-            .subtitle {
-                font-size: 16px;
-            }
-
-            .library-controls {
-                flex-direction: column;
-            }
-
-            .search-box {
-                min-width: 100%;
+                font-size: 32px;
             }
 
             .stats-bar {
                 flex-direction: column;
-                gap: 16px;
             }
 
             .grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 12px;
             }
 
             .btn-admin span {
                 display: none;
-            }
-
-            .btn-logout-nav {
-                padding: 10px 16px;
-                font-size: 14px;
             }
         }
     </style>
@@ -632,6 +811,21 @@
                 <a href="index.html#faq" class="nav-link">FAQ</a>
             </div>
 
+            <!-- Search Bar -->
+            <div class="nav-search">
+                <span class="search-icon-nav">🔍</span>
+                <input 
+                    type="text" 
+                    class="search-input-nav" 
+                    id="searchInputNav" 
+                    placeholder="Search animations..."
+                    autocomplete="off"
+                >
+                <button class="search-clear-nav" id="searchClearNav">✕</button>
+                
+                <div class="search-dropdown-nav" id="searchDropdownNav"></div>
+            </div>
+
             <div class="nav-right">
                 <a href="admin-dashboard.html" id="adminDashboardBtn" class="btn-admin" style="display: none;">
                     <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="margin-right: 6px;">
@@ -642,7 +836,7 @@
                 </a>
                 <button class="btn-logout-nav" onclick="logout()">Sign Out</button>
                 <div class="cart-container">
-                    <div class="cart-icon" onclick="window.location.href='index.html#cart'">
+                    <div class="cart-icon" id="cartIconNav">
                         <svg viewBox="0 0 24 24">
                             <circle cx="9" cy="21" r="1"></circle>
                             <circle cx="20" cy="21" r="1"></circle>
@@ -652,10 +846,26 @@
                     </div>
                 </div>
             </div>
-
-            <button class="hamburger-menu" onclick="alert('Mobile menu coming soon!')" aria-label="Menu">☰</button>
         </div>
     </nav>
+
+    <!-- Cart Hover Dropdown -->
+    <div class="cart-hover-dropdown" id="cartHoverDropdown">
+        <div class="cart-hover-header">Shopping Cart</div>
+        <div class="cart-hover-items" id="cartHoverItems"></div>
+        <div class="cart-hover-footer">
+            <div class="cart-hover-total">
+                <span>Total:</span>
+                <span id="cartHoverTotal">$0.00</span>
+            </div>
+            <button id="cartHoverCheckoutBtn" class="btn-download" onclick="window.location.href='index.html#cart'" style="display: none;">
+                Proceed to Checkout
+            </button>
+            <button class="btn-view" onclick="window.location.href='index.html#cart'">
+                View Full Cart
+            </button>
+        </div>
+    </div>
 
     <div class="container">
         <div class="page-header">
@@ -674,23 +884,19 @@
                 <div class="stat-label">Total Spent</div>
             </div>
             <div class="stat">
-                <div class="stat-value" id="totalDownloads">0</div>
-                <div class="stat-label">Downloads</div>
+                <div class="stat-value" id="recentPurchase">-</div>
+                <div class="stat-label">Most Recent</div>
             </div>
         </div>
 
-        <!-- Search & Filter -->
-        <div class="library-controls" id="libraryControls" style="display: none;">
-            <div class="search-box">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="searchInput" placeholder="Search your library..." oninput="filterPurchases()">
-            </div>
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
-                <button class="filter-btn" data-filter="recent" onclick="setFilter('recent')">Recent</button>
-                <button class="filter-btn" data-filter="price-high" onclick="setFilter('price-high')">Highest Price</button>
-                <button class="filter-btn" data-filter="price-low" onclick="setFilter('price-low')">Lowest Price</button>
-            </div>
+        <!-- Filter Buttons -->
+        <div class="filter-buttons" id="filterButtons" style="display: none;">
+            <button class="filter-btn active" onclick="setFilter('all')">All</button>
+            <button class="filter-btn" onclick="setFilter('recent')">Recent First</button>
+            <button class="filter-btn" onclick="setFilter('oldest')">Oldest First</button>
+            <button class="filter-btn" onclick="setFilter('price-high')">Highest Price</button>
+            <button class="filter-btn" onclick="setFilter('price-low')">Lowest Price</button>
+            <button class="filter-btn" onclick="setFilter('name')">A-Z</button>
         </div>
         
         <div id="content" class="loading">Loading your purchases...</div>
@@ -704,6 +910,7 @@
         const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let allPurchases = [];
+        let allAnimations = [];
         let currentFilter = 'all';
 
         async function checkAuth() {
@@ -732,19 +939,22 @@
                             price,
                             thumbnail_url,
                             video_url,
-                            video_type
+                            video_type,
+                            on_sale,
+                            holiday_sale,
+                            sale_percentage
                         )
                     `)
                     .eq('user_id', user.id)
-                    .order('purchase_date', { ascending: false });
+                    .order('created_at', { ascending: false });
 
                 if (error) throw error;
 
-                allPurchases = purchases;
+                allPurchases = purchases || [];
 
                 const content = document.getElementById('content');
 
-                if (purchases.length === 0) {
+                if (allPurchases.length === 0) {
                     content.innerHTML = `
                         <div class="empty-state">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -761,17 +971,23 @@
 
                 // Show stats and controls
                 document.getElementById('statsBar').style.display = 'flex';
-                document.getElementById('libraryControls').style.display = 'flex';
+                document.getElementById('filterButtons').style.display = 'flex';
 
                 // Calculate stats
-                const totalSpent = purchases.reduce((sum, p) => sum + (p.price_paid || 0), 0);
-                const totalDownloads = purchases.reduce((sum, p) => sum + (p.download_count || 0), 0);
+                const totalSpent = allPurchases.reduce((sum, p) => {
+                    const anim = p.animations;
+                    const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
+                    const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
+                    return sum + finalPrice;
+                }, 0);
 
-                document.getElementById('totalPurchases').textContent = purchases.length;
+                const mostRecent = allPurchases[0]?.animations?.title || 'None';
+
+                document.getElementById('totalPurchases').textContent = allPurchases.length;
                 document.getElementById('totalSpent').textContent = `$${totalSpent.toFixed(2)}`;
-                document.getElementById('totalDownloads').textContent = totalDownloads;
+                document.getElementById('recentPurchase').textContent = mostRecent;
 
-                renderPurchases(purchases);
+                renderPurchases(allPurchases);
 
             } catch (error) {
                 console.error('Error loading purchases:', error);
@@ -790,12 +1006,14 @@
             content.innerHTML = purchases.map(purchase => {
                 const anim = purchase.animations;
                 const imageUrl = anim.video_type === 'image/gif' ? anim.video_url : anim.thumbnail_url;
-                const date = new Date(purchase.purchase_date).toLocaleDateString('en-US', { 
+                const date = new Date(purchase.created_at).toLocaleDateString('en-US', { 
                     month: 'short', 
                     day: 'numeric', 
                     year: 'numeric' 
                 });
-                const downloadCount = purchase.download_count || 0;
+
+                const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
+                const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
 
                 return `
                     <div class="purchase-card">
@@ -811,20 +1029,20 @@
                                     <span class="card-meta-value">${date}</span>
                                 </div>
                                 <div class="card-meta-item">
-                                    <span class="card-meta-label">Price Paid</span>
-                                    <span class="card-price">$${(purchase.price_paid || 0).toFixed(2)}</span>
+                                    <span class="card-meta-label">Price</span>
+                                    <span class="card-price">$${finalPrice.toFixed(2)}</span>
                                 </div>
                                 <div class="card-meta-item">
-                                    <span class="card-meta-label">Downloads</span>
-                                    <span class="card-meta-value">${downloadCount}</span>
+                                    <span class="card-meta-label">Format</span>
+                                    <span class="card-meta-value">FBX</span>
                                 </div>
                             </div>
                             <div class="card-actions">
-                                <button class="btn-download" onclick="downloadAnimation('${purchase.id}', '${anim.title}', '${anim.id}')">
-                                    Download
+                                <button class="btn-download" onclick="downloadAnimation('${purchase.id}', '${anim.title}')">
+                                    📥 Download
                                 </button>
                                 <a href="animation-detail.html?slug=${anim.slug}" class="btn-view">
-                                    View
+                                    👁 View Details
                                 </a>
                             </div>
                         </div>
@@ -833,75 +1051,54 @@
             }).join('');
         }
 
-        function filterPurchases() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            let filtered = [...allPurchases];
-
-            // Apply search
-            if (searchTerm) {
-                filtered = filtered.filter(p => 
-                    p.animations.title.toLowerCase().includes(searchTerm)
-                );
-            }
-
-            // Apply filter
-            switch(currentFilter) {
-                case 'recent':
-                    filtered.sort((a, b) => 
-                        new Date(b.purchase_date) - new Date(a.purchase_date)
-                    );
-                    break;
-                case 'price-high':
-                    filtered.sort((a, b) => 
-                        (b.price_paid || 0) - (a.price_paid || 0)
-                    );
-                    break;
-                case 'price-low':
-                    filtered.sort((a, b) => 
-                        (a.price_paid || 0) - (b.price_paid || 0)
-                    );
-                    break;
-            }
-
-            renderPurchases(filtered);
-        }
-
         function setFilter(filter) {
             currentFilter = filter;
             
             // Update button states
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
             
-            filterPurchases();
+            let sorted = [...allPurchases];
+
+            switch(filter) {
+                case 'recent':
+                    sorted.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+                    break;
+                case 'oldest':
+                    sorted.sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+                    break;
+                case 'price-high':
+                    sorted.sort((a, b) => {
+                        const priceA = (a.animations.on_sale || a.animations.holiday_sale) && a.animations.sale_percentage 
+                            ? a.animations.price * (1 - a.animations.sale_percentage / 100) 
+                            : a.animations.price;
+                        const priceB = (b.animations.on_sale || b.animations.holiday_sale) && b.animations.sale_percentage 
+                            ? b.animations.price * (1 - b.animations.sale_percentage / 100) 
+                            : b.animations.price;
+                        return priceB - priceA;
+                    });
+                    break;
+                case 'price-low':
+                    sorted.sort((a, b) => {
+                        const priceA = (a.animations.on_sale || a.animations.holiday_sale) && a.animations.sale_percentage 
+                            ? a.animations.price * (1 - a.animations.sale_percentage / 100) 
+                            : a.animations.price;
+                        const priceB = (b.animations.on_sale || b.animations.holiday_sale) && b.animations.sale_percentage 
+                            ? b.animations.price * (1 - b.animations.sale_percentage / 100) 
+                            : b.animations.price;
+                        return priceA - priceB;
+                    });
+                    break;
+                case 'name':
+                    sorted.sort((a, b) => a.animations.title.localeCompare(b.animations.title));
+                    break;
+            }
+
+            renderPurchases(sorted);
         }
 
-        async function downloadAnimation(purchaseId, animationTitle, animationId) {
-            const btn = event.target;
-            btn.disabled = true;
-            btn.textContent = 'Downloading...';
-
-            try {
-                alert('Download feature coming soon! We\'re working on implementing secure file delivery.');
-                
-                // TODO: Implement download edge function
-                // const response = await fetch(`${SUPABASE_URL}/functions/v1/get-download`, {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                //     },
-                //     body: JSON.stringify({ purchaseId, animationId })
-                // });
-
-            } catch (error) {
-                console.error('Download error:', error);
-            } finally {
-                btn.disabled = false;
-                btn.textContent = 'Download';
-            }
+        async function downloadAnimation(purchaseId, animationTitle) {
+            alert('Download feature coming soon! We\'re working on implementing secure file delivery for: ' + animationTitle);
         }
 
         async function logout() {
@@ -909,13 +1106,164 @@
             window.location.href = 'index.html';
         }
 
+        // Cart functionality
         async function updateCartBadge() {
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            const badge = document.getElementById('cartBadge');
-            if (badge) {
-                badge.textContent = cart.length;
-            }
+            document.getElementById('cartBadge').textContent = cart.length;
+            await updateCartHoverDropdown();
         }
+
+        async function updateCartHoverDropdown() {
+            const cartIds = JSON.parse(localStorage.getItem('cart') || '[]');
+            const cartHoverItems = document.getElementById('cartHoverItems');
+            const cartHoverTotal = document.getElementById('cartHoverTotal');
+            const checkoutBtn = document.getElementById('cartHoverCheckoutBtn');
+
+            if (cartIds.length === 0) {
+                cartHoverItems.style.overflowY = 'hidden';
+                cartHoverItems.innerHTML = `
+                    <div class="cart-hover-empty">
+                        <div class="cart-hover-empty-icon">🛒</div>
+                        <div>Your cart is empty</div>
+                        <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">Any animations you add will be displayed here.</div>
+                    </div>
+                `;
+                cartHoverTotal.innerHTML = '<span class="price-dollar">$</span>0.00';
+                if (checkoutBtn) checkoutBtn.style.display = 'none';
+                return;
+            }
+
+            cartHoverItems.style.overflowY = 'auto';
+            
+            const { data: items } = await supabaseClient
+                .from('animations')
+                .select('*')
+                .in('id', cartIds);
+
+            let total = 0;
+            let html = '';
+
+            items.forEach(item => {
+                const isOnSale = (item.on_sale || item.holiday_sale) && item.sale_percentage;
+                const finalPrice = isOnSale ? item.price * (1 - item.sale_percentage / 100) : item.price;
+                total += finalPrice;
+
+                const imageUrl = item.video_type === 'image/gif' ? item.video_url : item.thumbnail_url;
+
+                html += `
+                    <div class="cart-hover-item" onclick="window.location.href='animation-detail.html?slug=${item.slug}'">
+                        <img src="${imageUrl}" alt="${item.title}" class="cart-hover-item-img">
+                        <div class="cart-hover-item-info">
+                            <div class="cart-hover-item-title">${item.title}</div>
+                            <div class="cart-hover-item-price"><span class="price-dollar">$</span>${finalPrice.toFixed(2)}</div>
+                        </div>
+                        <button class="cart-hover-item-remove" data-id="${item.id}" onclick="event.stopPropagation(); removeFromCart('${item.id}')">✕</button>
+                    </div>
+                `;
+            });
+
+            cartHoverItems.innerHTML = html;
+            cartHoverTotal.innerHTML = '<span class="price-dollar">$</span>' + total.toFixed(2);
+            if (checkoutBtn) checkoutBtn.style.display = 'block';
+        }
+
+        async function removeFromCart(animationId) {
+            let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            cart = cart.filter(id => id !== animationId);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            await updateCartBadge();
+        }
+
+        // Cart hover positioning
+        document.getElementById('cartIconNav').addEventListener('mouseenter', function() {
+            const dropdown = document.getElementById('cartHoverDropdown');
+            const icon = this.getBoundingClientRect();
+            dropdown.style.top = (icon.bottom + 10) + 'px';
+            dropdown.style.right = (window.innerWidth - icon.right) + 'px';
+            dropdown.style.display = 'block';
+        });
+
+        document.getElementById('cartHoverDropdown').addEventListener('mouseleave', function() {
+            this.style.display = 'none';
+        });
+
+        document.getElementById('cartIconNav').addEventListener('mouseleave', function() {
+            setTimeout(() => {
+                const dropdown = document.getElementById('cartHoverDropdown');
+                if (!dropdown.matches(':hover')) {
+                    dropdown.style.display = 'none';
+                }
+            }, 100);
+        });
+
+        // Navbar Search
+        const searchInputNav = document.getElementById('searchInputNav');
+        const searchDropdownNav = document.getElementById('searchDropdownNav');
+        const searchClearNav = document.getElementById('searchClearNav');
+
+        searchInputNav.addEventListener('input', async (e) => {
+            const query = e.target.value.trim();
+            
+            searchClearNav.style.display = query ? 'block' : 'none';
+            
+            if (query.length < 2) {
+                searchDropdownNav.classList.remove('active');
+                return;
+            }
+
+            // Load all animations if not loaded
+            if (allAnimations.length === 0) {
+                const { data } = await supabaseClient.from('animations').select('*');
+                allAnimations = data || [];
+            }
+
+            const results = allAnimations.filter(a => 
+                a.title.toLowerCase().includes(query.toLowerCase())
+            ).slice(0, 5);
+
+            if (results.length > 0) {
+                searchDropdownNav.innerHTML = results.map(anim => {
+                    const imageUrl = anim.video_type === 'image/gif' ? anim.video_url : anim.thumbnail_url;
+                    const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
+                    const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
+                    
+                    return `
+                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'">
+                            <img src="${imageUrl}" class="search-result-thumb">
+                            <div class="search-result-info">
+                                <div class="search-result-title">${anim.title}</div>
+                                <div class="search-result-price">$${finalPrice.toFixed(2)}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+                searchDropdownNav.classList.add('active');
+            } else {
+                searchDropdownNav.innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-secondary);">No results found</div>';
+                searchDropdownNav.classList.add('active');
+            }
+        });
+
+        searchInputNav.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = searchInputNav.value.trim();
+                if (query) {
+                    window.location.href = `index.html#library?search=${encodeURIComponent(query)}`;
+                }
+            }
+        });
+
+        searchClearNav.addEventListener('click', () => {
+            searchInputNav.value = '';
+            searchClearNav.style.display = 'none';
+            searchDropdownNav.classList.remove('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-search')) {
+                searchDropdownNav.classList.remove('active');
+            }
+        });
 
         async function checkAdmin() {
             const { data: { session } } = await supabaseClient.auth.getSession();
