@@ -16,6 +16,11 @@
     <!-- SEO Meta Tags -->
     <title>MocapWork - Buy Premium Motion Capture Animations for Games & Film</title>
     
+    <!-- Favicon - Add custom MW favicon files here -->
+    <!-- <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"> -->
+    
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MFZSKB0V4"></script>
     <script>
@@ -1015,6 +1020,36 @@
             overflow: hidden;
         }
 
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            bottom: 0;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.8), transparent);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            animation: float-up linear infinite;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            95% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
         .hero-background {
             position: absolute;
             inset: 0;
@@ -1042,15 +1077,10 @@
             z-index: 2;
             background: linear-gradient(
                 180deg,
-                rgba(20, 20, 20, 0.7) 0%,
-                rgba(20, 20, 20, 0.85) 50%,
-                rgba(20, 20, 20, 0.95) 100%
+                rgba(0, 0, 0, 0.7) 0%,
+                rgba(10, 5, 0, 0.85) 50%,
+                rgba(15, 8, 0, 0.95) 100%
             );
-        }
-
-        .hero-gradient {
-            position: absolute;
-            inset: 0;
         }
 
         .floating-shape {
@@ -1065,7 +1095,7 @@
             left: 15%;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.15), transparent);
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.15), transparent);
         }
 
         .shape-2 {
@@ -1073,7 +1103,7 @@
             right: 15%;
             width: 500px;
             height: 500px;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.15), transparent);
+            background: radial-gradient(circle, rgba(255, 107, 107, 0.12), transparent);
             animation-delay: 4s;
         }
 
@@ -1090,14 +1120,14 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 20px;
+            padding: 8px 18px;
             background: rgba(0, 212, 255, 0.08);
             border: 1px solid rgba(0, 212, 255, 0.2);
             border-radius: 50px;
             color: var(--teal);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
-            margin-bottom: 32px;
+            margin-bottom: 24px;
             backdrop-filter: blur(10px);
         }
 
@@ -1110,23 +1140,25 @@
         }
 
         .hero-title {
-            font-size: clamp(2.5rem, 8vw, 5.5rem);
+            font-size: clamp(2.2rem, 7vw, 4.5rem);
             font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 28px;
+            line-height: 1.05;
+            margin-bottom: 16px;
             letter-spacing: -2px;
             font-family: 'Sora', sans-serif;
             color: #000000;
+            text-shadow: 0 0 40px rgba(245, 158, 11, 0.3),
+                         0 0 80px rgba(245, 158, 11, 0.1);
         }
 
         .hero-subtitle {
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
             color: var(--text-secondary);
-            margin-bottom: 40px;
-            max-width: 700px;
+            margin-bottom: 24px;
+            max-width: 650px;
             margin-left: auto;
             margin-right: auto;
-            line-height: 1.7;
+            line-height: 1.45;
         }
 
         .hero-subtitle span {
@@ -1136,27 +1168,212 @@
 
         .hero-buttons {
             display: flex;
-            gap: 16px;
+            gap: 14px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 60px;
+            margin-bottom: 32px;
         }
 
         .hero-buttons .btn-secondary {
             text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         .hero-buttons .btn-secondary:hover {
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.6),
+                        0 0 60px rgba(255, 107, 107, 0.3);
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.02);
+            }
         }
 
         .hero-stats {
             display: flex;
-            gap: 60px;
+            gap: 48px;
             justify-content: center;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted);
             flex-wrap: wrap;
+        }
+
+        /* Hero Preview Carousel - 3 GIFs with Center Focus */
+        .hero-preview-carousel {
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            padding: 0 20px;
+        }
+
+        .carousel-container {
+            position: relative;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            perspective: 1200px;
+        }
+
+        .carousel-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        opacity 1.2s ease,
+                        box-shadow 1.2s ease,
+                        border-color 1.2s ease;
+            cursor: pointer;
+            border: 2px solid rgba(100, 116, 139, 0.4);
+            background: #1a1a1a;
+            will-change: transform, opacity;
+        }
+
+        /* Side items - smaller and pushed back */
+        .carousel-item.side {
+            width: 140px;
+            height: 170px;
+            opacity: 0.4;
+            transform: scale(0.8) translateZ(-150px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel-item.side:hover {
+            opacity: 0.65;
+            transform: scale(0.85) translateZ(-150px);
+        }
+
+        /* Center item - larger and forward */
+        .carousel-item.center {
+            width: 240px;
+            height: 180px;
+            opacity: 1;
+            transform: scale(1) translateZ(0);
+            z-index: 10;
+            box-shadow: 0 12px 35px rgba(0, 212, 255, 0.12),
+                        0 0 20px rgba(0, 212, 255, 0.08);
+            border-color: rgba(0, 212, 255, 0.45);
+        }
+
+        .carousel-item-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+        }
+
+        .carousel-placeholder {
+            text-align: center;
+            padding: 20px 12px;
+        }
+
+        .carousel-placeholder-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+            opacity: 0.5;
+        }
+
+        .carousel-placeholder-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--teal);
+            margin-bottom: 3px;
+        }
+
+        .carousel-placeholder-subtext {
+            font-size: 9px;
+            color: var(--text-muted);
+        }
+
+        /* Carousel Overlay Label */
+        .carousel-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .carousel-overlay-text {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Navigation Dots */
+        .carousel-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        .carousel-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: rgba(245, 158, 11, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1.5px solid rgba(0, 212, 255, 0.5);
+        }
+
+        .carousel-dot.active {
+            background: rgba(245, 158, 11, 1);
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+            transform: scale(1.3);
+            border-color: rgba(0, 212, 255, 0.8);
+        }
+
+        .carousel-dot:hover {
+            background: rgba(245, 158, 11, 0.6);
+            border-color: rgba(0, 212, 255, 0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .carousel-container {
+                height: 140px;
+            }
+
+            .carousel-item.side {
+                width: 70px;
+                height: 100px;
+            }
+
+            .carousel-item.center {
+                width: 120px;
+                height: 140px;
+            }
+
+            .carousel-placeholder-icon {
+                font-size: 20px;
+            }
+
+            .carousel-placeholder-text {
+                font-size: 10px;
+            }
+
+            .carousel-placeholder-subtext {
+                font-size: 8px;
+            }
+
+            .carousel-overlay-text {
+                font-size: 8px;
+            }
         }
 
         .platform-logos {
@@ -2718,7 +2935,9 @@
         .buy-now-btn:hover {
             background: rgba(16, 185, 129, 0.2);
             border-color: #10B981;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.7),
+                        0 0 60px rgba(16, 185, 129, 0.4);
         }
 
         .add-to-cart-btn {
@@ -2743,6 +2962,9 @@
         .add-to-cart-btn:hover {
             background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.6),
+                        0 0 50px rgba(245, 158, 11, 0.3);
         }
 
         .card-price {
@@ -3143,6 +3365,60 @@
         </div>
 
         <div class="hero-content">
+            <!-- Hero Preview Carousel -->
+            <div class="hero-preview-carousel">
+                <div class="carousel-container">
+                    <!-- Left Item -->
+                    <div class="carousel-item side" data-index="0">
+                        <div class="carousel-item-content">
+                            <div class="carousel-placeholder">
+                                <div class="carousel-placeholder-icon">🏃</div>
+                                <div class="carousel-placeholder-text">Running Pack</div>
+                                <div class="carousel-placeholder-subtext">12 animations</div>
+                            </div>
+                        </div>
+                        <div class="carousel-overlay">
+                            <div class="carousel-overlay-text">Motion Capture Preview</div>
+                        </div>
+                    </div>
+
+                    <!-- Center Item (Featured) -->
+                    <div class="carousel-item center" data-index="1">
+                        <div class="carousel-item-content">
+                            <div class="carousel-placeholder">
+                                <div class="carousel-placeholder-icon">⚔️</div>
+                                <div class="carousel-placeholder-text">Combat Pack</div>
+                                <div class="carousel-placeholder-subtext">24 animations</div>
+                            </div>
+                        </div>
+                        <div class="carousel-overlay">
+                            <div class="carousel-overlay-text">Featured Animation</div>
+                        </div>
+                    </div>
+
+                    <!-- Right Item -->
+                    <div class="carousel-item side" data-index="2">
+                        <div class="carousel-item-content">
+                            <div class="carousel-placeholder">
+                                <div class="carousel-placeholder-icon">🤸</div>
+                                <div class="carousel-placeholder-text">Acrobatic Pack</div>
+                                <div class="carousel-placeholder-subtext">18 animations</div>
+                            </div>
+                        </div>
+                        <div class="carousel-overlay">
+                            <div class="carousel-overlay-text">Motion Capture Preview</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Dots -->
+                <div class="carousel-dots">
+                    <div class="carousel-dot" data-index="0"></div>
+                    <div class="carousel-dot active" data-index="1"></div>
+                    <div class="carousel-dot" data-index="2"></div>
+                </div>
+            </div>
+
             <div class="hero-badge">
                 <div class="badge-dot"></div>
                 Premium Motion Capture Library
@@ -3188,6 +3464,7 @@
                     <span>Instant Download</span>
                 </div>
             </div>
+
         </div>
 
         <div class="scroll-indicator">
@@ -5718,6 +5995,156 @@
             </button>
         </div>
     </div>
+
+    <!-- Floating Particles Script -->
+    <script>
+        // Create floating particles in hero
+        function createParticles() {
+            const hero = document.querySelector('.hero');
+            if (!hero) return;
+            
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random horizontal position
+                particle.style.left = Math.random() * 100 + '%';
+                
+                // Stagger starting positions vertically (spread throughout viewport)
+                const startPosition = Math.random() * 100;
+                particle.style.bottom = -startPosition + 'vh';
+                
+                // Random animation duration (15-30 seconds)
+                const duration = 15 + Math.random() * 15;
+                particle.style.animationDuration = duration + 's';
+                
+                // Random delay (0-15 seconds)
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                
+                // Random size
+                const size = 2 + Math.random() * 4;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                hero.appendChild(particle);
+            }
+        }
+        
+        // Initialize particles when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', createParticles);
+        } else {
+            createParticles();
+        }
+    </script>
+
+    <!-- Carousel Auto-Rotation Script -->
+    <script>
+        // Carousel state
+        let currentIndex = 1; // Start with middle item (index 1)
+        let carouselInterval;
+        
+        // Carousel data (3 items)
+        const carouselData = [
+            { icon: '🏃', title: 'Running Pack', subtitle: '12 animations', label: 'Motion Capture Preview' },
+            { icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', label: 'Featured Animation' },
+            { icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture Preview' }
+        ];
+
+        function updateCarousel(newIndex) {
+            const items = document.querySelectorAll('.carousel-item');
+            const dots = document.querySelectorAll('.carousel-dot');
+            
+            if (!items.length) return;
+
+            // Update current index
+            currentIndex = newIndex;
+
+            // Calculate positions (wrap around)
+            const totalItems = items.length;
+            const leftIndex = (currentIndex - 1 + totalItems) % totalItems;
+            const centerIndex = currentIndex;
+            const rightIndex = (currentIndex + 1) % totalItems;
+
+            // Reset all items
+            items.forEach(item => {
+                item.classList.remove('side', 'center');
+                item.classList.add('side');
+            });
+
+            // Position items
+            items[leftIndex].classList.remove('center');
+            items[leftIndex].classList.add('side');
+            items[leftIndex].style.order = '0';
+
+            items[centerIndex].classList.remove('side');
+            items[centerIndex].classList.add('center');
+            items[centerIndex].style.order = '1';
+
+            items[rightIndex].classList.remove('center');
+            items[rightIndex].classList.add('side');
+            items[rightIndex].style.order = '2';
+
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function startCarousel() {
+            carouselInterval = setInterval(() => {
+                const nextIndex = (currentIndex + 1) % carouselData.length;
+                updateCarousel(nextIndex);
+            }, 6000); // Rotate every 6 seconds
+        }
+
+        function stopCarousel() {
+            clearInterval(carouselInterval);
+        }
+
+        // Initialize carousel
+        function initCarousel() {
+            const dots = document.querySelectorAll('.carousel-dot');
+            const items = document.querySelectorAll('.carousel-item');
+
+            // Add click handlers to dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    stopCarousel();
+                    updateCarousel(index);
+                    startCarousel();
+                });
+            });
+
+            // Add click handlers to items
+            items.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    stopCarousel();
+                    updateCarousel(index);
+                    startCarousel();
+                });
+            });
+
+            // Pause on hover
+            const carousel = document.querySelector('.hero-preview-carousel');
+            if (carousel) {
+                carousel.addEventListener('mouseenter', stopCarousel);
+                carousel.addEventListener('mouseleave', startCarousel);
+            }
+
+            // Start auto-rotation
+            startCarousel();
+        }
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initCarousel);
+        } else {
+            initCarousel();
+        }
+    </script>
 
 </body>
 </html>
