@@ -1095,16 +1095,18 @@
             z-index: 1;
             opacity: 0.25;
             object-fit: cover;
-            /* Fade out video at bottom */
+            /* Fade out video at bottom - starts earlier, fades more */
             -webkit-mask-image: linear-gradient(to bottom, 
                 rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,1) 70%, 
-                rgba(0,0,0,0.5) 90%, 
+                rgba(0,0,0,1) 50%, 
+                rgba(0,0,0,0.6) 75%, 
+                rgba(0,0,0,0.2) 90%,
                 rgba(0,0,0,0) 100%);
             mask-image: linear-gradient(to bottom, 
                 rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,1) 70%, 
-                rgba(0,0,0,0.5) 90%, 
+                rgba(0,0,0,1) 50%, 
+                rgba(0,0,0,0.6) 75%, 
+                rgba(0,0,0,0.2) 90%,
                 rgba(0,0,0,0) 100%);
         }
 
