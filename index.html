@@ -1557,6 +1557,7 @@
         .library-section {
             padding: 120px 32px;
             position: relative;
+            overflow: visible;
         }
 
         .container {
@@ -6222,8 +6223,8 @@
     <script>
         // Create floating particles in hero
         function createParticles() {
-            const hero = document.querySelector('.hero');
-            if (!hero) return;
+            const library = document.querySelector('.library-section');
+            if (!library) return;
             
             const particleCount = 20;
             
@@ -6234,15 +6235,17 @@
                 // Random horizontal position
                 particle.style.left = Math.random() * 100 + '%';
                 
-                // Stagger starting positions vertically (spread throughout viewport)
-                const startPosition = Math.random() * 100;
-                particle.style.bottom = -startPosition + 'vh';
+                // Start particles at various points within library section (not at top)
+                // This keeps them below the fold initially
+                const startPosition = 50 + Math.random() * 50; // 50-100% into library section
+                particle.style.top = startPosition + '%';
+                particle.style.bottom = 'auto'; // Override bottom positioning
                 
                 // Random animation duration (15-30 seconds)
                 const duration = 15 + Math.random() * 15;
                 particle.style.animationDuration = duration + 's';
                 
-                // Random delay (0-15 seconds)
+                // Random delay (0-15 seconds) - staggers when they appear
                 particle.style.animationDelay = Math.random() * 15 + 's';
                 
                 // Random size
@@ -6250,7 +6253,7 @@
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
                 
-                hero.appendChild(particle);
+                library.appendChild(particle);
             }
         }
         
