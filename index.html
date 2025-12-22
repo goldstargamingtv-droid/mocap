@@ -1095,19 +1095,21 @@
             z-index: 1;
             opacity: 0.25;
             object-fit: cover;
-            /* Fade out video at bottom - starts earlier, fades more */
+            /* Aggressive fade - video completely invisible at bottom */
             -webkit-mask-image: linear-gradient(to bottom, 
                 rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,1) 50%, 
-                rgba(0,0,0,0.6) 75%, 
-                rgba(0,0,0,0.2) 90%,
-                rgba(0,0,0,0) 100%);
+                rgba(0,0,0,1) 40%, 
+                rgba(0,0,0,0.7) 60%, 
+                rgba(0,0,0,0.3) 75%,
+                rgba(0,0,0,0.1) 85%,
+                rgba(0,0,0,0) 92%);
             mask-image: linear-gradient(to bottom, 
                 rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,1) 50%, 
-                rgba(0,0,0,0.6) 75%, 
-                rgba(0,0,0,0.2) 90%,
-                rgba(0,0,0,0) 100%);
+                rgba(0,0,0,1) 40%, 
+                rgba(0,0,0,0.7) 60%, 
+                rgba(0,0,0,0.3) 75%,
+                rgba(0,0,0,0.1) 85%,
+                rgba(0,0,0,0) 92%);
         }
 
         .floating-shape {
