@@ -472,9 +472,8 @@
         }
 
         .cart-hover-items {
-            max-height: 164px;
+            max-height: 180px;
             overflow-y: auto;
-            padding: 8px;
             background: #1A1A2E;
         }
 
@@ -499,6 +498,7 @@
             padding: 12px;
             border-radius: 8px;
             background: #1A1A2E;
+            margin: 8px;
             margin-bottom: 8px;
             transition: all 0.2s ease;
         }
@@ -566,7 +566,7 @@
         }
 
         .cart-hover-empty {
-            padding: 40px 20px;
+            padding: 20px;
             text-align: center;
             color: var(--text-muted);
             font-size: 14px;
@@ -4584,6 +4584,7 @@
             
             if (cartItems.length === 0) {
                 // Show empty state
+                cartHoverItems.style.overflowY = 'hidden';
                 cartHoverItems.innerHTML = `
                     <div class="cart-hover-empty">
                         <div class="cart-hover-empty-icon">🛒</div>
@@ -4595,6 +4596,7 @@
                 if (checkoutBtn) checkoutBtn.style.display = 'none';
             } else {
                 // Show cart items
+                cartHoverItems.style.overflowY = 'auto';
                 let total = 0;
                 let html = '';
                 
