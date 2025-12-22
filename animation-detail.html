@@ -41,11 +41,38 @@
         body {
             font-family: 'DM Sans', sans-serif;
             background: var(--bg-primary);
-            background-image: radial-gradient(circle at 30% 20%, rgba(0, 212, 255, 0.12), transparent 50%),
+            background-image: radial-gradient(circle at 30% 20%, rgba(100, 116, 139, 0.12), transparent 50%),
                               radial-gradient(circle at 70% 80%, rgba(245, 158, 11, 0.12), transparent 50%);
             background-attachment: fixed;
             color: var(--text-primary);
             line-height: 1.6;
+        }
+
+        /* Custom Scrollbar - Grey with Orange Accent */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
+            border-radius: 6px;
+            border: 2px solid #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #FBBF24 0%, #FF8E8E 100%);
+        }
+
+        /* Firefox Scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #F59E0B #1a1a1a;
         }
 
         /* Navbar */
@@ -56,9 +83,9 @@
             right: 0;
             z-index: 10002;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(15, 15, 26, 0.92);
+            background: rgba(15, 15, 15, 0.92);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.15);
         }
 
         .navbar-container {
@@ -118,8 +145,8 @@
         .search-input-nav {
             width: 100%;
             padding: 10px 40px 10px 40px;
-            background: rgba(26, 26, 46, 0.6);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            background: rgba(26, 26, 26, 0.6);
+            border: 2px solid rgba(100, 116, 139, 0.2);
             border-radius: 25px;
             color: var(--text-primary);
             font-size: 14px;
@@ -130,8 +157,8 @@
         .search-input-nav:focus {
             outline: none;
             border-color: var(--teal);
-            background: rgba(26, 26, 46, 0.8);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+            background: rgba(26, 26, 26, 0.8);
+            box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.1);
         }
 
         .search-input-nav::placeholder {
@@ -174,7 +201,7 @@
             left: 0;
             right: 0;
             background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(100, 116, 139, 0.3);
             border-radius: 12px;
             max-height: 400px;
             overflow-y: auto;
@@ -217,7 +244,7 @@
         }
 
         .search-result-item:hover {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
         }
 
         .search-result-icon {
@@ -302,8 +329,8 @@
             right: 0;
             width: 350px;
             max-height: 500px;
-            background: #1A1A2E;
-            border: 1px solid rgba(0, 212, 255, 0.2);
+            background: #1a1a1a;
+            border: 1px solid rgba(100, 116, 139, 0.2);
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             display: none;
@@ -321,7 +348,7 @@
             left: -10px;
             right: -10px;
             bottom: -10px;
-            background: #0F0F1A;
+            background: #0f0f0f;
             border-radius: 12px;
             z-index: -2;
             opacity: 1;
@@ -334,7 +361,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: #1A1A2E;
+            background: #1a1a1a;
             border-radius: 12px;
             z-index: -1;
             opacity: 1;
@@ -343,17 +370,17 @@
 
         .cart-hover-header {
             padding: 16px 20px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
             font-weight: 700;
             font-size: 16px;
             color: var(--text-primary);
-            background: #1A1A2E;
+            background: #1a1a1a;
         }
 
         .cart-hover-items {
             max-height: 320px;
             overflow-y: auto;
-            background: #1A1A2E;
+            background: #1a1a1a;
         }
 
         .cart-hover-items::-webkit-scrollbar {
@@ -361,7 +388,7 @@
         }
 
         .cart-hover-items::-webkit-scrollbar-track {
-            background: #0F0F1A;
+            background: #0f0f0f;
             border-radius: 3px;
         }
 
@@ -376,15 +403,15 @@
             gap: 12px;
             padding: 12px;
             border-radius: 8px;
-            background: #1A1A2E;
+            background: #1a1a1a;
             margin: 8px;
             margin-bottom: 8px;
             transition: all 0.2s ease;
         }
 
         .cart-hover-item:hover {
-            background: rgba(0, 212, 255, 0.15);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            background: rgba(100, 116, 139, 0.15);
+            border: 1px solid rgba(100, 116, 139, 0.3);
         }
 
         .cart-hover-item-img {
@@ -392,7 +419,7 @@
             height: 50px;
             border-radius: 6px;
             object-fit: cover;
-            border: 1px solid rgba(0, 212, 255, 0.2);
+            border: 1px solid rgba(100, 116, 139, 0.2);
         }
 
         .cart-hover-item-info {
@@ -460,8 +487,8 @@
 
         .cart-hover-footer {
             padding: 16px 20px;
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
-            background: #0F0F1A;
+            border-top: 1px solid rgba(100, 116, 139, 0.1);
+            background: #0f0f0f;
         }
 
         .cart-hover-total {
@@ -611,9 +638,9 @@
 
         .btn-login {
             padding: 10px 28px;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
             border-radius: 50px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            border: 1px solid rgba(100, 116, 139, 0.3);
             color: var(--teal) !important;
             text-decoration: none;
             font-weight: 700;
@@ -624,16 +651,16 @@
         }
         
         .btn-login:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.2);
             border-color: var(--teal);
             transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 20px rgba(100, 116, 139, 0.5);
         }
 
         /* Admin Dashboard Button */
         .btn-admin {
             padding: 10px 20px;
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(0, 212, 255, 0.15));
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(100, 116, 139, 0.15));
             border-radius: 10px;
             border: 2px solid rgba(245, 158, 11, 0.5);
             color: var(--amber) !important;
@@ -720,7 +747,7 @@
             background: var(--bg-secondary);
             border-radius: 20px;
             overflow: hidden;
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             margin-bottom: 20px;
         }
 
@@ -802,9 +829,9 @@
         }
 
         .badge-category {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
             color: var(--teal);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            border: 1px solid rgba(100, 116, 139, 0.3);
         }
 
         .rating-section {
@@ -839,7 +866,7 @@
         /* Price & Purchase */
         .price-card {
             background: var(--bg-secondary);
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 20px;
             padding: 32px;
             margin-bottom: 32px;
@@ -878,8 +905,8 @@
         }
 
         .btn-primary {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            background: rgba(100, 116, 139, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.3);
             color: var(--teal);
             border-radius: 50px;
             font-weight: 600;
@@ -887,9 +914,9 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.2);
             border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 20px rgba(100, 116, 139, 0.5);
         }
 
         .btn-success {
@@ -914,8 +941,8 @@
         }
 
         .btn-secondary {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            background: rgba(100, 116, 139, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.3);
             color: var(--teal);
             font-weight: 600;
             padding: 14px 24px;
@@ -931,35 +958,35 @@
         }
 
         .btn-secondary:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.2);
             border-color: var(--teal);
         }
         
         /* Add to Cart button - override to keep teal */
         #addToCartBtn {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
             color: var(--teal);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            border: 1px solid rgba(100, 116, 139, 0.3);
         }
         
         #addToCartBtn:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.2);
             border-color: var(--teal);
         }
         
         #addToCartBtn:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.2);
             border-color: var(--teal);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4), 0 4px 12px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 8px 24px rgba(100, 116, 139, 0.4), 0 4px 12px rgba(245, 158, 11, 0.3);
             animation: glow 2s ease-in-out infinite;
         }
         
         @keyframes glow {
             0%, 100% {
-                box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4), 0 4px 12px rgba(245, 158, 11, 0.3);
+                box-shadow: 0 8px 24px rgba(100, 116, 139, 0.4), 0 4px 12px rgba(245, 158, 11, 0.3);
             }
             50% {
-                box-shadow: 0 8px 32px rgba(0, 212, 255, 0.6), 0 4px 16px rgba(245, 158, 11, 0.5);
+                box-shadow: 0 8px 32px rgba(100, 116, 139, 0.6), 0 4px 16px rgba(245, 158, 11, 0.5);
             }
         }
 
@@ -1010,7 +1037,7 @@
         /* File Info */
         .file-info-card {
             background: var(--bg-secondary);
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 20px;
             padding: 32px;
             margin-bottom: 32px;
@@ -1076,8 +1103,8 @@
         }
 
         .compat-badge {
-            background: rgba(0, 212, 255, 0.05);
-            border: 1px solid rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.05);
+            border: 1px solid rgba(100, 116, 139, 0.2);
             border-radius: 12px;
             padding: 16px;
             text-align: center;
@@ -1085,7 +1112,7 @@
         }
 
         .compat-badge:hover {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
             border-color: var(--teal);
         }
 
@@ -1123,8 +1150,8 @@
 
         .tag {
             padding: 8px 16px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            background: rgba(100, 116, 139, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.3);
             border-radius: 20px;
             font-size: 13px;
             color: var(--text-secondary);
@@ -1133,14 +1160,14 @@
         }
 
         .tag:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.2);
             color: var(--teal);
         }
 
         /* Reviews */
         .reviews-section {
             background: var(--bg-secondary);
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 40px;
@@ -1190,7 +1217,7 @@
         /* FAQ */
         .faq-section {
             background: var(--bg-secondary);
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 40px;
@@ -1261,7 +1288,7 @@
 
         .related-card {
             background: var(--bg-secondary);
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 16px;
             overflow: hidden;
             cursor: pointer;
@@ -1307,8 +1334,8 @@
 
         .share-btn {
             padding: 10px 20px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            background: rgba(100, 116, 139, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.3);
             border-radius: 8px;
             color: var(--text-secondary);
             cursor: pointer;
@@ -1317,7 +1344,7 @@
         }
 
         .share-btn:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.2);
             color: var(--teal);
         }
 
@@ -1344,7 +1371,7 @@
                 width: 280px;
                 height: 100vh;
                 background: var(--bg-secondary);
-                border-left: 1px solid rgba(0, 212, 255, 0.2);
+                border-left: 1px solid rgba(100, 116, 139, 0.2);
                 flex-direction: column;
                 padding: 80px 24px 24px;
                 gap: 0;
@@ -1435,7 +1462,7 @@
         
         .auth-modal-box {
             background: var(--bg-secondary);
-            border: 1px solid rgba(0, 212, 255, 0.2);
+            border: 1px solid rgba(100, 116, 139, 0.2);
             border-radius: 20px;
             padding: 0;
             max-width: 480px;
@@ -1483,7 +1510,7 @@
         
         .auth-tabs {
             display: flex;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.15);
         }
         
         .auth-tab {
@@ -1558,8 +1585,8 @@
         .form-group input {
             width: 100%;
             padding: 12px 16px;
-            background: rgba(15, 15, 26, 0.6);
-            border: 1px solid rgba(0, 212, 255, 0.2);
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid rgba(100, 116, 139, 0.2);
             border-radius: 10px;
             color: var(--text-primary);
             font-size: 15px;
@@ -1599,7 +1626,7 @@
         .form-group input:focus {
             outline: none;
             border-color: var(--teal);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.1);
         }
         
         .auth-form .btn {
@@ -1656,7 +1683,7 @@
             max-width: 90vw;
             height: 100vh;
             background: var(--bg-secondary);
-            border-left: 1px solid rgba(0, 212, 255, 0.2);
+            border-left: 1px solid rgba(100, 116, 139, 0.2);
             display: flex;
             flex-direction: column;
             animation: slideIn 0.3s ease;
@@ -1669,7 +1696,7 @@
         
         .cart-header {
             padding: 24px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1688,7 +1715,7 @@
             width: 40px;
             height: 40px;
             border: none;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
             color: var(--text-primary);
             font-size: 24px;
             border-radius: 8px;
@@ -1697,7 +1724,7 @@
         }
         
         .cart-close:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.2);
             transform: rotate(90deg);
         }
         
@@ -1708,8 +1735,8 @@
         }
         
         .cart-item {
-            background: rgba(26, 26, 46, 0.6);
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 12px;
@@ -1843,7 +1870,7 @@
         
         .cart-footer {
             padding: 24px;
-            border-top: 1px solid rgba(0, 212, 255, 0.15);
+            border-top: 1px solid rgba(100, 116, 139, 0.15);
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -1869,8 +1896,8 @@
 
         /* Footer */
         .footer {
-            background: #0a0a12;
-            border-top: 1px solid rgba(0, 212, 255, 0.15);
+            background: #0a0a0a;
+            border-top: 1px solid rgba(100, 116, 139, 0.15);
             padding: 60px 32px 32px;
             margin-top: 80px;
         }
@@ -1909,8 +1936,8 @@
         .social-link {
             width: 44px;
             height: 44px;
-            background: rgba(0, 212, 255, 0.05);
-            border: 1px solid rgba(0, 212, 255, 0.15);
+            background: rgba(100, 116, 139, 0.05);
+            border: 1px solid rgba(100, 116, 139, 0.15);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -1921,10 +1948,10 @@
         }
 
         .social-link:hover {
-            background: rgba(0, 212, 255, 0.15);
+            background: rgba(100, 116, 139, 0.15);
             border-color: var(--teal);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
         }
 
         .footer-section h4 {
@@ -1959,7 +1986,7 @@
             max-width: 1400px;
             margin: 0 auto;
             padding-top: 32px;
-            border-top: 1px solid rgba(0, 212, 255, 0.15);
+            border-top: 1px solid rgba(100, 116, 139, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -2028,12 +2055,12 @@
                 right: -100%;
                 width: 280px;
                 height: 100vh;
-                background: rgba(15, 15, 26, 0.98);
+                background: rgba(20, 20, 20, 0.98);
                 backdrop-filter: blur(20px);
                 flex-direction: column;
                 gap: 0;
                 padding: 80px 0 20px;
-                border-left: 1px solid rgba(0, 212, 255, 0.15);
+                border-left: 1px solid rgba(100, 116, 139, 0.15);
                 transition: right 0.3s ease;
                 z-index: 9999;
                 overflow-y: auto;
@@ -2058,19 +2085,19 @@
                 display: block;
                 width: 100%;
                 padding: 16px 32px;
-                border-bottom: 1px solid rgba(0, 212, 255, 0.08);
+                border-bottom: 1px solid rgba(100, 116, 139, 0.08);
                 font-size: 16px;
                 transition: all 0.2s ease;
             }
             
             .nav-links li a:hover {
-                background: rgba(0, 212, 255, 0.1);
+                background: rgba(100, 116, 139, 0.1);
                 padding-left: 40px;
                 color: var(--teal);
             }
             
             .nav-links li a.active {
-                background: rgba(0, 212, 255, 0.15);
+                background: rgba(100, 116, 139, 0.15);
                 border-left: 3px solid var(--teal);
             }
         }
@@ -2173,16 +2200,16 @@
                 <button class="mobile-menu-close">✕</button>
                 
                 <!-- Mobile Search -->
-                <li style="padding: 20px; border-bottom: 1px solid rgba(0, 212, 255, 0.1);">
+                <li style="padding: 20px; border-bottom: 1px solid rgba(100, 116, 139, 0.1);">
                     <div style="position: relative;" id="mobileSearchWrapper">
                         <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.6;">🔍</span>
                         <input 
                             type="text" 
                             id="mobileSearchInput"
                             placeholder="Search animations..."
-                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(26, 26, 46, 0.6); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
+                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(100, 116, 139, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
                         >
-                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 10000;">
+                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(100, 116, 139, 0.3); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 10000;">
                             <!-- Results populated here -->
                         </div>
                     </div>
@@ -2217,7 +2244,7 @@
                 
                 <div class="preview-main" id="previewContainer" style="opacity: 0; transition: opacity 0.3s ease;">
                     <img src="" alt="Loading..." id="mainPreview" style="display: none;">
-                    <div id="previewLoader" style="display: flex; align-items: center; justify-content: center; height: 100%; background: rgba(26, 26, 46, 0.8); border-radius: 16px;">
+                    <div id="previewLoader" style="display: flex; align-items: center; justify-content: center; height: 100%; background: rgba(26, 26, 26, 0.8); border-radius: 16px;">
                         <div style="text-align: center;">
                             <div style="font-size: 48px; margin-bottom: 16px;">⏳</div>
                             <div style="color: var(--text-secondary);">Loading animation...</div>
@@ -3735,7 +3762,7 @@
                     const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
                     
                     html += `
-                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid rgba(100, 116, 139, 0.1); transition: all 0.2s;">
                             <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
@@ -3863,7 +3890,7 @@
                     const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
                     
                     html += `
-                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid rgba(100, 116, 139, 0.1); transition: all 0.2s;">
                             <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
@@ -4084,7 +4111,7 @@
                         <span style="font-size: 20px;">🤖</span> Share on Reddit
                     </button>
                     
-                    <button onclick="copyLinkToClipboard()" style="width: 100%; padding: 14px; background: rgba(0, 212, 255, 0.1); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; color: var(--teal); font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Sora', sans-serif;">
+                    <button onclick="copyLinkToClipboard()" style="width: 100%; padding: 14px; background: rgba(100, 116, 139, 0.1); border: 2px solid rgba(100, 116, 139, 0.3); border-radius: 12px; color: var(--teal); font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Sora', sans-serif;">
                         <span style="font-size: 20px;">🔗</span> Copy Link
                     </button>
                 </div>
@@ -4289,7 +4316,7 @@
 
                 <!-- Animation Preview -->
                 <div id="thankYouPreview" style="display: none; margin-bottom: 20px;">
-                    <div style="background: var(--bg-secondary); border-radius: 12px; padding: 12px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                    <div style="background: var(--bg-secondary); border-radius: 12px; padding: 12px; border: 1px solid rgba(100, 116, 139, 0.1);">
                         <img id="thankYouGif" src="" alt="Animation Preview" style="width: 100%; max-width: 200px; border-radius: 8px; display: block; margin: 0 auto;">
                         <p id="thankYouAnimationName" style="text-align: center; margin-top: 8px; font-weight: 600; color: var(--text-primary); font-size: 14px;"></p>
                     </div>
@@ -4311,7 +4338,7 @@
                 </div>
 
                 <!-- Order Details -->
-                <div id="thankYouOrderDetails" style="display: none; background: rgba(26, 26, 46, 0.4); border-radius: 10px; padding: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                <div id="thankYouOrderDetails" style="display: none; background: rgba(26, 26, 26, 0.4); border-radius: 10px; padding: 16px; border: 1px solid rgba(100, 116, 139, 0.1);">
                     <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary);">Order Details</h3>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
                         <div style="display: flex; justify-content: space-between;">
@@ -4346,7 +4373,7 @@
     #thankYouModal .spinner {
         width: 40px;
         height: 40px;
-        border: 4px solid rgba(0, 212, 255, 0.1);
+        border: 4px solid rgba(100, 116, 139, 0.1);
         border-top-color: var(--teal);
         border-radius: 50%;
         animation: thankYouSpin 0.8s linear infinite;
