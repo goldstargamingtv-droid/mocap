@@ -5205,42 +5205,52 @@
                 (anim.title && anim.title.toLowerCase().includes(lowerQuery)) ||
                 (anim.category && anim.category.toLowerCase().includes(lowerQuery)) ||
                 (anim.style && anim.style.toLowerCase().includes(lowerQuery))
-            ).slice(0, 6);
+            ).slice(0, 5);
             
             console.log('Search results:', results);
-            
-            // Suggested searches
-            const suggestions = [
-                query,
-                'fantasy ' + query,
-                query + ' pack'
-            ].slice(0, 3);
             
             // Build dropdown
             let html = '';
             
-            // Suggested searches
-            if (suggestions.length > 0) {
-                html += '<div class="search-section">';
-                html += '<div class="search-section-title">Suggested</div>';
-                suggestions.forEach(sugg => {
-                    const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
-                    html += `<div class="search-result-item" onclick="applySearchNav('${sugg}')">`;
-                    html += '<div class="search-result-icon">🔍</div>';
-                    html += `<div class="search-result-text">${highlighted}</div>`;
-                    html += '</div>';
-                });
-                html += '</div>';
-            }
-            
-            // Animation results
+            // Animation results with thumbnails
             if (results.length > 0) {
                 html += '<div class="search-section">';
                 html += '<div class="search-section-title">Animations</div>';
                 results.forEach(anim => {
-                    const highlighted = anim.title.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
-                    html += `<div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'">`;
-                    html += '<div class="search-result-icon">🎬</div>';
+                    const imageUrl = anim.video_type === 'image/gif' ? anim.video_url : anim.thumbnail_url;
+                    const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
+                    const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
+                    
+                    html += `
+                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                            <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
+                                <div style="font-size: 14px; color: var(--teal); font-weight: 600;">$${finalPrice.toFixed(2)}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // Suggested searches below animations
+            const suggestions = [
+                query,
+                'fantasy ' + query,
+                query + ' pack',
+                'walking',
+                'running',
+                'combat'
+            ].slice(0, 4);
+            
+            if (suggestions.length > 0) {
+                html += '<div class="search-section">';
+                html += '<div class="search-section-title">Suggested Searches</div>';
+                suggestions.forEach(sugg => {
+                    const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
+                    html += `<div class="search-result-item" onclick="applySearchNav('${sugg}')">`;
+                    html += '<div class="search-result-icon">🔍</div>';
                     html += `<div class="search-result-text">${highlighted}</div>`;
                     html += '</div>';
                 });
@@ -5317,38 +5327,49 @@
                 anim.title.toLowerCase().includes(lowerQuery) ||
                 anim.category.toLowerCase().includes(lowerQuery) ||
                 anim.style.toLowerCase().includes(lowerQuery)
-            ).slice(0, 6);
-            
-            const suggestions = [
-                query,
-                'fantasy ' + query,
-                query + ' pack'
-            ].slice(0, 3);
+            ).slice(0, 5);
             
             let html = '';
             
-            // Suggested searches
-            if (suggestions.length > 0) {
-                html += '<div class="search-section">';
-                html += '<div class="search-section-title">Suggested</div>';
-                suggestions.forEach(sugg => {
-                    const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
-                    html += `<div class="search-result-item" onclick="applyMobileSearch('${sugg}')">`;
-                    html += '<div class="search-result-icon">🔍</div>';
-                    html += `<div class="search-result-text">${highlighted}</div>`;
-                    html += '</div>';
-                });
-                html += '</div>';
-            }
-            
-            // Animation results
+            // Animation results with thumbnails first
             if (results.length > 0) {
                 html += '<div class="search-section">';
                 html += '<div class="search-section-title">Animations</div>';
                 results.forEach(anim => {
-                    const highlighted = anim.title.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
-                    html += `<div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'">`;
-                    html += '<div class="search-result-icon">🎬</div>';
+                    const imageUrl = anim.video_type === 'image/gif' ? anim.video_url : anim.thumbnail_url;
+                    const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
+                    const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
+                    
+                    html += `
+                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                            <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
+                                <div style="font-size: 14px; color: var(--teal); font-weight: 600;">$${finalPrice.toFixed(2)}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            // Suggested searches below
+            const suggestions = [
+                query,
+                'fantasy ' + query,
+                query + ' pack',
+                'walking',
+                'running',
+                'combat'
+            ].slice(0, 4);
+            
+            if (suggestions.length > 0) {
+                html += '<div class="search-section">';
+                html += '<div class="search-section-title">Suggested Searches</div>';
+                suggestions.forEach(sugg => {
+                    const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
+                    html += `<div class="search-result-item" onclick="applyMobileSearch('${sugg}')">`;
+                    html += '<div class="search-result-icon">🔍</div>';
                     html += `<div class="search-result-text">${highlighted}</div>`;
                     html += '</div>';
                 });
