@@ -41,10 +41,37 @@
             line-height: 1.6;
         }
 
+        /* Custom Scrollbar - Grey with Orange Accent */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
+            border-radius: 6px;
+            border: 2px solid #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #FBBF24 0%, #FF8E8E 100%);
+        }
+
+        /* Firefox Scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #F59E0B #1a1a1a;
+        }
+
         /* Header */
         .admin-header {
             background: var(--bg-secondary);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
             padding: 20px 40px;
             display: flex;
             justify-content: space-between;
@@ -91,7 +118,7 @@
 
         .back-to-site-btn {
             padding: 8px 16px;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
             border: 1px solid var(--teal);
             border-radius: 8px;
             color: var(--teal);
@@ -117,7 +144,7 @@
         .sidebar {
             width: 260px;
             background: var(--bg-secondary);
-            border-right: 1px solid rgba(0, 212, 255, 0.1);
+            border-right: 1px solid rgba(100, 116, 139, 0.1);
             padding: 24px;
         }
 
@@ -147,12 +174,12 @@
         }
 
         .nav-item:hover {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
             color: var(--teal);
         }
 
         .nav-item.active {
-            background: rgba(0, 212, 255, 0.15);
+            background: rgba(100, 116, 139, 0.15);
             color: var(--teal);
             font-weight: 600;
         }
@@ -198,7 +225,7 @@
         .stat-card {
             background: var(--bg-card);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 16px;
             padding: 24px;
             transition: all 0.3s ease;
@@ -236,7 +263,7 @@
         .content-card {
             background: var(--bg-card);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 16px;
             padding: 32px;
             margin-bottom: 24px;
@@ -277,8 +304,8 @@
         .form-select,
         .form-textarea {
             padding: 12px 16px;
-            background: rgba(15, 15, 26, 0.5);
-            border: 1px solid rgba(0, 212, 255, 0.2);
+            background: rgba(20, 20, 20, 0.5);
+            border: 1px solid rgba(100, 116, 139, 0.2);
             border-radius: 8px;
             color: var(--text-primary);
             font-size: 14px;
@@ -290,7 +317,7 @@
         .form-textarea:focus {
             outline: none;
             border-color: var(--teal);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.1);
         }
 
         .form-textarea {
@@ -352,7 +379,7 @@
 
         /* File Upload */
         .file-upload {
-            border: 2px dashed rgba(0, 212, 255, 0.3);
+            border: 2px dashed rgba(100, 116, 139, 0.3);
             border-radius: 12px;
             padding: 40px;
             text-align: center;
@@ -362,7 +389,7 @@
 
         .file-upload:hover {
             border-color: var(--teal);
-            background: rgba(0, 212, 255, 0.05);
+            background: rgba(100, 116, 139, 0.05);
         }
 
         .file-upload.dragover {
@@ -398,7 +425,7 @@
             height: 120px;
             border-radius: 8px;
             overflow: hidden;
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(100, 116, 139, 0.2);
         }
 
         .preview-item img {
@@ -444,17 +471,17 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+            box-shadow: 0 8px 24px rgba(100, 116, 139, 0.4);
         }
 
         .btn-secondary {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
             border: 1px solid var(--teal);
             color: var(--teal);
         }
 
         .btn-secondary:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.2);
         }
 
         .btn-danger {
@@ -483,7 +510,7 @@
         .data-table th {
             text-align: left;
             padding: 12px;
-            border-bottom: 2px solid rgba(0, 212, 255, 0.2);
+            border-bottom: 2px solid rgba(100, 116, 139, 0.2);
             color: var(--text-muted);
             font-size: 12px;
             font-weight: 600;
@@ -493,11 +520,11 @@
 
         .data-table td {
             padding: 16px 12px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
         }
 
         .data-table tr:hover {
-            background: rgba(0, 212, 255, 0.05);
+            background: rgba(100, 116, 139, 0.05);
         }
 
         .table-thumbnail {
@@ -522,7 +549,7 @@
         }
 
         .action-btn.edit {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
             color: var(--teal);
         }
 
@@ -567,7 +594,7 @@
         }
 
         .spinner {
-            border: 3px solid rgba(0, 212, 255, 0.1);
+            border: 3px solid rgba(100, 116, 139, 0.1);
             border-top: 3px solid var(--teal);
             border-radius: 50%;
             width: 40px;
@@ -634,8 +661,8 @@
         .search-input {
             width: 100%;
             padding: 12px 16px 12px 44px;
-            background: rgba(15, 15, 26, 0.5);
-            border: 1px solid rgba(0, 212, 255, 0.2);
+            background: rgba(20, 20, 20, 0.5);
+            border: 1px solid rgba(100, 116, 139, 0.2);
             border-radius: 8px;
             color: var(--text-primary);
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cpath d='m21 21-4.35-4.35'%3E%3C/path%3E%3C/svg%3E");
@@ -660,7 +687,7 @@
         .login-card {
             background: var(--bg-card);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 16px;
             padding: 48px;
             width: 100%;
@@ -1064,7 +1091,7 @@
                     <!-- User Stats -->
                     <div class="stats-grid">
                         <div class="stat-card">
-                            <div class="stat-icon" style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 212, 255, 0.05));">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, rgba(100, 116, 139, 0.2), rgba(100, 116, 139, 0.05));">
                                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--teal);">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                 </svg>
