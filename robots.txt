@@ -1,4 +1,4 @@
-# MotionVault - Robots.txt
+# MocapWork - Robots.txt
 # Allow search engines to crawl the site
 
 User-agent: *
@@ -6,10 +6,10 @@ Allow: /
 
 # Don't index private user pages
 Disallow: /dashboard.html
-Disallow: /thank-you.html
+Disallow: /admin-dashboard.html
 
 # Sitemap location
-Sitemap: https://goldstargamingtv-droid.github.io/mocap/sitemap.xml
+Sitemap: https://mocapwork.com/sitemap.xml
 
 # Crawl delay (be nice to servers)
 Crawl-delay: 1
