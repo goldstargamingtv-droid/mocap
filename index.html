@@ -989,6 +989,33 @@
             overflow: hidden;
         }
 
+        /* Background Video */
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            opacity: 0.25;
+            object-fit: cover;
+        }
+
+        .hero-gradient {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: linear-gradient(
+                180deg,
+                rgba(15, 15, 26, 0.7) 0%,
+                rgba(15, 15, 26, 0.85) 50%,
+                rgba(15, 15, 26, 0.95) 100%
+            );
+        }
+
         .hero-gradient {
             position: absolute;
             inset: 0;
@@ -3075,6 +3102,9 @@
     <main id="main-content">
     <section class="hero">
         <div class="hero-background">
+            <video class="hero-video" autoplay loop muted playsinline>
+                <source src="background-video.mp4" type="video/mp4">
+            </video>
             <div class="hero-gradient"></div>
             <div class="floating-shape shape-1"></div>
             <div class="floating-shape shape-2"></div>
