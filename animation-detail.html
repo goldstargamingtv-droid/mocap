@@ -890,24 +890,34 @@
         }
 
         .btn-success {
-            background: rgba(16, 185, 129, 0.15);
-            border: 2px solid #10B981;
-            color: #FFFFFF;
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            color: #10B981;
+            font-weight: 700;
+            padding: 14px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .btn-success:hover {
-            transform: translateY(-2px);
-            background: #10B981;
-            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5), 0 4px 15px rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10B981;
         }
 
         .btn-secondary {
-            background: rgba(245, 245, 245, 0.05);
-            border: 2px solid rgba(245, 245, 245, 0.12);
-            color: var(--text-primary);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--teal);
             font-weight: 600;
+            padding: 14px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             font-family: 'Sora', sans-serif;
             font-size: 14px;
             display: inline-flex;
@@ -917,16 +927,20 @@
         }
 
         .btn-secondary:hover {
-            background: rgba(245, 245, 245, 0.1);
+            background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
-            transform: translateY(-2px);
         }
         
-        /* Add to Cart button special glow */
+        /* Add to Cart button - override to keep teal */
         #addToCartBtn {
             background: rgba(0, 212, 255, 0.1);
             color: var(--teal);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        #addToCartBtn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--teal);
         }
         
         #addToCartBtn:hover {
@@ -2248,7 +2262,7 @@
                 <div class="price-card">
                     <div class="price-display"><span class="dollar-sign">$</span>1.00</div>
                     <div class="purchase-buttons">
-                        <button class="btn btn-success" id="buyNowBtn" onclick="handleBuyNow()">Buy Now</button>
+                        <button class="btn btn-success" id="buyNowBtn" onclick="handleBuyNow()">💳 Buy Now</button>
                         <button class="btn btn-secondary" id="addToCartBtn" onclick="handleAddToCart()">
                             <svg class="icon" viewBox="0 0 24 24">
                                 <circle cx="9" cy="21" r="1"></circle>
