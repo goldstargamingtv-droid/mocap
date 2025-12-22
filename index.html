@@ -1045,6 +1045,19 @@
             padding-top: 90px;
             overflow: hidden;
         }
+        
+        /* Seamless bottom fade transition */
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(to bottom, transparent 0%, #000000 100%);
+            z-index: 3;
+            pointer-events: none;
+        }
 
         /* Floating Particles */
         .particle {
@@ -1095,6 +1108,17 @@
             z-index: 1;
             opacity: 0.25;
             object-fit: cover;
+            /* Fade out video at bottom */
+            -webkit-mask-image: linear-gradient(to bottom, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,1) 60%, 
+                rgba(0,0,0,0.3) 85%, 
+                rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, 
+                rgba(0,0,0,1) 0%, 
+                rgba(0,0,0,1) 60%, 
+                rgba(0,0,0,0.3) 85%, 
+                rgba(0,0,0,0) 100%);
         }
 
         .hero-gradient {
@@ -1105,7 +1129,8 @@
                 180deg,
                 rgba(0, 0, 0, 0.7) 0%,
                 rgba(10, 5, 0, 0.85) 50%,
-                rgba(15, 8, 0, 0.95) 100%
+                rgba(15, 8, 0, 0.95) 85%,
+                rgba(0, 0, 0, 1) 100%
             );
         }
 
@@ -1146,14 +1171,14 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 18px;
+            padding: 6px 16px;
             background: rgba(0, 212, 255, 0.08);
             border: 1px solid rgba(0, 212, 255, 0.2);
             border-radius: 50px;
             color: var(--teal);
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             backdrop-filter: blur(10px);
         }
 
@@ -1166,10 +1191,10 @@
         }
 
         .hero-title {
-            font-size: clamp(2.2rem, 7vw, 4.5rem);
+            font-size: clamp(2rem, 6vw, 4rem);
             font-weight: 800;
             line-height: 1.05;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             letter-spacing: -2px;
             font-family: 'Sora', sans-serif;
             color: #000000;
@@ -1178,13 +1203,13 @@
         }
 
         .hero-subtitle {
-            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
             color: var(--text-secondary);
-            margin-bottom: 24px;
+            margin-bottom: 16px;
             max-width: 650px;
             margin-left: auto;
             margin-right: auto;
-            line-height: 1.45;
+            line-height: 1.4;
         }
 
         .hero-subtitle span {
@@ -1194,10 +1219,48 @@
 
         .hero-buttons {
             display: flex;
-            gap: 14px;
+            gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 32px;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary-cta {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            background: rgba(100, 116, 139, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            border-radius: 50px;
+            font-size: 12px;
+            color: var(--teal);
+            margin-top: 12px;
+            margin-bottom: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .trust-badge svg {
+            fill: var(--teal);
         }
 
         .hero-buttons .btn-secondary {
@@ -1222,9 +1285,9 @@
 
         .hero-stats {
             display: flex;
-            gap: 48px;
+            gap: 36px;
             justify-content: center;
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
             flex-wrap: wrap;
         }
@@ -1400,26 +1463,62 @@
             .carousel-overlay-text {
                 font-size: 8px;
             }
+            
+            /* Mobile Touch Optimizations */
+            .hero-buttons {
+                width: 100%;
+                padding: 0 20px;
+            }
+            
+            .hero-buttons .btn-secondary {
+                min-height: 48px; /* Better tap target */
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .trust-badge {
+                font-size: 11px;
+                padding: 10px 16px;
+                flex-wrap: wrap;
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .trust-badge span:last-child {
+                width: 100%;
+                margin-top: 4px;
+                font-size: 10px;
+            }
+            
+            .hero-stats {
+                gap: 32px;
+                font-size: 12px;
+            }
+            
+            .stat-icon svg {
+                width: 16px;
+                height: 16px;
+            }
         }
 
         .platform-logos {
             display: flex;
-            gap: 32px;
+            gap: 24px;
             justify-content: center;
             align-items: center;
-            margin: 32px 0;
+            margin: 16px 0;
             opacity: 0.8;
         }
 
         .platform-logo {
-            height: 40px;
+            height: 32px;
             width: auto;
             opacity: 0.8;
             transition: all 0.3s ease;
         }
 
         .platform-logo:first-child {
-            height: 65px;
+            height: 52px;
         }
 
         .platform-logo:hover {
@@ -1431,6 +1530,33 @@
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .stat-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-icon svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--teal);
+            filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6));
+            animation: iconPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% {
+                filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6));
+                transform: scale(1);
+            }
+            50% {
+                filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.8));
+                transform: scale(1.05);
+            }
         }
 
         .stat-dot {
@@ -2158,6 +2284,66 @@
 
         .sticky-browse-btn:hover {
             transform: translateY(-4px);
+            box-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
+        }
+        
+        /* Mobile Sticky CTA */
+        .mobile-sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            padding: 12px 20px;
+            border-top: 2px solid rgba(245, 158, 11, 0.3);
+            display: none;
+            opacity: 0;
+            transform: translateY(100%);
+            transition: all 0.4s ease;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .mobile-sticky-cta.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .mobile-sticky-cta-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .mobile-sticky-cta-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .mobile-sticky-cta-text small {
+            display: block;
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+        
+        .mobile-sticky-cta-btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-weight: 700;
+            font-size: 13px;
+            white-space: nowrap;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
             background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
@@ -3467,26 +3653,59 @@
                 <img src="blender-white.svg" alt="Blender" class="platform-logo">
             </div>
             
-            <p class="hero-subtitle" style="margin-top: 16px; color: #10B981; font-weight: 600;">
-                Instant download with royalty-free licenses.
-            </p>
+            <!-- Trust Badge (moved above buttons) -->
+            <div class="trust-badge">
+                <svg viewBox="0 0 24 24" fill="none" style="width: 16px; height: 16px; margin-right: 6px;">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                </svg>
+                <span style="font-weight: 600;">100+ Professional Animations</span>
+                <span style="margin: 0 8px; opacity: 0.5;">•</span>
+                <span>Instant download with royalty-free licenses</span>
+            </div>
             
             <div class="hero-buttons">
-                <a href="#library" class="btn-secondary" style="padding: 18px 36px; font-size: 16px;">📚 Browse Library</a>
-                <a href="#" id="heroSignUpBtn" onclick="showAuthModal('signup'); return false;" class="btn-secondary" style="padding: 18px 36px; font-size: 16px;">✨ Sign Up</a>
+                <a href="#library" class="btn-secondary btn-primary-cta" style="padding: 14px 28px; font-size: 15px; position: relative;">
+                    📚 Browse Library
+                    <span class="button-shine"></span>
+                </a>
+                <a href="#" id="heroSignUpBtn" onclick="showAuthModal('signup'); return false;" class="btn-secondary" style="padding: 14px 28px; font-size: 15px;">
+                    ✨ Get Started Free
+                </a>
             </div>
+
 
             <div class="hero-stats">
                 <div class="stat-item">
-                    <div class="stat-dot" style="background: var(--teal);"></div>
+                    <div class="stat-icon">
+                        <!-- Film Reel Icon for Exclusive Rights -->
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="7" cy="8" r="1.5" fill="currentColor"/>
+                            <circle cx="7" cy="16" r="1.5" fill="currentColor"/>
+                            <circle cx="17" cy="8" r="1.5" fill="currentColor"/>
+                            <circle cx="17" cy="16" r="1.5" fill="currentColor"/>
+                            <line x1="10" y1="4" x2="10" y2="20" stroke="currentColor" stroke-width="2"/>
+                            <line x1="14" y1="4" x2="14" y2="20" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
                     <span>Exclusive Rights</span>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-dot" style="background: var(--amber);"></div>
+                    <div class="stat-icon">
+                        <!-- Diamond/Sparkle Icon for Studio Quality -->
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                        </svg>
+                    </div>
                     <span>Studio Quality</span>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-dot" style="background: var(--teal);"></div>
+                    <div class="stat-icon">
+                        <!-- Lightning Download Icon for Instant Download -->
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" fill="currentColor"/>
+                        </svg>
+                    </div>
                     <span>Instant Download</span>
                 </div>
             </div>
@@ -6170,6 +6389,40 @@
         } else {
             initCarousel();
         }
+    </script>
+
+    <!-- Mobile Sticky CTA Bar (only on mobile) -->
+    <div class="mobile-sticky-cta" id="mobileStickyCta">
+        <div class="mobile-sticky-cta-content">
+            <div class="mobile-sticky-cta-text">
+                <span>Ready to elevate your project?</span>
+                <small>100+ professional animations available</small>
+            </div>
+            <button class="mobile-sticky-cta-btn" onclick="document.getElementById('library').scrollIntoView({behavior: 'smooth'})">
+                Browse Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Sticky CTA Trigger Script -->
+    <script>
+        // Show mobile sticky CTA after scrolling past hero on mobile
+        let mobileStickyCta = document.getElementById('mobileStickyCta');
+        
+        function handleMobileStickyCta() {
+            if (window.innerWidth <= 768) {
+                if (window.scrollY > window.innerHeight * 0.7) {
+                    mobileStickyCta.classList.add('show');
+                } else {
+                    mobileStickyCta.classList.remove('show');
+                }
+            } else {
+                mobileStickyCta.classList.remove('show');
+            }
+        }
+        
+        window.addEventListener('scroll', handleMobileStickyCta);
+        window.addEventListener('resize', handleMobileStickyCta);
     </script>
 
 </body>
