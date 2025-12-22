@@ -1045,19 +1045,6 @@
             padding-top: 90px;
             overflow: hidden;
         }
-        
-        /* Seamless bottom fade transition */
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 150px;
-            background: linear-gradient(to bottom, transparent 0%, #000000 100%);
-            z-index: 3;
-            pointer-events: none;
-        }
 
         /* Floating Particles */
         .particle {
@@ -1111,27 +1098,14 @@
             /* Fade out video at bottom */
             -webkit-mask-image: linear-gradient(to bottom, 
                 rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,1) 60%, 
-                rgba(0,0,0,0.3) 85%, 
+                rgba(0,0,0,1) 70%, 
+                rgba(0,0,0,0.5) 90%, 
                 rgba(0,0,0,0) 100%);
             mask-image: linear-gradient(to bottom, 
                 rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,1) 60%, 
-                rgba(0,0,0,0.3) 85%, 
+                rgba(0,0,0,1) 70%, 
+                rgba(0,0,0,0.5) 90%, 
                 rgba(0,0,0,0) 100%);
-        }
-
-        .hero-gradient {
-            position: absolute;
-            inset: 0;
-            z-index: 2;
-            background: linear-gradient(
-                180deg,
-                rgba(0, 0, 0, 0.7) 0%,
-                rgba(10, 5, 0, 0.85) 50%,
-                rgba(15, 8, 0, 0.95) 85%,
-                rgba(0, 0, 0, 1) 100%
-            );
         }
 
         .floating-shape {
@@ -3571,7 +3545,6 @@
             <video class="hero-video" autoplay loop muted playsinline>
                 <source src="background-video.mp4" type="video/mp4">
             </video>
-            <div class="hero-gradient"></div>
             <div class="floating-shape shape-1"></div>
             <div class="floating-shape shape-2"></div>
         </div>
