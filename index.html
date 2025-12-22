@@ -472,7 +472,7 @@
         }
 
         .cart-hover-items {
-            max-height: 180px;
+            max-height: 320px;
             overflow-y: auto;
             background: #1A1A2E;
         }
@@ -566,7 +566,7 @@
         }
 
         .cart-hover-empty {
-            padding: 20px;
+            padding: 40px 20px;
             text-align: center;
             color: var(--text-muted);
             font-size: 14px;
@@ -4288,9 +4288,13 @@
             if (cartIds.length === 0) {
                 cartItemsContainer.innerHTML = `
                     <div class="cart-empty">
-                        <div style="font-size: 48px; opacity: 0.3; margin-bottom: 12px;">🛒</div>
-                        <div style="font-size: 14px; line-height: 1.6;">Your cart is empty</div>
-                        <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">Any animations you add to your cart will be displayed here.</div>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 80px; height: 80px; margin-bottom: 20px; opacity: 0.3;">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        <h3 style="margin-bottom: 12px; font-size: 16px;">Your cart is empty</h3>
+                        <p style="font-size: 13px; opacity: 0.7; line-height: 1.4;">Any animations you add to your cart will be displayed here.</p>
                     </div>
                 `;
                 document.querySelector('.cart-total-price').innerHTML = '<span class="price-dollar">$</span>0.00';
