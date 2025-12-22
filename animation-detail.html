@@ -611,10 +611,10 @@
 
         .btn-login {
             padding: 10px 28px;
-            background: rgba(26, 26, 46, 0.8);
-            border-radius: 10px;
-            border: 2px solid var(--teal);
-            color: #FFFFFF !important;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 50px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--teal) !important;
             text-decoration: none;
             font-weight: 700;
             font-size: 15px;
@@ -624,9 +624,10 @@
         }
         
         .btn-login:hover {
-            background: var(--teal);
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--teal);
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         /* Admin Dashboard Button */
@@ -877,22 +878,24 @@
         }
 
         .btn-primary {
-            background: rgba(26, 26, 46, 0.8);
-            border: 2px solid var(--teal);
-            color: #FFFFFF;
-            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--teal);
+            border-radius: 50px;
+            font-weight: 600;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            background: var(--teal);
-            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.5), 0 4px 15px rgba(0, 212, 255, 0.3);
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--teal);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         .btn-success {
             background: rgba(16, 185, 129, 0.1);
             border: 1px solid rgba(16, 185, 129, 0.5);
-            color: #10B981;
+            color: white;
             font-weight: 700;
             padding: 14px 24px;
             border-radius: 50px;
@@ -907,6 +910,7 @@
         .btn-success:hover {
             background: rgba(16, 185, 129, 0.2);
             border-color: #10B981;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.6);
         }
 
         .btn-secondary {
@@ -1320,7 +1324,8 @@
         /* Mobile */
         @media (max-width: 768px) {
             .nav-center,
-            .nav-search {
+            .nav-search,
+            .btn-login {
                 display: none;
             }
 
