@@ -33,11 +33,38 @@
         body {
             font-family: 'DM Sans', sans-serif;
             background: var(--bg-primary);
-            background-image: radial-gradient(circle at 30% 20%, rgba(0, 212, 255, 0.12), transparent 50%),
+            background-image: radial-gradient(circle at 30% 20%, rgba(100, 116, 139, 0.12), transparent 50%),
                               radial-gradient(circle at 70% 80%, rgba(245, 158, 11, 0.12), transparent 50%);
             color: var(--text-primary);
             min-height: 100vh;
             padding-top: 70px;
+        }
+
+        /* Custom Scrollbar - Grey with Orange Accent */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
+            border-radius: 6px;
+            border: 2px solid #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #FBBF24 0%, #FF8E8E 100%);
+        }
+
+        /* Firefox Scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #F59E0B #1a1a1a;
         }
         
         /* Navbar */
@@ -47,9 +74,9 @@
             left: 0;
             right: 0;
             z-index: 10002;
-            background: rgba(15, 15, 26, 0.92);
+            background: rgba(15, 15, 15, 0.92);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.15);
         }
 
         .navbar-container {
@@ -152,8 +179,8 @@
         .search-input-nav {
             width: 100%;
             padding: 10px 40px 10px 40px;
-            background: rgba(26, 26, 46, 0.6);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            background: rgba(26, 26, 26, 0.6);
+            border: 2px solid rgba(100, 116, 139, 0.2);
             border-radius: 25px;
             color: var(--text-primary);
             font-size: 14px;
@@ -164,8 +191,8 @@
         .search-input-nav:focus {
             outline: none;
             border-color: var(--teal);
-            background: rgba(26, 26, 46, 0.8);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+            background: rgba(26, 26, 26, 0.8);
+            box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.1);
         }
 
         .search-icon-nav {
@@ -197,7 +224,7 @@
             left: 0;
             right: 0;
             background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(100, 116, 139, 0.3);
             border-radius: 12px;
             max-height: 400px;
             overflow-y: auto;
@@ -213,7 +240,7 @@
         .search-result-item {
             padding: 12px 16px;
             cursor: pointer;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
             transition: all 0.2s;
             display: flex;
             align-items: center;
@@ -221,7 +248,7 @@
         }
 
         .search-result-item:hover {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
         }
 
         .search-result-thumb {
@@ -343,8 +370,8 @@
             right: 0;
             width: 350px;
             max-height: 500px;
-            background: #1A1A2E;
-            border: 1px solid rgba(0, 212, 255, 0.2);
+            background: #1a1a1a;
+            border: 1px solid rgba(100, 116, 139, 0.2);
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             display: none;
@@ -359,7 +386,7 @@
             left: -10px;
             right: -10px;
             bottom: -10px;
-            background: #0F0F1A;
+            background: #0f0f0f;
             border-radius: 12px;
             z-index: -2;
             opacity: 1;
@@ -367,7 +394,7 @@
 
         .cart-hover-header {
             padding: 16px 20px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
             font-weight: 700;
             font-size: 16px;
         }
@@ -375,7 +402,7 @@
         .cart-hover-items {
             max-height: 320px;
             overflow-y: auto;
-            background: #1A1A2E;
+            background: #1a1a1a;
         }
 
         .cart-hover-item {
@@ -385,14 +412,14 @@
             padding: 12px;
             margin: 8px;
             border-radius: 8px;
-            background: #1A1A2E;
+            background: #1a1a1a;
             margin-bottom: 8px;
             transition: all 0.2s ease;
             cursor: pointer;
         }
 
         .cart-hover-item:hover {
-            background: rgba(0, 212, 255, 0.15);
+            background: rgba(100, 116, 139, 0.15);
         }
 
         .cart-hover-item-img {
@@ -456,7 +483,7 @@
 
         .cart-hover-footer {
             padding: 16px 20px;
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            border-top: 1px solid rgba(100, 116, 139, 0.1);
         }
 
         .cart-hover-total {
@@ -503,7 +530,7 @@
             max-width: 90vw;
             height: 100vh;
             background: var(--bg-secondary);
-            border-left: 1px solid rgba(0, 212, 255, 0.2);
+            border-left: 1px solid rgba(100, 116, 139, 0.2);
             display: flex;
             flex-direction: column;
             animation: slideInCart 0.3s ease;
@@ -516,7 +543,7 @@
         
         .cart-header {
             padding: 24px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -535,7 +562,7 @@
             width: 40px;
             height: 40px;
             border: none;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
             color: var(--text-primary);
             font-size: 24px;
             border-radius: 8px;
@@ -544,7 +571,7 @@
         }
         
         .cart-close:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.2);
             transform: rotate(90deg);
         }
         
@@ -555,8 +582,8 @@
         }
         
         .cart-item {
-            background: rgba(26, 26, 46, 0.6);
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            background: rgba(26, 26, 26, 0.6);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 12px;
@@ -647,7 +674,7 @@
         
         .cart-footer {
             padding: 24px;
-            border-top: 1px solid rgba(0, 212, 255, 0.15);
+            border-top: 1px solid rgba(100, 116, 139, 0.15);
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -708,7 +735,7 @@
             margin-bottom: 32px;
             padding: 24px;
             background: var(--bg-secondary);
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 16px;
         }
 
@@ -744,7 +771,7 @@
         .filter-btn {
             padding: 12px 20px;
             background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(100, 116, 139, 0.2);
             border-radius: 12px;
             color: var(--text-secondary);
             cursor: pointer;
@@ -760,7 +787,7 @@
         }
 
         .filter-btn.active {
-            background: rgba(0, 212, 255, 0.15);
+            background: rgba(100, 116, 139, 0.15);
             border-color: var(--teal);
             color: var(--teal);
         }
@@ -775,7 +802,7 @@
         /* Purchase Cards - Smaller & Square */
         .purchase-card {
             background: var(--bg-secondary);
-            border: 1px solid rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.1);
             border-radius: 16px;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -784,7 +811,7 @@
         .purchase-card:hover {
             border-color: var(--teal);
             transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(100, 116, 139, 0.3);
         }
 
         .card-media {
@@ -875,7 +902,7 @@
         .btn-download {
             width: 100%;
             padding: 10px 20px;
-            background: rgba(26, 26, 46, 0.9);
+            background: rgba(26, 26, 26, 0.9);
             border: 2px solid var(--teal);
             color: #FFFFFF;
             font-weight: 700;
@@ -884,13 +911,13 @@
             border-radius: 50px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
         }
 
         .btn-download:hover {
             transform: translateY(-2px);
             background: var(--teal);
-            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 8px 20px rgba(100, 116, 139, 0.5);
         }
 
         .btn-download:disabled {
@@ -901,8 +928,8 @@
         .btn-view {
             width: 100%;
             padding: 10px 20px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            background: rgba(100, 116, 139, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.3);
             border-radius: 50px;
             color: var(--teal);
             font-weight: 600;
@@ -917,7 +944,7 @@
         }
 
         .btn-view:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.2);
         }
 
         /* Empty State */
@@ -959,7 +986,7 @@
 
         .empty-state a:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+            box-shadow: 0 8px 24px rgba(100, 116, 139, 0.4);
         }
         
         .loading { 
@@ -996,7 +1023,7 @@
             right: 20px;
             width: 40px;
             height: 40px;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(100, 116, 139, 0.1);
             border: none;
             border-radius: 8px;
             color: var(--text-primary);
@@ -1009,7 +1036,7 @@
         }
 
         .mobile-menu-close:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(100, 116, 139, 0.2);
             transform: rotate(90deg);
         }
 
@@ -1035,12 +1062,12 @@
                 right: -100%;
                 width: 280px;
                 height: 100vh;
-                background: rgba(15, 15, 26, 0.98);
+                background: rgba(20, 20, 20, 0.98);
                 backdrop-filter: blur(20px);
                 flex-direction: column;
                 gap: 0;
                 padding: 80px 0 20px;
-                border-left: 1px solid rgba(0, 212, 255, 0.15);
+                border-left: 1px solid rgba(100, 116, 139, 0.15);
                 transition: right 0.3s ease;
                 z-index: 9999;
                 overflow-y: auto;
@@ -1065,7 +1092,7 @@
                 display: block;
                 width: 100%;
                 padding: 16px 32px;
-                border-bottom: 1px solid rgba(0, 212, 255, 0.08);
+                border-bottom: 1px solid rgba(100, 116, 139, 0.08);
                 font-size: 16px;
                 transition: all 0.2s ease;
                 color: var(--text-secondary);
@@ -1073,13 +1100,13 @@
             }
 
             .nav-links li a:hover {
-                background: rgba(0, 212, 255, 0.1);
+                background: rgba(100, 116, 139, 0.1);
                 padding-left: 40px;
                 color: var(--teal);
             }
 
             .nav-links li a.active {
-                background: rgba(0, 212, 255, 0.15);
+                background: rgba(100, 116, 139, 0.15);
                 border-left: 3px solid var(--teal);
                 color: var(--teal);
             }
@@ -1169,16 +1196,16 @@
                 <button class="mobile-menu-close" onclick="toggleMobileMenu()">✕</button>
                 
                 <!-- Mobile Search -->
-                <li style="padding: 20px; border-bottom: 1px solid rgba(0, 212, 255, 0.1);">
+                <li style="padding: 20px; border-bottom: 1px solid rgba(100, 116, 139, 0.1);">
                     <div style="position: relative;" id="mobileSearchWrapper">
                         <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.6;">🔍</span>
                         <input 
                             type="text" 
                             id="mobileSearch"
                             placeholder="Search animations..."
-                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(26, 26, 46, 0.6); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
+                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(100, 116, 139, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
                         >
-                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 10000;">
+                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(100, 116, 139, 0.3); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 10000;">
                             <!-- Results populated here -->
                         </div>
                     </div>
@@ -1267,15 +1294,15 @@
                     type="text" 
                     id="librarySearchInput" 
                     placeholder="Search your library..."
-                    style="width: 100%; padding: 14px 40px 14px 45px; background: var(--bg-secondary); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 12px; color: var(--text-primary); font-size: 15px; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease;"
-                    onfocus="this.style.borderColor='var(--teal)'; this.style.boxShadow='0 0 0 3px rgba(0, 212, 255, 0.1)'"
-                    onblur="this.style.borderColor='rgba(0, 212, 255, 0.2)'; this.style.boxShadow='none'"
+                    style="width: 100%; padding: 14px 40px 14px 45px; background: var(--bg-secondary); border: 2px solid rgba(100, 116, 139, 0.2); border-radius: 12px; color: var(--text-primary); font-size: 15px; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease;"
+                    onfocus="this.style.borderColor='var(--teal)'; this.style.boxShadow='0 0 0 3px rgba(100, 116, 139, 0.1)'"
+                    onblur="this.style.borderColor='rgba(100, 116, 139, 0.2)'; this.style.boxShadow='none'"
                     oninput="searchLibrary()"
                 >
                 <button id="librarySearchClear" onclick="clearLibrarySearch()" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); font-size: 16px; cursor: pointer; display: none; padding: 4px;">✕</button>
                 
                 <!-- Library Search Dropdown -->
-                <div id="librarySearchDropdown" style="position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; max-height: 400px; overflow-y: auto; display: none; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 1000;"></div>
+                <div id="librarySearchDropdown" style="position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(100, 116, 139, 0.3); border-radius: 12px; max-height: 400px; overflow-y: auto; display: none; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 1000;"></div>
             </div>
         </div>
 
@@ -1938,7 +1965,7 @@
                     const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
                     
                     html += `
-                        <div onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                        <div onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid rgba(100, 116, 139, 0.1); transition: all 0.2s;">
                             <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
@@ -1966,7 +1993,7 @@
                 suggestions.forEach(sugg => {
                     const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
                     html += `
-                        <div onclick="window.location.href='index.html#library?search=${encodeURIComponent(sugg)}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                        <div onclick="window.location.href='index.html#library?search=${encodeURIComponent(sugg)}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid rgba(100, 116, 139, 0.1); transition: all 0.2s;">
                             <div style="font-size: 18px;">🔍</div>
                             <div style="flex: 1; color: var(--text-primary);">${highlighted}</div>
                         </div>
