@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
     <!-- VERSION: 2024-12-20-v11 - ICON BADGES BELOW GIF! -->
+    <!-- ============================================ -->
+    <!-- PALETTE 2: WARM LUXE AMBER -->
+    <!-- Rich black (#000000) with muted gold (#F59E0B) and warm coral (#FF6B6B) -->
+    <!-- Luxurious, inviting, premium warmth -->
+    <!-- ============================================ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -120,6 +125,33 @@
             line-height: 1.6;
         }
 
+        /* Custom Scrollbar - Grey with Orange Accent */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
+            border-radius: 6px;
+            border: 2px solid #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #FBBF24 0%, #FF8E8E 100%);
+        }
+
+        /* Firefox Scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #F59E0B #1a1a1a;
+        }
+
         .font-sora {
             font-family: 'Sora', sans-serif;
         }
@@ -223,9 +255,9 @@
         }
 
         .navbar.scrolled {
-            background: rgba(15, 15, 26, 0.92);
+            background: rgba(15, 15, 15, 0.92);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.15);
         }
 
         .navbar-container {
@@ -285,7 +317,7 @@
         .search-input-nav {
             width: 100%;
             padding: 10px 40px 10px 40px;
-            background: rgba(26, 26, 46, 0.6);
+            background: rgba(26, 26, 26, 0.6);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 25px;
             color: var(--text-primary);
@@ -297,7 +329,7 @@
         .search-input-nav:focus {
             outline: none;
             border-color: var(--teal);
-            background: rgba(26, 26, 46, 0.8);
+            background: rgba(26, 26, 26, 0.8);
             box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
         }
 
@@ -341,7 +373,7 @@
             left: 0;
             right: 0;
             background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(100, 116, 139, 0.3);
             border-radius: 12px;
             max-height: 400px;
             overflow-y: auto;
@@ -360,7 +392,7 @@
             left: 0;
             right: 0;
             background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(100, 116, 139, 0.3);
             border-radius: 12px;
             max-height: 400px;
             overflow-y: auto;
@@ -432,8 +464,8 @@
             right: 0;
             width: 350px;
             max-height: 500px;
-            background: #1A1A2E;
-            border: 1px solid rgba(0, 212, 255, 0.2);
+            background: #1a1a1a;
+            border: 1px solid rgba(100, 116, 139, 0.2);
             border-radius: 12px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
             display: none;
@@ -451,7 +483,7 @@
             left: -10px;
             right: -10px;
             bottom: -10px;
-            background: #0F0F1A;
+            background: #0f0f0f;
             border-radius: 12px;
             z-index: -2;
             opacity: 1;
@@ -464,7 +496,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: #1A1A2E;
+            background: #1a1a1a;
             border-radius: 12px;
             z-index: -1;
             opacity: 1;
@@ -473,17 +505,17 @@
 
         .cart-hover-header {
             padding: 16px 20px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
             font-weight: 700;
             font-size: 16px;
             color: var(--text-primary);
-            background: #1A1A2E;
+            background: #1a1a1a;
         }
 
         .cart-hover-items {
             max-height: 320px;
             overflow-y: auto;
-            background: #1A1A2E;
+            background: #1a1a1a;
         }
 
         .cart-hover-items::-webkit-scrollbar {
@@ -491,12 +523,12 @@
         }
 
         .cart-hover-items::-webkit-scrollbar-track {
-            background: #0F0F1A;
+            background: #1a1a1a;
             border-radius: 3px;
         }
 
         .cart-hover-items::-webkit-scrollbar-thumb {
-            background: var(--teal);
+            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
             border-radius: 3px;
         }
 
@@ -506,15 +538,15 @@
             gap: 12px;
             padding: 12px;
             border-radius: 8px;
-            background: #1A1A2E;
+            background: #1a1a1a;
             margin: 8px;
             margin-bottom: 8px;
             transition: all 0.2s ease;
         }
 
         .cart-hover-item:hover {
-            background: rgba(0, 212, 255, 0.15);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.3);
         }
 
         .cart-hover-item-img {
@@ -590,8 +622,8 @@
 
         .cart-hover-footer {
             padding: 16px 20px;
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
-            background: #0F0F1A;
+            border-top: 1px solid rgba(100, 116, 139, 0.1);
+            background: #0f0f0f;
         }
 
         .cart-hover-total {
@@ -782,7 +814,7 @@
             position: sticky;
             top: 70px;
             z-index: 999;
-            background: rgba(26, 26, 46, 0.95);
+            background: rgba(26, 26, 26, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 212, 255, 0.1);
             padding: 16px 0;
@@ -1010,9 +1042,9 @@
             z-index: 2;
             background: linear-gradient(
                 180deg,
-                rgba(15, 15, 26, 0.7) 0%,
-                rgba(15, 15, 26, 0.85) 50%,
-                rgba(15, 15, 26, 0.95) 100%
+                rgba(20, 20, 20, 0.7) 0%,
+                rgba(20, 20, 20, 0.85) 50%,
+                rgba(20, 20, 20, 0.95) 100%
             );
         }
 
@@ -1206,7 +1238,7 @@
         /* Filters */
         .filters-card {
             position: relative;
-            background: rgba(26, 26, 46, 0.6);
+            background: rgba(26, 26, 26, 0.6);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(0, 212, 255, 0.1);
             border-radius: 20px;
@@ -1231,7 +1263,7 @@
 
         .search-input {
             width: 100%;
-            background: rgba(26, 26, 46, 0.5);
+            background: rgba(26, 26, 26, 0.5);
             border: 2px solid rgba(0, 212, 255, 0.15);
             border-radius: 14px;
             padding: 18px 20px 18px 56px;
@@ -1248,7 +1280,7 @@
 
         .search-input:focus {
             border-color: var(--teal);
-            background: rgba(26, 26, 46, 0.7);
+            background: rgba(26, 26, 26, 0.7);
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
         }
 
@@ -1270,7 +1302,7 @@
 
         .filter-select {
             width: 100%;
-            background: rgba(26, 26, 46, 0.5);
+            background: rgba(26, 26, 26, 0.5);
             border: 2px solid rgba(0, 212, 255, 0.15);
             border-radius: 12px;
             padding: 14px 16px;
@@ -1447,7 +1479,7 @@
         .card-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(15, 15, 26, 0.75);
+            background: rgba(20, 20, 20, 0.75);
             backdrop-filter: blur(6px);
             display: flex;
             flex-direction: column;
@@ -1576,7 +1608,7 @@
         /* Footer */
         /* Custom Request Section */
         .custom-request-section {
-            background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(26, 26, 46, 0.6) 100%);
+            background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(26, 26, 26, 0.6) 100%);
             padding: 100px 32px;
             border-top: 1px solid rgba(0, 212, 255, 0.1);
         }
@@ -1599,7 +1631,7 @@
         }
 
         .request-form {
-            background: rgba(26, 26, 46, 0.6);
+            background: rgba(26, 26, 26, 0.6);
             border: 1px solid rgba(0, 212, 255, 0.2);
             border-radius: 20px;
             padding: 48px;
@@ -1628,7 +1660,7 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            background: rgba(15, 15, 26, 0.6);
+            background: rgba(20, 20, 20, 0.6);
             border: 1px solid rgba(0, 212, 255, 0.2);
             border-radius: 12px;
             padding: 14px 18px;
@@ -1654,7 +1686,7 @@
         .submit-btn {
             width: 100%;
             padding: 18px;
-            background: rgba(26, 26, 46, 0.8);
+            background: rgba(26, 26, 26, 0.8);
             border: 2px solid var(--teal);
             border-radius: 12px;
             color: #FFFFFF;
@@ -1691,8 +1723,8 @@
         }
 
         .footer {
-            background: #0a0a12;
-            border-top: 1px solid rgba(0, 212, 255, 0.15);
+            background: #0a0a0a;
+            border-top: 1px solid rgba(100, 116, 139, 0.15);
             padding: 60px 32px 32px;
         }
 
@@ -1940,12 +1972,12 @@
                 right: -100%;
                 width: 280px;
                 height: 100vh;
-                background: rgba(15, 15, 26, 0.98);
+                background: rgba(15, 15, 15, 0.98);
                 backdrop-filter: blur(20px);
                 flex-direction: column;
                 gap: 0;
                 padding: 80px 0 20px;
-                border-left: 1px solid rgba(0, 212, 255, 0.15);
+                border-left: 1px solid rgba(100, 116, 139, 0.15);
                 transition: right 0.3s ease;
                 z-index: 9999;
                 overflow-y: auto;
@@ -2274,7 +2306,7 @@
         .form-group input {
             width: 100%;
             padding: 12px 16px;
-            background: rgba(15, 15, 26, 0.6);
+            background: rgba(20, 20, 20, 0.6);
             border: 1px solid rgba(0, 212, 255, 0.2);
             border-radius: 10px;
             color: var(--text-primary);
@@ -2417,7 +2449,7 @@
             max-width: 90vw;
             height: 100vh;
             background: var(--bg-secondary);
-            border-left: 1px solid rgba(0, 212, 255, 0.2);
+            border-left: 1px solid rgba(100, 116, 139, 0.2);
             display: flex;
             flex-direction: column;
             animation: slideIn 0.3s ease;
@@ -2469,7 +2501,7 @@
         }
         
         .cart-item {
-            background: rgba(26, 26, 46, 0.6);
+            background: rgba(26, 26, 26, 0.6);
             border: 1px solid rgba(0, 212, 255, 0.1);
             border-radius: 12px;
             padding: 16px;
@@ -2947,9 +2979,9 @@
                             type="text" 
                             id="mobileSearch"
                             placeholder="Search animations..."
-                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(26, 26, 46, 0.6); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
+                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
                         >
-                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 10000;">
+                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(100, 116, 139, 0.3); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 10000;">
                             <!-- Results populated here -->
                         </div>
                     </div>
@@ -3269,7 +3301,7 @@
             </div>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
-                <div class="feature-card" style="background: rgba(26, 26, 46, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.3s ease; cursor: pointer;">
+                <div class="feature-card" style="background: rgba(26, 26, 26, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.3s ease; cursor: pointer;">
                     <div style="font-size: 36px; margin-bottom: 16px;">🎮</div>
                     <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Game Development Ready</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
@@ -3278,7 +3310,7 @@
                     </p>
                 </div>
                 
-                <div class="feature-card" style="background: rgba(26, 26, 46, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.3s ease; cursor: pointer;">
+                <div class="feature-card" style="background: rgba(26, 26, 26, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.3s ease; cursor: pointer;">
                     <div style="font-size: 36px; margin-bottom: 16px;">🎬</div>
                     <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Film & Animation</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
@@ -3287,7 +3319,7 @@
                     </p>
                 </div>
                 
-                <div class="feature-card" style="background: rgba(26, 26, 46, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.3s ease; cursor: pointer;">
+                <div class="feature-card" style="background: rgba(26, 26, 26, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.3s ease; cursor: pointer;">
                     <div style="font-size: 36px; margin-bottom: 16px;">⚡</div>
                     <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Instant Download</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
@@ -5520,7 +5552,7 @@
                 </div>
 
                 <!-- Order Details -->
-                <div id="thankYouOrderDetails" style="display: none; background: rgba(26, 26, 46, 0.4); border-radius: 10px; padding: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                <div id="thankYouOrderDetails" style="display: none; background: rgba(26, 26, 26, 0.4); border-radius: 10px; padding: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
                     <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary);">Order Details</h3>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
                         <div style="display: flex; justify-content: space-between;">
