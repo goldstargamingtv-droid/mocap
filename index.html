@@ -178,16 +178,18 @@
         }
 
         .btn-primary {
-            background: rgba(26, 26, 46, 0.8);
-            border: 2px solid var(--teal);
-            color: #FFFFFF;
-            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.3);
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--teal);
+            border-radius: 50px;
+            font-weight: 600;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            background: var(--teal);
-            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.5), 0 4px 15px rgba(245, 158, 11, 0.3);
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--teal);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         .btn-secondary {
@@ -2344,11 +2346,19 @@
         .auth-modal-buttons .btn {
             padding: 14px 32px;
             font-size: 15px;
+            border-radius: 50px;
         }
         
         .auth-modal-buttons .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--teal);
+        }
+        
+        .auth-modal-buttons .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--teal);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         .cart-modal {
