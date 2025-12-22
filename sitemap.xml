@@ -1,34 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
   <!-- Homepage -->
   <url>
-    <loc>https://goldstargamingtv-droid.github.io/mocap/</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://mocapwork.com/</loc>
+    <lastmod>2024-12-22</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
-  </url>
-  
-  <!-- Dashboard (Private - users only) -->
-  <url>
-    <loc>https://goldstargamingtv-droid.github.io/mocap/dashboard.html</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
   </url>
   
   <!-- Animation Detail Page -->
   <url>
-    <loc>https://goldstargamingtv-droid.github.io/mocap/animation-detail.html</loc>
-    <lastmod>2024-12-19</lastmod>
+    <loc>https://mocapwork.com/animation-detail.html</loc>
+    <lastmod>2024-12-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   
-  <!-- Thank You Page -->
-  <url>
-    <loc>https://goldstargamingtv-droid.github.io/mocap/thank-you.html</loc>
-    <lastmod>2024-12-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
 </urlset>
