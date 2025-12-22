@@ -1302,14 +1302,16 @@
             position: relative;
             border-radius: 10px;
             overflow: hidden;
-            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                        opacity 1.2s ease,
-                        box-shadow 1.2s ease,
-                        border-color 1.2s ease;
+            transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1),
+                        opacity 1.8s cubic-bezier(0.19, 1, 0.22, 1),
+                        box-shadow 1.8s cubic-bezier(0.19, 1, 0.22, 1),
+                        border-color 1.8s cubic-bezier(0.19, 1, 0.22, 1),
+                        width 1.8s cubic-bezier(0.19, 1, 0.22, 1),
+                        height 1.8s cubic-bezier(0.19, 1, 0.22, 1);
             cursor: pointer;
             border: 2px solid rgba(100, 116, 139, 0.4);
             background: #1a1a1a;
-            will-change: transform, opacity;
+            will-change: transform, opacity, width, height;
         }
 
         /* Side items - smaller and pushed back */
@@ -3565,7 +3567,7 @@
             <!-- Hero Preview Carousel -->
             <div class="hero-preview-carousel">
                 <div class="carousel-container">
-                    <!-- Left Item -->
+                    <!-- Item 1 -->
                     <div class="carousel-item side" data-index="0">
                         <div class="carousel-item-content">
                             <div class="carousel-placeholder">
@@ -3579,8 +3581,8 @@
                         </div>
                     </div>
 
-                    <!-- Center Item (Featured) -->
-                    <div class="carousel-item center" data-index="1">
+                    <!-- Item 2 -->
+                    <div class="carousel-item side" data-index="1">
                         <div class="carousel-item-content">
                             <div class="carousel-placeholder">
                                 <div class="carousel-placeholder-icon">⚔️</div>
@@ -3593,8 +3595,8 @@
                         </div>
                     </div>
 
-                    <!-- Right Item -->
-                    <div class="carousel-item side" data-index="2">
+                    <!-- Center Item (Featured) - Item 3 -->
+                    <div class="carousel-item center" data-index="2">
                         <div class="carousel-item-content">
                             <div class="carousel-placeholder">
                                 <div class="carousel-placeholder-icon">🤸</div>
@@ -3606,13 +3608,43 @@
                             <div class="carousel-overlay-text">Motion Capture Preview</div>
                         </div>
                     </div>
+
+                    <!-- Item 4 -->
+                    <div class="carousel-item side" data-index="3">
+                        <div class="carousel-item-content">
+                            <div class="carousel-placeholder">
+                                <div class="carousel-placeholder-icon">🧗</div>
+                                <div class="carousel-placeholder-text">Climbing Pack</div>
+                                <div class="carousel-placeholder-subtext">16 animations</div>
+                            </div>
+                        </div>
+                        <div class="carousel-overlay">
+                            <div class="carousel-overlay-text">Motion Capture Preview</div>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="carousel-item side" data-index="4">
+                        <div class="carousel-item-content">
+                            <div class="carousel-placeholder">
+                                <div class="carousel-placeholder-icon">🤾</div>
+                                <div class="carousel-placeholder-text">Sports Pack</div>
+                                <div class="carousel-placeholder-subtext">20 animations</div>
+                            </div>
+                        </div>
+                        <div class="carousel-overlay">
+                            <div class="carousel-overlay-text">Motion Capture Preview</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Navigation Dots -->
                 <div class="carousel-dots">
                     <div class="carousel-dot" data-index="0"></div>
-                    <div class="carousel-dot active" data-index="1"></div>
-                    <div class="carousel-dot" data-index="2"></div>
+                    <div class="carousel-dot" data-index="1"></div>
+                    <div class="carousel-dot active" data-index="2"></div>
+                    <div class="carousel-dot" data-index="3"></div>
+                    <div class="carousel-dot" data-index="4"></div>
                 </div>
             </div>
 
@@ -6274,54 +6306,67 @@
     <!-- Carousel Auto-Rotation Script -->
     <script>
         // Carousel state
-        let currentIndex = 1; // Start with middle item (index 1)
+        let currentIndex = 2; // Start with 3rd item (index 2 - Acrobatic Pack)
         let carouselInterval;
         
-        // Carousel data (3 items)
+        // Carousel data (5 items)
         const carouselData = [
             { icon: '🏃', title: 'Running Pack', subtitle: '12 animations', label: 'Motion Capture Preview' },
             { icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', label: 'Featured Animation' },
-            { icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture Preview' }
+            { icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture Preview' },
+            { icon: '🧗', title: 'Climbing Pack', subtitle: '16 animations', label: 'Motion Capture Preview' },
+            { icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', label: 'Motion Capture Preview' }
         ];
 
-        function updateCarousel(newIndex) {
+        function updateCarousel(selectedIndex) {
             const items = document.querySelectorAll('.carousel-item');
             const dots = document.querySelectorAll('.carousel-dot');
             
             if (!items.length) return;
 
-            // Update current index
-            currentIndex = newIndex;
-
-            // Calculate positions (wrap around)
             const totalItems = items.length;
-            const leftIndex = (currentIndex - 1 + totalItems) % totalItems;
-            const centerIndex = currentIndex;
-            const rightIndex = (currentIndex + 1) % totalItems;
-
+            
             // Reset all items
             items.forEach(item => {
                 item.classList.remove('side', 'center');
                 item.classList.add('side');
+                item.style.display = 'block'; // Show all items
             });
 
-            // Position items
-            items[leftIndex].classList.remove('center');
-            items[leftIndex].classList.add('side');
-            items[leftIndex].style.order = '0';
-
-            items[centerIndex].classList.remove('side');
-            items[centerIndex].classList.add('center');
-            items[centerIndex].style.order = '1';
-
-            items[rightIndex].classList.remove('center');
-            items[rightIndex].classList.add('side');
-            items[rightIndex].style.order = '2';
+            // Calculate positions relative to selected item
+            // Selected item always goes to position 2 (center, 0-indexed)
+            items.forEach((item, index) => {
+                const dataIndex = parseInt(item.getAttribute('data-index'));
+                
+                // Calculate offset from selected item
+                let offset = dataIndex - selectedIndex;
+                
+                // Wrap around
+                if (offset < -2) offset += totalItems;
+                if (offset > 2) offset -= totalItems;
+                
+                // Position based on offset from center
+                const position = offset + 2; // Center is position 2
+                
+                if (position === 2) {
+                    // This is the selected/center item
+                    item.classList.remove('side');
+                    item.classList.add('center');
+                    item.style.order = '2';
+                } else {
+                    // Side items
+                    item.classList.add('side');
+                    item.style.order = position.toString();
+                }
+            });
 
             // Update dots
             dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex);
+                dot.classList.toggle('active', index === selectedIndex);
             });
+            
+            // Update current index
+            currentIndex = selectedIndex;
         }
 
         function startCarousel() {
@@ -6341,6 +6386,7 @@
             const items = document.querySelectorAll('.carousel-item');
 
             // Add click handlers to dots
+            // Add click handlers to dots
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
                     stopCarousel();
@@ -6350,8 +6396,9 @@
             });
 
             // Add click handlers to items
-            items.forEach((item, index) => {
+            items.forEach((item) => {
                 item.addEventListener('click', () => {
+                    const index = parseInt(item.getAttribute('data-index'));
                     stopCarousel();
                     updateCarousel(index);
                     startCarousel();
@@ -6365,6 +6412,9 @@
                 carousel.addEventListener('mouseleave', startCarousel);
             }
 
+            // Initialize to starting position (Acrobatic Pack - index 2)
+            updateCarousel(2);
+            
             // Start auto-rotation
             startCarousel();
         }
