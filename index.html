@@ -191,15 +191,22 @@
         }
 
         .btn-secondary {
-            background: rgba(245, 245, 245, 0.05);
-            border: 2px solid rgba(245, 245, 245, 0.12);
-            color: var(--text-primary);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--teal);
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'DM Sans', sans-serif;
+            text-decoration: none;
         }
 
         .btn-secondary:hover {
-            background: rgba(245, 245, 245, 0.08);
+            background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         /* Navbar */
@@ -1073,6 +1080,14 @@
             margin-bottom: 60px;
         }
 
+        .hero-buttons .btn-secondary {
+            text-decoration: none;
+        }
+
+        .hero-buttons .btn-secondary:hover {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
         .hero-stats {
             display: flex;
             gap: 60px;
@@ -1815,15 +1830,15 @@
             right: 30px;
             z-index: 1000;
             padding: 12px 24px;
-            background: rgba(26, 26, 46, 0.9);
-            border: 2px solid var(--teal);
-            color: #FFFFFF;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--teal);
             text-decoration: none;
             font-weight: 700;
             font-size: 14px;
             font-family: 'Sora', sans-serif;
             border-radius: 50px;
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+            backdrop-filter: blur(10px);
             opacity: 0;
             visibility: hidden;
             transform: translateY(100px);
@@ -1838,8 +1853,9 @@
 
         .sticky-browse-btn:hover {
             transform: translateY(-4px);
-            background: var(--teal);
-            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.6);
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--teal);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         /* Responsive */
@@ -2614,32 +2630,33 @@
             width: 100%;
             margin-top: 20px;
             padding: 16px;
-            background: rgba(16, 185, 129, 0.15);
-            border: 2px solid #10B981;
-            border-radius: 12px;
-            color: #FFFFFF;
-            font-weight: 800;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.5);
+            border-radius: 50px;
+            color: #10B981;
+            font-weight: 700;
             cursor: pointer;
             font-family: "Sora", sans-serif;
             font-size: 16px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .buy-now-btn:hover {
-            background: #10B981;
+            background: rgba(16, 185, 129, 0.2);
             border-color: #10B981;
-            box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5), 0 4px 15px rgba(16, 185, 129, 0.3);
-            transform: translateY(-2px);
         }
 
         .add-to-cart-btn {
             width: 100%;
             margin-top: 12px;
-            padding: 12px;
+            padding: 14px;
             background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            border-radius: 12px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
             color: var(--teal);
             font-weight: 600;
             cursor: pointer;
@@ -3079,8 +3096,8 @@
             </p>
             
             <div class="hero-buttons">
-                <a href="#library" class="btn btn-primary" style="padding: 18px 36px; font-size: 16px;">Browse Library</a>
-                <a href="#" id="heroSignUpBtn" onclick="showAuthModal('signup'); return false;" class="btn btn-primary" style="padding: 18px 36px; font-size: 16px;">Sign Up</a>
+                <a href="#library" class="btn-secondary" style="padding: 18px 36px; font-size: 16px;">📚 Browse Library</a>
+                <a href="#" id="heroSignUpBtn" onclick="showAuthModal('signup'); return false;" class="btn-secondary" style="padding: 18px 36px; font-size: 16px;">✨ Sign Up</a>
             </div>
 
             <div class="hero-stats">
@@ -3809,7 +3826,7 @@
                     </a>
                     <div style="padding: 0 24px 24px;">
                         <button class="buy-now-btn" onclick="event.stopPropagation(); handleBuyNow('${anim.id}', '${anim.title}', ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? (anim.price * (1 - anim.salePercentage / 100)).toFixed(2) : anim.price})">
-                            Buy Now
+                            💳 Buy Now
                         </button>
                         <button class="add-to-cart-btn" onclick="event.stopPropagation(); handleAddToCart('${anim.id}')">
                             <svg class="icon" viewBox="0 0 24 24">
