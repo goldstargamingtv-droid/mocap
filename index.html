@@ -1290,16 +1290,13 @@
 
         .carousel-container {
             position: relative;
-            height: 180px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            height: 220px;
+            width: 100%;
             perspective: 1200px;
         }
 
         .carousel-item {
-            position: relative;
+            position: absolute;
             border-radius: 10px;
             overflow: hidden;
             transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1),
@@ -1307,37 +1304,85 @@
                         box-shadow 1.8s cubic-bezier(0.19, 1, 0.22, 1),
                         border-color 1.8s cubic-bezier(0.19, 1, 0.22, 1),
                         width 1.8s cubic-bezier(0.19, 1, 0.22, 1),
-                        height 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+                        height 1.8s cubic-bezier(0.19, 1, 0.22, 1),
+                        left 1.8s cubic-bezier(0.19, 1, 0.22, 1);
             cursor: pointer;
             border: 2px solid rgba(100, 116, 139, 0.4);
             background: #1a1a1a;
-            will-change: transform, opacity, width, height;
+            will-change: transform, opacity, width, height, left;
+            top: 50%;
         }
 
-        /* Side items - smaller and pushed back */
-        .carousel-item.side {
+        /* Position classes for smooth transitions */
+        .carousel-item.pos-far-left {
+            left: 5%;
             width: 140px;
             height: 170px;
             opacity: 0.4;
-            transform: scale(0.8) translateZ(-150px);
+            transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
         }
 
-        .carousel-item.side:hover {
-            opacity: 0.65;
-            transform: scale(0.85) translateZ(-150px);
+        .carousel-item.pos-left {
+            left: 27%;
+            width: 140px;
+            height: 170px;
+            opacity: 0.4;
+            transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
         }
 
-        /* Center item - larger and forward */
-        .carousel-item.center {
+        .carousel-item.pos-center {
+            left: 50%;
             width: 240px;
             height: 180px;
             opacity: 1;
-            transform: scale(1) translateZ(0);
+            transform: translateX(-50%) translateY(-50%) scale(1) translateZ(0);
             z-index: 10;
             box-shadow: 0 12px 35px rgba(0, 212, 255, 0.12),
                         0 0 20px rgba(0, 212, 255, 0.08);
             border-color: rgba(0, 212, 255, 0.45);
+        }
+
+        .carousel-item.pos-right {
+            left: 73%;
+            width: 140px;
+            height: 170px;
+            opacity: 0.4;
+            transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel-item.pos-far-right {
+            left: 95%;
+            width: 140px;
+            height: 170px;
+            opacity: 0.4;
+            transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Hover states */
+        .carousel-item.side:hover {
+            opacity: 0.65;
+            transform: translateX(-50%) translateY(-50%) scale(0.85) translateZ(-150px);
+        }
+
+        .carousel-item.pos-center:hover {
+            transform: translateX(-50%) translateY(-50%) scale(1) translateZ(0);
+        }
+
+        /* Legacy classes for backwards compatibility */
+        .carousel-item.side {
+            width: 140px;
+            height: 170px;
+            opacity: 0.4;
+        }
+
+        .carousel-item.center {
+            width: 240px;
+            height: 180px;
+            opacity: 1;
         }
 
         .carousel-item-content {
@@ -6326,37 +6371,32 @@
 
             const totalItems = items.length;
             
-            // Reset all items
-            items.forEach(item => {
-                item.classList.remove('side', 'center');
-                item.classList.add('side');
-                item.style.display = 'block'; // Show all items
-            });
-
             // Calculate positions relative to selected item
-            // Selected item always goes to position 2 (center, 0-indexed)
             items.forEach((item, index) => {
                 const dataIndex = parseInt(item.getAttribute('data-index'));
                 
-                // Calculate offset from selected item
+                // Calculate offset from selected item (-2 to +2)
                 let offset = dataIndex - selectedIndex;
                 
-                // Wrap around
-                if (offset < -2) offset += totalItems;
-                if (offset > 2) offset -= totalItems;
+                // Wrap around to keep within -2 to +2 range
+                while (offset > 2) offset -= totalItems;
+                while (offset < -2) offset += totalItems;
                 
-                // Position based on offset from center
-                const position = offset + 2; // Center is position 2
+                // Apply classes based on position
+                item.classList.remove('side', 'center', 'pos-far-left', 'pos-left', 'pos-center', 'pos-right', 'pos-far-right');
                 
-                if (position === 2) {
-                    // This is the selected/center item
-                    item.classList.remove('side');
-                    item.classList.add('center');
-                    item.style.order = '2';
+                if (offset === 0) {
+                    // Center item
+                    item.classList.add('center', 'pos-center');
                 } else {
                     // Side items
                     item.classList.add('side');
-                    item.style.order = position.toString();
+                    
+                    // Add specific position class for smooth transitions
+                    if (offset === -2) item.classList.add('pos-far-left');
+                    else if (offset === -1) item.classList.add('pos-left');
+                    else if (offset === 1) item.classList.add('pos-right');
+                    else if (offset === 2) item.classList.add('pos-far-right');
                 }
             });
 
