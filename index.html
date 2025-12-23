@@ -6675,6 +6675,12 @@
                     }
                 }
             });
+            
+            // Force carousel to reset to proper positions after content update
+            console.log('Resetting carousel positions to index:', currentIndex);
+            setTimeout(() => {
+                updateCarousel(currentIndex);
+            }, 100);
         }
 
         function updateCarousel(selectedIndex) {
