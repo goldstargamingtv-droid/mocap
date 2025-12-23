@@ -4,29 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Primary Meta Tags -->
-    <title>Combat Sword Master Pack - MocapWork</title>
-    <meta name="title" content="Combat Sword Master Pack - Premium Mocap Animations">
-    <meta name="description" content="Professional combat sword mocap animation pack. Studio-quality motion capture ready for Unreal Engine, Unity, Blender. Exclusive rights, instant download, royalty-free.">
-    <meta name="keywords" content="combat animations, sword fighting mocap, game combat animations, melee combat mocap, action animations, Unreal Engine combat, Unity sword animations">
+    <!-- Primary Meta Tags (Dynamic - Updated via JavaScript) -->
+    <title>Animation Details - MocapWork</title>
+    <meta name="title" content="Premium Motion Capture Animations - MocapWork">
+    <meta name="description" content="Professional motion capture animation for Unreal Engine, Unity, Blender. Studio-quality mocap with instant download and royalty-free license.">
+    <meta name="keywords" content="motion capture, mocap animations, game animations, unreal engine animations, unity animations, blender mocap, professional mocap, royalty free animations">
     <meta name="robots" content="index, follow">
     
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Facebook (Dynamic - Updated via JavaScript) -->
     <meta property="og:type" content="product">
-    <meta property="og:url" content="https://mocapwork.com/animation-detail.html">
-    <meta property="og:title" content="Combat Sword Master Pack - Premium Mocap">
-    <meta property="og:description" content="Professional combat sword mocap animation pack. Studio-quality, exclusive rights, instant download.">
-    <meta property="og:image" content="https://mocapwork.com/og-image.jpg">
+    <meta property="og:url" id="og-url" content="https://mocapwork.com/animation-detail.html">
+    <meta property="og:title" id="og-title" content="Premium Motion Capture Animations - MocapWork">
+    <meta property="og:description" id="og-description" content="Professional motion capture animation. Studio-quality, instant download, royalty-free license.">
+    <meta property="og:image" id="og-image" content="https://mocapwork.com/og-image.jpg">
+    <meta property="og:price:amount" id="og-price" content="">
+    <meta property="og:price:currency" content="USD">
     
-    <!-- Twitter -->
+    <!-- Twitter (Dynamic - Updated via JavaScript) -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://mocapwork.com/animation-detail.html">
-    <meta property="twitter:title" content="Combat Sword Master Pack - Premium Mocap">
-    <meta property="twitter:description" content="Professional combat sword mocap animation pack. Studio-quality, exclusive rights, instant download.">
-    <meta property="twitter:image" content="https://mocapwork.com/og-image.jpg">
+    <meta property="twitter:url" id="twitter-url" content="https://mocapwork.com/animation-detail.html">
+    <meta property="twitter:title" id="twitter-title" content="Premium Motion Capture Animations - MocapWork">
+    <meta property="twitter:description" id="twitter-description" content="Professional motion capture animation. Studio-quality, instant download, royalty-free license.">
+    <meta property="twitter:image" id="twitter-image" content="https://mocapwork.com/og-image.jpg">
     
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://mocapwork.com/animation-detail.html">
+    <!-- Canonical URL (Dynamic - Updated via JavaScript) -->
+    <link rel="canonical" id="canonical-url" href="https://mocapwork.com/animation-detail.html">
     
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MFZSKB0V4"></script>
@@ -3379,9 +3381,61 @@
             document.title = `${anim.title} - MocapWork`;
             console.log('Set page title:', document.title);
             
-            // Update meta description
+            // Update meta tags for SEO
+            const metaTitle = document.querySelector('meta[name="title"]');
+            if (metaTitle) metaTitle.content = `${anim.title} - Premium Mocap Animation`;
+            
             const metaDesc = document.querySelector('meta[name="description"]');
-            if (metaDesc) metaDesc.content = anim.description || '';
+            if (metaDesc) {
+                const desc = anim.description 
+                    ? `${anim.description.substring(0, 155)}...` 
+                    : `Professional ${anim.category || 'motion capture'} animation for Unreal Engine, Unity, Blender. Studio-quality mocap with instant download and royalty-free license.`;
+                metaDesc.content = desc;
+            }
+            
+            const metaKeywords = document.querySelector('meta[name="keywords"]');
+            if (metaKeywords && anim.category) {
+                metaKeywords.content = `${anim.category} mocap, ${anim.category} animations, ${anim.title}, motion capture, game animations, unreal engine, unity, blender`;
+            }
+            
+            // Update Open Graph tags
+            const ogTitle = document.getElementById('og-title');
+            if (ogTitle) ogTitle.content = `${anim.title} - Premium Mocap`;
+            
+            const ogDesc = document.getElementById('og-description');
+            if (ogDesc) ogDesc.content = anim.description?.substring(0, 200) || `Professional ${anim.category || 'motion capture'} animation. Studio-quality, instant download, royalty-free.`;
+            
+            const ogImage = document.getElementById('og-image');
+            if (ogImage && anim.thumbnail_url) ogImage.content = anim.thumbnail_url;
+            
+            const ogUrl = document.getElementById('og-url');
+            if (ogUrl) ogUrl.content = `https://mocapwork.com/animation-detail.html?slug=${anim.slug}`;
+            
+            const ogPrice = document.getElementById('og-price');
+            if (ogPrice) {
+                const finalPrice = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage 
+                    ? (anim.price * (1 - anim.sale_percentage / 100)).toFixed(2)
+                    : anim.price.toFixed(2);
+                ogPrice.content = finalPrice;
+            }
+            
+            // Update Twitter tags
+            const twitterTitle = document.getElementById('twitter-title');
+            if (twitterTitle) twitterTitle.content = `${anim.title} - Premium Mocap`;
+            
+            const twitterDesc = document.getElementById('twitter-description');
+            if (twitterDesc) twitterDesc.content = anim.description?.substring(0, 200) || `Professional ${anim.category || 'motion capture'} animation. Studio-quality, instant download, royalty-free.`;
+            
+            const twitterImage = document.getElementById('twitter-image');
+            if (twitterImage && anim.thumbnail_url) twitterImage.content = anim.thumbnail_url;
+            
+            const twitterUrl = document.getElementById('twitter-url');
+            if (twitterUrl) twitterUrl.content = `https://mocapwork.com/animation-detail.html?slug=${anim.slug}`;
+            
+            // Update canonical URL
+            const canonical = document.getElementById('canonical-url');
+            if (canonical) canonical.href = `https://mocapwork.com/animation-detail.html?slug=${anim.slug}`;
+
 
             // Breadcrumb
             const breadcrumbCategory = document.getElementById('breadcrumbCategory');
