@@ -822,7 +822,7 @@
         }
 
         .hamburger-menu {
-            display: none !important;
+            display: none;
             background: none;
             border: none;
             color: var(--cream);
@@ -1089,8 +1089,8 @@
             overflow: hidden;
         }
 
-        /* Background Video */
-        .hero-video {
+        /* Static Background Image */
+        .hero-static-bg {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -1101,8 +1101,10 @@
             transform: translate(-50%, -50%);
             z-index: 1;
             opacity: 0.25;
-            object-fit: cover;
-            /* Aggressive fade - video completely invisible at bottom */
+            background-image: url('background-video.mp4'); /* Use first frame or replace with actual image */
+            background-size: cover;
+            background-position: center;
+            /* Fade out at bottom for seamless transition */
             -webkit-mask-image: linear-gradient(to bottom, 
                 rgba(0,0,0,1) 0%, 
                 rgba(0,0,0,1) 40%, 
@@ -1197,8 +1199,34 @@
             line-height: 1.4;
         }
 
-        .hero-subtitle span {
-            color: var(--amber);
+        /* Hero subtitle color styles */
+        .hero-subtitle-buy-gradient {
+            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
+        }
+
+        .hero-subtitle-secondary {
+            color: #FEFCE8;
+            font-weight: 400;
+        }
+
+        .hero-subtitle-professional-glow {
+            color: #FBBF24;
+            font-weight: 800; /* Increased from 700 */
+            font-size: 1.15em; /* Slightly larger than surrounding text */
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.6),
+                         0 0 30px rgba(251, 191, 36, 0.4),
+                         0 0 45px rgba(251, 191, 36, 0.2);
+        }
+
+        .hero-subtitle-platforms-gradient {
+            background: linear-gradient(135deg, #FF6B6B, #F59E0B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-weight: 600;
         }
 
@@ -1254,8 +1282,7 @@
         }
 
         .hero-buttons .btn-secondary:hover {
-            box-shadow: 0 0 30px rgba(245, 158, 11, 0.6),
-                        0 0 60px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
             transform: scale(1.05);
         }
 
@@ -1543,14 +1570,14 @@
         }
 
         .platform-logo {
-            height: 32px;
+            height: 48px; /* Increased from 32px */
             width: auto;
             opacity: 0.8;
             transition: all 0.3s ease;
         }
 
         .platform-logo:first-child {
-            height: 52px;
+            height: 70px; /* Increased from 52px */
         }
 
         .platform-logo:hover {
@@ -1998,7 +2025,7 @@
         }
 
         .add-to-cart-btn:hover {
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4), 0 4px 12px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
             transform: translateY(-2px);
         }
 
@@ -2414,6 +2441,8 @@
                 padding: 8px;
                 outline: none !important;
                 box-shadow: none !important;
+                z-index: 1000 !important;
+                position: relative !important;
             }
             
             .hamburger-menu:focus {
@@ -3208,8 +3237,7 @@
             background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
             transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(245, 158, 11, 0.6),
-                        0 0 50px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         .card-price {
@@ -3601,9 +3629,7 @@
     <main id="main-content">
     <section class="hero">
         <div class="hero-background">
-            <video class="hero-video" autoplay loop muted playsinline>
-                <source src="background-video.mp4" type="video/mp4">
-            </video>
+            <div class="hero-static-bg"></div>
             <div class="floating-shape shape-1"></div>
             <div class="floating-shape shape-2"></div>
         </div>
@@ -3704,8 +3730,8 @@
             </h1>
             
             <p class="hero-subtitle">
-                Buy premium motion capture animations for game development, film, and virtual production. 
-                <span>Professional mocap for Unreal Engine, Unity, Blender, and all major 3D platforms.</span>
+                <span class="hero-subtitle-buy-gradient">Buy premium motion capture animations</span> <span class="hero-subtitle-secondary">for game development, film, and virtual production.</span><br>
+                <span class="hero-subtitle-professional-glow">Professional mocap</span> <span class="hero-subtitle-platforms-gradient">for Unreal Engine, Unity, Blender, and all major 3D platforms.</span>
             </p>
             
             <!-- Platform Logos -->
@@ -3722,7 +3748,7 @@
                 </svg>
                 <span style="font-weight: 600;">100+ Professional Animations</span>
                 <span style="margin: 0 8px; opacity: 0.5;">•</span>
-                <span>Instant download with royalty-free licenses</span>
+                <span>Instant download with <span style="color: var(--amber); font-weight: 600;">royalty-free</span> licenses</span>
             </div>
             
             <div class="hero-buttons">
@@ -6310,7 +6336,7 @@
             const hero = document.querySelector('.hero');
             if (!hero) return;
             
-            const particleCount = 20;
+            const particleCount = 50; // Enhanced from 20
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
@@ -6319,22 +6345,30 @@
                 // Random horizontal position
                 particle.style.left = Math.random() * 100 + '%';
                 
-                // Stagger particles throughout the entire vertical animation range
-                // This prevents a visible line on page load
-                const verticalSpread = Math.random() * 100; // 0-100% up the hero
+                // Stagger particles throughout entire vertical range
+                const verticalSpread = Math.random() * 100;
                 particle.style.bottom = verticalSpread + 'vh';
                 
-                // Random animation duration (15-30 seconds)
-                const duration = 15 + Math.random() * 15;
+                // Random animation duration (12-35 seconds for varied speeds)
+                const duration = 12 + Math.random() * 23;
                 particle.style.animationDuration = duration + 's';
                 
-                // Random delay (0-15 seconds) - staggers when they appear
-                particle.style.animationDelay = Math.random() * 15 + 's';
+                // Random delay (0-20 seconds)
+                particle.style.animationDelay = Math.random() * 20 + 's';
                 
-                // Random size
+                // Random size (2-6px for variety)
                 const size = 2 + Math.random() * 4;
                 particle.style.width = size + 'px';
                 particle.style.height = size + 'px';
+                
+                // Add color variation (amber, teal, coral)
+                const colors = [
+                    'rgba(245, 158, 11, 0.8)',  // Amber
+                    'rgba(0, 212, 255, 0.6)',   // Teal  
+                    'rgba(255, 107, 107, 0.7)'  // Coral
+                ];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.background = `radial-gradient(circle, ${randomColor}, transparent)`;
                 
                 hero.appendChild(particle);
             }
