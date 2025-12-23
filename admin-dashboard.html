@@ -1895,11 +1895,11 @@
                 if (error) {
                     // If table doesn't exist, use default items
                     carouselItems = [
-                        { position: 0, icon: '🏃', title: 'Running Pack', subtitle: '12 animations', image_url: null },
-                        { position: 1, icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', image_url: null },
-                        { position: 2, icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', image_url: null },
-                        { position: 3, icon: '🧗', title: 'Climbing Pack', subtitle: '16 animations', image_url: null },
-                        { position: 4, icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', image_url: null }
+                        { position: 0, icon: '🏃', title: 'Running Pack', subtitle: '12 animations', image_url: null, link_url: '' },
+                        { position: 1, icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', image_url: null, link_url: '' },
+                        { position: 2, icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', image_url: null, link_url: '' },
+                        { position: 3, icon: '🧗', title: 'Climbing Pack', subtitle: '16 animations', image_url: null, link_url: '' },
+                        { position: 4, icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', image_url: null, link_url: '' }
                     ];
                 } else {
                     carouselItems = data;
@@ -1968,6 +1968,16 @@
                                onchange="updateCarouselItem(${index}, 'image_url', this.value); renderCarouselItems();"
                                style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid rgba(100, 116, 139, 0.3); border-radius: 8px; color: var(--text-white);"
                                placeholder="https://...">
+                    </div>
+                    
+                    <div style="margin-top: 16px;">
+                        <label style="display: block; color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Link URL (where clicking goes):</label>
+                        <input type="text" 
+                               value="${item.link_url || ''}" 
+                               onchange="updateCarouselItem(${index}, 'link_url', this.value)"
+                               style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid rgba(100, 116, 139, 0.3); border-radius: 8px; color: var(--text-white);"
+                               placeholder="animation-detail.html?slug=combat-pack">
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Examples: animation-detail.html?slug=combat-pack or index.html#library</div>
                     </div>
                     
                     ${item.image_url ? `
