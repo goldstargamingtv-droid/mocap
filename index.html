@@ -1393,6 +1393,12 @@
             margin-right: auto;
             position: relative;
             padding: 0 20px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .hero-preview-carousel.loaded {
+            opacity: 1;
         }
 
         .carousel-container {
@@ -6786,6 +6792,13 @@
 
             // Initialize to starting position (Acrobatic Pack - index 2)
             updateCarousel(2);
+            
+            // Fade in carousel after everything is positioned
+            setTimeout(() => {
+                if (carousel) {
+                    carousel.classList.add('loaded');
+                }
+            }, 200);
             
             // Start auto-rotation
             startCarousel();
