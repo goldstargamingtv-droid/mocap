@@ -1517,7 +1517,77 @@
         }
 
         async function downloadAnimation(purchaseId, animationTitle) {
-            alert('Download feature coming soon! We\'re working on implementing secure file delivery for: ' + animationTitle);
+            try {
+                const user = await checkAuth();
+                if (!user) return;
+
+                // Get purchase details with animation file_url
+                const { data: purchase, error: purchaseError } = await supabaseClient
+                    .from('purchases')
+                    .select(`
+                        id,
+                        animation_id,
+                        animations (
+                            file_url,
+                            title
+                        )
+                    `)
+                    .eq('id', purchaseId)
+                    .eq('user_id', user.id)
+                    .single();
+
+                if (purchaseError) throw purchaseError;
+                
+                if (!purchase || !purchase.animations) {
+                    throw new Error('Purchase not found or you do not own this animation');
+                }
+
+                const fileUrl = purchase.animations.file_url;
+                
+                if (!fileUrl) {
+                    alert('Download file not available yet. Please contact support.');
+                    return;
+                }
+
+                // Log download to download_history
+                const { error: historyError } = await supabaseClient
+                    .from('download_history')
+                    .insert({
+                        user_id: user.id,
+                        purchase_id: purchase.id,
+                        animation_id: purchase.animation_id,
+                        downloaded_at: new Date().toISOString()
+                    });
+
+                if (historyError) console.error('Failed to log download:', historyError);
+
+                // Trigger download
+                const link = document.createElement('a');
+                link.href = fileUrl;
+                link.download = `${animationTitle}.fbx`;
+                link.target = '_blank';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Show success notification
+                showNotification(`✅ Downloading ${animationTitle}...`);
+
+            } catch (error) {
+                console.error('Download error:', error);
+                alert('Failed to download: ' + error.message);
+            }
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #10B981;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(16,185,129,0.4);';
+            notification.innerHTML = `<div style="color:#86EFAC;font-weight:600;font-size:14px;">${message}</div>`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
         }
 
         async function logout() {
