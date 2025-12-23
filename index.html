@@ -297,6 +297,75 @@
             border-bottom: 1px solid rgba(100, 116, 139, 0.15);
         }
 
+        /* Transparent Sticky Selection Bar */
+        .selection-bar {
+            position: fixed;
+            top: -200px;
+            right: 20px;
+            z-index: 10001;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .selection-bar.active {
+            top: 80px;
+            pointer-events: auto;
+        }
+
+        .selection-bar-btn {
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(20px);
+            min-width: 200px;
+            justify-content: center;
+        }
+
+        .selection-bar-btn-primary {
+            background: rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--teal);
+        }
+
+        .selection-bar-btn-primary:hover {
+            background: rgba(0, 212, 255, 0.25);
+            border-color: var(--teal);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .selection-bar-btn-secondary {
+            background: rgba(255, 107, 107, 0.15);
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            color: #FF6B6B;
+        }
+
+        .selection-bar-btn-secondary:hover {
+            background: rgba(255, 107, 107, 0.25);
+            border-color: #FF6B6B;
+            transform: translateY(-2px);
+        }
+
+        .selection-count-badge {
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            color: black;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
         .navbar-container {
             max-width: 100%;
             margin: 0;
@@ -1944,10 +2013,13 @@
             transition: all 0.3s ease;
         }
         
-        .card-checkbox label::before {
-            content: '🛒';
-            font-size: 18px;
-            filter: grayscale(100%) brightness(1.5);
+        .card-checkbox label svg {
+            width: 18px;
+            height: 18px;
+            stroke: #FFFFFF;
+            fill: none;
+            stroke-width: 2;
+            opacity: 0.7;
             transition: all 0.3s ease;
         }
         
@@ -1957,13 +2029,18 @@
             background: rgba(245, 158, 11, 0.1);
         }
         
+        .card-checkbox label:hover svg {
+            opacity: 1;
+        }
+        
         .card-checkbox input[type="checkbox"]:checked + label {
             background: rgba(245, 158, 11, 0.2);
             border-color: var(--teal);
         }
         
-        .card-checkbox input[type="checkbox"]:checked + label::before {
-            filter: none;
+        .card-checkbox input[type="checkbox"]:checked + label svg {
+            opacity: 1;
+            stroke: var(--teal);
         }
         
         .card-checkbox input[type="checkbox"]:checked + label::after {
@@ -3684,6 +3761,21 @@
         </div>
     </nav>
 
+    <!-- Transparent Sticky Selection Bar -->
+    <div class="selection-bar" id="selectionBar">
+        <button class="selection-bar-btn selection-bar-btn-primary" onclick="addSelectedToCart()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            Add <span class="selection-count-badge" id="selectionCountBadge">0</span> to Cart
+        </button>
+        <button class="selection-bar-btn selection-bar-btn-secondary" onclick="clearSelection()">
+            Clear Selection
+        </button>
+    </div>
+
     <!-- Sticky Browse Library Button -->
     <a href="#library" class="sticky-browse-btn" id="stickyBrowseBtn">
         📚 Browse Library
@@ -4070,18 +4162,6 @@
             <!-- Animation Grid -->
             <div class="animation-grid" id="animationGrid">
                 <!-- Cards will be dynamically inserted here -->
-            </div>
-
-            <div class="bulk-actions" style="text-align: center; margin: 48px 0 24px; display: none;" id="bulkActions">
-                <button class="btn btn-primary" style="padding: 16px 40px;" onclick="addSelectedToCart()">
-                    <svg class="icon" viewBox="0 0 24 24" style="display: inline; margin-right: 8px;">
-                        <circle cx="9" cy="21" r="1"></circle>
-                        <circle cx="20" cy="21" r="1"></circle>
-                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                    </svg>
-                    Add Selected to Cart (<span id="selectedCount">0</span>)
-                </button>
-                <button class="btn btn-secondary" style="padding: 16px 40px; margin-left: 12px;" onclick="clearSelection()">Clear Selection</button>
             </div>
 
             <div class="load-more">
@@ -4638,7 +4718,13 @@
                 card.innerHTML = `
                     <div class="card-checkbox" onclick="event.stopPropagation(); toggleSelection('${anim.id}')">
                         <input type="checkbox" id="check-${anim.id}" />
-                        <label for="check-${anim.id}"></label>
+                        <label for="check-${anim.id}">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                        </label>
                     </div>
                     <div class="card-thumbnail">
                         ${mediaElement}
@@ -5057,10 +5143,10 @@
                 }
                 
                 // Show success notification
-                showNotification('🛒 Added to cart!', 'success');
+                showNotification('Added to cart!', 'success');
             } else {
                 // Show already in cart notification
-                showNotification('ℹ️ Already in cart!', 'warning');
+                showNotification('Already in cart!', 'warning');
             }
         }
         
@@ -5082,7 +5168,7 @@
         window.addSelectedToCart = function() {
             if (selectedAnimations.length === 0) {
                 // Show warning notification
-                showNotification('⚠️ Please select animations first', 'warning');
+                showNotification('Please select animations first', 'warning');
                 return;
             }
             
@@ -5104,13 +5190,13 @@
             
             // Show success notification
             if (addedCount > 0) {
-                let msg = `🛒 Added ${addedCount} animation${addedCount > 1 ? 's' : ''} to cart!`;
+                let msg = `Added ${addedCount} animation${addedCount > 1 ? 's' : ''} to cart!`;
                 if (alreadyInCartCount > 0) {
                     msg += `<br><span style="font-size:12px;opacity:0.7;">${alreadyInCartCount} already in cart</span>`;
                 }
                 showNotification(msg, 'success');
             } else if (alreadyInCartCount > 0) {
-                showNotification('ℹ️ All selected items already in cart!', 'warning');
+                showNotification('All selected items already in cart!', 'warning');
             }
             
             clearSelection();
@@ -5125,14 +5211,14 @@
         }
         
         function updateBulkActions() {
-            const bulkActions = document.getElementById('bulkActions');
-            const selectedCount = document.getElementById('selectedCount');
+            const selectionBar = document.getElementById('selectionBar');
+            const selectionCountBadge = document.getElementById('selectionCountBadge');
             
             if (selectedAnimations.length > 0) {
-                bulkActions.style.display = 'block';
-                selectedCount.textContent = selectedAnimations.length;
+                selectionBar.classList.add('active');
+                selectionCountBadge.textContent = selectedAnimations.length;
             } else {
-                bulkActions.style.display = 'none';
+                selectionBar.classList.remove('active');
             }
         }
         
@@ -5165,11 +5251,7 @@
             if (cartIds.length === 0) {
                 cartItemsContainer.innerHTML = `
                     <div class="cart-empty">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 80px; height: 80px; margin-bottom: 20px; opacity: 0.3;">
-                            <circle cx="9" cy="21" r="1"></circle>
-                            <circle cx="20" cy="21" r="1"></circle>
-                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                        </svg>
+                        <span style="font-size: 80px; margin-bottom: 20px; opacity: 0.3;">🛒</span>
                         <h3 style="margin-bottom: 12px; font-size: 16px;">Your cart is empty</h3>
                         <p style="font-size: 13px; opacity: 0.7; line-height: 1.4;">Any animations you add to your cart will be displayed here.</p>
                     </div>
@@ -5281,7 +5363,7 @@
             // Check if cart is empty first
             if (cartIds.length === 0) {
                 // Show notification without closing cart
-                showNotification('🛒 Your cart is empty!<br><span style="font-size:12px;opacity:0.7;">Add some animations to get started.</span>', 'error');
+                showNotification('Your cart is empty!<br><span style="font-size:12px;opacity:0.7;">Add some animations to get started.</span>', 'error');
                 return;
             }
             
@@ -5360,13 +5442,50 @@
         function showNotification(message, type = 'success') {
             const notification = document.createElement('div');
             
-            if (type === 'error') {
-                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #EF4444;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(239,68,68,0.4);';
-                notification.innerHTML = `<div style="color:#FCA5A5;font-weight:600;font-size:14px;">🛒 ${message}</div>`;
-            } else {
-                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #10B981;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(16,185,129,0.4);';
-                notification.innerHTML = `<div style="color:#86EFAC;font-weight:600;font-size:14px;">🛒 ${message}</div>`;
-            }
+            let colors = {
+                success: {
+                    bg: 'rgba(0, 212, 255, 0.15)',
+                    border: 'rgba(0, 212, 255, 0.3)',
+                    text: '#00D4FF',
+                    icon: '🛒'
+                },
+                warning: {
+                    bg: 'rgba(245, 158, 11, 0.15)',
+                    border: 'rgba(245, 158, 11, 0.3)',
+                    text: '#F59E0B',
+                    icon: 'ℹ️'
+                },
+                error: {
+                    bg: 'rgba(255, 107, 107, 0.15)',
+                    border: 'rgba(255, 107, 107, 0.3)',
+                    text: '#FF6B6B',
+                    icon: '❌'
+                }
+            };
+            
+            const style = colors[type] || colors.success;
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: ${style.bg};
+                backdrop-filter: blur(20px);
+                border: 1px solid ${style.border};
+                border-radius: 50px;
+                padding: 14px 24px;
+                z-index: 99999;
+                animation: slideInRight 0.3s ease;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            `;
+            
+            notification.innerHTML = `
+                <span style="font-size: 20px;">${style.icon}</span>
+                <div style="color: ${style.text}; font-weight: 600; font-size: 14px;">${message}</div>
+            `;
             
             document.body.appendChild(notification);
             
@@ -5529,7 +5648,7 @@
                 console.log('removeFromCartHover called with:', animationId);
                 await API.removeFromCart(animationId);
                 await updateCartBadge();
-                showNotification('🗑️ Removed from cart', 'warning');
+                showNotification('Removed from cart', 'warning');
             } catch (error) {
                 console.error('Error removing from cart:', error);
             }
