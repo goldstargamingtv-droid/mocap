@@ -127,9 +127,10 @@
             --amber-light: #FF8E8E;
             --coral: #FFA07A;
             --coral-light: #FFB894;
-            --text-primary: #FEFCE8;
-            --text-secondary: #E7E5D3;
-            --text-muted: #A8A593;
+            --text-white: #FFFFFF;          /* Pure white for max readability */
+            --text-primary: #FEFCE8;        /* Cream - warm accent text */
+            --text-secondary: #E7E5D3;      /* Light cream - muted text */
+            --text-muted: #A8A593;          /* Very muted - subtle text */
         }
 
         /* Accessibility: Skip to main content link */
@@ -315,7 +316,7 @@
         }
 
         .nav-link {
-            color: var(--text-secondary);
+            color: var(--text-primary);
             text-decoration: none;
             font-weight: 500;
             font-size: 15px;
@@ -336,7 +337,7 @@
         }
 
         .nav-link:hover {
-            color: var(--text-primary);
+            color: var(--text-white);
         }
 
         .nav-link:hover::after {
@@ -1732,10 +1733,11 @@
             margin-bottom: 20px;
             letter-spacing: -1px;
             font-family: 'Sora', sans-serif;
+            color: var(--text-white);
         }
 
         .section-subtitle {
-            color: var(--text-secondary);
+            color: var(--text-primary);
             font-size: 1.2rem;
         }
 
@@ -2055,7 +2057,7 @@
             margin-bottom: 14px;
             transition: color 0.3s ease;
             font-family: 'Sora', sans-serif;
-            color: var(--text-primary);
+            color: var(--text-white);
         }
 
         .animation-card:hover .card-title {
@@ -2276,7 +2278,7 @@
         }
 
         .footer-description {
-            color: var(--text-secondary);
+            color: var(--text-primary);
             margin-bottom: 28px;
             max-width: 400px;
             line-height: 1.7;
@@ -3884,13 +3886,13 @@
             </div>
             
             <h1 class="hero-title font-sora">
-                <span style="color: white;">Professional</span> <span class="gradient-text animated-gradient">Motion</span><br>
-                <span class="gradient-text animated-gradient">Capture</span> <span style="color: white;">Animations</span>
+                <span style="color: var(--text-white);">Professional</span> <span class="gradient-text animated-gradient">Motion</span><br>
+                <span class="gradient-text animated-gradient">Capture</span> <span style="color: var(--text-white);">Animations</span>
             </h1>
             
             <p class="hero-subtitle">
                 <span class="hero-subtitle-buy-gradient">Buy premium motion capture animations</span><br>
-                <span class="hero-subtitle-secondary">for game development, film, and virtual production.</span><br>
+                <span class="hero-subtitle-secondary" style="color: var(--text-primary);">for game development, film, and virtual production.</span><br>
                 <span class="hero-subtitle-professional-glow">Professional mocap</span> <span class="hero-subtitle-platforms-gradient">for Unreal Engine, Unity, Blender, and all major 3D platforms.</span>
             </p>
             
@@ -4106,7 +4108,7 @@
         <div class="request-container">
             <div class="request-content">
                 <div class="request-header">
-                    <h2 class="section-title font-sora"><span style="color: white;">Need Custom</span> <span class="gradient-text animated-gradient">Motion Capture</span><span style="color: white;">?</span></h2>
+                    <h2 class="section-title font-sora"><span style="color: var(--text-white);">Need Custom</span> <span class="gradient-text animated-gradient">Motion Capture</span><span style="color: var(--text-white);">?</span></h2>
                     <p class="request-subtitle">Can't find what you're looking for? Our team can create bespoke animations tailored to your exact specifications.</p>
                 </div>
                 
@@ -4166,10 +4168,10 @@
     <section id="faq" style="background: var(--bg-primary); padding: 100px 20px;">
         <div style="max-width: 900px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 60px;">
-                <h2 style="font-size: 42px; font-weight: 900; font-family: 'Sora', sans-serif; color: white; margin-bottom: 16px;">
+                <h2 style="font-size: 42px; font-weight: 900; font-family: 'Sora', sans-serif; color: var(--text-white); margin-bottom: 16px;">
                     Frequently Asked Questions
                 </h2>
-                <p style="color: var(--text-secondary); font-size: 18px;">
+                <p style="color: var(--text-primary); font-size: 18px;">
                     Everything you need to know about buying motion capture animations
                 </p>
             </div>
@@ -4827,8 +4829,9 @@
                 html += '<div class="search-section-title">Animations</div>';
                 results.forEach(anim => {
                     const highlighted = anim.title.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
-                    html += `<div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'">`;
-                    html += '<div class="search-result-icon">🎬</div>';
+                    const thumbnailUrl = anim.thumbnail_url || anim.video_url;
+                    html += `<div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px;">`;
+                    html += `<img src="${thumbnailUrl}" alt="${anim.title}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid rgba(0, 212, 255, 0.2);">`;
                     html += `<div class="search-result-text">${highlighted}</div>`;
                     html += '</div>';
                 });
