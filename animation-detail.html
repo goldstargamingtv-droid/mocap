@@ -179,7 +179,7 @@
             width: 100%;
             padding: 10px 40px 10px 40px;
             background: rgba(26, 26, 26, 0.6);
-            border: 2px solid rgba(100, 116, 139, 0.2);
+            border: 2px solid rgba(0, 212, 255, 0.3);
             border-radius: 25px;
             color: var(--text-primary);
             font-size: 14px;
@@ -191,7 +191,7 @@
             outline: none;
             border-color: var(--teal);
             background: rgba(26, 26, 26, 0.8);
-            box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
         }
 
         .search-input-nav::placeholder {
@@ -1561,7 +1561,7 @@
         
         .auth-modal-box {
             background: var(--bg-secondary);
-            border: 1px solid rgba(100, 116, 139, 0.2);
+            border: 1px solid rgba(0, 212, 255, 0.3);
             border-radius: 20px;
             padding: 0;
             max-width: 480px;
@@ -1570,6 +1570,7 @@
             position: relative;
             z-index: 1;
             overflow: hidden;
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
         }
         
         @keyframes modalSlideIn {
@@ -2218,7 +2219,7 @@
     <div id="loadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--amber)); z-index: 99999; transition: width 0.3s ease;"></div>
     
     <!-- Loading Progress Bar (Auth) -->
-    <div id="authLoadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #00D4FF, #F59E0B); z-index: 99999; transition: width 0.3s ease; display: none;"></div>
+    <div id="authLoadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #F59E0B, #FF6B6B); z-index: 99999; transition: width 0.3s ease; display: none;"></div>
     
     <!-- Start loading bar immediately -->
     <script>
@@ -3007,7 +3008,7 @@
             const loading = document.createElement('div');
             loading.id = 'stripe-loading-overlay';
             loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:99999;';
-            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(100, 116, 139, 0.3);"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#00D4FF;">Processing Payment...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
+            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(100, 116, 139, 0.3);"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#F59E0B;">Processing Payment...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
             document.body.appendChild(loading);
 
             try {
@@ -3101,7 +3102,7 @@
             const loading = document.createElement('div');
             loading.id = 'stripe-loading-overlay';
             loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:99999;';
-            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(100, 116, 139, 0.3);"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#00D4FF;">Processing Payment...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
+            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(100, 116, 139, 0.3);"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#F59E0B;">Processing Payment...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
             document.body.appendChild(loading);
 
             try {
@@ -4269,12 +4270,20 @@
         }
 
         // Logout function
-        async function logout() {
-            const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
-            const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
-            const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-            await supabaseClient.auth.signOut();
-            location.reload();
+        window.logout = async function() {
+            try {
+                if (supabaseClient) {
+                    await supabaseClient.auth.signOut();
+                }
+                // Clear local storage
+                localStorage.removeItem('sb-ekzablbemeponkrcitco-auth-token');
+                // Redirect to home
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Error signing out:', error);
+                // Force redirect anyway
+                window.location.href = 'index.html';
+            }
         }
 
         // Unified notification system
