@@ -3416,22 +3416,22 @@
         function showNotification(message, type = 'success') {
             const colors = {
                 success: {
-                    bg: 'rgba(15, 15, 15, 0.98)',
-                    border: 'rgba(0, 212, 255, 0.5)',
-                    text: 'var(--teal)',
-                    shadow: 'rgba(0, 212, 255, 0.3)'
+                    bg: 'rgba(0, 212, 255, 0.15)',
+                    border: 'rgba(0, 212, 255, 0.3)',
+                    text: '#00D4FF',
+                    icon: '🛒'
                 },
                 warning: {
-                    bg: 'rgba(15, 15, 15, 0.98)',
-                    border: 'rgba(245, 158, 11, 0.5)',
+                    bg: 'rgba(245, 158, 11, 0.15)',
+                    border: 'rgba(245, 158, 11, 0.3)',
                     text: '#F59E0B',
-                    shadow: 'rgba(245, 158, 11, 0.3)'
+                    icon: 'ℹ️'
                 },
                 error: {
-                    bg: 'rgba(15, 15, 15, 0.98)',
-                    border: 'rgba(255, 107, 107, 0.5)',
+                    bg: 'rgba(255, 107, 107, 0.15)',
+                    border: 'rgba(255, 107, 107, 0.3)',
                     text: '#FF6B6B',
-                    shadow: 'rgba(255, 107, 107, 0.3)'
+                    icon: '❌'
                 }
             };
             
@@ -3442,16 +3442,19 @@
                 top: 80px;
                 right: 20px;
                 background: ${style.bg};
-                border: 2px solid ${style.border};
-                border-radius: 12px;
-                padding: 16px 24px;
+                backdrop-filter: blur(20px);
+                border: 1px solid ${style.border};
+                border-radius: 50px;
+                padding: 14px 24px;
                 z-index: 99999;
                 animation: slideInRight 0.3s ease;
-                box-shadow: 0 8px 24px ${style.shadow};
-                backdrop-filter: blur(20px);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
                 font-family: 'DM Sans', sans-serif;
+                display: flex;
+                align-items: center;
+                gap: 10px;
             `;
-            notification.innerHTML = `<div style="color: ${style.text}; font-weight: 600; font-size: 14px;">${message}</div>`;
+            notification.innerHTML = `<span style="font-size: 20px;">${style.icon}</span><div style="color: ${style.text}; font-weight: 600; font-size: 14px;">${message}</div>`;
             document.body.appendChild(notification);
             setTimeout(() => notification.remove(), 2500);
         }
@@ -4278,22 +4281,22 @@
         function showNotification(message, type = 'success') {
             const colors = {
                 success: {
-                    bg: 'rgba(15, 15, 15, 0.98)',
-                    border: 'rgba(0, 212, 255, 0.5)',
-                    text: 'var(--teal)',
-                    shadow: 'rgba(0, 212, 255, 0.3)'
+                    bg: 'rgba(0, 212, 255, 0.15)',
+                    border: 'rgba(0, 212, 255, 0.3)',
+                    text: '#00D4FF',
+                    icon: '🛒'
                 },
                 warning: {
-                    bg: 'rgba(15, 15, 15, 0.98)',
-                    border: 'rgba(245, 158, 11, 0.5)',
+                    bg: 'rgba(245, 158, 11, 0.15)',
+                    border: 'rgba(245, 158, 11, 0.3)',
                     text: '#F59E0B',
-                    shadow: 'rgba(245, 158, 11, 0.3)'
+                    icon: 'ℹ️'
                 },
                 error: {
-                    bg: 'rgba(15, 15, 15, 0.98)',
-                    border: 'rgba(255, 107, 107, 0.5)',
+                    bg: 'rgba(255, 107, 107, 0.15)',
+                    border: 'rgba(255, 107, 107, 0.3)',
                     text: '#FF6B6B',
-                    shadow: 'rgba(255, 107, 107, 0.3)'
+                    icon: '❌'
                 }
             };
             
@@ -4304,16 +4307,19 @@
                 top: 80px;
                 right: 20px;
                 background: ${style.bg};
-                border: 2px solid ${style.border};
-                border-radius: 12px;
-                padding: 16px 24px;
+                backdrop-filter: blur(20px);
+                border: 1px solid ${style.border};
+                border-radius: 50px;
+                padding: 14px 24px;
                 z-index: 99999;
                 animation: slideInRight 0.3s ease;
-                box-shadow: 0 8px 24px ${style.shadow};
-                backdrop-filter: blur(20px);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
                 font-family: 'DM Sans', sans-serif;
+                display: flex;
+                align-items: center;
+                gap: 10px;
             `;
-            notification.innerHTML = `<div style="color: ${style.text}; font-weight: 600; font-size: 14px;">${message}</div>`;
+            notification.innerHTML = `<span style="font-size: 20px;">${style.icon}</span><div style="color: ${style.text}; font-weight: 600; font-size: 14px;">${message}</div>`;
             document.body.appendChild(notification);
             setTimeout(() => notification.remove(), 2500);
         }
