@@ -1952,19 +1952,31 @@
                                    placeholder="12 animations">
                         </div>
                         <div>
-                            <label style="display: block; color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Image URL (Optional)</label>
-                            <input type="text" 
-                                   value="${item.image_url || ''}" 
-                                   onchange="updateCarouselItem(${index}, 'image_url', this.value)"
-                                   style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid rgba(100, 116, 139, 0.3); border-radius: 8px; color: var(--text-white);"
-                                   placeholder="https://...">
+                            <label style="display: block; color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Upload GIF/Image</label>
+                            <input type="file" 
+                                   accept="image/*,.gif"
+                                   onchange="uploadCarouselImage(${index}, this)"
+                                   style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid rgba(100, 116, 139, 0.3); border-radius: 8px; color: var(--text-white);">
+                            <div id="upload-status-${index}" style="font-size: 12px; margin-top: 4px; color: var(--text-secondary);"></div>
                         </div>
+                    </div>
+                    
+                    <div style="margin-top: 16px;">
+                        <label style="display: block; color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Or paste Image URL:</label>
+                        <input type="text" 
+                               value="${item.image_url || ''}" 
+                               onchange="updateCarouselItem(${index}, 'image_url', this.value); renderCarouselItems();"
+                               style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid rgba(100, 116, 139, 0.3); border-radius: 8px; color: var(--text-white);"
+                               placeholder="https://...">
                     </div>
                     
                     ${item.image_url ? `
                         <div style="margin-top: 16px;">
                             <label style="display: block; color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Preview:</label>
-                            <img src="${item.image_url}" style="width: 100%; max-width: 200px; height: auto; border-radius: 8px; border: 1px solid rgba(100, 116, 139, 0.3);">
+                            <img src="${item.image_url}" style="width: 100%; max-width: 300px; height: auto; border-radius: 8px; border: 1px solid rgba(100, 116, 139, 0.3);">
+                            <button onclick="removeCarouselImage(${index})" style="margin-top: 8px; padding: 8px 16px; background: rgba(255, 107, 107, 0.2); border: 1px solid rgba(255, 107, 107, 0.5); border-radius: 6px; color: #FF6B6B; cursor: pointer; font-size: 12px;">
+                                Remove Image
+                            </button>
                         </div>
                     ` : ''}
                 </div>
@@ -1973,6 +1985,59 @@
 
         function updateCarouselItem(index, field, value) {
             carouselItems[index][field] = value;
+        }
+
+        function removeCarouselImage(index) {
+            carouselItems[index].image_url = null;
+            renderCarouselItems();
+        }
+
+        async function uploadCarouselImage(index, input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const statusDiv = document.getElementById(`upload-status-${index}`);
+            statusDiv.textContent = 'Uploading...';
+            statusDiv.style.color = 'var(--teal)';
+
+            try {
+                // Create unique filename
+                const timestamp = Date.now();
+                const fileExt = file.name.split('.').pop();
+                const fileName = `carousel-${index}-${timestamp}.${fileExt}`;
+                const filePath = `carousel/${fileName}`;
+
+                // Upload to Supabase Storage
+                const { data, error } = await supabaseAdmin.storage
+                    .from('animations')
+                    .upload(filePath, file, {
+                        cacheControl: '3600',
+                        upsert: false
+                    });
+
+                if (error) throw error;
+
+                // Get public URL
+                const { data: { publicUrl } } = supabaseAdmin.storage
+                    .from('animations')
+                    .getPublicUrl(filePath);
+
+                // Update carousel item with new URL
+                carouselItems[index].image_url = publicUrl;
+                
+                statusDiv.textContent = '✓ Uploaded successfully!';
+                statusDiv.style.color = '#10B981';
+                
+                // Re-render to show preview
+                setTimeout(() => {
+                    renderCarouselItems();
+                }, 500);
+
+            } catch (error) {
+                console.error('Upload error:', error);
+                statusDiv.textContent = '✗ Upload failed: ' + error.message;
+                statusDiv.style.color = '#FF6B6B';
+            }
         }
 
         async function saveCarouselItems() {
