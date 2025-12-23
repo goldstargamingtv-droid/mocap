@@ -782,6 +782,12 @@
 
                 <div class="nav-section">
                     <div class="nav-title">Content</div>
+                    <div class="nav-item" onclick="showPage('carousel')">
+                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span>Hero Carousel</span>
+                    </div>
                     <div class="nav-item" onclick="showPage('tags')">
                         <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
@@ -1068,6 +1074,28 @@
                 </div>
 
                 <!-- Tags Page -->
+                <!-- Hero Carousel Management Page -->
+                <div id="carouselPage" class="page hidden">
+                    <div class="page-header">
+                        <h1 class="page-title">Hero Carousel</h1>
+                        <p class="page-subtitle">Manage the hero section carousel items</p>
+                    </div>
+
+                    <div class="content-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                            <h2 class="card-title">Carousel Items (5 items)</h2>
+                            <button onclick="saveCarouselItems()" style="background: var(--teal); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                                Save Changes
+                            </button>
+                        </div>
+                        
+                        <div id="carouselItemsList" style="display: flex; flex-direction: column; gap: 20px;">
+                            <!-- Carousel items will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tags Management Page -->
                 <div id="tagsPage" class="page hidden">
                     <div class="page-header">
                         <h1 class="page-title">Manage Tags</h1>
@@ -1303,6 +1331,7 @@
                 'add-animation': 'addAnimationPage',
                 'all-animations': 'allAnimationsPage',
                 'bulk-edit': 'bulkEditPage',
+                'carousel': 'carouselPage',
                 'tags': 'tagsPage',
                 'users': 'usersPage'
             };
@@ -1313,6 +1342,7 @@
             // Load data for page
             if (pageName === 'overview') loadOverviewStats();
             if (pageName === 'all-animations') loadAllAnimations();
+            if (pageName === 'carousel') loadCarouselItems();
             if (pageName === 'users') loadUsers();
         }
 
@@ -1849,6 +1879,123 @@
             } else {
                 showNotification(`Admin access removed from ${email}`, 'success');
                 loadUsers();
+            }
+        }
+
+        // ===== CAROUSEL MANAGEMENT =====
+        let carouselItems = [];
+
+        async function loadCarouselItems() {
+            try {
+                const { data, error } = await supabaseAdmin
+                    .from('carousel_items')
+                    .select('*')
+                    .order('position', { ascending: true });
+
+                if (error) {
+                    // If table doesn't exist, use default items
+                    carouselItems = [
+                        { position: 0, icon: '🏃', title: 'Running Pack', subtitle: '12 animations', image_url: null },
+                        { position: 1, icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', image_url: null },
+                        { position: 2, icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', image_url: null },
+                        { position: 3, icon: '🧗', title: 'Climbing Pack', subtitle: '16 animations', image_url: null },
+                        { position: 4, icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', image_url: null }
+                    ];
+                } else {
+                    carouselItems = data;
+                }
+
+                renderCarouselItems();
+            } catch (error) {
+                console.error('Error loading carousel:', error);
+                showNotification('Error loading carousel items', 'error');
+            }
+        }
+
+        function renderCarouselItems() {
+            const container = document.getElementById('carouselItemsList');
+            if (!container) return;
+
+            container.innerHTML = carouselItems.map((item, index) => `
+                <div style="background: var(--bg-card); border: 1px solid rgba(100, 116, 139, 0.2); border-radius: 12px; padding: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                        <h3 style="color: var(--text-white); font-size: 18px; font-weight: 600;">Item ${index + 1}</h3>
+                        <span style="background: var(--teal); color: white; padding: 4px 12px; border-radius: 6px; font-size: 12px; font-weight: 600;">Position ${index + 1}</span>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                        <div>
+                            <label style="display: block; color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Icon (Emoji)</label>
+                            <input type="text" 
+                                   value="${item.icon}" 
+                                   onchange="updateCarouselItem(${index}, 'icon', this.value)"
+                                   style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid rgba(100, 116, 139, 0.3); border-radius: 8px; color: var(--text-white); font-size: 24px; text-align: center;"
+                                   placeholder="🎮">
+                        </div>
+                        <div>
+                            <label style="display: block; color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Title</label>
+                            <input type="text" 
+                                   value="${item.title}" 
+                                   onchange="updateCarouselItem(${index}, 'title', this.value)"
+                                   style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid rgba(100, 116, 139, 0.3); border-radius: 8px; color: var(--text-white);"
+                                   placeholder="Animation Pack">
+                        </div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div>
+                            <label style="display: block; color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Subtitle</label>
+                            <input type="text" 
+                                   value="${item.subtitle}" 
+                                   onchange="updateCarouselItem(${index}, 'subtitle', this.value)"
+                                   style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid rgba(100, 116, 139, 0.3); border-radius: 8px; color: var(--text-white);"
+                                   placeholder="12 animations">
+                        </div>
+                        <div>
+                            <label style="display: block; color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Image URL (Optional)</label>
+                            <input type="text" 
+                                   value="${item.image_url || ''}" 
+                                   onchange="updateCarouselItem(${index}, 'image_url', this.value)"
+                                   style="width: 100%; padding: 12px; background: var(--bg-secondary); border: 1px solid rgba(100, 116, 139, 0.3); border-radius: 8px; color: var(--text-white);"
+                                   placeholder="https://...">
+                        </div>
+                    </div>
+                    
+                    ${item.image_url ? `
+                        <div style="margin-top: 16px;">
+                            <label style="display: block; color: var(--text-secondary); font-size: 14px; margin-bottom: 8px;">Preview:</label>
+                            <img src="${item.image_url}" style="width: 100%; max-width: 200px; height: auto; border-radius: 8px; border: 1px solid rgba(100, 116, 139, 0.3);">
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        function updateCarouselItem(index, field, value) {
+            carouselItems[index][field] = value;
+        }
+
+        async function saveCarouselItems() {
+            try {
+                // Try to create table if it doesn't exist
+                const { error: createError } = await supabaseAdmin.rpc('create_carousel_table', {});
+                
+                // Delete existing items
+                await supabaseAdmin.from('carousel_items').delete().neq('position', -1);
+                
+                // Insert new items
+                const { error } = await supabaseAdmin
+                    .from('carousel_items')
+                    .insert(carouselItems);
+
+                if (error) {
+                    showNotification('Error saving carousel: ' + error.message, 'error');
+                } else {
+                    showNotification('Carousel updated successfully!', 'success');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Note: Carousel updated locally. Database sync may require manual setup.', 'warning');
             }
         }
 
