@@ -105,6 +105,10 @@
             right: 0;
             z-index: 10002;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+        }
+
+        .navbar.scrolled {
             background: rgba(15, 15, 15, 0.92);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(100, 116, 139, 0.15);
@@ -660,9 +664,9 @@
 
         .btn-login {
             padding: 10px 28px;
-            background: rgba(100, 116, 139, 0.1);
+            background: rgba(0, 212, 255, 0.1);
             border-radius: 50px;
-            border: 1px solid rgba(100, 116, 139, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.3);
             color: var(--teal) !important;
             text-decoration: none;
             font-weight: 700;
@@ -673,10 +677,10 @@
         }
         
         .btn-login:hover {
-            background: rgba(100, 116, 139, 0.2);
+            background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
             transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(100, 116, 139, 0.5);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         /* Admin Dashboard Button */
@@ -982,6 +986,7 @@
         .btn-secondary:hover {
             background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
         
         /* Add to Cart button - override to keep teal */
@@ -994,13 +999,7 @@
         #addToCartBtn:hover {
             background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
-        }
-        
-        #addToCartBtn:hover {
-            background: rgba(100, 116, 139, 0.2);
-            border-color: var(--teal);
-            box-shadow: 0 8px 24px rgba(100, 116, 139, 0.4), 0 4px 12px rgba(245, 158, 11, 0.3);
-            animation: glow 2s ease-in-out infinite;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
         
         @keyframes glow {
@@ -2165,7 +2164,7 @@
             <!-- Main Nav Links -->
             <div class="nav-center">
                 <a href="index.html#library" class="nav-link">Animations</a>
-                <a href="#" onclick="handleDashboardClick(event); return false;" class="nav-link">My Library</a>
+                <a href="dashboard.html" onclick="handleDashboardClick(event); return false;" class="nav-link">My Library</a>
                 <a href="index.html#contact" class="nav-link">Contact</a>
                 <a href="index.html#faq" class="nav-link">FAQ</a>
             </div>
@@ -2238,7 +2237,7 @@
                 </li>
                 
                 <li><a href="index.html#library" onclick="toggleMobileMenu()">Animations</a></li>
-                <li><a href="#" onclick="handleDashboardClick(event); toggleMobileMenu()">My Library</a></li>
+                <li><a href="dashboard.html" onclick="handleDashboardClick(event); toggleMobileMenu()">My Library</a></li>
                 <li><a href="index.html#contact" onclick="toggleMobileMenu()">Contact</a></li>
                 <li><a href="index.html#faq" onclick="toggleMobileMenu()">FAQ</a></li>
                 <li id="mobileAuthLink" style="display: none;"><a href="#" onclick="showAuthModal('login'); toggleMobileMenu(); return false;">Sign In</a></li>
@@ -3227,9 +3226,19 @@
 
         // Position and show/hide cart hover dropdown
         document.addEventListener('DOMContentLoaded', function() {
+            const navbar = document.querySelector('.navbar');
             const cartIcon = document.getElementById('cartIconNav');
             const cartHoverDropdown = document.getElementById('cartHoverDropdown');
             let hideTimeout;
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
 
             function positionCartDropdown() {
                 if (!cartIcon || !cartHoverDropdown) return;
