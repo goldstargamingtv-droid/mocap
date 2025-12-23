@@ -81,13 +81,14 @@
         }
 
         .navbar-container {
-            max-width: 1600px;
-            margin: 0 auto;
+            max-width: 100%;
+            margin: 0;
             padding: 0 40px;
             display: flex;
             align-items: center;
             gap: 24px;
             height: 70px;
+            justify-content: space-between;
         }
 
         .logo {
@@ -181,7 +182,7 @@
             width: 100%;
             padding: 10px 40px 10px 40px;
             background: rgba(26, 26, 26, 0.6);
-            border: 2px solid rgba(100, 116, 139, 0.2);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 25px;
             color: var(--text-primary);
             font-size: 14px;
@@ -193,7 +194,7 @@
             outline: none;
             border-color: var(--teal);
             background: rgba(26, 26, 26, 0.8);
-            box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.1);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
         }
 
         .search-icon-nav {
@@ -1413,7 +1414,7 @@
                     <li class="sidebar-item">
                         <a href="#favorites" class="sidebar-link" onclick="scrollToFavorites(event)">
                             <span class="sidebar-icon">⭐</span>
-                            <span>My Favorites</span>
+                            <span>Wishlist</span>
                         </a>
                     </li>
                 </ul>
@@ -1521,12 +1522,11 @@
         
         <div id="content" class="loading">Loading your purchases...</div>
         
-        <!-- My Favorites Section -->
+        <!-- Wishlist Section -->
         <div id="favorites" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(100, 116, 139, 0.15);">
             <div style="text-align: center; max-width: 600px; margin: 0 auto;">
                 <h2 style="font-size: 32px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
-                    <span style="color: var(--text-primary);">My</span> 
-                    <span style="background: linear-gradient(135deg, #F59E0B, #FF6B6B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Favorites</span>
+                    <span style="background: linear-gradient(135deg, #F59E0B, #FF6B6B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Wishlist</span>
                 </h2>
                 <p style="color: var(--text-secondary); font-size: 16px; margin-bottom: 24px;">
                     Save your favorite animations for quick access
