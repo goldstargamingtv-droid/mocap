@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-20-v11 - ICON BADGES BELOW GIF! -->
+    <!-- VERSION: 2024-12-23-v12 - NAVBAR UPDATES & NOTIFICATIONS -->
     <!-- ============================================ -->
     <!-- PALETTE 2: WARM LUXE AMBER -->
     <!-- Rich black (#000000) with muted gold (#F59E0B) and warm coral (#FF6B6B) -->
@@ -9,9 +9,10 @@
     <!-- ============================================ -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate, max-age=0">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <meta name="version" content="2024-12-23-v12">
     
     <!-- SEO Meta Tags -->
     <title>MocapWork - Premium Motion Capture Animations for Unreal, Unity & Blender</title>
@@ -1871,7 +1872,35 @@
                         0 0 20px rgba(245, 158, 11, 0.15);
         }
         
+        /* Feature Card Styles */
+        .feature-card {
+            background: rgba(26, 26, 26, 0.6);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
         .feature-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--teal);
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 
+                        0 0 40px rgba(0, 212, 255, 0.25),
+                        0 0 20px rgba(245, 158, 11, 0.15);
+        }
+        
+        /* FAQ Item Styles */
+        .faq-item {
+            background: var(--bg-secondary);
+            padding: 28px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+        
+        .faq-item:hover {
             transform: translateY(-12px);
             border-color: var(--teal);
             box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 
@@ -4042,7 +4071,7 @@
             </div>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
-                <div class="feature-card" style="background: rgba(26, 26, 26, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.3s ease; cursor: pointer;">
+                <div class="feature-card">
                     <div style="font-size: 36px; margin-bottom: 16px;">🎮</div>
                     <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Game Development Ready</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
@@ -4051,7 +4080,7 @@
                     </p>
                 </div>
                 
-                <div class="feature-card" style="background: rgba(26, 26, 26, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.3s ease; cursor: pointer;">
+                <div class="feature-card">
                     <div style="font-size: 36px; margin-bottom: 16px;">🎬</div>
                     <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Film & Animation</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
@@ -4060,7 +4089,7 @@
                     </p>
                 </div>
                 
-                <div class="feature-card" style="background: rgba(26, 26, 26, 0.6); padding: 32px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1); transition: all 0.3s ease; cursor: pointer;">
+                <div class="feature-card">
                     <div style="font-size: 36px; margin-bottom: 16px;">⚡</div>
                     <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Instant Download</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
@@ -4147,7 +4176,7 @@
             
             <div style="display: flex; flex-direction: column; gap: 24px;">
                 <!-- FAQ Item 1 -->
-                <div class="faq-item" style="background: var(--bg-secondary); padding: 28px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                <div class="faq-item">
                     <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
                         What is motion capture and how does it work?
                     </h3>
@@ -4159,7 +4188,7 @@
                 </div>
                 
                 <!-- FAQ Item 2 -->
-                <div class="faq-item" style="background: var(--bg-secondary); padding: 28px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                <div class="faq-item">
                     <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
                         What file formats do your mocap animations come in?
                     </h3>
@@ -4171,7 +4200,7 @@
                 </div>
                 
                 <!-- FAQ Item 3 -->
-                <div class="faq-item" style="background: var(--bg-secondary); padding: 28px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                <div class="faq-item">
                     <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
                         Can I use these motion capture animations in commercial projects?
                     </h3>
@@ -4183,7 +4212,7 @@
                 </div>
                 
                 <!-- FAQ Item 4 -->
-                <div class="faq-item" style="background: var(--bg-secondary); padding: 28px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                <div class="faq-item">
                     <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
                         How do I use motion capture animations in Unreal Engine?
                     </h3>
@@ -4198,7 +4227,7 @@
                 </div>
                 
                 <!-- FAQ Item 5 -->
-                <div class="faq-item" style="background: var(--bg-secondary); padding: 28px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                <div class="faq-item">
                     <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
                         Are Unity mocap assets compatible with Unity?
                     </h3>
@@ -4210,7 +4239,7 @@
                 </div>
                 
                 <!-- FAQ Item 6 -->
-                <div class="faq-item" style="background: var(--bg-secondary); padding: 28px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                <div class="faq-item">
                     <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
                         Do I need a subscription to buy mocap animations?
                     </h3>
@@ -4222,7 +4251,7 @@
                 </div>
                 
                 <!-- FAQ Item 7 -->
-                <div class="faq-item" style="background: var(--bg-secondary); padding: 28px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                <div class="faq-item">
                     <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
                         What types of mocap animations do you offer?
                     </h3>
@@ -4235,7 +4264,7 @@
                 </div>
                 
                 <!-- FAQ Item 8 -->
-                <div class="faq-item" style="background: var(--bg-secondary); padding: 28px; border-radius: 16px; border: 1px solid rgba(0, 212, 255, 0.1);">
+                <div class="faq-item">
                     <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
                         Can I request custom motion capture animations?
                     </h3>
