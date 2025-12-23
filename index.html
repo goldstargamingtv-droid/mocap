@@ -4422,8 +4422,9 @@
             const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
             const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
             
-            // Initialize Supabase client
-            const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            // Initialize Supabase client - make it global so carousel can access it
+            window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            const supabaseClient = window.supabaseClient; // Keep local reference for this scope
             
             // Stripe Configuration
             const STRIPE_PUBLISHABLE_KEY = 'pk_test_51SfQ2BQBChX7okucx4uosVidKjSy2aeDtIAJz3G2DdkFcnKKZWp3byJ8ZbIbSMfvUL6mFpBinviFcjs6dQStaqTN000OZa3XQn';
@@ -6590,9 +6591,14 @@
 
         // Load carousel data from database
         async function loadCarouselData() {
+            if (!window.supabaseClient) {
+                console.log('Supabase not available, using default carousel data');
+                return;
+            }
+            
             try {
                 console.log('Loading carousel data from database...');
-                const { data, error } = await supabaseClient
+                const { data, error } = await window.supabaseClient
                     .from('carousel_items')
                     .select('*')
                     .order('position', { ascending: true });
