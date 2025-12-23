@@ -1327,17 +1327,13 @@
             position: absolute;
             border-radius: 10px;
             overflow: hidden;
-            transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1),
-                        opacity 1.8s cubic-bezier(0.19, 1, 0.22, 1),
-                        box-shadow 1.8s cubic-bezier(0.19, 1, 0.22, 1),
-                        border-color 1.8s cubic-bezier(0.19, 1, 0.22, 1),
-                        width 1.8s cubic-bezier(0.19, 1, 0.22, 1),
-                        height 1.8s cubic-bezier(0.19, 1, 0.22, 1),
-                        left 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                        opacity 1.2s ease-out,
+                        left 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             border: 2px solid rgba(100, 116, 139, 0.4);
             background: #1a1a1a;
-            will-change: transform, opacity, width, height, left;
+            will-change: transform, opacity;
             top: 50%;
         }
 
@@ -6335,7 +6331,7 @@
             const hero = document.querySelector('.hero');
             if (!hero) return;
             
-            const particleCount = 50; // Enhanced from 20
+            const particleCount = 25;
             
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
@@ -6379,6 +6375,18 @@
         } else {
             createParticles();
         }
+        
+        // Pause animations when tab is inactive
+        document.addEventListener('visibilitychange', function() {
+            const hero = document.querySelector('.hero');
+            if (document.hidden) {
+                hero.style.animationPlayState = 'paused';
+                hero.querySelectorAll('.particle').forEach(p => p.style.animationPlayState = 'paused');
+            } else {
+                hero.style.animationPlayState = 'running';
+                hero.querySelectorAll('.particle').forEach(p => p.style.animationPlayState = 'running');
+            }
+        });
     </script>
 
     <!-- Carousel Auto-Rotation Script -->
@@ -6446,12 +6454,21 @@
             carouselInterval = setInterval(() => {
                 const nextIndex = (currentIndex + 1) % carouselData.length;
                 updateCarousel(nextIndex);
-            }, 6000); // Rotate every 6 seconds
+            }, 6000);
         }
 
         function stopCarousel() {
             clearInterval(carouselInterval);
         }
+        
+        // Pause carousel when tab is inactive
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) {
+                stopCarousel();
+            } else {
+                startCarousel();
+            }
+        });
 
         // Initialize carousel
         function initCarousel() {
