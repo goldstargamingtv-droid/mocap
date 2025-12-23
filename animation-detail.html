@@ -4059,7 +4059,7 @@
             try {
                 const { data: animations, error } = await supabaseClient
                     .from('animations')
-                    .select('slug, title, category, style')
+                    .select('slug, title, category, style, thumbnail_url, video_url, video_type, price, on_sale, holiday_sale, sale_percentage')
                     .limit(100);
                 
                 if (!error && animations) {
