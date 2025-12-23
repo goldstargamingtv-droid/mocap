@@ -1650,6 +1650,17 @@
             box-shadow: 0 0 0 3px rgba(100, 116, 139, 0.1);
         }
         
+        /* Prevent autocomplete blue background */
+        .form-group input:-webkit-autofill,
+        .form-group input:-webkit-autofill:hover,
+        .form-group input:-webkit-autofill:focus,
+        .form-group input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px rgba(20, 20, 20, 0.6) inset !important;
+            -webkit-text-fill-color: var(--text-primary) !important;
+            border: 1px solid rgba(0, 212, 255, 0.2) !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+        
         .auth-form .btn {
             width: 100%;
             margin-top: 8px;
