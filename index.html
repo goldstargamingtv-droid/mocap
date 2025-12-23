@@ -2412,10 +2412,17 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .nav-center,
-            .nav-search,
+            /* Hide desktop nav elements */
+            .nav-center {
+                display: none;
+            }
+            
+            .nav-search {
+                display: none;
+            }
+            
             .btn-login {
-                display: none !important;
+                display: none;
             }
 
             /* Keep cart and user menu visible on mobile */
@@ -3724,7 +3731,8 @@
             </h1>
             
             <p class="hero-subtitle">
-                <span class="hero-subtitle-buy-gradient">Buy premium motion capture animations</span> <span class="hero-subtitle-secondary">for game development, film, and virtual production.</span><br>
+                <span class="hero-subtitle-buy-gradient">Buy premium motion capture animations</span><br>
+                <span class="hero-subtitle-secondary">for game development, film, and virtual production.</span><br>
                 <span class="hero-subtitle-professional-glow">Professional mocap</span> <span class="hero-subtitle-platforms-gradient">for Unreal Engine, Unity, Blender, and all major 3D platforms.</span>
             </p>
             
