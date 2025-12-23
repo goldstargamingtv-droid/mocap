@@ -2189,11 +2189,11 @@
         .submit-btn {
             width: 100%;
             padding: 18px;
-            background: rgba(26, 26, 26, 0.8);
-            border: 2px solid var(--teal);
-            border-radius: 12px;
-            color: #FFFFFF;
-            font-weight: 800;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
+            color: var(--teal);
+            font-weight: 700;
             font-size: 16px;
             font-family: 'Sora', sans-serif;
             cursor: pointer;
@@ -2205,14 +2205,10 @@
         }
 
         .submit-btn:hover {
-            background: var(--teal);
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--teal);
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(0, 212, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         @media (max-width: 768px) {
@@ -4997,18 +4993,10 @@
                 }
                 
                 // Show success notification
-                const notification = document.createElement('div');
-                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #10B981;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(16,185,129,0.4);';
-                notification.innerHTML = '<div style="color:#86EFAC;font-weight:600;font-size:14px;">🛒 Added to cart!</div>';
-                document.body.appendChild(notification);
-                setTimeout(() => notification.remove(), 2000);
+                showNotification('🛒 Added to cart!', 'success');
             } else {
                 // Show already in cart notification
-                const notification = document.createElement('div');
-                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #F59E0B;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(245,158,11,0.4);';
-                notification.innerHTML = '<div style="color:#FCD34D;font-weight:600;font-size:14px;">ℹ️ Already in cart!</div>';
-                document.body.appendChild(notification);
-                setTimeout(() => notification.remove(), 2000);
+                showNotification('ℹ️ Already in cart!', 'warning');
             }
         }
         
@@ -5030,11 +5018,7 @@
         window.addSelectedToCart = function() {
             if (selectedAnimations.length === 0) {
                 // Show warning notification
-                const notification = document.createElement('div');
-                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #F59E0B;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(245,158,11,0.4);';
-                notification.innerHTML = '<div style="color:#FCD34D;font-weight:600;font-size:14px;">⚠️ Please select animations first</div>';
-                document.body.appendChild(notification);
-                setTimeout(() => notification.remove(), 2000);
+                showNotification('⚠️ Please select animations first', 'warning');
                 return;
             }
             
@@ -5056,20 +5040,13 @@
             
             // Show success notification
             if (addedCount > 0) {
-                const notification = document.createElement('div');
-                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #10B981;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(16,185,129,0.4);';
-                notification.innerHTML = `
-                    <div style="color:#86EFAC;font-weight:600;font-size:14px;">🛒 Added ${addedCount} animation${addedCount > 1 ? 's' : ''} to cart!</div>
-                    ${alreadyInCartCount > 0 ? `<div style="color:#9CA3AF;font-size:12px;margin-top:4px;">${alreadyInCartCount} already in cart</div>` : ''}
-                `;
-                document.body.appendChild(notification);
-                setTimeout(() => notification.remove(), 3000);
+                let msg = `🛒 Added ${addedCount} animation${addedCount > 1 ? 's' : ''} to cart!`;
+                if (alreadyInCartCount > 0) {
+                    msg += `<br><span style="font-size:12px;opacity:0.7;">${alreadyInCartCount} already in cart</span>`;
+                }
+                showNotification(msg, 'success');
             } else if (alreadyInCartCount > 0) {
-                const notification = document.createElement('div');
-                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #F59E0B;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(245,158,11,0.4);';
-                notification.innerHTML = '<div style="color:#FCD34D;font-weight:600;font-size:14px;">ℹ️ All selected items already in cart!</div>';
-                document.body.appendChild(notification);
-                setTimeout(() => notification.remove(), 2000);
+                showNotification('ℹ️ All selected items already in cart!', 'warning');
             }
             
             clearSelection();
@@ -5240,11 +5217,7 @@
             // Check if cart is empty first
             if (cartIds.length === 0) {
                 // Show notification without closing cart
-                const notification = document.createElement('div');
-                notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #EF4444;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(239,68,68,0.4);';
-                notification.innerHTML = '<div style="color:#FCA5A5;font-weight:600;font-size:14px;">🛒 Your cart is empty!</div><div style="color:#9CA3AF;font-size:12px;margin-top:4px;">Add some animations to get started.</div>';
-                document.body.appendChild(notification);
-                setTimeout(() => notification.remove(), 3000);
+                showNotification('🛒 Your cart is empty!<br><span style="font-size:12px;opacity:0.7;">Add some animations to get started.</span>', 'error');
                 return;
             }
             
@@ -5492,7 +5465,7 @@
                 console.log('removeFromCartHover called with:', animationId);
                 await API.removeFromCart(animationId);
                 await updateCartBadge();
-                showNotification('Removed from cart');
+                showNotification('🗑️ Removed from cart', 'warning');
             } catch (error) {
                 console.error('Error removing from cart:', error);
             }
@@ -5702,6 +5675,50 @@
         window.logout = async function() {
             await supabaseClient.auth.signOut();
             location.reload();
+        }
+
+        // Unified notification system
+        window.showNotification = function(message, type = 'success') {
+            const colors = {
+                success: {
+                    bg: 'rgba(15, 15, 15, 0.98)',
+                    border: 'rgba(0, 212, 255, 0.5)',
+                    text: 'var(--teal)',
+                    shadow: 'rgba(0, 212, 255, 0.3)'
+                },
+                warning: {
+                    bg: 'rgba(15, 15, 15, 0.98)',
+                    border: 'rgba(245, 158, 11, 0.5)',
+                    text: '#F59E0B',
+                    shadow: 'rgba(245, 158, 11, 0.3)'
+                },
+                error: {
+                    bg: 'rgba(15, 15, 15, 0.98)',
+                    border: 'rgba(255, 107, 107, 0.5)',
+                    text: '#FF6B6B',
+                    shadow: 'rgba(255, 107, 107, 0.3)'
+                }
+            };
+            
+            const style = colors[type] || colors.success;
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: ${style.bg};
+                border: 2px solid ${style.border};
+                border-radius: 12px;
+                padding: 16px 24px;
+                z-index: 99999;
+                animation: slideInRight 0.3s ease;
+                box-shadow: 0 8px 24px ${style.shadow};
+                backdrop-filter: blur(20px);
+                font-family: 'DM Sans', sans-serif;
+            `;
+            notification.innerHTML = `<div style="color: ${style.text}; font-weight: 600; font-size: 14px;">${message}</div>`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 2500);
         }
 
         // Check URL hash for modal triggers (from animation-detail page)
