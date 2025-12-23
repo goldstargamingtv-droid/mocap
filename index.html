@@ -483,11 +483,11 @@
             right: 0;
             width: 220px;
             background: rgba(15, 15, 15, 0.98);
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.3);
             border-radius: 12px;
             padding: 8px;
             display: none;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(245, 158, 11, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 212, 255, 0.1);
             z-index: 10003;
             backdrop-filter: blur(20px);
         }
@@ -601,9 +601,9 @@
             width: 350px;
             max-height: 500px;
             background: rgba(15, 15, 15, 0.98);
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            border: 1px solid rgba(0, 212, 255, 0.3);
             border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(245, 158, 11, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 212, 255, 0.1);
             display: none;
             z-index: 10003;
             overflow: hidden;
@@ -3582,7 +3582,7 @@
                                 <span>Settings</span>
                             </a>
                             <div class="profile-dropdown-divider"></div>
-                            <a href="#" onclick="logout(); return false;" class="profile-dropdown-item" style="color: #FF6B6B;">
+                            <a href="#" onclick="event.stopPropagation(); logout(); return false;" class="profile-dropdown-item" style="color: #FF6B6B;">
                                 <svg fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
                                 </svg>
