@@ -6594,11 +6594,11 @@
         
         // Carousel data (5 items) - will be loaded from database or use defaults
         let carouselData = [
-            { icon: '🏃', title: 'Running Pack', subtitle: '12 animations', label: 'Motion Capture Preview', image_url: null },
-            { icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', label: 'Featured Animation', image_url: null },
-            { icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture Preview', image_url: null },
-            { icon: '🧗', title: 'Climbing Pack', subtitle: '16 animations', label: 'Motion Capture Preview', image_url: null },
-            { icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', label: 'Motion Capture Preview', image_url: null }
+            { icon: '🏃', title: 'Running Pack', subtitle: '12 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
+            { icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', label: 'Featured Animation', image_url: null, link_url: '' },
+            { icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
+            { icon: '🧗', title: 'Climbing Pack', subtitle: '16 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
+            { icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' }
         ];
 
         // Load carousel data from database
@@ -6624,7 +6624,8 @@
                         title: item.title,
                         subtitle: item.subtitle,
                         label: 'Motion Capture Preview',
-                        image_url: item.image_url
+                        image_url: item.image_url,
+                        link_url: item.link_url
                     }));
                     
                     console.log('Updated carousel data:', carouselData);
@@ -6736,6 +6737,8 @@
         }
 
         function startCarousel() {
+            // Always clear any existing interval first
+            clearInterval(carouselInterval);
             carouselInterval = setInterval(() => {
                 const nextIndex = (currentIndex + 1) % carouselData.length;
                 updateCarousel(nextIndex);
@@ -6777,17 +6780,36 @@
             items.forEach((item) => {
                 item.addEventListener('click', () => {
                     const index = parseInt(item.getAttribute('data-index'));
-                    stopCarousel();
-                    updateCarousel(index);
-                    startCarousel();
+                    const carouselItem = carouselData[index];
+                    
+                    // If center item and has link_url, navigate to it
+                    if (item.classList.contains('pos-center') && carouselItem && carouselItem.link_url) {
+                        window.location.href = carouselItem.link_url;
+                    } else {
+                        // Otherwise, center the clicked item
+                        stopCarousel();
+                        updateCarousel(index);
+                        startCarousel();
+                    }
                 });
+                
+                // Add pointer cursor for items with links
+                const index = parseInt(item.getAttribute('data-index'));
+                if (carouselData[index] && carouselData[index].link_url) {
+                    item.style.cursor = 'pointer';
+                }
             });
 
             // Pause on hover
             const carousel = document.querySelector('.hero-preview-carousel');
             if (carousel) {
-                carousel.addEventListener('mouseenter', stopCarousel);
-                carousel.addEventListener('mouseleave', startCarousel);
+                carousel.addEventListener('mouseenter', () => {
+                    stopCarousel();
+                });
+                carousel.addEventListener('mouseleave', () => {
+                    stopCarousel(); // Ensure fully stopped
+                    startCarousel(); // Then start fresh
+                });
             }
 
             // Initialize to starting position (Acrobatic Pack - index 2)
