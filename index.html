@@ -2969,9 +2969,9 @@
         }
         
         .auth-message.success {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: #86EFAC;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--teal);
         }
         
         .auth-modal-icon {
@@ -6579,14 +6579,74 @@
         let currentIndex = 2; // Start with 3rd item (index 2 - Acrobatic Pack)
         let carouselInterval;
         
-        // Carousel data (5 items)
-        const carouselData = [
-            { icon: '🏃', title: 'Running Pack', subtitle: '12 animations', label: 'Motion Capture Preview' },
-            { icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', label: 'Featured Animation' },
-            { icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture Preview' },
-            { icon: '🧗', title: 'Climbing Pack', subtitle: '16 animations', label: 'Motion Capture Preview' },
-            { icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', label: 'Motion Capture Preview' }
+        // Carousel data (5 items) - will be loaded from database or use defaults
+        let carouselData = [
+            { icon: '🏃', title: 'Running Pack', subtitle: '12 animations', label: 'Motion Capture Preview', image_url: null },
+            { icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', label: 'Featured Animation', image_url: null },
+            { icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture Preview', image_url: null },
+            { icon: '🧗', title: 'Climbing Pack', subtitle: '16 animations', label: 'Motion Capture Preview', image_url: null },
+            { icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', label: 'Motion Capture Preview', image_url: null }
         ];
+
+        // Load carousel data from database
+        async function loadCarouselData() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('carousel_items')
+                    .select('*')
+                    .order('position', { ascending: true });
+
+                if (!error && data && data.length > 0) {
+                    // Update carousel data with database values
+                    carouselData = data.map(item => ({
+                        icon: item.icon,
+                        title: item.title,
+                        subtitle: item.subtitle,
+                        label: 'Motion Capture Preview',
+                        image_url: item.image_url
+                    }));
+                    
+                    // Update carousel display
+                    updateCarouselContent();
+                }
+            } catch (error) {
+                console.log('Using default carousel data');
+            }
+        }
+
+        // Update carousel content in DOM
+        function updateCarouselContent() {
+            const items = document.querySelectorAll('.carousel-item');
+            items.forEach((item, index) => {
+                if (carouselData[index]) {
+                    const data = carouselData[index];
+                    const placeholder = item.querySelector('.carousel-placeholder');
+                    
+                    if (placeholder) {
+                        // If image_url exists, use it; otherwise use icon
+                        if (data.image_url) {
+                            placeholder.innerHTML = `
+                                <img src="${data.image_url}" 
+                                     alt="${data.title}" 
+                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            `;
+                        } else {
+                            placeholder.innerHTML = `
+                                <div class="carousel-placeholder-icon">${data.icon}</div>
+                                <div class="carousel-placeholder-text">${data.title}</div>
+                                <div class="carousel-placeholder-subtext">${data.subtitle}</div>
+                            `;
+                        }
+                    }
+                    
+                    // Update overlay label
+                    const overlayText = item.querySelector('.carousel-overlay-text');
+                    if (overlayText) {
+                        overlayText.textContent = data.label || 'Motion Capture Preview';
+                    }
+                }
+            });
+        }
 
         function updateCarousel(selectedIndex) {
             const items = document.querySelectorAll('.carousel-item');
@@ -6655,7 +6715,10 @@
         });
 
         // Initialize carousel
-        function initCarousel() {
+        async function initCarousel() {
+            // Load carousel data from database first
+            await loadCarouselData();
+            
             const dots = document.querySelectorAll('.carousel-dot');
             const items = document.querySelectorAll('.carousel-item');
 
