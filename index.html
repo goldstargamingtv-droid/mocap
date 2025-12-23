@@ -822,10 +822,10 @@
         }
 
         .hamburger-menu {
-            display: none;
+            display: none !important;
             background: none;
             border: none;
-            color: var(--cream);
+            color: var(--teal);
             font-size: 24px;
             cursor: pointer;
         }
@@ -2412,17 +2412,10 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            /* Hide desktop nav elements */
-            .nav-center {
-                display: none;
-            }
-            
-            .nav-search {
-                display: none;
-            }
-            
+            .nav-center,
+            .nav-search,
             .btn-login {
-                display: none;
+                display: none !important;
             }
 
             /* Keep cart and user menu visible on mobile */
