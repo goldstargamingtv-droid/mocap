@@ -1096,15 +1096,16 @@
             left: 50%;
             min-width: 100%;
             min-height: 100%;
-            width: auto;
-            height: auto;
+            width: 100%;
+            height: 100%;
             transform: translate(-50%, -50%);
             z-index: 1;
             opacity: 0.25;
-            background-image: url('background-video.mp4'); /* Use first frame or replace with actual image */
+            background-image: url('hero-background.jpg');
             background-size: cover;
             background-position: center;
-            /* Fade out at bottom for seamless transition */
+            background-repeat: no-repeat;
+            /* Fade out at bottom for seamless transition - same as video */
             -webkit-mask-image: linear-gradient(to bottom, 
                 rgba(0,0,0,1) 0%, 
                 rgba(0,0,0,1) 40%, 
