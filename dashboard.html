@@ -75,6 +75,11 @@
             left: 0;
             right: 0;
             z-index: 10002;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+        }
+
+        .navbar.scrolled {
             background: rgba(15, 15, 15, 0.92);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(100, 116, 139, 0.15);
@@ -1565,7 +1570,6 @@
                 const link = document.createElement('a');
                 link.href = fileUrl;
                 link.download = `${animationTitle}.fbx`;
-                link.target = '_blank';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
@@ -1962,6 +1966,16 @@
         loadPurchases();
         updateCartBadge();
         checkAdmin();
+
+        // Navbar scroll effect
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
 
         // Mobile Menu Toggle
         function toggleMobileMenu() {
