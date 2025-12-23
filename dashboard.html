@@ -1835,15 +1835,47 @@
             }
         }
 
-        function showNotification(message) {
-            const notification = document.createElement('div');
-            notification.style.cssText = 'position:fixed;top:80px;right:20px;background:#1A1A2E;border:2px solid #10B981;border-radius:12px;padding:16px 24px;z-index:99999;animation:slideInRight 0.3s ease;box-shadow:0 8px 24px rgba(16,185,129,0.4);';
-            notification.innerHTML = `<div style="color:#86EFAC;font-weight:600;font-size:14px;">${message}</div>`;
-            document.body.appendChild(notification);
+        function showNotification(message, type = 'success') {
+            const colors = {
+                success: {
+                    bg: 'rgba(15, 15, 15, 0.98)',
+                    border: 'rgba(0, 212, 255, 0.5)',
+                    text: 'var(--teal)',
+                    shadow: 'rgba(0, 212, 255, 0.3)'
+                },
+                warning: {
+                    bg: 'rgba(15, 15, 15, 0.98)',
+                    border: 'rgba(245, 158, 11, 0.5)',
+                    text: '#F59E0B',
+                    shadow: 'rgba(245, 158, 11, 0.3)'
+                },
+                error: {
+                    bg: 'rgba(15, 15, 15, 0.98)',
+                    border: 'rgba(255, 107, 107, 0.5)',
+                    text: '#FF6B6B',
+                    shadow: 'rgba(255, 107, 107, 0.3)'
+                }
+            };
             
-            setTimeout(() => {
-                notification.remove();
-            }, 3000);
+            const style = colors[type] || colors.success;
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: ${style.bg};
+                border: 2px solid ${style.border};
+                border-radius: 12px;
+                padding: 16px 24px;
+                z-index: 99999;
+                animation: slideInRight 0.3s ease;
+                box-shadow: 0 8px 24px ${style.shadow};
+                backdrop-filter: blur(20px);
+                font-family: 'DM Sans', sans-serif;
+            `;
+            notification.innerHTML = `<div style="color: ${style.text}; font-weight: 600; font-size: 14px;">${message}</div>`;
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 2500);
         }
 
         function scrollToFavorites(e) {
