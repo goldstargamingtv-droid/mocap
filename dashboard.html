@@ -1474,7 +1474,7 @@
                 <div class="sidebar-title">Library</div>
                 <ul class="sidebar-menu">
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link active">
+                        <a href="#" class="sidebar-link active" onclick="scrollToTop(); return false;">
                             <span class="sidebar-icon">📚</span>
                             <span>My Library</span>
                             <span class="sidebar-badge" id="sidebarLibraryCount">0</span>
@@ -1539,7 +1539,7 @@
         <main class="main-content">
             <div class="container">
                 <div class="page-header">
-                    <h1><span style="color: var(--text-primary); -webkit-text-fill-color: var(--text-primary);">My</span> Library</h1>
+                    <h1 style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">My Library</h1>
                     <p class="subtitle" id="userEmail">Loading...</p>
                 </div>
 
@@ -1592,6 +1592,24 @@
         <div id="content" class="loading">Loading your purchases...</div>
         
         <!-- Wishlist Section -->
+        <div id="favorites" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(100, 116, 139, 0.15);">
+            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+                <h2 style="font-size: 32px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
+                    <span style="background: linear-gradient(135deg, #F59E0B, #FF6B6B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Wishlist</span>
+                </h2>
+                <p style="color: var(--text-secondary); font-size: 16px; margin-bottom: 24px;">
+                    Save your favorite animations for quick access
+                </p>
+                <div style="background: rgba(26, 26, 26, 0.6); border: 2px dashed rgba(100, 116, 139, 0.3); border-radius: 16px; padding: 48px 32px;">
+                    <div style="font-size: 48px; margin-bottom: 16px;">⭐</div>
+                    <div style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">
+                        Feature coming soon!<br>
+                        <span style="font-size: 13px;">You'll be able to bookmark animations and access them instantly</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Purchase History Section -->
         <div id="purchaseHistory" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(100, 116, 139, 0.15);">
             <div style="margin-bottom: 32px;">
@@ -1605,8 +1623,6 @@
             
             <div id="purchaseHistoryContent" class="loading">Loading purchase history...</div>
         </div>
-
-        <div id="favorites" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(100, 116, 139, 0.15);">
             <div style="text-align: center; max-width: 600px; margin: 0 auto;">
                 <h2 style="font-size: 32px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
                     <span style="background: linear-gradient(135deg, #F59E0B, #FF6B6B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Wishlist</span>
@@ -2000,15 +2016,37 @@
 
         function scrollToFavorites(e) {
             e.preventDefault();
-            document.getElementById('favorites').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Remove active from all sidebar links
+            document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
+            // Add active to this link
+            e.currentTarget.classList.add('active');
+            // Scroll to section with offset
+            const element = document.getElementById('favorites');
+            const offset = 100;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - offset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
         }
 
         function scrollToPurchaseHistory(e) {
             e.preventDefault();
-            document.getElementById('purchaseHistory').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Remove active from all sidebar links
+            document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
+            // Add active to this link
+            e.currentTarget.classList.add('active');
+            // Scroll to section with offset
+            const element = document.getElementById('purchaseHistory');
+            const offset = 100;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - offset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
         }
 
         function scrollToTop() {
+            // Remove active from all sidebar links
+            document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
+            // Add active to My Library link
+            document.querySelector('.sidebar-link').classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
