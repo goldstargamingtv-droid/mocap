@@ -4240,6 +4240,9 @@
       }
     }
     </script>
+    
+    <!-- GSAP Animation Library -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 </head>
 <body>
     <!-- Loading Progress Bar -->
@@ -5588,6 +5591,11 @@
 
             document.getElementById('resultsCount').innerHTML = 
                 `Showing <strong>${Math.min(displayAnimations.length, filteredAnimations.length)}</strong> of <strong>${filteredAnimations.length}</strong> animations`;
+            
+            // Initialize particle effects after cards render
+            if (typeof initCardParticles === 'function') {
+                initCardParticles();
+            }
         }
 
         // Filter function
@@ -8169,6 +8177,110 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         
         window.addEventListener('scroll', handleMobileStickyCta);
         window.addEventListener('resize', handleMobileStickyCta);
+    </script>
+
+    <!-- ========================================== -->
+    <!-- SIMPLE ANIMATIONS - Particles + Hero Text -->
+    <!-- ========================================== -->
+    <script>
+        // Particle burst function
+        function createParticles(card) {
+            const rect = card.getBoundingClientRect();
+            const particles = 6;
+            
+            for (let i = 0; i < particles; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: fixed;
+                    width: 6px;
+                    height: 6px;
+                    background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+                    border-radius: 50%;
+                    pointer-events: none;
+                    z-index: 9999;
+                    left: ${rect.left + rect.width / 2}px;
+                    top: ${rect.top + rect.height / 2}px;
+                    box-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
+                `;
+                document.body.appendChild(particle);
+                
+                const angle = (360 / particles) * i;
+                const distance = 80;
+                
+                gsap.to(particle, {
+                    x: Math.cos(angle * Math.PI / 180) * distance,
+                    y: Math.sin(angle * Math.PI / 180) * distance,
+                    opacity: 0,
+                    scale: 0.5,
+                    duration: 1,
+                    ease: 'power2.out',
+                    onComplete: () => particle.remove()
+                });
+            }
+        }
+
+        // Add particle burst to cards when they're rendered
+        window.initCardParticles = function() {
+            const cards = document.querySelectorAll('.animation-card');
+            
+            cards.forEach(card => {
+                // Clone to remove old listeners
+                const newCard = card.cloneNode(true);
+                card.parentNode.replaceChild(newCard, card);
+                
+                // Add hover listener
+                newCard.addEventListener('mouseenter', function() {
+                    createParticles(newCard);
+                });
+            });
+            
+            console.log(`✨ Particle effects added to ${cards.length} cards`);
+        };
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            if (typeof gsap === 'undefined') {
+                console.error('❌ GSAP not loaded');
+                return;
+            }
+            
+            console.log('🎬 Initializing animations...');
+
+            // ==========================================
+            // SLOW HERO TEXT ANIMATION
+            // ==========================================
+            const heroTitle = document.querySelector('.hero-title');
+            
+            if (heroTitle) {
+                const titleSpans = heroTitle.querySelectorAll('span');
+                
+                // Set initial state - hidden
+                gsap.set(titleSpans, { 
+                    opacity: 0, 
+                    y: 40, 
+                    filter: 'blur(10px)' 
+                });
+                
+                // Create slow timeline
+                const heroTl = gsap.timeline({ 
+                    defaults: { ease: 'power3.out' },
+                    delay: 0.3 
+                });
+                
+                // Animate each word slowly
+                titleSpans.forEach((span, index) => {
+                    heroTl.to(span, {
+                        opacity: 1,
+                        y: 0,
+                        filter: 'blur(0px)',
+                        duration: 1, // Slower - was 0.6
+                        ease: 'power2.out'
+                    }, index * 0.25); // More delay between words - was 0.15
+                });
+                
+                console.log('✅ Hero text animation initialized');
+            }
+        });
     </script>
 
 </body>
