@@ -1923,6 +1923,10 @@
             document.getElementById('favorites').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         async function logout() {
             await supabaseClient.auth.signOut();
             window.location.href = 'index.html';
