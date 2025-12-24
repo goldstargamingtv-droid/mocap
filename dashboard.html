@@ -81,7 +81,7 @@
             z-index: 10002;
             background: rgba(15, 15, 15, 0.92);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(100, 116, 139, 0.15);
+            border-bottom: 2px solid rgba(100, 116, 139, 0.15);
         }
 
         .navbar-container {
@@ -246,7 +246,7 @@
         .search-result-item {
             padding: 12px 16px;
             cursor: pointer;
-            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+            border-bottom: 2px solid rgba(100, 116, 139, 0.1);
             transition: all 0.2s;
             display: flex;
             align-items: center;
@@ -287,7 +287,7 @@
         }
         
         .search-section {
-            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+            border-bottom: 2px solid rgba(100, 116, 139, 0.1);
         }
         
         .search-section:last-child {
@@ -328,7 +328,7 @@
         .btn-admin {
             padding: 8px 16px;
             background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(245, 158, 11, 0.3);
             color: var(--amber);
             border-radius: 8px;
             text-decoration: none;
@@ -347,7 +347,7 @@
         .btn-logout-nav {
             padding: 10px 20px;
             background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.4);
+            border: 2px solid rgba(239, 68, 68, 0.4);
             color: #FCA5A5;
             border-radius: 8px;
             cursor: pointer;
@@ -418,7 +418,7 @@
             width: 350px;
             max-height: 500px;
             background: rgba(15, 15, 15, 0.98);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(0, 212, 255, 0.3);
             border-radius: 12px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 212, 255, 0.1);
             display: none;
@@ -429,9 +429,11 @@
 
         .cart-hover-header {
             padding: 16px 20px;
-            border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+            border-bottom: 2px solid rgba(100, 116, 139, 0.1);
             font-weight: 700;
             font-size: 16px;
+            color: var(--text-primary);
+            background: #1a1a1a;
         }
 
         .cart-hover-items {
@@ -440,21 +442,35 @@
             background: #1a1a1a;
         }
 
+        .cart-hover-items::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .cart-hover-items::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 3px;
+        }
+
+        .cart-hover-items::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
+            border-radius: 3px;
+        }
+
         .cart-hover-item {
             display: flex;
             align-items: center;
             gap: 12px;
             padding: 12px;
-            margin: 8px;
             border-radius: 8px;
             background: #1a1a1a;
+            margin: 8px;
             margin-bottom: 8px;
             transition: all 0.2s ease;
-            cursor: pointer;
         }
 
         .cart-hover-item:hover {
-            background: rgba(100, 116, 139, 0.15);
+            background: rgba(245, 158, 11, 0.15);
+            border: 2px solid rgba(245, 158, 11, 0.3);
         }
 
         .cart-hover-item-img {
@@ -462,16 +478,22 @@
             height: 50px;
             border-radius: 6px;
             object-fit: cover;
+            border: 2px solid rgba(0, 212, 255, 0.2);
         }
 
         .cart-hover-item-info {
             flex: 1;
+            min-width: 0;
         }
 
         .cart-hover-item-title {
             font-size: 13px;
             font-weight: 600;
+            color: var(--text-primary);
             margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .cart-hover-item-price {
@@ -484,18 +506,23 @@
             background: linear-gradient(135deg, var(--teal), var(--amber));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .cart-hover-item-remove {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             border-radius: 6px;
             background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            border: 2px solid rgba(239, 68, 68, 0.3);
             color: #EF4444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             transition: all 0.2s ease;
+            flex-shrink: 0;
         }
 
         .cart-hover-item-remove:hover {
@@ -508,6 +535,7 @@
             text-align: center;
             color: var(--text-muted);
             font-size: 14px;
+            line-height: 1.6;
         }
 
         .cart-hover-empty-icon {
@@ -518,21 +546,29 @@
 
         .cart-hover-footer {
             padding: 16px 20px;
-            border-top: 1px solid rgba(100, 116, 139, 0.1);
+            border-top: 2px solid rgba(100, 116, 139, 0.1);
+            background: #0f0f0f;
         }
 
         .cart-hover-total {
             display: flex;
             justify-content: space-between;
-            font-weight: 700;
+            align-items: center;
             font-size: 16px;
-            margin-bottom: 12px;
+            font-weight: 700;
+            color: var(--text-primary);
         }
 
+        .cart-hover-total span:last-child {
+            color: #FFFFFF;
+            font-size: 18px;
+        }
+        
         .cart-hover-total .price-dollar {
             background: linear-gradient(135deg, var(--teal), var(--amber));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         /* Cart Modal */
@@ -565,7 +601,7 @@
             max-width: 90vw;
             height: 100vh;
             background: var(--bg-secondary);
-            border-left: 1px solid rgba(100, 116, 139, 0.2);
+            border-left: 2px solid rgba(100, 116, 139, 0.2);
             display: flex;
             flex-direction: column;
             animation: slideInCart 0.3s ease;
@@ -578,7 +614,7 @@
         
         .cart-header {
             padding: 24px;
-            border-bottom: 1px solid rgba(100, 116, 139, 0.15);
+            border-bottom: 2px solid rgba(100, 116, 139, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -618,7 +654,7 @@
         
         .cart-item {
             background: rgba(26, 26, 26, 0.6);
-            border: 1px solid rgba(100, 116, 139, 0.1);
+            border: 2px solid rgba(100, 116, 139, 0.1);
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 12px;
@@ -679,7 +715,7 @@
             height: 32px;
             border-radius: 6px;
             background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            border: 2px solid rgba(239, 68, 68, 0.3);
             color: #EF4444;
             display: flex;
             align-items: center;
@@ -709,7 +745,7 @@
         
         .cart-footer {
             padding: 24px;
-            border-top: 1px solid rgba(100, 116, 139, 0.15);
+            border-top: 2px solid rgba(100, 116, 139, 0.15);
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -755,7 +791,7 @@
             bottom: 0;
             width: 280px;
             background: linear-gradient(180deg, rgba(15, 15, 15, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
-            border-right: 1px solid rgba(245, 158, 11, 0.1);
+            border-right: 2px solid rgba(245, 158, 11, 0.1);
             padding: 32px 0;
             overflow-y: auto;
             z-index: 100;
@@ -891,7 +927,7 @@
             margin-bottom: 32px;
             padding: 24px;
             background: var(--bg-secondary);
-            border: 1px solid rgba(100, 116, 139, 0.1);
+            border: 2px solid rgba(100, 116, 139, 0.1);
             border-radius: 16px;
         }
 
@@ -958,7 +994,7 @@
         /* Purchase Cards - Smaller & Square */
         .purchase-card {
             background: var(--bg-secondary);
-            border: 1px solid rgba(100, 116, 139, 0.1);
+            border: 2px solid rgba(100, 116, 139, 0.1);
             border-radius: 16px;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1085,7 +1121,7 @@
             width: 100%;
             padding: 10px 20px;
             background: rgba(100, 116, 139, 0.1);
-            border: 1px solid rgba(100, 116, 139, 0.3);
+            border: 2px solid rgba(100, 116, 139, 0.3);
             border-radius: 50px;
             color: var(--teal);
             font-weight: 600;
@@ -1223,7 +1259,7 @@
                 flex-direction: column;
                 gap: 0;
                 padding: 80px 0 20px;
-                border-left: 1px solid rgba(100, 116, 139, 0.15);
+                border-left: 2px solid rgba(100, 116, 139, 0.15);
                 transition: right 0.3s ease;
                 z-index: 9999;
                 overflow-y: auto;
@@ -1248,7 +1284,7 @@
                 display: block;
                 width: 100%;
                 padding: 16px 32px;
-                border-bottom: 1px solid rgba(100, 116, 139, 0.08);
+                border-bottom: 2px solid rgba(100, 116, 139, 0.08);
                 font-size: 16px;
                 transition: all 0.2s ease;
                 color: var(--text-secondary);
@@ -1362,7 +1398,7 @@
                 <button class="mobile-menu-close" onclick="toggleMobileMenu()">✕</button>
                 
                 <!-- Mobile Search -->
-                <li style="padding: 20px; border-bottom: 1px solid rgba(100, 116, 139, 0.1);">
+                <li style="padding: 20px; border-bottom: 2px solid rgba(100, 116, 139, 0.1);">
                     <div style="position: relative;" id="mobileSearchWrapper">
                         <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.6;">🔍</span>
                         <input 
@@ -1556,7 +1592,7 @@
         <div id="content" class="loading">Loading your purchases...</div>
         
         <!-- Wishlist Section -->
-        <div id="favorites" style="margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(100, 116, 139, 0.15);">
+        <div id="favorites" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(100, 116, 139, 0.15);">
             <div style="text-align: center; max-width: 600px; margin: 0 auto;">
                 <h2 style="font-size: 32px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
                     <span style="background: linear-gradient(135deg, #F59E0B, #FF6B6B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Wishlist</span>
@@ -2376,7 +2412,7 @@
                     const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
                     
                     html += `
-                        <div onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid rgba(100, 116, 139, 0.1); transition: all 0.2s;">
+                        <div onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(100, 116, 139, 0.1); transition: all 0.2s;">
                             <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
@@ -2404,7 +2440,7 @@
                 suggestions.forEach(sugg => {
                     const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
                     html += `
-                        <div onclick="window.location.href='index.html#library?search=${encodeURIComponent(sugg)}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 1px solid rgba(100, 116, 139, 0.1); transition: all 0.2s;">
+                        <div onclick="window.location.href='index.html#library?search=${encodeURIComponent(sugg)}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(100, 116, 139, 0.1); transition: all 0.2s;">
                             <div style="font-size: 18px;">🔍</div>
                             <div style="flex: 1; color: var(--text-primary);">${highlighted}</div>
                         </div>
