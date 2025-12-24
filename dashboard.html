@@ -1495,7 +1495,7 @@
                 <div class="sidebar-title">Account</div>
                 <ul class="sidebar-menu">
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link" onclick="scrollToTop(); return false;">
+                        <a href="#purchaseHistory" class="sidebar-link" onclick="scrollToPurchaseHistory(event)">
                             <span class="sidebar-icon">🧾</span>
                             <span>Purchase History</span>
                         </a>
@@ -1592,6 +1592,20 @@
         <div id="content" class="loading">Loading your purchases...</div>
         
         <!-- Wishlist Section -->
+        <!-- Purchase History Section -->
+        <div id="purchaseHistory" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(100, 116, 139, 0.15);">
+            <div style="margin-bottom: 32px;">
+                <h2 style="font-size: 32px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
+                    <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Purchase History</span>
+                </h2>
+                <p style="color: var(--text-secondary); font-size: 16px; margin-bottom: 24px;">
+                    Complete record of all your transactions
+                </p>
+            </div>
+            
+            <div id="purchaseHistoryContent" class="loading">Loading purchase history...</div>
+        </div>
+
         <div id="favorites" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(100, 116, 139, 0.15);">
             <div style="text-align: center; max-width: 600px; margin: 0 auto;">
                 <h2 style="font-size: 32px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
@@ -1705,6 +1719,7 @@
                 }
 
                 renderPurchases(allPurchases);
+                renderPurchaseHistory(allPurchases);
 
             } catch (error) {
                 console.error('Error loading purchases:', error);
@@ -1918,9 +1933,79 @@
             setTimeout(() => notification.remove(), 2500);
         }
 
+        function renderPurchaseHistory(purchases) {
+            const historyContent = document.getElementById('purchaseHistoryContent');
+            
+            if (purchases.length === 0) {
+                historyContent.innerHTML = `
+                    <div style="background: rgba(26, 26, 26, 0.6); border: 2px dashed rgba(100, 116, 139, 0.3); border-radius: 16px; padding: 48px 32px; text-align: center;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🧾</div>
+                        <div style="color: var(--text-muted); font-size: 15px;">No purchase history yet</div>
+                    </div>
+                `;
+                return;
+            }
+
+            historyContent.innerHTML = `
+                <div style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.7), rgba(20, 20, 20, 0.8)); backdrop-filter: blur(30px); border: 2px solid rgba(0, 212, 255, 0.25); border-radius: 28px; padding: 32px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 212, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05); overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid rgba(0, 212, 255, 0.2);">
+                                <th style="text-align: left; padding: 16px; color: var(--teal); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Date</th>
+                                <th style="text-align: left; padding: 16px; color: var(--teal); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Animation</th>
+                                <th style="text-align: left; padding: 16px; color: var(--teal); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Order ID</th>
+                                <th style="text-align: right; padding: 16px; color: var(--teal); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Amount</th>
+                                <th style="text-align: center; padding: 16px; color: var(--teal); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${purchases.map(purchase => {
+                                const anim = purchase.animations;
+                                const date = new Date(purchase.created_at).toLocaleDateString('en-US', { 
+                                    month: 'short', 
+                                    day: 'numeric', 
+                                    year: 'numeric' 
+                                });
+                                const orderId = purchase.id.substring(0, 8).toUpperCase();
+                                const amount = purchase.amount_paid || anim.price;
+                                
+                                return `
+                                    <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.05);">
+                                        <td style="padding: 20px 16px; color: var(--text-secondary); font-size: 14px;">${date}</td>
+                                        <td style="padding: 20px 16px;">
+                                            <div style="display: flex; align-items: center; gap: 12px;">
+                                                <img src="${anim.video_type === 'image/gif' ? anim.video_url : anim.thumbnail_url}" 
+                                                     style="width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(0, 212, 255, 0.2);">
+                                                <div>
+                                                    <div style="color: var(--text-primary); font-weight: 600; font-size: 14px;">${anim.title}</div>
+                                                    <a href="animation-detail.html?id=${anim.id}" style="color: var(--teal); font-size: 12px; text-decoration: none;">View Details →</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="padding: 20px 16px; color: var(--text-muted); font-family: monospace; font-size: 13px;">#${orderId}</td>
+                                        <td style="padding: 20px 16px; text-align: right; color: var(--text-primary); font-weight: 600; font-size: 15px;">$${amount.toFixed(2)}</td>
+                                        <td style="padding: 20px 16px; text-align: center;">
+                                            <span style="background: rgba(16, 185, 129, 0.1); color: #10B981; padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 600; border: 1px solid rgba(16, 185, 129, 0.3);">
+                                                ✓ Complete
+                                            </span>
+                                        </td>
+                                    </tr>
+                                `;
+                            }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
         function scrollToFavorites(e) {
             e.preventDefault();
             document.getElementById('favorites').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function scrollToPurchaseHistory(e) {
+            e.preventDefault();
+            document.getElementById('purchaseHistory').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function scrollToTop() {
