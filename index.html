@@ -1787,7 +1787,7 @@
 
         /* Library Section */
         .library-section {
-            padding: 140px 32px 120px;
+            padding: 60px 32px 120px;
             position: relative;
             overflow: visible;
             z-index: 1;
@@ -1801,7 +1801,7 @@
 
         .section-header {
             text-align: center;
-            margin-bottom: 48px;
+            margin-bottom: 40px;
             animation: fadeInUp 0.8s ease;
         }
 
@@ -1836,7 +1836,7 @@
             border-radius: 50px;
             text-align: center;
             backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(100, 116, 139, 0.2), 
+            box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2), 
                         inset 0 1px 0 rgba(255, 255, 255, 0.1);
             animation: fadeInDown 0.6s ease 0.2s backwards, pulseGlowGrey 3s ease-in-out infinite;
         }
@@ -1873,11 +1873,11 @@
 
         @keyframes pulseGlowGrey {
             0%, 100% {
-                box-shadow: 0 8px 32px rgba(100, 116, 139, 0.2), 
+                box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2), 
                             inset 0 1px 0 rgba(255, 255, 255, 0.1);
             }
             50% {
-                box-shadow: 0 8px 32px rgba(100, 116, 139, 0.35), 
+                box-shadow: 0 8px 32px rgba(0, 212, 255, 0.35), 
                             inset 0 1px 0 rgba(255, 255, 255, 0.15);
             }
         }
@@ -1950,12 +1950,10 @@
         }
 
         .search-input:focus {
-            border-color: rgba(0, 212, 255, 0.7);
+            border-color: var(--teal);
             background: rgba(15, 15, 15, 0.95);
             box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4),
-                        0 0 0 4px rgba(245, 158, 11, 0.15),
-                        0 0 40px rgba(245, 158, 11, 0.3),
-                        0 8px 24px rgba(0, 0, 0, 0.3);
+                        0 0 20px rgba(0, 212, 255, 0.3);
             transform: scale(1.02);
             padding-top: 28px;
             padding-bottom: 20px;
@@ -2033,17 +2031,16 @@
         }
 
         .custom-dropdown-btn:hover {
-            border-color: rgba(0, 212, 255, 0.6);
+            border-color: var(--teal);
             box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2),
-                        0 0 20px rgba(245, 158, 11, 0.25);
+                        0 0 20px rgba(0, 212, 255, 0.3);
             transform: translateY(-2px);
         }
 
         .custom-dropdown-btn.active {
-            border-color: rgba(0, 212, 255, 0.8);
+            border-color: var(--teal);
             box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3),
-                        0 0 0 3px rgba(245, 158, 11, 0.15),
-                        0 0 30px rgba(245, 158, 11, 0.3);
+                        0 0 20px rgba(0, 212, 255, 0.3);
         }
 
         .dropdown-arrow {
@@ -2192,11 +2189,12 @@
         /* AI Suggestions Toggle */
         .ai-suggestions-toggle-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-top: 16px;
-            padding-top: 16px;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
             border-top: 2px solid rgba(100, 116, 139, 0.15);
         }
 
@@ -2216,10 +2214,10 @@
             position: relative;
             width: 48px;
             height: 26px;
-            background: rgba(100, 116, 139, 0.3);
+            background: rgba(0, 212, 255, 0.1);
             border-radius: 50px;
             transition: all 0.3s ease;
-            border: 2px solid rgba(100, 116, 139, 0.4);
+            border: 2px solid rgba(0, 212, 255, 0.3);
         }
 
         .ai-toggle-slider::before {
@@ -2237,7 +2235,7 @@
 
         .ai-toggle-input:checked + .ai-toggle-slider {
             background: linear-gradient(135deg, #F59E0B, #FF6B6B);
-            border-color: rgba(0, 212, 255, 0.6);
+            border-color: rgba(0, 212, 255, 0.3);
             box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
             animation: gradientShift 3s ease infinite;
             background-size: 200% auto;
@@ -2439,7 +2437,7 @@
             overflow: hidden;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid rgba(0, 212, 255, 0.08);
+            border: 2px solid rgba(0, 212, 255, 0.3);
         }
 
         .animation-card:hover {
@@ -2822,6 +2820,23 @@
 
         .form-group {
             margin-bottom: 24px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-group .filter-group {
+            position: relative;
+        }
+
+        .form-group .custom-dropdown-menu {
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group .dropdown-pill-option {
+            width: 100%;
+            text-align: left;
         }
 
         .form-group label {
@@ -2832,31 +2847,106 @@
             font-size: 14px;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
+        .form-group input[type="text"],
+        .form-group input[type="email"] {
             width: 100%;
-            background: rgba(20, 20, 20, 0.6);
-            border: 2px solid rgba(0, 212, 255, 0.2);
-            border-radius: 12px;
-            padding: 14px 18px;
+            background: rgba(15, 15, 15, 0.8);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px !important;
+            padding: 16px 24px;
             color: var(--text-primary);
             font-size: 15px;
             font-family: 'DM Sans', sans-serif;
             transition: all 0.3s ease;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
-        .form-group input:focus,
-        .form-group select:focus,
+        .form-group input[type="text"]:focus,
+        .form-group input[type="email"]:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2),
+                        0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .form-group select {
+            width: 100%;
+            background: rgba(15, 15, 15, 0.8);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px !important;
+            padding: 16px 24px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 4L6 8L10 4' stroke='%2300D4FF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            padding-right: 48px;
+            font-weight: 600;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            background: rgba(15, 15, 15, 0.8);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 16px !important;
+            padding: 16px 24px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group select option {
+            background: #0F0F0F;
+            color: var(--text-primary);
+            padding: 12px 20px;
+            font-weight: 600;
+        }
+        
+        .form-group select option:hover {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--teal);
+        }
+        
+        .form-group select option:checked {
+            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            color: #000000;
+            font-weight: 700;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2),
+                        0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        
         .form-group textarea:focus {
             outline: none;
             border-color: var(--teal);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-group select:hover {
+            border-color: var(--teal);
+            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2),
+                        0 0 20px rgba(0, 212, 255, 0.3);
         }
 
         .form-group textarea {
             resize: vertical;
             min-height: 120px;
+            border-radius: 24px;
         }
 
         .submit-btn {
@@ -4621,12 +4711,6 @@
             </div>
 
         </div>
-
-        <div class="scroll-indicator">
-            <svg class="icon" viewBox="0 0 24 24" style="width: 28px; height: 28px; color: var(--text-muted);">
-                <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-        </div>
     </section>
 
     <!-- Library Section -->
@@ -4636,11 +4720,11 @@
                 <h2 class="section-title font-sora">
                     Explore Our <span class="gradient-text animated-gradient">Animation Library</span>
                 </h2>
-                <p class="section-subtitle">Professional mocap animations for every project <span class="ai-badge"><span class="ai-badge-icon"></span>AI Enhanced</span></p>
             </div>
 
             <!-- Premium Teaser Banner -->
             <div class="premium-banner">
+                <div style="margin-bottom: 4px; font-size: 14px; font-weight: 700; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">🎬 Professional mocap animations for every project</div>
                 <div class="premium-banner-text">✨ Premium Animations from $1 — Instant Download — Royalty-Free Forever</div>
             </div>
 
@@ -4758,21 +4842,24 @@
                 
                 <!-- AI Suggestions Toggle -->
                 <div class="ai-suggestions-toggle-container">
-                    <label class="ai-toggle-label">
-                        <input type="checkbox" id="aiSuggestionsToggle" class="ai-toggle-input">
-                        <span class="ai-toggle-slider"></span>
-                        <span class="ai-toggle-text">
-                            <span class="ai-icon">✨</span>
-                            Show AI-Powered Recommendations
-                        </span>
-                    </label>
-                    <div class="ai-suggestions-info">
-                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                            <circle cx="7" cy="7" r="6" stroke="#A8A593" stroke-width="1.5"/>
-                            <path d="M7 4V7M7 10H7.01" stroke="#A8A593" stroke-width="1.5" stroke-linecap="round"/>
-                        </svg>
-                        <div class="ai-suggestions-tooltip">
-                            AI analyzes your browsing history, searches, and purchases to suggest animations tailored to your projects
+                    <span class="ai-badge" style="margin-left: 0; margin-bottom: 4px;"><span class="ai-badge-icon"></span>AI Enhanced Search</span>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <label class="ai-toggle-label">
+                            <input type="checkbox" id="aiSuggestionsToggle" class="ai-toggle-input">
+                            <span class="ai-toggle-slider"></span>
+                            <span class="ai-toggle-text">
+                                <span class="ai-icon">✨</span>
+                                Show AI-Powered Recommendations
+                            </span>
+                        </label>
+                        <div class="ai-suggestions-info">
+                            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                                <circle cx="7" cy="7" r="6" stroke="#A8A593" stroke-width="1.5"/>
+                                <path d="M7 4V7M7 10H7.01" stroke="#A8A593" stroke-width="1.5" stroke-linecap="round"/>
+                            </svg>
+                            <div class="ai-suggestions-tooltip">
+                                AI analyzes your browsing history, searches, and purchases to suggest animations tailored to your projects
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -4870,26 +4957,44 @@
                     
                     <div class="form-group">
                         <label>Project Type</label>
-                        <select name="projectType" required>
-                            <option value="">Select a project type</option>
-                            <option value="game">Game Development</option>
-                            <option value="film">Film/Animation</option>
-                            <option value="vr">VR/AR Experience</option>
-                            <option value="training">Training/Simulation</option>
-                            <option value="other">Other</option>
-                        </select>
+                        <div class="filter-group">
+                            <button type="button" class="custom-dropdown-btn" data-dropdown="projectType">
+                                <span class="dropdown-selected-text">Select a project type</span>
+                                <svg class="dropdown-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 9L1 4h10z" fill="#00D4FF"/>
+                                </svg>
+                            </button>
+                            <div class="custom-dropdown-menu" data-dropdown-menu="projectType">
+                                <button type="button" class="dropdown-pill-option" data-value="">Select a project type</button>
+                                <button type="button" class="dropdown-pill-option" data-value="game">Game Development</button>
+                                <button type="button" class="dropdown-pill-option" data-value="film">Film/Animation</button>
+                                <button type="button" class="dropdown-pill-option" data-value="vr">VR/AR Experience</button>
+                                <button type="button" class="dropdown-pill-option" data-value="training">Training/Simulation</button>
+                                <button type="button" class="dropdown-pill-option" data-value="other">Other</button>
+                            </div>
+                            <input type="hidden" name="projectType" id="projectTypeInput" required>
+                        </div>
                     </div>
                     
                     <div class="form-group">
                         <label>Budget Range (Optional)</label>
-                        <select name="budget">
-                            <option value="">Select budget range</option>
-                            <option value="under-1k">Under $1,000</option>
-                            <option value="1k-5k">$1,000 - $5,000</option>
-                            <option value="5k-10k">$5,000 - $10,000</option>
-                            <option value="10k-25k">$10,000 - $25,000</option>
-                            <option value="25k-plus">$25,000+</option>
-                        </select>
+                        <div class="filter-group">
+                            <button type="button" class="custom-dropdown-btn" data-dropdown="budget">
+                                <span class="dropdown-selected-text">Select budget range</span>
+                                <svg class="dropdown-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6 9L1 4h10z" fill="#00D4FF"/>
+                                </svg>
+                            </button>
+                            <div class="custom-dropdown-menu" data-dropdown-menu="budget">
+                                <button type="button" class="dropdown-pill-option" data-value="">Select budget range</button>
+                                <button type="button" class="dropdown-pill-option" data-value="under-1k">Under $1,000</button>
+                                <button type="button" class="dropdown-pill-option" data-value="1k-5k">$1,000 - $5,000</button>
+                                <button type="button" class="dropdown-pill-option" data-value="5k-10k">$5,000 - $10,000</button>
+                                <button type="button" class="dropdown-pill-option" data-value="10k-25k">$10,000 - $25,000</button>
+                                <button type="button" class="dropdown-pill-option" data-value="25k-plus">$25,000+</button>
+                            </div>
+                            <input type="hidden" name="budget" id="budgetInput">
+                        </div>
                     </div>
                     
                     <div class="form-group">
@@ -5669,9 +5774,17 @@
                     // Update button text
                     selectedText.textContent = this.textContent;
                     
-                    // Update hidden select and trigger change
-                    select.value = this.dataset.value;
-                    select.dispatchEvent(new Event('change'));
+                    // Update hidden select and trigger change (for filter dropdowns)
+                    if (select) {
+                        select.value = this.dataset.value;
+                        select.dispatchEvent(new Event('change'));
+                    }
+                    
+                    // Update hidden input (for contact form dropdowns)
+                    const hiddenInput = document.getElementById(dropdownName + 'Input');
+                    if (hiddenInput) {
+                        hiddenInput.value = this.dataset.value;
+                    }
                     
                     // Close dropdown
                     btn.classList.remove('active');
