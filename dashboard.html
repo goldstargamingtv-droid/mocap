@@ -1522,7 +1522,7 @@
             <div class="sidebar-section">
                 <ul class="sidebar-menu">
                     <li class="sidebar-item">
-                        <a href="index.html" class="sidebar-link">
+                        <a href="index.html#library" class="sidebar-link">
                             <span class="sidebar-icon">🏠</span>
                             <span>Browse Store</span>
                         </a>
@@ -1595,13 +1595,15 @@
         
         <!-- Wishlist Section -->
         <div id="favorites" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(100, 116, 139, 0.15);">
-            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+            <div style="margin-bottom: 32px;">
                 <h2 style="font-size: 32px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
                     <span style="background: linear-gradient(135deg, #F59E0B, #FF6B6B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Wishlist</span>
                 </h2>
                 <p style="color: var(--text-secondary); font-size: 16px; margin-bottom: 24px;">
                     Save your favorite animations for quick access
                 </p>
+            </div>
+            <div style="text-align: center; max-width: 600px; margin: 0 auto;">
                 <div style="background: rgba(26, 26, 26, 0.6); border: 2px dashed rgba(100, 116, 139, 0.3); border-radius: 16px; padding: 48px 32px;">
                     <div style="font-size: 48px; margin-bottom: 16px;">⭐</div>
                     <div style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">
@@ -3050,34 +3052,29 @@
         // Scroll tracking for active section highlighting
         window.addEventListener('scroll', () => {
             const sections = [
-                { id: 'library', selector: '.sidebar-link:first-child' }, // My Library
                 { id: 'favorites', selector: 'a[href="#favorites"]' },
                 { id: 'purchaseHistory', selector: 'a[href="#purchaseHistory"]' },
                 { id: 'downloads', selector: 'a[href="#downloads"]' },
                 { id: 'settings', selector: 'a[href="#settings"]' }
             ];
 
-            let currentSection = '';
-            const scrollPosition = window.scrollY + 200; // Offset for better detection
+            let currentSection = 'library'; // Default to library
+            const scrollPosition = window.scrollY + 200; // Offset for navbar
 
-            // Check if we're at the top (My Library)
-            if (window.scrollY < 300) {
-                currentSection = 'library';
-            } else {
-                // Check other sections
-                sections.forEach(section => {
-                    if (section.id === 'library') return; // Skip library in this loop
+            // Check each section from bottom to top to find which one we're in
+            for (let i = sections.length - 1; i >= 0; i--) {
+                const section = sections[i];
+                const element = document.getElementById(section.id);
+                
+                if (element) {
+                    const offsetTop = element.offsetTop;
                     
-                    const element = document.getElementById(section.id);
-                    if (element) {
-                        const offsetTop = element.offsetTop;
-                        const offsetBottom = offsetTop + element.offsetHeight;
-                        
-                        if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-                            currentSection = section.id;
-                        }
+                    // If we've scrolled past this section's start, we're in it
+                    if (scrollPosition >= offsetTop) {
+                        currentSection = section.id;
+                        break;
                     }
-                });
+                }
             }
 
             // Update active states
@@ -3085,7 +3082,12 @@
                 link.classList.remove('active');
             });
 
-            if (currentSection) {
+            // Apply active class to current section
+            if (currentSection === 'library') {
+                // First sidebar link is My Library
+                const libraryLink = document.querySelector('.sidebar-link');
+                if (libraryLink) libraryLink.classList.add('active');
+            } else {
                 const activeSection = sections.find(s => s.id === currentSection);
                 if (activeSection) {
                     const activeLink = document.querySelector(activeSection.selector);
