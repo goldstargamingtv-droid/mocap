@@ -155,7 +155,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--teal);
+            background: linear-gradient(135deg, var(--teal), var(--amber));
             transition: width 0.3s ease;
         }
 
@@ -163,7 +163,8 @@
             color: var(--text-primary);
         }
 
-        .nav-link:hover::after {
+        .nav-link:hover::after,
+        .nav-link.active::after {
             width: 100%;
         }
 
@@ -428,7 +429,6 @@
         .cart-icon svg {
             width: 24px;
             height: 24px;
-            stroke: var(--teal);
             fill: none;
             stroke-width: 2;
             stroke-linecap: round;
@@ -787,9 +787,11 @@
 
         .hamburger-menu {
             display: none !important;
-            background: none;
             border: none;
-            color: var(--teal);
+            background: linear-gradient(135deg, var(--teal), var(--amber));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-size: 24px;
             cursor: pointer;
         }
@@ -2186,9 +2188,11 @@
             
             .hamburger-menu {
                 display: block !important;
-                background: none !important;
                 border: none !important;
-                color: var(--teal) !important;
+                background: linear-gradient(135deg, var(--teal), var(--amber)) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
                 font-size: 28px;
                 cursor: pointer;
                 padding: 8px;
@@ -2339,9 +2343,15 @@
                 <div class="cart-container">
                     <div class="cart-icon" id="cartIconNav" onclick="openCart()" title="View Cart" role="button" aria-label="Shopping cart" tabindex="0">
                         <svg viewBox="0 0 24 24">
-                            <circle cx="9" cy="21" r="1"></circle>
-                            <circle cx="20" cy="21" r="1"></circle>
-                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            <defs>
+                                <linearGradient id="cartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#F59E0B;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#FF6B6B;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="9" cy="21" r="1" stroke="url(#cartGradient)"></circle>
+                            <circle cx="20" cy="21" r="1" stroke="url(#cartGradient)"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" stroke="url(#cartGradient)"></path>
                         </svg>
                         <span class="cart-badge">0</span>
                     </div>
