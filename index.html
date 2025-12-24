@@ -3655,10 +3655,10 @@
         
         .form-group input {
             width: 100%;
-            padding: 12px 16px;
+            padding: 16px 24px;
             background: rgba(20, 20, 20, 0.6);
             border: 2px solid rgba(0, 212, 255, 0.2);
-            border-radius: 10px;
+            border-radius: 50px;
             color: var(--text-primary);
             font-size: 15px;
             font-family: 'DM Sans', sans-serif;
@@ -3666,7 +3666,7 @@
         }
         
         .password-input-wrapper input {
-            padding-right: 45px; /* Make room for eye icon */
+            padding-right: 50px; /* Make room for eye icon */
         }
         
         .password-toggle {
@@ -7239,8 +7239,8 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 // User is logged in, go to dashboard
                 window.location.href = 'dashboard.html';
             } else {
-                // User not logged in, show auth required modal
-                document.getElementById('authRequiredModal').classList.add('active');
+                // User not logged in, show login modal
+                showAuthModal('login');
             }
         }
 
