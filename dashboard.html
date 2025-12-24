@@ -1512,7 +1512,7 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a href="#" class="sidebar-link" onclick="alert('Settings coming soon!'); return false;">
+                        <a href="#settings" class="sidebar-link" onclick="scrollToSettings(event)">
                             <span class="sidebar-icon">⚙️</span>
                             <span>Settings</span>
                         </a>
@@ -1641,6 +1641,121 @@
             </div>
             
             <div id="downloadsContent" class="loading">Loading download history...</div>
+        </div>
+
+        <!-- Settings Section -->
+        <div id="settings" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(100, 116, 139, 0.15);">
+            <div style="margin-bottom: 32px;">
+                <h2 style="font-size: 32px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
+                    <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Settings</span>
+                </h2>
+                <p style="color: var(--text-secondary); font-size: 16px; margin-bottom: 24px;">
+                    Manage your account preferences
+                </p>
+            </div>
+            
+            <div id="settingsContent" style="max-width: 800px;">
+                <!-- Account Settings -->
+                <div class="settings-section">
+                    <h3 style="font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px;">Account Settings</h3>
+                    
+                    <!-- Email Display -->
+                    <div class="setting-item">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Email Address</label>
+                        <input type="email" id="userEmailSetting" readonly style="width: 100%; padding: 12px 16px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(100, 116, 139, 0.2); border-radius: 12px; color: var(--text-muted); font-size: 15px; cursor: not-allowed;">
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">Email is managed by your account provider</p>
+                    </div>
+
+                    <!-- Display Name - Coming Soon -->
+                    <div class="setting-item" style="margin-top: 24px; opacity: 0.5;">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Display Name <span style="color: var(--teal); font-size: 12px;">(Coming Soon)</span></label>
+                        <input type="text" disabled placeholder="Your display name" style="width: 100%; padding: 12px 16px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(100, 116, 139, 0.2); border-radius: 12px; color: var(--text-muted); font-size: 15px; cursor: not-allowed;">
+                    </div>
+
+                    <!-- Profile Picture - Coming Soon -->
+                    <div class="setting-item" style="margin-top: 24px; opacity: 0.5;">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Profile Picture <span style="color: var(--teal); font-size: 12px;">(Coming Soon)</span></label>
+                        <div style="padding: 12px 16px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(100, 116, 139, 0.2); border-radius: 12px; color: var(--text-muted); font-size: 15px;">
+                            Upload profile picture feature coming soon
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password & Security -->
+                <div class="settings-section" style="margin-top: 40px; padding-top: 40px; border-top: 2px solid rgba(100, 116, 139, 0.15);">
+                    <h3 style="font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px;">Password & Security</h3>
+                    
+                    <div class="setting-item">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Change Password</label>
+                        <button id="changePasswordBtn" onclick="showChangePasswordModal()" style="background: linear-gradient(135deg, var(--teal), var(--amber)); color: white; border: none; padding: 12px 24px; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease;">
+                            Change Password
+                        </button>
+                    </div>
+
+                    <!-- Email Notifications - Coming Soon -->
+                    <div class="setting-item" style="margin-top: 24px; opacity: 0.5;">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 12px;">Email Notifications <span style="color: var(--teal); font-size: 12px;">(Coming Soon)</span></label>
+                        <div style="padding: 16px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(100, 116, 139, 0.2); border-radius: 12px;">
+                            <div style="color: var(--text-muted); font-size: 13px; line-height: 1.6;">
+                                • New animation releases<br>
+                                • Sales and promotions<br>
+                                • Download receipts<br>
+                                • Account activity alerts
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Display Preferences -->
+                <div class="settings-section" style="margin-top: 40px; padding-top: 40px; border-top: 2px solid rgba(100, 116, 139, 0.15);">
+                    <h3 style="font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px;">Display Preferences</h3>
+                    
+                    <div class="setting-item">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Animations Per Page</label>
+                        <select id="animationsPerPage" onchange="saveDisplayPreference('animationsPerPage', this.value)" style="width: 100%; padding: 12px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(100, 116, 139, 0.2); border-radius: 12px; color: var(--text-primary); font-size: 15px; cursor: pointer;">
+                            <option value="12">12 animations</option>
+                            <option value="24">24 animations</option>
+                            <option value="36">36 animations</option>
+                            <option value="48">48 animations</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item" style="margin-top: 24px;">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Default Sort Order</label>
+                        <select id="defaultSort" onchange="saveDisplayPreference('defaultSort', this.value)" style="width: 100%; padding: 12px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(100, 116, 139, 0.2); border-radius: 12px; color: var(--text-primary); font-size: 15px; cursor: pointer;">
+                            <option value="popular">Most Popular</option>
+                            <option value="newest">Newest First</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Data Management -->
+                <div class="settings-section" style="margin-top: 40px; padding-top: 40px; border-top: 2px solid rgba(100, 116, 139, 0.15);">
+                    <h3 style="font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px;">Data Management</h3>
+                    
+                    <div class="setting-item">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Export Data</label>
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                            <button onclick="exportPurchaseHistory()" style="background: rgba(26, 26, 26, 0.8); color: var(--text-primary); border: 2px solid rgba(100, 116, 139, 0.3); padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease;">
+                                📄 Export Purchase History
+                            </button>
+                            <button onclick="exportDownloadHistory()" style="background: rgba(26, 26, 26, 0.8); color: var(--text-primary); border: 2px solid rgba(100, 116, 139, 0.3); padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease;">
+                                📥 Export Download History
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item" style="margin-top: 32px;">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: #FF6B6B; margin-bottom: 8px;">Danger Zone</label>
+                        <button onclick="showDeleteAccountModal()" style="background: rgba(255, 107, 107, 0.1); color: #FF6B6B; border: 2px solid rgba(255, 107, 107, 0.3); padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease;">
+                            🗑️ Delete Account
+                        </button>
+                        <p style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">This action cannot be undone</p>
+                    </div>
+                </div>
+            </div>
         </div>
             </div> <!-- Close .container -->
         </main> <!-- Close .main-content -->
@@ -2190,12 +2305,246 @@
             window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
         }
 
+        function scrollToSettings(e) {
+            e.preventDefault();
+            // Remove active from all sidebar links
+            document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
+            // Add active to this link
+            e.currentTarget.classList.add('active');
+            // Scroll to section with offset
+            const element = document.getElementById('settings');
+            const offset = 100;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - offset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        }
+
         function scrollToTop() {
             // Remove active from all sidebar links
             document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
             // Add active to My Library link
             document.querySelector('.sidebar-link').classList.add('active');
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============ SETTINGS FUNCTIONS ============
+
+        async function initializeSettings() {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) return;
+
+            // Set email in settings
+            document.getElementById('userEmailSetting').value = user.email;
+
+            // Load saved preferences from localStorage
+            const animationsPerPage = localStorage.getItem('animationsPerPage') || '12';
+            const defaultSort = localStorage.getItem('defaultSort') || 'popular';
+
+            document.getElementById('animationsPerPage').value = animationsPerPage;
+            document.getElementById('defaultSort').value = defaultSort;
+        }
+
+        function saveDisplayPreference(key, value) {
+            localStorage.setItem(key, value);
+            showNotification(`✅ Preference saved: ${key === 'animationsPerPage' ? 'Animations per page' : 'Default sort order'}`, 'success');
+        }
+
+        function showChangePasswordModal() {
+            const modal = document.createElement('div');
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85); display: flex; align-items: center; justify-content: center; z-index: 10000;';
+            modal.innerHTML = `
+                <div style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.98)); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 24px; padding: 40px; max-width: 500px; width: 90%; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);">
+                    <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 8px; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Change Password</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Enter your new password below</p>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">New Password</label>
+                        <input type="password" id="newPassword" placeholder="Enter new password" style="width: 100%; padding: 14px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(100, 116, 139, 0.3); border-radius: 12px; color: var(--text-primary); font-size: 15px;">
+                    </div>
+
+                    <div style="margin-bottom: 24px;">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Confirm Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirm new password" style="width: 100%; padding: 14px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(100, 116, 139, 0.3); border-radius: 12px; color: var(--text-primary); font-size: 15px;">
+                    </div>
+
+                    <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                        <button onclick="this.closest('[style*=fixed]').remove()" style="padding: 12px 24px; background: rgba(100, 116, 139, 0.2); border: 2px solid rgba(100, 116, 139, 0.3); border-radius: 50px; color: var(--text-primary); font-weight: 600; cursor: pointer;">Cancel</button>
+                        <button onclick="handlePasswordChange()" style="padding: 12px 24px; background: linear-gradient(135deg, var(--teal), var(--amber)); border: none; border-radius: 50px; color: white; font-weight: 600; cursor: pointer;">Change Password</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        async function handlePasswordChange() {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (!newPassword || newPassword.length < 6) {
+                alert('Password must be at least 6 characters long');
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            try {
+                const { error } = await supabaseClient.auth.updateUser({
+                    password: newPassword
+                });
+
+                if (error) throw error;
+
+                showNotification('✅ Password changed successfully', 'success');
+                document.querySelector('[style*="position: fixed"]').remove();
+            } catch (error) {
+                console.error('Password change error:', error);
+                alert('Failed to change password: ' + error.message);
+            }
+        }
+
+        async function exportPurchaseHistory() {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) return;
+
+            try {
+                const { data: purchases } = await supabaseClient
+                    .from('purchases')
+                    .select(`
+                        id,
+                        created_at,
+                        amount_paid,
+                        animations(title, price)
+                    `)
+                    .eq('user_id', user.id)
+                    .order('created_at', { ascending: false });
+
+                const csv = [
+                    ['Date', 'Animation', 'Amount', 'Order ID'].join(','),
+                    ...purchases.map(p => [
+                        new Date(p.created_at).toLocaleString(),
+                        `"${p.animations.title}"`,
+                        `$${(p.amount_paid || p.animations.price).toFixed(2)}`,
+                        p.id.substring(0, 8).toUpperCase()
+                    ].join(','))
+                ].join('\n');
+
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `MocapWork_Purchase_History_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+
+                showNotification('✅ Purchase history exported', 'success');
+            } catch (error) {
+                console.error('Export error:', error);
+                alert('Failed to export purchase history');
+            }
+        }
+
+        async function exportDownloadHistory() {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) return;
+
+            try {
+                const { data: downloads } = await supabaseClient
+                    .from('download_history')
+                    .select(`
+                        downloaded_at,
+                        purchases!inner(
+                            animations(title)
+                        )
+                    `)
+                    .eq('user_id', user.id)
+                    .order('downloaded_at', { ascending: false });
+
+                const csv = [
+                    ['Downloaded At', 'Animation'].join(','),
+                    ...downloads.map(d => [
+                        new Date(d.downloaded_at).toLocaleString(),
+                        `"${d.purchases.animations.title}"`
+                    ].join(','))
+                ].join('\n');
+
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `MocapWork_Download_History_${new Date().toISOString().split('T')[0]}.csv`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+
+                showNotification('✅ Download history exported', 'success');
+            } catch (error) {
+                console.error('Export error:', error);
+                alert('Failed to export download history');
+            }
+        }
+
+        function showDeleteAccountModal() {
+            const modal = document.createElement('div');
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85); display: flex; align-items: center; justify-content: center; z-index: 10000;';
+            modal.innerHTML = `
+                <div style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.98)); border: 2px solid rgba(255, 107, 107, 0.5); border-radius: 24px; padding: 40px; max-width: 500px; width: 90%; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);">
+                    <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #FF6B6B;">Delete Account</h2>
+                    <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px; line-height: 1.6;">
+                        This will permanently delete your account and all associated data including:
+                        <br>• Purchase history
+                        <br>• Download history
+                        <br>• Saved preferences
+                        <br><br><strong style="color: #FF6B6B;">This action cannot be undone.</strong>
+                    </p>
+                    
+                    <div style="margin-bottom: 24px;">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Type "DELETE" to confirm</label>
+                        <input type="text" id="deleteConfirmation" placeholder="Type DELETE" style="width: 100%; padding: 14px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(255, 107, 107, 0.3); border-radius: 12px; color: var(--text-primary); font-size: 15px;">
+                    </div>
+
+                    <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                        <button onclick="this.closest('[style*=fixed]').remove()" style="padding: 12px 24px; background: rgba(100, 116, 139, 0.2); border: 2px solid rgba(100, 116, 139, 0.3); border-radius: 50px; color: var(--text-primary); font-weight: 600; cursor: pointer;">Cancel</button>
+                        <button onclick="handleDeleteAccount()" style="padding: 12px 24px; background: rgba(255, 107, 107, 0.2); border: 2px solid rgba(255, 107, 107, 0.5); border-radius: 50px; color: #FF6B6B; font-weight: 600; cursor: pointer;">Delete Account</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        async function handleDeleteAccount() {
+            const confirmation = document.getElementById('deleteConfirmation').value;
+
+            if (confirmation !== 'DELETE') {
+                alert('Please type "DELETE" to confirm');
+                return;
+            }
+
+            const { data: { user } } = await supabaseClient.auth.getUser();
+            if (!user) return;
+
+            try {
+                // Delete user data from tables
+                await supabaseClient.from('download_history').delete().eq('user_id', user.id);
+                await supabaseClient.from('purchases').delete().eq('user_id', user.id);
+
+                // Delete auth user (this also signs them out)
+                const { error } = await supabaseClient.auth.admin.deleteUser(user.id);
+                
+                if (error) throw error;
+
+                // Sign out and redirect
+                await supabaseClient.auth.signOut();
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Delete account error:', error);
+                alert('Failed to delete account. Please contact support.');
+            }
         }
 
         async function logout() {
@@ -2611,6 +2960,7 @@
 
         // Initialize
         loadPurchases();
+        initializeSettings();
         updateCartBadge();
         checkAdmin();
 
