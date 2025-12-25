@@ -3669,73 +3669,82 @@
                 spinner.style.display = loading ? 'block' : 'none';
             }
             
-            document.addEventListener('DOMContentLoaded', () => {
-                console.log('✅ DOMContentLoaded - attaching payment handler');
-                document.getElementById('stripe-pay-button')?.addEventListener('click', async (e) => {
-                    e.preventDefault();
-                    console.log('💳 Pay button clicked!');
-                    console.log('currentClientSecret:', currentClientSecret);
-                    console.log('cardNumberElement:', cardNumberElement);
-                    
-                    setPayButtonLoading(true);
-                    hideStripeError();
-                    
-                    try {
-                        console.log('🔄 Confirming payment...');
-                        const { error, paymentIntent } = await stripe.confirmCardPayment(currentClientSecret, {
-                            payment_method: { card: cardNumberElement }
-                        });
+            // Attach payment button listener immediately
+            console.log('✅ Attaching payment handler');
+            setTimeout(() => {
+                const payButton = document.getElementById('stripe-pay-button');
+                console.log('Pay button element:', payButton);
+                if (payButton) {
+                    payButton.addEventListener('click', async (e) => {
+                        e.preventDefault();
+                        console.log('💳 Pay button clicked!');
+                        console.log('currentClientSecret:', currentClientSecret);
+                        console.log('cardNumberElement:', cardNumberElement);
                         
-                        console.log('Payment result:', { error, paymentIntent });
+                        setPayButtonLoading(true);
+                        hideStripeError();
                         
-                        if (error) {
-                            console.error('❌ Payment error:', error);
-                            showStripeError(error.message);
-                            setPayButtonLoading(false);
-                        } else if (paymentIntent.status === 'succeeded') {
-                            console.log('✅ Payment succeeded!');
-                            closeStripeCheckout();
+                        try {
+                            console.log('🔄 Confirming payment...');
+                            const { error, paymentIntent } = await stripe.confirmCardPayment(currentClientSecret, {
+                                payment_method: { card: cardNumberElement }
+                            });
                             
-                            // Save purchase directly
-                            try {
-                                const { data: { session } } = await supabaseClient.auth.getSession();
+                            console.log('Payment result:', { error, paymentIntent });
+                            
+                            if (error) {
+                                console.error('❌ Payment error:', error);
+                                showStripeError(error.message);
+                                setPayButtonLoading(false);
+                            } else if (paymentIntent.status === 'succeeded') {
+                                console.log('✅ Payment succeeded!');
+                                closeStripeCheckout();
                                 
-                                if (session && currentProductInfo) {
-                                    if (currentProductInfo.cartItems && currentProductInfo.cartItems.length > 0) {
-                                        const purchases = currentProductInfo.cartItems.map(item => ({
-                                            user_id: session.user.id,
-                                            animation_id: item.animationId,
-                                            stripe_session_id: paymentIntent.id,
-                                            amount_paid: item.price
-                                        }));
-                                        
-                                        await supabaseClient.from('purchases').insert(purchases);
-                                    } else if (currentProductInfo.animationId) {
-                                        await supabaseClient.from('purchases').insert([{
-                                            user_id: session.user.id,
-                                            animation_id: currentProductInfo.animationId,
-                                            stripe_session_id: paymentIntent.id,
-                                            amount_paid: currentProductInfo.price
-                                        }]);
+                                // Save purchase directly
+                                try {
+                                    const { data: { session } } = await supabaseClient.auth.getSession();
+                                    
+                                    if (session && currentProductInfo) {
+                                        if (currentProductInfo.cartItems && currentProductInfo.cartItems.length > 0) {
+                                            const purchases = currentProductInfo.cartItems.map(item => ({
+                                                user_id: session.user.id,
+                                                animation_id: item.animationId,
+                                                stripe_session_id: paymentIntent.id,
+                                                amount_paid: item.price
+                                            }));
+                                            
+                                            await supabaseClient.from('purchases').insert(purchases);
+                                        } else if (currentProductInfo.animationId) {
+                                            await supabaseClient.from('purchases').insert([{
+                                                user_id: session.user.id,
+                                                animation_id: currentProductInfo.animationId,
+                                                stripe_session_id: paymentIntent.id,
+                                                amount_paid: currentProductInfo.price
+                                            }]);
+                                        }
                                     }
+                                } catch (err) {
+                                    console.error('Error saving purchase:', err);
                                 }
-                            } catch (err) {
-                                console.error('Error saving purchase:', err);
+                                
+                                showThankYouModal(paymentIntent.id);
                             }
-                            
-                            showThankYouModal(paymentIntent.id);
+                        } catch (err) {
+                            console.error('❌ Payment exception:', err);
+                            showStripeError('An unexpected error occurred. Please try again.');
+                            setPayButtonLoading(false);
                         }
-                    } catch (err) {
-                        showStripeError('An unexpected error occurred. Please try again.');
-                        setPayButtonLoading(false);
-                    }
-                });
-                
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && document.getElementById('stripeCheckoutModal').classList.contains('active')) {
-                        closeStripeCheckout();
-                    }
-                });
+                    });
+                } else {
+                    console.error('❌ Pay button not found!');
+                }
+            }, 100);
+            
+            // ESC key listener
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && document.getElementById('stripeCheckoutModal').classList.contains('active')) {
+                    closeStripeCheckout();
+                }
             });
             
             // Initialize search elements
