@@ -5403,6 +5403,41 @@
             window.closeStripeCheckout = closeStripeCheckout;
             window.openStripeCheckout = openStripeCheckout;
             
+            // Show Thank You Modal (simple version)
+            function showThankYouModal(paymentIntentId) {
+                console.log('✅ showThankYouModal called with:', paymentIntentId);
+                
+                // Close any open modals
+                const checkoutModal = document.getElementById('stripeCheckoutModal');
+                if (checkoutModal) {
+                    checkoutModal.classList.remove('active');
+                }
+                
+                // Show thank you modal
+                const thankYouModal = document.getElementById('thankYouModal');
+                if (thankYouModal) {
+                    thankYouModal.classList.add('active');
+                    
+                    // Hide all content sections
+                    const sections = ['thankYouLoading', 'thankYouPreview', 'thankYouDownload', 'thankYouOrderDetails', 'thankYouError'];
+                    sections.forEach(id => {
+                        const el = document.getElementById(id);
+                        if (el) el.style.display = 'none';
+                    });
+                    
+                    // Store payment intent
+                    localStorage.setItem('lastPaymentIntent', paymentIntentId);
+                    
+                    console.log('✅ Thank you modal displayed!');
+                } else {
+                    console.error('❌ Thank you modal not found in DOM');
+                    alert('Payment successful! Your download will be available in your dashboard.');
+                }
+            }
+            
+            // Make globally accessible
+            window.showThankYouModal = showThankYouModal;
+            
             // Show Error
             function showStripeError(message) {
                 const errorDiv = document.getElementById('stripe-error-message');
@@ -5453,12 +5488,22 @@
                             setPayButtonLoading(false);
                         } else if (paymentIntent.status === 'succeeded') {
                             console.log('✅ Payment successful!', paymentIntent);
+                            console.log('🔍 Checking if showThankYouModal exists...');
+                            console.log('window.showThankYouModal:', typeof window.showThankYouModal);
+                            console.log('showThankYouModal:', typeof showThankYouModal);
                             
                             // Close checkout modal
                             closeStripeCheckout();
                             
-                            // Show thank you modal
-                            showThankYouModal(paymentIntent.id);
+                            // Show thank you modal - use window reference
+                            if (typeof window.showThankYouModal === 'function') {
+                                window.showThankYouModal(paymentIntent.id);
+                            } else if (typeof showThankYouModal === 'function') {
+                                showThankYouModal(paymentIntent.id);
+                            } else {
+                                console.error('❌ showThankYouModal not found!');
+                                alert('Payment successful! Check your dashboard for downloads.');
+                            }
                         }
                     } catch (err) {
                         console.error('Payment error:', err);
@@ -8148,31 +8193,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         if (typeof updateCartBadge === 'function') updateCartBadge();
     }
 
-    async function showThankYouModal(paymentIntentId) {
-        thankYouModalOpen = true;
-        document.getElementById('thankYouModal').classList.add('active');
-        
-        // Show loading state
-        document.getElementById('thankYouLoading').style.display = 'none';
-        document.getElementById('thankYouPreview').style.display = 'none';
-        document.getElementById('thankYouDownload').style.display = 'none';
-        document.getElementById('thankYouOrderDetails').style.display = 'none';
-        document.getElementById('thankYouError').style.display = 'none';
-        
-        // Show simple success message
-        const successMessage = document.getElementById('thankYouSuccess');
-        if (successMessage) {
-            successMessage.style.display = 'block';
-        }
-        
-        // Store payment intent for later retrieval
-        localStorage.setItem('lastPaymentIntent', paymentIntentId);
-        
-        console.log('✅ Thank you modal shown for payment:', paymentIntentId);
-    }
-    
-    // Make globally accessible
-    window.showThankYouModal = showThankYouModal;
             console.error('Error loading purchase:', error);
             document.getElementById('thankYouLoading').style.display = 'none';
             document.getElementById('thankYouError').style.display = 'block';
