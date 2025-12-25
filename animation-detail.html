@@ -3663,26 +3663,37 @@
                 const buttonText = document.getElementById('stripe-button-text');
                 const spinner = document.getElementById('stripe-button-spinner');
                 
+                console.log('🔘 setPayButtonLoading:', loading);
                 button.disabled = loading;
-                buttonText.textContent = loading ? 'Processing...' : 'Pay Now';
+                buttonText.textContent = loading ? 'Processing...' : '💳 Pay Now';
                 spinner.style.display = loading ? 'block' : 'none';
             }
             
             document.addEventListener('DOMContentLoaded', () => {
+                console.log('✅ DOMContentLoaded - attaching payment handler');
                 document.getElementById('stripe-pay-button')?.addEventListener('click', async (e) => {
                     e.preventDefault();
+                    console.log('💳 Pay button clicked!');
+                    console.log('currentClientSecret:', currentClientSecret);
+                    console.log('cardNumberElement:', cardNumberElement);
+                    
                     setPayButtonLoading(true);
                     hideStripeError();
                     
                     try {
+                        console.log('🔄 Confirming payment...');
                         const { error, paymentIntent } = await stripe.confirmCardPayment(currentClientSecret, {
                             payment_method: { card: cardNumberElement }
                         });
                         
+                        console.log('Payment result:', { error, paymentIntent });
+                        
                         if (error) {
+                            console.error('❌ Payment error:', error);
                             showStripeError(error.message);
                             setPayButtonLoading(false);
                         } else if (paymentIntent.status === 'succeeded') {
+                            console.log('✅ Payment succeeded!');
                             closeStripeCheckout();
                             
                             // Save purchase directly
