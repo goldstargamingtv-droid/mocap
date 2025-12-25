@@ -5268,12 +5268,6 @@
     
     // Make globally accessible
     window.showThankYouModal = showThankYouModal;
-            console.error('Error loading purchase:', error);
-            document.getElementById('thankYouLoading').style.display = 'none';
-            document.getElementById('thankYouError').style.display = 'block';
-            document.getElementById('thankYouErrorMessage').textContent = error.message || 'Unable to load purchase details. Please contact support.';
-        }
-    }
 
     // Check URL for payment success on page load
     window.addEventListener('load', function() {
