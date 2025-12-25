@@ -3556,7 +3556,7 @@
                     appearance: {
                         theme: 'night',
                         variables: {
-                            colorBackground: '#1A1A1A',
+                            colorBackground: '#2A2A2A',
                             colorText: '#FEFCE8',
                             colorDanger: '#FCA5A5',
                             fontFamily: 'DM Sans, sans-serif',
@@ -3617,7 +3617,7 @@
                 previewContainer.innerHTML = ''; // Clear previous
                 
                 if (animationId && !cartItems) {
-                    // Single item
+                    // Single item - centered, no scroll
                     try {
                         const { data: animation } = await supabaseClient
                             .from('animations')
@@ -3626,6 +3626,8 @@
                             .single();
                         
                         if (animation && animation.video_url) {
+                            previewContainer.style.justifyContent = 'center';
+                            previewContainer.style.overflowX = 'hidden';
                             previewContainer.innerHTML = `
                                 <div style="text-align: center; flex-shrink: 0;">
                                     <img src="${animation.video_url}" alt="${animation.title}" style="width: 200px; height: auto; border-radius: 12px; border: 2px solid rgba(0, 212, 255, 0.2);">
@@ -3639,8 +3641,11 @@
                         previewDiv.style.display = 'none';
                     }
                 } else if (cartItems && cartItems.length > 0) {
-                    // Multiple items from cart
+                    // Multiple items from cart - scrollable
                     try {
+                        previewContainer.style.justifyContent = 'flex-start';
+                        previewContainer.style.overflowX = 'auto';
+                        
                         const animationIds = cartItems.map(item => item.animationId);
                         const { data: animations } = await supabaseClient
                             .from('animations')
@@ -4938,7 +4943,7 @@
 
                 <!-- Animation Preview -->
                 <div id="thankYouPreview" style="display: none; margin-bottom: 20px;">
-                    <div style="background: var(--bg-secondary); border-radius: 12px; padding: 12px; border: 2px solid rgba(0, 212, 255, 0.3);">
+                    <div style="background: var(--bg-secondary); border-radius: 12px; padding: 12px; border: 2px solid rgba(0, 212, 255, 0.1);">
                         <img id="thankYouGif" src="" alt="Animation Preview" style="width: 100%; max-width: 200px; border-radius: 8px; display: block; margin: 0 auto;">
                         <p id="thankYouAnimationName" style="text-align: center; margin-top: 8px; font-weight: 600; color: var(--text-primary); font-size: 14px;"></p>
                     </div>
@@ -4960,7 +4965,7 @@
                 </div>
 
                 <!-- Order Details -->
-                <div id="thankYouOrderDetails" style="display: none; background: rgba(26, 26, 26, 0.4); border-radius: 10px; padding: 16px; border: 2px solid rgba(0, 212, 255, 0.3);">
+                <div id="thankYouOrderDetails" style="display: none; background: rgba(26, 26, 26, 0.4); border-radius: 10px; padding: 16px; border: 2px solid rgba(0, 212, 255, 0.1);">
                     <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary);">Order Details</h3>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
                         <div style="display: flex; justify-content: space-between;">
@@ -5116,7 +5121,7 @@
     }
 
     .stripe-input {
-        background: #1A1A1A;
+        background: #2A2A2A;
         border: 2px solid rgba(0, 212, 255, 0.2);
         border-radius: 50px;
         padding: 16px 24px;
@@ -5128,7 +5133,7 @@
         border-color: var(--teal);
         box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1),
                     0 0 20px rgba(0, 212, 255, 0.3);
-        background: #1A1A1A;
+        background: #2A2A2A;
     }
 
     .stripe-input.StripeElement--invalid {
