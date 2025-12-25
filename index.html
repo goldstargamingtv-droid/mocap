@@ -5290,7 +5290,9 @@
             
             // Stripe Modal Variables
             let stripeElements;
-            let stripeCardElement;
+            let cardNumberElement;
+            let cardExpiryElement;
+            let cardCvcElement;
             let currentClientSecret;
             let currentProductInfo = {};
             
@@ -5302,33 +5304,58 @@
             function initializeStripeElements() {
                 if (stripeElements) return; // Already initialized
                 
-                stripeElements = stripe.elements();
-                stripeCardElement = stripeElements.create('card', {
-                    style: {
-                        base: {
-                            color: '#FEFCE8',
-                            fontFamily: '"DM Sans", sans-serif',
-                            fontSize: '16px',
-                            '::placeholder': {
-                                color: '#A8A593'
-                            }
-                        },
-                        invalid: {
-                            color: '#FCA5A5',
-                            iconColor: '#FCA5A5'
+                const elementStyles = {
+                    base: {
+                        color: '#FEFCE8',
+                        fontFamily: '"DM Sans", sans-serif',
+                        fontSize: '16px',
+                        fontWeight: '400',
+                        '::placeholder': {
+                            color: '#A8A593'
                         }
+                    },
+                    invalid: {
+                        color: '#FCA5A5',
+                        iconColor: '#FCA5A5'
+                    },
+                    complete: {
+                        color: '#10B981',
+                        iconColor: '#10B981'
                     }
+                };
+                
+                stripeElements = stripe.elements();
+                
+                // Create separate elements
+                cardNumberElement = stripeElements.create('cardNumber', {
+                    style: elementStyles,
+                    placeholder: '1234 5678 9012 3456'
                 });
                 
-                stripeCardElement.mount('#stripe-card-element');
+                cardExpiryElement = stripeElements.create('cardExpiry', {
+                    style: elementStyles,
+                    placeholder: 'MM / YY'
+                });
                 
-                // Handle card errors
-                stripeCardElement.on('change', (event) => {
-                    if (event.error) {
-                        showStripeError(event.error.message);
-                    } else {
-                        hideStripeError();
-                    }
+                cardCvcElement = stripeElements.create('cardCvc', {
+                    style: elementStyles,
+                    placeholder: 'CVC'
+                });
+                
+                // Mount elements
+                cardNumberElement.mount('#stripe-card-number');
+                cardExpiryElement.mount('#stripe-card-expiry');
+                cardCvcElement.mount('#stripe-card-cvc');
+                
+                // Handle errors for all elements
+                [cardNumberElement, cardExpiryElement, cardCvcElement].forEach(element => {
+                    element.on('change', (event) => {
+                        if (event.error) {
+                            showStripeError(event.error.message);
+                        } else {
+                            hideStripeError();
+                        }
+                    });
                 });
             }
             
@@ -5360,10 +5387,10 @@
                 const modal = document.getElementById('stripeCheckoutModal');
                 modal.classList.remove('active');
                 
-                // Clear card element
-                if (stripeCardElement) {
-                    stripeCardElement.clear();
-                }
+                // Clear all card elements
+                if (cardNumberElement) cardNumberElement.clear();
+                if (cardExpiryElement) cardExpiryElement.clear();
+                if (cardCvcElement) cardCvcElement.clear();
                 
                 // Hide error
                 hideStripeError();
@@ -5413,7 +5440,7 @@
                     try {
                         const { error, paymentIntent } = await stripe.confirmCardPayment(currentClientSecret, {
                             payment_method: {
-                                card: stripeCardElement
+                                card: cardNumberElement
                             }
                         });
                         
@@ -5423,11 +5450,11 @@
                         } else if (paymentIntent.status === 'succeeded') {
                             console.log('✅ Payment successful!', paymentIntent);
                             
-                            // Close modal
+                            // Close checkout modal
                             closeStripeCheckout();
                             
-                            // Redirect to thank you page
-                            window.location.href = '/thank-you.html?payment_intent=' + paymentIntent.id;
+                            // Show thank you modal
+                            showThankYouModal(paymentIntent.id);
                         }
                     } catch (err) {
                         console.error('Payment error:', err);
@@ -7914,18 +7941,50 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         padding: 32px 24px;
     }
 
-    #stripe-card-element {
+    .stripe-payment-form {
+        margin-bottom: 20px;
+    }
+
+    .stripe-form-group {
+        margin-bottom: 16px;
+    }
+
+    .stripe-form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    .stripe-label {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 8px;
+        font-family: 'DM Sans', sans-serif;
+    }
+
+    .stripe-input {
         background: var(--bg-card);
         border: 2px solid rgba(0, 212, 255, 0.2);
         border-radius: 12px;
-        padding: 16px;
-        margin-bottom: 16px;
-        transition: border-color 0.3s ease;
+        padding: 14px 16px;
+        transition: all 0.3s ease;
     }
 
-    #stripe-card-element:focus-within {
+    .stripe-input:focus-within,
+    .stripe-input.StripeElement--focus {
         border-color: rgba(0, 212, 255, 0.5);
-        box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+        background: rgba(0, 212, 255, 0.03);
+    }
+
+    .stripe-input.StripeElement--invalid {
+        border-color: rgba(239, 68, 68, 0.5);
+    }
+
+    .stripe-input.StripeElement--complete {
+        border-color: rgba(16, 185, 129, 0.5);
     }
 
     .stripe-order-summary {
@@ -8950,7 +9009,26 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                         <span class="stripe-order-value" id="stripe-total-price">$0.00</span>
                     </div>
                 </div>
-                <div id="stripe-card-element"></div>
+                
+                <!-- Payment Form -->
+                <div class="stripe-payment-form">
+                    <div class="stripe-form-group">
+                        <label class="stripe-label">Card Number</label>
+                        <div id="stripe-card-number" class="stripe-input"></div>
+                    </div>
+                    
+                    <div class="stripe-form-row">
+                        <div class="stripe-form-group">
+                            <label class="stripe-label">Expiry Date</label>
+                            <div id="stripe-card-expiry" class="stripe-input"></div>
+                        </div>
+                        <div class="stripe-form-group">
+                            <label class="stripe-label">CVC</label>
+                            <div id="stripe-card-cvc" class="stripe-input"></div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div id="stripe-error-message" class="stripe-error-message"></div>
                 <button id="stripe-pay-button" class="stripe-pay-button">
                     <span id="stripe-button-text">Pay Now</span>
