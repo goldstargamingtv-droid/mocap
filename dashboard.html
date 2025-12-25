@@ -1709,10 +1709,10 @@
                 <span>Total:</span>
                 <span id="cartHoverTotal">$0.00</span>
             </div>
-            <button id="cartHoverCheckoutBtn" class="btn-download" onclick="window.location.href='index.html#cart'" style="display: none;">
+            <button id="cartHoverCheckoutBtn" class="btn-download" onclick="handleCartHoverCheckout()" style="display: none;">
                 Proceed to Checkout
             </button>
-            <button class="btn-view" onclick="window.location.href='index.html#cart'">
+            <button class="btn-view" onclick="openCart()">
                 View Full Cart
             </button>
         </div>
@@ -3052,6 +3052,75 @@
             await updateCartBadge();
             await renderCartItems();
         }
+
+        // Handle checkout from cart hover dropdown
+        window.handleCartHoverCheckout = async function() {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            if (!session) {
+                document.getElementById('cartHoverDropdown').style.display = 'none';
+                alert('Please sign in to checkout');
+                return;
+            }
+
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            if (cart.length === 0) {
+                alert('Your cart is empty');
+                return;
+            }
+
+            // Close dropdown
+            document.getElementById('cartHoverDropdown').style.display = 'none';
+
+            // Get cart items
+            const { data: cartItems } = await supabaseClient
+                .from('animations')
+                .select('*')
+                .in('id', cart);
+
+            // Calculate prices with sales
+            const itemsWithPrices = cartItems.map(item => {
+                const isOnSale = (item.on_sale || item.holiday_sale) && item.sale_percentage;
+                const finalPrice = isOnSale ? item.price * (1 - item.sale_percentage / 100) : item.price;
+                return {
+                    animationId: item.id,
+                    animationTitle: item.title,
+                    price: finalPrice
+                };
+            });
+
+            // Create checkout session
+            try {
+                const response = await fetch(`${SUPABASE_URL}/functions/v1/create-checkout`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify({
+                        userId: session.user.id,
+                        cartItems: itemsWithPrices
+                    })
+                });
+
+                const { clientSecret, error, price, productName } = await response.json();
+                
+                if (error) {
+                    alert('Error: ' + error);
+                    return;
+                }
+                
+                if (!clientSecret) {
+                    alert('Error creating checkout session.');
+                    return;
+                }
+                
+                const mappedCartItems = itemsWithPrices.map(item => ({ animationId: item.animationId, price: item.price }));
+                openStripeCheckout(productName || `Cart (${itemsWithPrices.length} items)`, price, clientSecret, null, mappedCartItems);
+            } catch (error) {
+                console.error('Checkout error:', error);
+                alert('Error processing checkout. Please try again.');
+            }
+        };
 
         async function proceedToCheckout() {
             const { data: { session } } = await supabaseClient.auth.getSession();
