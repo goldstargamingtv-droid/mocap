@@ -3703,10 +3703,14 @@
                                 
                                 // Save purchase directly
                                 try {
+                                    console.log('💾 Saving purchase to database...');
                                     const { data: { session } } = await supabaseClient.auth.getSession();
+                                    console.log('Session:', session);
+                                    console.log('currentProductInfo:', currentProductInfo);
                                     
                                     if (session && currentProductInfo) {
                                         if (currentProductInfo.cartItems && currentProductInfo.cartItems.length > 0) {
+                                            console.log('💾 Saving cart items:', currentProductInfo.cartItems);
                                             const purchases = currentProductInfo.cartItems.map(item => ({
                                                 user_id: session.user.id,
                                                 animation_id: item.animationId,
@@ -3714,18 +3718,25 @@
                                                 amount_paid: item.price
                                             }));
                                             
-                                            await supabaseClient.from('purchases').insert(purchases);
+                                            const result = await supabaseClient.from('purchases').insert(purchases);
+                                            console.log('✅ Cart purchase saved:', result);
                                         } else if (currentProductInfo.animationId) {
-                                            await supabaseClient.from('purchases').insert([{
+                                            console.log('💾 Saving single item:', currentProductInfo.animationId);
+                                            const result = await supabaseClient.from('purchases').insert([{
                                                 user_id: session.user.id,
                                                 animation_id: currentProductInfo.animationId,
                                                 stripe_session_id: paymentIntent.id,
                                                 amount_paid: currentProductInfo.price
                                             }]);
+                                            console.log('✅ Single purchase saved:', result);
+                                        } else {
+                                            console.error('❌ No animationId or cartItems in currentProductInfo');
                                         }
+                                    } else {
+                                        console.error('❌ Missing session or currentProductInfo');
                                     }
                                 } catch (err) {
-                                    console.error('Error saving purchase:', err);
+                                    console.error('❌ Error saving purchase:', err);
                                 }
                                 
                                 showThankYouModal(paymentIntent.id);
