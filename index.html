@@ -5324,7 +5324,19 @@
                     }
                 };
                 
-                stripeElements = stripe.elements();
+                // Create elements with appearance options
+                stripeElements = stripe.elements({
+                    appearance: {
+                        theme: 'night',
+                        variables: {
+                            colorBackground: '#1A1A1A',
+                            colorText: '#FEFCE8',
+                            colorDanger: '#FCA5A5',
+                            fontFamily: 'DM Sans, sans-serif',
+                            borderRadius: '50px'
+                        }
+                    }
+                });
                 
                 // Create separate elements
                 cardNumberElement = stripeElements.create('cardNumber', {
@@ -5374,6 +5386,30 @@
                 document.getElementById('stripe-product-name').textContent = productName;
                 document.getElementById('stripe-product-price').textContent = `$${price.toFixed(2)}`;
                 document.getElementById('stripe-total-price').textContent = `$${price.toFixed(2)}`;
+                
+                // Show animation preview for single items
+                const previewDiv = document.getElementById('stripe-animation-preview');
+                if (animationId && !cartItems) {
+                    // Fetch animation data to get video_url
+                    try {
+                        const { data: animation } = await supabaseClient
+                            .from('animations')
+                            .select('video_url')
+                            .eq('id', animationId)
+                            .single();
+                        
+                        if (animation && animation.video_url) {
+                            document.getElementById('stripe-animation-gif').src = animation.video_url;
+                            previewDiv.style.display = 'block';
+                        } else {
+                            previewDiv.style.display = 'none';
+                        }
+                    } catch (error) {
+                        previewDiv.style.display = 'none';
+                    }
+                } else {
+                    previewDiv.style.display = 'none';
+                }
                 
                 // Initialize Stripe Elements if not already done
                 initializeStripeElements();
@@ -8225,7 +8261,10 @@ Focus on diversity while matching user preferences. Prioritize animations the us
 
     .stripe-order-total .stripe-order-value {
         font-size: 24px;
-        color: var(--teal);
+        background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
         font-weight: 800;
     }
 
@@ -9133,6 +9172,11 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 <button class="stripe-checkout-modal-close" onclick="closeStripeCheckout()">×</button>
             </div>
             <div class="stripe-checkout-modal-body">
+                <!-- Animation Preview -->
+                <div id="stripe-animation-preview" style="display: none; text-align: center; margin-bottom: 20px;">
+                    <img id="stripe-animation-gif" src="" alt="Animation Preview" style="width: 100%; max-width: 200px; border-radius: 12px; border: 2px solid rgba(0, 212, 255, 0.2);">
+                </div>
+                
                 <div class="stripe-order-summary">
                     <div class="stripe-order-item">
                         <span class="stripe-order-label" id="stripe-product-name">Loading...</span>
