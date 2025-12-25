@@ -5404,34 +5404,110 @@
             window.openStripeCheckout = openStripeCheckout;
             
             // Show Thank You Modal (simple version)
-            function showThankYouModal(paymentIntentId) {
+            async function showThankYouModal(paymentIntentId) {
                 console.log('✅ showThankYouModal called with:', paymentIntentId);
                 
-                // Close any open modals
-                const checkoutModal = document.getElementById('stripeCheckoutModal');
-                if (checkoutModal) {
-                    checkoutModal.classList.remove('active');
+                // Show modal
+                const thankYouModal = document.getElementById('thankYouModal');
+                if (!thankYouModal) {
+                    console.error('❌ Thank you modal not found');
+                    alert('Payment successful! Check your dashboard for downloads.');
+                    return;
                 }
                 
-                // Show thank you modal
-                const thankYouModal = document.getElementById('thankYouModal');
-                if (thankYouModal) {
-                    thankYouModal.classList.add('active');
+                thankYouModal.classList.add('active');
+                
+                // Show loading
+                document.getElementById('thankYouLoading').style.display = 'block';
+                document.getElementById('thankYouPreview').style.display = 'none';
+                document.getElementById('thankYouDownload').style.display = 'none';
+                if (document.getElementById('thankYouOrderDetails')) {
+                    document.getElementById('thankYouOrderDetails').style.display = 'none';
+                }
+                if (document.getElementById('thankYouError')) {
+                    document.getElementById('thankYouError').style.display = 'none';
+                }
+                
+                try {
+                    // Get user session
+                    const { data: { session } } = await supabaseClient.auth.getSession();
                     
-                    // Hide all content sections
-                    const sections = ['thankYouLoading', 'thankYouPreview', 'thankYouDownload', 'thankYouOrderDetails', 'thankYouError'];
-                    sections.forEach(id => {
-                        const el = document.getElementById(id);
-                        if (el) el.style.display = 'none';
-                    });
+                    if (!session) {
+                        throw new Error('Please sign in to view your purchase');
+                    }
                     
-                    // Store payment intent
-                    localStorage.setItem('lastPaymentIntent', paymentIntentId);
+                    // Wait a bit for webhook to process
+                    console.log('⏳ Waiting 2 seconds for webhook...');
+                    await new Promise(resolve => setTimeout(resolve, 2000));
                     
-                    console.log('✅ Thank you modal displayed!');
-                } else {
-                    console.error('❌ Thank you modal not found in DOM');
-                    alert('Payment successful! Your download will be available in your dashboard.');
+                    // Query purchase from database - try payment_intent first, then session_id
+                    let purchase = null;
+                    let error = null;
+                    
+                    // Try searching by stripe_payment_intent
+                    const result1 = await supabaseClient
+                        .from('purchases')
+                        .select('*, animations(*)')
+                        .eq('stripe_payment_intent', paymentIntentId)
+                        .eq('user_id', session.user.id)
+                        .single();
+                    
+                    if (result1.data) {
+                        purchase = result1.data;
+                    } else {
+                        // Fallback: try stripe_session_id (in case webhook uses different field)
+                        const result2 = await supabaseClient
+                            .from('purchases')
+                            .select('*, animations(*)')
+                            .eq('stripe_session_id', paymentIntentId)
+                            .eq('user_id', session.user.id)
+                            .single();
+                        
+                        purchase = result2.data;
+                        error = result2.error;
+                    }
+                    
+                    if (error || !purchase) {
+                        throw new Error('Purchase not found. Please check your dashboard in a moment.');
+                    }
+                    
+                    // Hide loading
+                    document.getElementById('thankYouLoading').style.display = 'none';
+                    
+                    // Show animation preview
+                    if (purchase.animations && purchase.animations.video_url) {
+                        document.getElementById('thankYouPreview').style.display = 'block';
+                        document.getElementById('thankYouGif').src = purchase.animations.video_url;
+                        document.getElementById('thankYouAnimationName').textContent = purchase.animations.title;
+                    }
+                    
+                    // Show download button
+                    if (purchase.animations && purchase.animations.file_url) {
+                        document.getElementById('thankYouDownload').style.display = 'block';
+                        document.getElementById('thankYouDownloadBtn').href = purchase.animations.file_url;
+                        document.getElementById('thankYouDownloadBtn').download = purchase.animations.title + '.zip';
+                    }
+                    
+                    console.log('✅ Thank you modal loaded successfully!');
+                    
+                } catch (error) {
+                    console.error('Error loading purchase:', error);
+                    document.getElementById('thankYouLoading').style.display = 'none';
+                    
+                    // Show simple success message with dashboard link
+                    const errorDiv = document.getElementById('thankYouError');
+                    if (errorDiv) {
+                        errorDiv.innerHTML = `
+                            <p style="color: var(--text-secondary); text-align: center; margin-bottom: 16px;">
+                                Your payment was successful! Your download will be available in your dashboard shortly.
+                            </p>
+                            <a href="dashboard.html" class="btn btn-primary" style="display: inline-block; text-decoration: none;">
+                                Go to Dashboard
+                            </a>
+                        `;
+                        errorDiv.style.display = 'block';
+                        errorDiv.style.textAlign = 'center';
+                    }
                 }
             }
             
