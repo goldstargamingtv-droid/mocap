@@ -3036,6 +3036,7 @@
         
         // Proceed to checkout
         async function proceedToCheckout() {
+            console.log('🛒 PROCEED TO CHECKOUT CLICKED!');
             // Check if user is logged in
             const { data: { session } } = await supabaseClient.auth.getSession();
             if (!session) {
@@ -3105,6 +3106,7 @@
 
                 document.body.removeChild(loading);
                 const mappedCartItems = cartItems.map(item => ({ animationId: item.animationId, price: item.price }));
+                console.log('🛒 Calling openStripeCheckout with mappedCartItems:', mappedCartItems);
                 openStripeCheckout(productName || `${animations.length} Animation${animations.length > 1 ? 's' : ''}`, price, clientSecret, null, mappedCartItems);
             } catch (error) {
                 console.error('Checkout error:', error);
@@ -3405,7 +3407,8 @@
                 }
 
                 document.body.removeChild(loading);
-                openStripeCheckout(productName || 'Related Animations', price, clientSecret);
+                const mappedCartItems = cartItems.map(item => ({ animationId: item.animationId, price: item.price }));
+                openStripeCheckout(productName || 'Related Animations', price, clientSecret, null, mappedCartItems);
             } catch (error) {
                 console.error('Checkout error:', error);
                 document.body.removeChild(loading);
