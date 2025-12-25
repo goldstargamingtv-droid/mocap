@@ -5360,11 +5360,13 @@
             }
             
             // Open Stripe Checkout Modal
-            async function openStripeCheckout(productName, price, clientSecret) {
+            async function openStripeCheckout(productName, price, clientSecret, animationId = null, cartItems = null) {
                 currentProductInfo = {
                     name: productName,
                     price: price,
-                    clientSecret: clientSecret
+                    clientSecret: clientSecret,
+                    animationId: animationId,
+                    cartItems: cartItems
                 };
                 currentClientSecret = clientSecret;
                 
@@ -5379,7 +5381,7 @@
                 // Show modal
                 document.getElementById('stripeCheckoutModal').classList.add('active');
                 
-                console.log('✅ Stripe checkout modal opened');
+                console.log('✅ Stripe checkout modal opened', { animationId, cartItems });
             }
             
             // Close Stripe Checkout Modal
@@ -5434,17 +5436,46 @@
                         throw new Error('Please sign in to view your purchase');
                     }
                     
-                    // Query purchase from database using payment intent ID
-                    const { data: purchase, error } = await supabaseClient
-                        .from('purchases')
-                        .select('*, animations(*)')
-                        .eq('stripe_session_id', paymentIntentId)
-                        .eq('user_id', session.user.id)
-                        .single();
+                    // Retry logic - webhook might take a moment to process
+                    let purchase = null;
+                    let attempts = 0;
+                    const maxAttempts = 5;
                     
-                    if (error || !purchase) {
+                    console.log('⏳ Waiting for webhook to process purchase...');
+                    
+                    while (!purchase && attempts < maxAttempts) {
+                        attempts++;
+                        console.log(`🔍 Attempt ${attempts}/${maxAttempts} to find purchase...`);
+                        
+                        // Wait before querying (except first attempt)
+                        if (attempts > 1) {
+                            await new Promise(resolve => setTimeout(resolve, 2000));
+                        }
+                        
+                        // Query purchase from database using payment intent ID
+                        const { data, error } = await supabaseClient
+                            .from('purchases')
+                            .select('*, animations(*)')
+                            .eq('stripe_session_id', paymentIntentId)
+                            .eq('user_id', session.user.id)
+                            .single();
+                        
+                        if (data) {
+                            purchase = data;
+                            break;
+                        }
+                        
+                        if (error && error.code !== 'PGRST116') {
+                            // PGRST116 is "not found" - other errors should be thrown
+                            throw error;
+                        }
+                    }
+                    
+                    if (!purchase) {
                         throw new Error('Purchase not found. Please contact support if you were charged.');
                     }
+                    
+                    console.log('✅ Purchase found:', purchase);
                     
                     // Hide loading
                     document.getElementById('thankYouLoading').style.display = 'none';
@@ -5545,7 +5576,58 @@
                             // Close checkout modal
                             closeStripeCheckout();
                             
-                            // Show thank you modal - use window reference
+                            // Save purchase directly (don't wait for webhook)
+                            try {
+                                console.log('💾 Saving purchase to database...');
+                                const { data: { session } } = await supabaseClient.auth.getSession();
+                                
+                                if (session && currentProductInfo) {
+                                    if (currentProductInfo.cartItems && currentProductInfo.cartItems.length > 0) {
+                                        // Save multiple cart items
+                                        const purchases = currentProductInfo.cartItems.map(item => ({
+                                            user_id: session.user.id,
+                                            animation_id: item.animationId,
+                                            stripe_session_id: paymentIntent.id,
+                                            amount_paid: item.price
+                                        }));
+                                        
+                                        const { data, error } = await supabaseClient
+                                            .from('purchases')
+                                            .insert(purchases)
+                                            .select();
+                                        
+                                        if (error) {
+                                            console.error('❌ Error saving cart purchases:', error);
+                                        } else {
+                                            console.log('✅ Cart purchases saved:', data);
+                                            // Clear cart
+                                            localStorage.removeItem('cart');
+                                            if (typeof updateCartBadge === 'function') updateCartBadge();
+                                        }
+                                    } else if (currentProductInfo.animationId) {
+                                        // Save single item
+                                        const { data, error } = await supabaseClient
+                                            .from('purchases')
+                                            .insert([{
+                                                user_id: session.user.id,
+                                                animation_id: currentProductInfo.animationId,
+                                                stripe_session_id: paymentIntent.id,
+                                                amount_paid: currentProductInfo.price
+                                            }])
+                                            .select();
+                                        
+                                        if (error) {
+                                            console.error('❌ Error saving purchase:', error);
+                                        } else {
+                                            console.log('✅ Purchase saved:', data);
+                                        }
+                                    }
+                                }
+                            } catch (err) {
+                                console.error('❌ Error in purchase save:', err);
+                            }
+                            
+                            // Show thank you modal
                             if (typeof window.showThankYouModal === 'function') {
                                 window.showThankYouModal(paymentIntent.id);
                             } else if (typeof showThankYouModal === 'function') {
@@ -6533,7 +6615,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 }
 
                 document.body.removeChild(loading);
-                openStripeCheckout(productName || animationTitle, returnedPrice || price, clientSecret);
+                openStripeCheckout(productName || animationTitle, returnedPrice || price, clientSecret, animationId, null);
             } catch (error) {
                 document.body.removeChild(loading);
                 console.error('Payment error:', error);
@@ -6848,7 +6930,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 }
 
                 document.body.removeChild(loading);
-                openStripeCheckout(productName || `Cart (${cartItems.length} items)`, price, clientSecret);
+                openStripeCheckout(productName || `Cart (${cartItems.length} items)`, price, clientSecret, null, cartItems.map(item => ({ animationId: item.id, price: item.price })));
             } catch (error) {
                 document.body.removeChild(loading);
                 console.error('Cart checkout error:', error);
@@ -7138,7 +7220,12 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 }
 
                 document.body.removeChild(loading);
-                openStripeCheckout(productName || `Selected Cart Items (${cartItems.length})`, price, clientSecret);
+                const mappedCartItems = cartItems.map(item => {
+                    const isOnSale = (item.on_sale || item.holiday_sale) && item.sale_percentage;
+                    const finalPrice = isOnSale ? item.price * (1 - item.sale_percentage / 100) : item.price;
+                    return { animationId: item.id, price: finalPrice };
+                });
+                openStripeCheckout(productName || `Selected Cart Items (${cartItems.length})`, price, clientSecret, null, mappedCartItems);
             } catch (error) {
                 document.body.removeChild(loading);
                 console.error('Cart checkout error:', error);
