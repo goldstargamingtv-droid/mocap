@@ -426,7 +426,7 @@
 
         .cart-hover-header {
             padding: 16px 20px;
-            border-bottom: 2px solid rgba(100, 116, 139, 0.1);
+            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
             font-weight: 700;
             font-size: 16px;
             color: var(--text-primary);
@@ -543,7 +543,7 @@
 
         .cart-hover-footer {
             padding: 16px 20px;
-            border-top: 2px solid rgba(100, 116, 139, 0.1);
+            border-top: 2px solid rgba(0, 212, 255, 0.3);
             background: #0f0f0f;
         }
 
@@ -624,6 +624,7 @@
             background: linear-gradient(135deg, var(--teal), var(--amber));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
         .cart-close {
@@ -1836,10 +1837,10 @@
                 <span>Total:</span>
                 <span id="cartHoverTotal">$0.00</span>
             </div>
-            <button id="cartHoverCheckoutBtn" class="btn-download" onclick="handleCartHoverCheckout()" style="display: none;">
+            <button id="cartHoverCheckoutBtn" class="btn btn-primary" onclick="handleCartHoverCheckout()" style="width: 100%; margin-top: 12px; display: none;">
                 Proceed to Checkout
             </button>
-            <button class="btn-view" onclick="openCart()">
+            <button class="btn btn-secondary" onclick="openCart(); event.stopPropagation();" style="width: 100%; margin-top: 12px;">
                 View Full Cart
             </button>
         </div>
