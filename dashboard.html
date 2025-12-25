@@ -1377,7 +1377,7 @@
         }
 
         .stripe-checkout-modal-header {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(245, 158, 11, 0.1));
+            background: rgba(30, 30, 30, 0.8);
             padding: 24px;
             border-bottom: 1px solid rgba(0, 212, 255, 0.2);
             position: relative;
@@ -1386,7 +1386,10 @@
         .stripe-checkout-modal-title {
             font-size: 20px;
             font-weight: 700;
-            color: var(--text-primary);
+            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 0;
             font-family: 'Sora', sans-serif;
         }
@@ -1444,18 +1447,19 @@
         }
 
         .stripe-input {
-            background: var(--bg-card);
+            background: #1A1A1A;
             border: 2px solid rgba(0, 212, 255, 0.2);
-            border-radius: 12px;
-            padding: 14px 16px;
+            border-radius: 50px;
+            padding: 16px 24px;
             transition: all 0.3s ease;
         }
 
         .stripe-input:focus-within,
         .stripe-input.StripeElement--focus {
-            border-color: rgba(0, 212, 255, 0.5);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
-            background: rgba(0, 212, 255, 0.03);
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1),
+                        0 0 20px rgba(0, 212, 255, 0.3);
+            background: #1A1A1A;
         }
 
         .stripe-input.StripeElement--invalid {
@@ -1467,9 +1471,9 @@
         }
 
         .stripe-order-summary {
-            background: var(--bg-card);
-            border: 1px solid rgba(0, 212, 255, 0.15);
-            border-radius: 12px;
+            background: #1A1A1A;
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
             padding: 20px;
             margin-bottom: 24px;
         }
@@ -1514,33 +1518,37 @@
 
         .stripe-order-total .stripe-order-value {
             font-size: 24px;
-            background: linear-gradient(135deg, #00D4FF, #F59E0B);
+            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            font-weight: 800;
         }
 
         .stripe-pay-button {
             width: 100%;
-            padding: 16px;
-            background: linear-gradient(135deg, #00D4FF, #F59E0B);
-            border: none;
-            border-radius: 12px;
-            color: #000;
+            padding: 14px 24px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
+            color: var(--teal);
             font-weight: 700;
             font-size: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-family: 'DM Sans', sans-serif;
+            font-family: 'Sora', sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            backdrop-filter: blur(10px);
         }
 
         .stripe-pay-button:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--teal);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         .stripe-pay-button:disabled {
@@ -3102,7 +3110,8 @@
                     return;
                 }
                 
-                openStripeCheckout(productName || `Cart (${cartItems.length} items)`, price, clientSecret);
+                const mappedCartItems = cartItems.map(item => ({ animationId: item.animationId, price: item.price }));
+                openStripeCheckout(productName || `Cart (${cartItems.length} items)`, price, clientSecret, null, mappedCartItems);
             } catch (error) {
                 console.error('Checkout error:', error);
                 alert('Error processing checkout. Please try again.');
@@ -3124,7 +3133,6 @@
             if (stripeElements) return;
             
             const stripe = Stripe('pk_live_51QUqoJIr1BnHWTY3wJUKz0aOwlSmCXfVhd9Uq2zZyLOkSbkWO3EuZjgHvHjB8vF1JLLxAaY2jtb7nLMmMWUNpbXm00mI5nHHDl');
-            stripeElements = stripe.elements();
             
             const elementStyles = {
                 base: {
@@ -3132,7 +3140,7 @@
                     fontFamily: '"DM Sans", sans-serif',
                     fontSize: '16px',
                     fontWeight: '400',
-                    '::placeholder': { color: '#A8A593' }
+                    '::placeholder': { color: '#6B7280' }
                 },
                 invalid: {
                     color: '#FCA5A5',
@@ -3143,6 +3151,19 @@
                     iconColor: '#10B981'
                 }
             };
+            
+            stripeElements = stripe.elements({
+                appearance: {
+                    theme: 'night',
+                    variables: {
+                        colorBackground: '#1A1A1A',
+                        colorText: '#FEFCE8',
+                        colorDanger: '#FCA5A5',
+                        fontFamily: 'DM Sans, sans-serif',
+                        borderRadius: '50px'
+                    }
+                }
+            });
             
             cardNumberElement = stripeElements.create('cardNumber', {
                 style: elementStyles,
@@ -3174,13 +3195,52 @@
             });
         }
         
-        async function openStripeCheckout(productName, price, clientSecret) {
-            currentProductInfo = { name: productName, price: price, clientSecret: clientSecret };
+        async function openStripeCheckout(productName, price, clientSecret, animationId = null, cartItems = null) {
+            currentProductInfo = {
+                name: productName,
+                price: price,
+                clientSecret: clientSecret,
+                animationId: animationId,
+                cartItems: cartItems
+            };
             currentClientSecret = clientSecret;
             
             document.getElementById('stripe-product-name').textContent = productName;
             document.getElementById('stripe-product-price').textContent = `$${price.toFixed(2)}`;
             document.getElementById('stripe-total-price').textContent = `$${price.toFixed(2)}`;
+            
+            // Show animation preview
+            const previewDiv = document.getElementById('stripe-animation-preview');
+            const previewContainer = document.getElementById('stripe-animation-preview-container');
+            if (previewContainer) {
+                previewContainer.innerHTML = '';
+                
+                if (cartItems && cartItems.length > 0) {
+                    try {
+                        const animationIds = cartItems.map(item => item.animationId);
+                        const { data: animations } = await supabaseClient
+                            .from('animations')
+                            .select('id, video_url, title')
+                            .in('id', animationIds);
+                        
+                        if (animations && animations.length > 0) {
+                            previewContainer.innerHTML = animations.map(anim => `
+                                <div style="text-align: center; flex-shrink: 0;">
+                                    <img src="${anim.video_url}" alt="${anim.title}" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid rgba(0, 212, 255, 0.2);">
+                                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${anim.title}</div>
+                                </div>
+                            `).join('');
+                            previewDiv.style.display = 'block';
+                        } else {
+                            previewDiv.style.display = 'none';
+                        }
+                    } catch (error) {
+                        previewDiv.style.display = 'none';
+                    }
+                } else {
+                    previewDiv.style.display = 'none';
+                }
+            }
             
             initializeStripeElements();
             document.getElementById('stripeCheckoutModal').classList.add('active');
@@ -3194,6 +3254,10 @@
             hideStripeError();
             setPayButtonLoading(false);
         }
+        
+        // Make globally accessible
+        window.closeStripeCheckout = closeStripeCheckout;
+        window.openStripeCheckout = openStripeCheckout;
         
         function showStripeError(message) {
             const errorDiv = document.getElementById('stripe-error-message');
@@ -3233,6 +3297,35 @@
                         setPayButtonLoading(false);
                     } else if (paymentIntent.status === 'succeeded') {
                         closeStripeCheckout();
+                        
+                        // Save purchase directly
+                        try {
+                            const { data: { session } } = await supabaseClient.auth.getSession();
+                            
+                            if (session && currentProductInfo) {
+                                if (currentProductInfo.cartItems && currentProductInfo.cartItems.length > 0) {
+                                    const purchases = currentProductInfo.cartItems.map(item => ({
+                                        user_id: session.user.id,
+                                        animation_id: item.animationId,
+                                        stripe_session_id: paymentIntent.id,
+                                        amount_paid: item.price
+                                    }));
+                                    
+                                    await supabaseClient.from('purchases').insert(purchases);
+                                    localStorage.removeItem('cart');
+                                } else if (currentProductInfo.animationId) {
+                                    await supabaseClient.from('purchases').insert([{
+                                        user_id: session.user.id,
+                                        animation_id: currentProductInfo.animationId,
+                                        stripe_session_id: paymentIntent.id,
+                                        amount_paid: currentProductInfo.price
+                                    }]);
+                                }
+                            }
+                        } catch (err) {
+                            console.error('Error saving purchase:', err);
+                        }
+                        
                         showThankYouModal(paymentIntent.id);
                     }
                 } catch (err) {
@@ -3647,6 +3740,13 @@
                 <button class="stripe-checkout-modal-close" onclick="closeStripeCheckout()">×</button>
             </div>
             <div class="stripe-checkout-modal-body">
+                <!-- Animation Preview -->
+                <div id="stripe-animation-preview" style="display: none; margin-bottom: 20px;">
+                    <div id="stripe-animation-preview-container" style="display: flex; gap: 12px; overflow-x: auto; padding: 4px; max-height: 220px;">
+                        <!-- GIFs will be inserted here -->
+                    </div>
+                </div>
+                
                 <div class="stripe-order-summary">
                     <div class="stripe-order-item">
                         <span class="stripe-order-label" id="stripe-product-name">Loading...</span>
@@ -3679,7 +3779,7 @@
                 
                 <div id="stripe-error-message" class="stripe-error-message"></div>
                 <button id="stripe-pay-button" class="stripe-pay-button">
-                    <span id="stripe-button-text">Pay Now</span>
+                    <span id="stripe-button-text">💳 Pay Now</span>
                     <div id="stripe-button-spinner" class="stripe-pay-button-spinner" style="display: none;"></div>
                 </button>
                 <div class="stripe-secure-badge">
