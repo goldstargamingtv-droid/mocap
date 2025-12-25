@@ -3104,7 +3104,8 @@
                 }
 
                 document.body.removeChild(loading);
-                openStripeCheckout(productName || `${animations.length} Animation${animations.length > 1 ? 's' : ''}`, price, clientSecret);
+                const mappedCartItems = cartItems.map(item => ({ animationId: item.animationId, price: item.price }));
+                openStripeCheckout(productName || `${animations.length} Animation${animations.length > 1 ? 's' : ''}`, price, clientSecret, null, mappedCartItems);
             } catch (error) {
                 console.error('Checkout error:', error);
                 document.body.removeChild(loading);
