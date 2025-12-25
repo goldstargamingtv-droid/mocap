@@ -3095,7 +3095,7 @@
                     })
                 });
 
-                const { sessionId, error } = await response.json();
+                const { clientSecret, error, price, productName } = await response.json();
 
                 if (error) {
                     document.body.removeChild(loading);
@@ -3103,12 +3103,8 @@
                     return;
                 }
 
-                const { error: stripeError } = await stripe.redirectToCheckout({ sessionId });
-
-                if (stripeError) {
-                    document.body.removeChild(loading);
-                    alert('Error: ' + stripeError.message);
-                }
+                document.body.removeChild(loading);
+                openStripeCheckout(productName || `${animations.length} Animation${animations.length > 1 ? 's' : ''}`, price, clientSecret);
             } catch (error) {
                 console.error('Checkout error:', error);
                 document.body.removeChild(loading);
@@ -3183,7 +3179,7 @@
                     })
                 });
 
-                const { sessionId, error } = await response.json();
+                const { clientSecret, error, price, productName } = await response.json();
 
                 if (error) {
                     document.body.removeChild(loading);
@@ -3191,12 +3187,8 @@
                     return;
                 }
 
-                const { error: stripeError } = await stripe.redirectToCheckout({ sessionId });
-
-                if (stripeError) {
-                    document.body.removeChild(loading);
-                    alert('Error: ' + stripeError.message);
-                }
+                document.body.removeChild(loading);
+                openStripeCheckout(productName || anim.title, price || finalPrice, clientSecret);
             } catch (error) {
                 document.body.removeChild(loading);
                 console.error('Payment error:', error);
@@ -3403,7 +3395,7 @@
                     })
                 });
 
-                const { sessionId, error } = await response.json();
+                const { clientSecret, error, price, productName } = await response.json();
 
                 if (error) {
                     document.body.removeChild(loading);
@@ -3411,12 +3403,8 @@
                     return;
                 }
 
-                const { error: stripeError } = await stripe.redirectToCheckout({ sessionId });
-
-                if (stripeError) {
-                    document.body.removeChild(loading);
-                    alert('Error: ' + stripeError.message);
-                }
+                document.body.removeChild(loading);
+                openStripeCheckout(productName || 'Related Animations', price, clientSecret);
             } catch (error) {
                 console.error('Checkout error:', error);
                 document.body.removeChild(loading);
@@ -3526,6 +3514,117 @@
             // Stripe Client
             const STRIPE_PUBLISHABLE_KEY = 'pk_test_51SfQ2BQBChX7okucx4uosVidKjSy2aeDtIAJz3G2DdkFcnKKZWp3byJ8ZbIbSMfvUL6mFpBinviFcjs6dQStaqTN000OZa3XQn';
             stripe = window.Stripe ? window.Stripe(STRIPE_PUBLISHABLE_KEY) : null;
+            
+            // Stripe Modal Variables
+            let stripeElements;
+            let stripeCardElement;
+            let currentClientSecret;
+            let currentProductInfo = {};
+            
+            // ==========================================
+            // STRIPE CHECKOUT MODAL FUNCTIONS
+            // ==========================================
+            
+            function initializeStripeElements() {
+                if (stripeElements) return;
+                
+                stripeElements = stripe.elements();
+                stripeCardElement = stripeElements.create('card', {
+                    style: {
+                        base: {
+                            color: '#FEFCE8',
+                            fontFamily: '"DM Sans", sans-serif',
+                            fontSize: '16px',
+                            '::placeholder': { color: '#A8A593' }
+                        },
+                        invalid: {
+                            color: '#FCA5A5',
+                            iconColor: '#FCA5A5'
+                        }
+                    }
+                });
+                
+                stripeCardElement.mount('#stripe-card-element');
+                
+                stripeCardElement.on('change', (event) => {
+                    if (event.error) {
+                        showStripeError(event.error.message);
+                    } else {
+                        hideStripeError();
+                    }
+                });
+            }
+            
+            async function openStripeCheckout(productName, price, clientSecret) {
+                currentProductInfo = { name: productName, price: price, clientSecret: clientSecret };
+                currentClientSecret = clientSecret;
+                
+                document.getElementById('stripe-product-name').textContent = productName;
+                document.getElementById('stripe-product-price').textContent = `$${price.toFixed(2)}`;
+                document.getElementById('stripe-total-price').textContent = `$${price.toFixed(2)}`;
+                
+                initializeStripeElements();
+                document.getElementById('stripeCheckoutModal').classList.add('active');
+                console.log('✅ Stripe checkout modal opened');
+            }
+            
+            function closeStripeCheckout() {
+                document.getElementById('stripeCheckoutModal').classList.remove('active');
+                if (stripeCardElement) stripeCardElement.clear();
+                hideStripeError();
+                setPayButtonLoading(false);
+            }
+            
+            function showStripeError(message) {
+                const errorDiv = document.getElementById('stripe-error-message');
+                errorDiv.textContent = message;
+                errorDiv.classList.add('show');
+            }
+            
+            function hideStripeError() {
+                document.getElementById('stripe-error-message').classList.remove('show');
+            }
+            
+            function setPayButtonLoading(loading) {
+                const button = document.getElementById('stripe-pay-button');
+                const buttonText = document.getElementById('stripe-button-text');
+                const spinner = document.getElementById('stripe-button-spinner');
+                
+                button.disabled = loading;
+                buttonText.textContent = loading ? 'Processing...' : 'Pay Now';
+                spinner.style.display = loading ? 'block' : 'none';
+            }
+            
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('stripe-pay-button')?.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    setPayButtonLoading(true);
+                    hideStripeError();
+                    
+                    try {
+                        const { error, paymentIntent } = await stripe.confirmCardPayment(currentClientSecret, {
+                            payment_method: { card: stripeCardElement }
+                        });
+                        
+                        if (error) {
+                            showStripeError(error.message);
+                            setPayButtonLoading(false);
+                        } else if (paymentIntent.status === 'succeeded') {
+                            closeStripeCheckout();
+                            window.location.href = '/thank-you.html?payment_intent=' + paymentIntent.id;
+                        }
+                    } catch (err) {
+                        showStripeError('An unexpected error occurred. Please try again.');
+                        setPayButtonLoading(false);
+                    }
+                });
+                
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && document.getElementById('stripeCheckoutModal').classList.contains('active')) {
+                        closeStripeCheckout();
+                    }
+                });
+            });
             
             // Initialize search elements
             searchInputNav = document.getElementById('searchInputNav');
@@ -4736,6 +4835,241 @@
     @keyframes thankYouSpin {
         to { transform: rotate(360deg); }
     }
+
+    /* ==========================================
+       STRIPE CHECKOUT MODAL STYLES
+       ========================================== */
+    .stripe-checkout-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 20000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .stripe-checkout-modal.active {
+        display: flex;
+    }
+
+    .stripe-checkout-modal-overlay {
+        position: absolute;
+        inset: 0;
+    }
+
+    .stripe-checkout-modal-content {
+        background: var(--bg-secondary);
+        border: 2px solid rgba(0, 212, 255, 0.3);
+        border-radius: 20px;
+        padding: 0;
+        max-width: 500px;
+        width: 90%;
+        animation: modalSlideIn 0.3s ease;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
+    }
+
+    .stripe-checkout-modal-header {
+        background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(245, 158, 11, 0.1));
+        padding: 24px;
+        border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        position: relative;
+    }
+
+    .stripe-checkout-modal-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin: 0;
+        font-family: 'Sora', sans-serif;
+    }
+
+    .stripe-checkout-modal-close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        width: 36px;
+        height: 36px;
+        border: none;
+        background: rgba(239, 68, 68, 0.2);
+        color: #FCA5A5;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .stripe-checkout-modal-close:hover {
+        background: rgba(239, 68, 68, 0.3);
+        transform: scale(1.1);
+    }
+
+    .stripe-checkout-modal-body {
+        padding: 32px 24px;
+    }
+
+    #stripe-card-element {
+        background: var(--bg-card);
+        border: 2px solid rgba(0, 212, 255, 0.2);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+        transition: border-color 0.3s ease;
+    }
+
+    #stripe-card-element:focus-within {
+        border-color: rgba(0, 212, 255, 0.5);
+        box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+    }
+
+    .stripe-order-summary {
+        background: var(--bg-card);
+        border: 1px solid rgba(0, 212, 255, 0.15);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 24px;
+    }
+
+    .stripe-order-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .stripe-order-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .stripe-order-label {
+        color: var(--text-secondary);
+        font-size: 14px;
+    }
+
+    .stripe-order-value {
+        color: var(--text-primary);
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .stripe-order-total {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 2px solid rgba(0, 212, 255, 0.3);
+    }
+
+    .stripe-order-total .stripe-order-label {
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--text-primary);
+    }
+
+    .stripe-order-total .stripe-order-value {
+        font-size: 24px;
+        background: linear-gradient(135deg, #00D4FF, #F59E0B);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .stripe-pay-button {
+        width: 100%;
+        padding: 16px;
+        background: linear-gradient(135deg, #00D4FF, #F59E0B);
+        border: none;
+        border-radius: 12px;
+        color: #000;
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: 'DM Sans', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .stripe-pay-button:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+    }
+
+    .stripe-pay-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .stripe-pay-button-spinner {
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(0, 0, 0, 0.3);
+        border-top-color: #000;
+        border-radius: 50%;
+        animation: spinButton 0.8s linear infinite;
+    }
+
+    @keyframes spinButton {
+        to { transform: rotate(360deg); }
+    }
+
+    .stripe-error-message {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 8px;
+        padding: 12px;
+        margin-top: 16px;
+        color: #FCA5A5;
+        font-size: 14px;
+        display: none;
+    }
+
+    .stripe-error-message.show {
+        display: block;
+    }
+
+    .stripe-secure-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 16px;
+        color: var(--text-muted);
+        font-size: 12px;
+    }
+
+    .stripe-secure-icon {
+        width: 16px;
+        height: 16px;
+        fill: #10B981;
+    }
+
+    @media (max-width: 768px) {
+        .stripe-checkout-modal-content {
+            max-width: 95%;
+            margin: 16px;
+        }
+        
+        .stripe-checkout-modal-body {
+            padding: 24px 16px;
+        }
+    }
     </style>
 
     <script>
@@ -4856,6 +5190,44 @@
             <button class="btn btn-secondary" onclick="openCart(); event.stopPropagation();" style="width: 100%; margin-top: 12px;">
                 View Full Cart
             </button>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         STRIPE CHECKOUT MODAL HTML
+         ========================================== -->
+    <div id="stripeCheckoutModal" class="stripe-checkout-modal">
+        <div class="stripe-checkout-modal-overlay" onclick="closeStripeCheckout()"></div>
+        <div class="stripe-checkout-modal-content">
+            <div class="stripe-checkout-modal-header">
+                <h3 class="stripe-checkout-modal-title">Complete Your Purchase</h3>
+                <button class="stripe-checkout-modal-close" onclick="closeStripeCheckout()">×</button>
+            </div>
+            <div class="stripe-checkout-modal-body">
+                <div class="stripe-order-summary">
+                    <div class="stripe-order-item">
+                        <span class="stripe-order-label" id="stripe-product-name">Loading...</span>
+                        <span class="stripe-order-value" id="stripe-product-price">$0.00</span>
+                    </div>
+                    <div class="stripe-order-item stripe-order-total">
+                        <span class="stripe-order-label">Total</span>
+                        <span class="stripe-order-value" id="stripe-total-price">$0.00</span>
+                    </div>
+                </div>
+                <div id="stripe-card-element"></div>
+                <div id="stripe-error-message" class="stripe-error-message"></div>
+                <button id="stripe-pay-button" class="stripe-pay-button">
+                    <span id="stripe-button-text">Pay Now</span>
+                    <div id="stripe-button-spinner" class="stripe-pay-button-spinner" style="display: none;"></div>
+                </button>
+                <div class="stripe-secure-badge">
+                    <svg class="stripe-secure-icon" viewBox="0 0 24 24">
+                        <path d="M12 2L4 6v6c0 5.5 3.8 10.7 8 12 4.2-1.3 8-6.5 8-12V6l-8-4z" fill="currentColor"/>
+                        <path d="M10 12l2 2 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Secured by Stripe
+                </div>
+            </div>
         </div>
     </div>
 
