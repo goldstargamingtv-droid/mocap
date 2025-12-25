@@ -4420,7 +4420,6 @@
     <div id="authModal" class="auth-modal">
         <div class="auth-modal-overlay" onclick="closeAuthModal()"></div>
         <div class="auth-modal-box">
-            <button class="auth-close" onclick="closeAuthModal()">✕</button>
             
             <!-- Tabs -->
             <div class="auth-tabs">
@@ -8978,58 +8977,10 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             }
         }
 
-        // Particle burst function
-        function createParticles(card) {
-            const rect = card.getBoundingClientRect();
-            const particles = 6;
-            
-            for (let i = 0; i < particles; i++) {
-                const particle = document.createElement('div');
-                particle.style.cssText = `
-                    position: fixed;
-                    width: 6px;
-                    height: 6px;
-                    background: linear-gradient(135deg, #F59E0B, #FF6B6B);
-                    border-radius: 50%;
-                    pointer-events: none;
-                    z-index: 9999;
-                    left: ${rect.left + rect.width / 2}px;
-                    top: ${rect.top + rect.height / 2}px;
-                    box-shadow: 0 0 8px rgba(245, 158, 11, 0.8);
-                `;
-                document.body.appendChild(particle);
-                
-                const angle = (360 / particles) * i;
-                const distance = 80;
-                
-                gsap.to(particle, {
-                    x: Math.cos(angle * Math.PI / 180) * distance,
-                    y: Math.sin(angle * Math.PI / 180) * distance,
-                    opacity: 0,
-                    scale: 0.5,
-                    duration: 1,
-                    ease: 'power2.out',
-                    onComplete: () => particle.remove()
-                });
-            }
-        }
-
         // Add particle burst to cards when they're rendered
         window.initCardParticles = function() {
-            const cards = document.querySelectorAll('.animation-card');
-            
-            cards.forEach(card => {
-                // Clone to remove old listeners
-                const newCard = card.cloneNode(true);
-                card.parentNode.replaceChild(newCard, card);
-                
-                // Add hover listener
-                newCard.addEventListener('mouseenter', function() {
-                    createParticles(newCard);
-                });
-            });
-            
-            console.log(`✨ Particle effects added to ${cards.length} cards`);
+            // Particles disabled for performance
+            console.log(`✨ Card effects initialized`);
         };
 
         // Initialize on page load
