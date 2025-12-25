@@ -3197,11 +3197,14 @@
         let cardCvcElement;
         let currentClientSecret;
         let currentProductInfo = {};
+        let stripe; // Global Stripe instance
         
         function initializeStripeElements() {
             if (stripeElements) return;
             
-            const stripe = Stripe('pk_live_51QUqoJIr1BnHWTY3wJUKz0aOwlSmCXfVhd9Uq2zZyLOkSbkWO3EuZjgHvHjB8vF1JLLxAaY2jtb7nLMmMWUNpbXm00mI5nHHDl');
+            if (!stripe) {
+                stripe = Stripe('pk_live_51QUqoJIr1BnHWTY3wJUKz0aOwlSmCXfVhd9Uq2zZyLOkSbkWO3EuZjgHvHjB8vF1JLLxAaY2jtb7nLMmMWUNpbXm00mI5nHHDl');
+            }
             
             const elementStyles = {
                 base: {
@@ -3353,8 +3356,6 @@
                 e.preventDefault();
                 setPayButtonLoading(true);
                 hideStripeError();
-                
-                const stripe = Stripe('pk_live_51QUqoJIr1BnHWTY3wJUKz0aOwlSmCXfVhd9Uq2zZyLOkSbkWO3EuZjgHvHjB8vF1JLLxAaY2jtb7nLMmMWUNpbXm00mI5nHHDl');
                 
                 try {
                     const { error, paymentIntent } = await stripe.confirmCardPayment(currentClientSecret, {
