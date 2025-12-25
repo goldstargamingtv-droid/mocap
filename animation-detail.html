@@ -5253,26 +5253,103 @@
     }
 
     async function showThankYouModal(paymentIntentId) {
-        thankYouModalOpen = true;
-        document.getElementById('thankYouModal').classList.add('active');
+        console.log('✅ showThankYouModal called with:', paymentIntentId);
         
-        // Show loading state
-        document.getElementById('thankYouLoading').style.display = 'none';
-        document.getElementById('thankYouPreview').style.display = 'none';
-        document.getElementById('thankYouDownload').style.display = 'none';
-        document.getElementById('thankYouOrderDetails').style.display = 'none';
-        document.getElementById('thankYouError').style.display = 'none';
-        
-        // Show simple success message
-        const successMessage = document.getElementById('thankYouSuccess');
-        if (successMessage) {
-            successMessage.style.display = 'block';
+        const thankYouModal = document.getElementById('thankYouModal');
+        if (!thankYouModal) {
+            alert('Payment successful! Check your dashboard for downloads.');
+            return;
         }
         
-        // Store payment intent for later retrieval
-        localStorage.setItem('lastPaymentIntent', paymentIntentId);
+        thankYouModal.classList.add('active');
         
-        console.log('✅ Thank you modal shown for payment:', paymentIntentId);
+        document.getElementById('thankYouLoading').style.display = 'block';
+        document.getElementById('thankYouPreview').style.display = 'none';
+        document.getElementById('thankYouDownload').style.display = 'none';
+        if (document.getElementById('thankYouOrderDetails')) {
+            document.getElementById('thankYouOrderDetails').style.display = 'none';
+        }
+        if (document.getElementById('thankYouError')) {
+            document.getElementById('thankYouError').style.display = 'none';
+        }
+        
+        try {
+            const { data: { session } } = await supabaseClient.auth.getSession();
+            
+            if (!session) {
+                throw new Error('Please sign in to view your purchase');
+            }
+            
+            let purchase = null;
+            let attempts = 0;
+            const maxAttempts = 5;
+            
+            console.log('⏳ Waiting for webhook to process purchase...');
+            
+            while (!purchase && attempts < maxAttempts) {
+                attempts++;
+                console.log(`🔍 Attempt ${attempts}/${maxAttempts} to find purchase...`);
+                
+                if (attempts > 1) {
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                }
+                
+                const { data, error } = await supabaseClient
+                    .from('purchases')
+                    .select('*, animations(*)')
+                    .eq('stripe_session_id', paymentIntentId)
+                    .eq('user_id', session.user.id)
+                    .single();
+                
+                if (data) {
+                    purchase = data;
+                    break;
+                }
+                
+                if (error && error.code !== 'PGRST116') {
+                    throw error;
+                }
+            }
+            
+            if (!purchase) {
+                throw new Error('Purchase not found. Please contact support if you were charged.');
+            }
+            
+            console.log('✅ Purchase found:', purchase);
+            
+            document.getElementById('thankYouLoading').style.display = 'none';
+            
+            if (purchase.animations.video_url) {
+                document.getElementById('thankYouPreview').style.display = 'block';
+                document.getElementById('thankYouGif').src = purchase.animations.video_url;
+                document.getElementById('thankYouAnimationName').textContent = purchase.animations.title;
+            }
+            
+            if (purchase.animations.file_url) {
+                document.getElementById('thankYouDownload').style.display = 'block';
+                document.getElementById('thankYouDownloadBtn').href = purchase.animations.file_url;
+            }
+            
+            if (document.getElementById('thankYouOrderDetails')) {
+                document.getElementById('thankYouOrderDetails').style.display = 'block';
+                document.getElementById('thankYouOrderId').textContent = paymentIntentId.substring(0, 20) + '...';
+                document.getElementById('thankYouOrderAnimation').textContent = purchase.animations.title;
+                document.getElementById('thankYouOrderAmount').textContent = '$' + purchase.amount_paid.toFixed(2);
+                document.getElementById('thankYouOrderDate').textContent = new Date(purchase.purchase_date).toLocaleDateString();
+            }
+            
+            console.log('✅ Thank you modal loaded successfully!');
+            
+        } catch (error) {
+            console.error('Error loading purchase:', error);
+            document.getElementById('thankYouLoading').style.display = 'none';
+            if (document.getElementById('thankYouError')) {
+                document.getElementById('thankYouError').style.display = 'block';
+            }
+            if (document.getElementById('thankYouErrorMessage')) {
+                document.getElementById('thankYouErrorMessage').textContent = error.message || 'Unable to load purchase details. Please contact support.';
+            }
+        }
     }
     
     // Make globally accessible
