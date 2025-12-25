@@ -8222,19 +8222,17 @@ Focus on diversity while matching user preferences. Prioritize animations the us
 
     .stripe-order-total .stripe-order-value {
         font-size: 24px;
-        background: linear-gradient(135deg, #00D4FF, #F59E0B);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--teal);
+        font-weight: 800;
     }
 
     .stripe-pay-button {
         width: 100%;
         padding: 16px;
-        background: linear-gradient(135deg, #00D4FF, #F59E0B);
-        border: none;
+        background: transparent;
+        border: 2px solid var(--teal);
         border-radius: 50px;
-        color: #000;
+        color: var(--teal);
         font-weight: 700;
         font-size: 16px;
         cursor: pointer;
@@ -8248,7 +8246,8 @@ Focus on diversity while matching user preferences. Prioritize animations the us
 
     .stripe-pay-button:hover:not(:disabled) {
         transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+        background: rgba(245, 158, 11, 0.1);
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
     }
 
     .stripe-pay-button:disabled {
