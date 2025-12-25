@@ -3593,6 +3593,7 @@
             }
             
             async function openStripeCheckout(productName, price, clientSecret, animationId = null, cartItems = null) {
+                console.log('🎯 openStripeCheckout called with:', { productName, price, clientSecret, animationId, cartItems });
                 currentProductInfo = {
                     name: productName,
                     price: price,
