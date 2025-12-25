@@ -3198,12 +3198,13 @@
         let currentClientSecret;
         let currentProductInfo = {};
         let stripe; // Global Stripe instance
+        const STRIPE_PUBLISHABLE_KEY = 'pk_test_51SfQ2BQBChX7okucx4uosVidKjSy2aeDtIAJz3G2DdkFcnKKZWp3byJ8ZbIbSMfvUL6mFpBinviFcjs6dQStaqTN000OZa3XQn';
         
         function initializeStripeElements() {
             if (stripeElements) return;
             
             if (!stripe) {
-                stripe = Stripe('pk_live_51QUqoJIr1BnHWTY3wJUKz0aOwlSmCXfVhd9Uq2zZyLOkSbkWO3EuZjgHvHjB8vF1JLLxAaY2jtb7nLMmMWUNpbXm00mI5nHHDl');
+                stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
             }
             
             const elementStyles = {
