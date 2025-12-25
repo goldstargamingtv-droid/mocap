@@ -8170,6 +8170,9 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         
         console.log('✅ Thank you modal shown for payment:', paymentIntentId);
     }
+    
+    // Make globally accessible
+    window.showThankYouModal = showThankYouModal;
             console.error('Error loading purchase:', error);
             document.getElementById('thankYouLoading').style.display = 'none';
             document.getElementById('thankYouError').style.display = 'block';
