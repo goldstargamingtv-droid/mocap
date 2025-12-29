@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-29-v56 - PERFORMANCE OPTIMIZATIONS -->
+    <!-- VERSION: 2024-12-29-v62 - FULL BRIGHTNESS HERO BG -->
     <!-- ============================================ -->
     <!-- PALETTE 2: WARM LUXE AMBER -->
     <!-- Rich black (#000000) with muted gold (#F59E0B) and warm coral (#FF6B6B) -->
@@ -128,7 +128,7 @@
             --coral: #FFA07A;
             --coral-light: #FFB894;
             --text-white: #FFFFFF;          /* Pure white for max readability */
-            --text-primary: #FEFCE8;        /* Cream - warm accent text */
+            --text-primary: #FFFFFF;        /* Pure white */
             --text-secondary: #E7E5D3;      /* Light cream - muted text */
             --text-muted: #A8A593;          /* Very muted - subtle text */
         }
@@ -154,9 +154,6 @@
         body {
             font-family: 'DM Sans', sans-serif;
             background: var(--bg-primary);
-            background-image: radial-gradient(circle at 30% 20%, rgba(0, 212, 255, 0.12), transparent 50%),
-                              radial-gradient(circle at 70% 80%, rgba(245, 158, 11, 0.12), transparent 50%);
-            background-attachment: fixed;
             color: var(--text-primary);
             overflow-x: hidden;
             line-height: 1.6;
@@ -193,17 +190,9 @@
             font-family: 'Sora', sans-serif;
         }
 
-        /* Smooth grain overlay */
+        /* Smooth grain overlay - DISABLED */
         .grain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.025;
-            z-index: 100;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            display: none;
         }
 
         /* Gradient Text */
@@ -435,6 +424,114 @@
             width: 100%;
         }
 
+        /* Animations Dropdown */
+        .nav-dropdown-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .nav-dropdown-wrapper .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .nav-dropdown-wrapper .nav-link svg {
+            width: 12px;
+            height: 12px;
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-dropdown-wrapper:hover .nav-link svg {
+            transform: rotate(180deg);
+        }
+        
+        .nav-dropdown {
+            position: absolute;
+            top: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 220px;
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 16px;
+            padding: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
+            z-index: 10003;
+        }
+        
+        .nav-dropdown-wrapper:hover .nav-dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .nav-dropdown-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            padding: 8px 12px 12px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            margin-bottom: 8px;
+        }
+        
+        .nav-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .nav-dropdown-item:hover {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--teal);
+        }
+        
+        .nav-dropdown-item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(0, 212, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-dropdown-item:hover .nav-dropdown-item-icon {
+            background: rgba(245, 158, 11, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .nav-dropdown-item-text {
+            flex: 1;
+        }
+        
+        .nav-dropdown-item-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
         /* Navbar Search */
         .nav-search {
             flex: 1;
@@ -662,7 +759,7 @@
         .cart-icon {
             position: relative !important;
             cursor: pointer;
-            padding: 8px;
+            padding: 4px;
             display: inline-flex !important;
             align-items: center;
             justify-content: center;
@@ -673,37 +770,150 @@
         .cart-icon:hover {
             transform: scale(1.05);
         }
-        
-        .cart-icon:hover svg {
-            filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.6));
-        }
 
         .cart-icon svg {
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             fill: none;
-            stroke-width: 2;
             stroke-linecap: round;
             stroke-linejoin: round;
+        }
+        
+        /* Animated cart gradient */
+        .cart-icon .cart__gradient stop:first-child {
+            stop-color: #F59E0B;
+        }
+        .cart-icon .cart__gradient stop:last-child {
+            stop-color: #FF6B6B;
+        }
+        
+        /* Default state - white, no animation */
+        .cart-icon .cart__lines {
+            stroke: rgba(255, 255, 255, 0.8);
+            transition: stroke 0.3s ease;
+        }
+        
+        .cart-icon .cart__top {
+            stroke-dasharray: 338 338;
+            stroke-dashoffset: 0;
+            will-change: stroke-dashoffset;
+        }
+        
+        .cart-icon .cart__wheel-stroke {
+            stroke-dasharray: 81.68 81.68;
+            stroke-dashoffset: 0;
+            will-change: stroke-dashoffset;
+        }
+        
+        .cart-icon .cart__wheel1 {
+            transform-origin: 43px 111px;
+            will-change: transform;
+        }
+        
+        .cart-icon .cart__wheel2 {
+            transform-origin: 102px 111px;
+            will-change: transform;
+        }
+        
+        .cart-icon .cart__track {
+            stroke: rgba(255, 255, 255, 0.15);
+        }
+        
+        /* Has items - slow animation (5s) as reminder */
+        .cart-icon.has-items .cart__lines {
+            stroke: url(#cartGradientNav);
+        }
+        
+        .cart-icon.has-items .cart__top {
+            animation: cartTop 5s ease-in-out infinite;
+        }
+        
+        .cart-icon.has-items .cart__wheel1 {
+            animation: cartWheel1 5s ease-in-out infinite;
+        }
+        
+        .cart-icon.has-items .cart__wheel2 {
+            animation: cartWheel2 5s ease-in-out infinite;
+        }
+        
+        .cart-icon.has-items .cart__wheel-stroke {
+            animation: cartWheelStroke 5s ease-in-out infinite;
+        }
+        
+        /* Hover state - fast animation (2s) */
+        .cart-icon:hover .cart__lines {
+            stroke: url(#cartGradientNav);
+        }
+        
+        .cart-icon:hover .cart__top {
+            animation: cartTop 2s ease-in-out infinite;
+        }
+        
+        .cart-icon:hover .cart__wheel1 {
+            animation: cartWheel1 2s ease-in-out infinite;
+        }
+        
+        .cart-icon:hover .cart__wheel2 {
+            animation: cartWheel2 2s ease-in-out infinite;
+        }
+        
+        .cart-icon:hover .cart__wheel-stroke {
+            animation: cartWheelStroke 2s ease-in-out infinite;
+        }
+        
+        /* Cart animations */
+        @keyframes cartTop {
+            from { stroke-dashoffset: -338; }
+            50% { stroke-dashoffset: 0; }
+            to { stroke-dashoffset: 338; }
+        }
+        
+        @keyframes cartWheel1 {
+            from { transform: rotate(-0.25turn); }
+            to { transform: rotate(2.75turn); }
+        }
+        
+        @keyframes cartWheel2 {
+            from { transform: rotate(0.25turn); }
+            to { transform: rotate(3.25turn); }
+        }
+        
+        @keyframes cartWheelStroke {
+            from, to { stroke-dashoffset: 81.68; }
+            50% { stroke-dashoffset: 0; }
         }
 
         .cart-badge {
             position: absolute !important;
-            top: -4px !important;
-            right: -4px !important;
-            background: var(--amber);
+            top: -2px !important;
+            right: -6px !important;
+            background: linear-gradient(135deg, #F59E0B 0%, #FF6B6B 100%);
             color: #000000;
-            min-width: 20px;
-            height: 20px;
+            min-width: 18px;
+            height: 18px;
             padding: 0 5px;
-            border-radius: 10px;
+            border-radius: 9px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 800;
             font-family: 'Sora', sans-serif;
             z-index: 10;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+            border: 1.5px solid rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .cart-icon:hover .cart-badge {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.6);
+        }
+        
+        /* Hide badge when empty */
+        .cart-badge:empty,
+        .cart-badge[data-count="0"] {
+            display: none;
         }
 
         /* Cart Hover Dropdown */
@@ -1274,35 +1484,23 @@
             height: 100%;
             transform: translate(-50%, -50%);
             z-index: 1;
-            opacity: 0.25;
             background-image: url('hero-background.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
         }
 
+        /* Floating shapes - DISABLED */
         .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            animation: float 8s ease-in-out infinite;
+            display: none;
         }
 
         .shape-1 {
-            top: 20%;
-            left: 15%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.15), transparent);
+            display: none;
         }
 
         .shape-2 {
-            bottom: 20%;
-            right: 15%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 107, 107, 0.12), transparent);
-            animation-delay: 4s;
+            display: none;
         }
 
         .hero-content {
@@ -1370,7 +1568,7 @@
         }
 
         .hero-subtitle-secondary {
-            color: #FEFCE8;
+            color: #FFFFFF;
             font-weight: 400;
         }
 
@@ -5390,7 +5588,7 @@
             border-radius: 50%;
             background: rgba(15, 15, 15, 0.9);
             border: 2px solid rgba(13, 76, 89, 0.5);
-            color: #FEFCE8;
+            color: #FFFFFF;
             font-size: 24px;
             cursor: pointer;
             display: flex;
@@ -5529,7 +5727,59 @@
 
             <!-- Main Nav Links -->
             <div class="nav-center">
-                <a href="#library" class="nav-link">Animations</a>
+                <div class="nav-dropdown-wrapper">
+                    <a href="#library" class="nav-link">
+                        Animations
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </a>
+                    <div class="nav-dropdown">
+                        <div class="nav-dropdown-title">Browse Categories</div>
+                        <a href="#library" class="nav-dropdown-item" onclick="selectCategory('All')">
+                            <div class="nav-dropdown-item-icon">🎬</div>
+                            <div class="nav-dropdown-item-text">
+                                All Animations
+                                <div class="nav-dropdown-item-label">Browse everything</div>
+                            </div>
+                        </a>
+                        <a href="#library" class="nav-dropdown-item" onclick="selectCategory('Combat')">
+                            <div class="nav-dropdown-item-icon">⚔️</div>
+                            <div class="nav-dropdown-item-text">
+                                Combat
+                                <div class="nav-dropdown-item-label">Fighting & action</div>
+                            </div>
+                        </a>
+                        <a href="#library" class="nav-dropdown-item" onclick="selectCategory('Locomotion')">
+                            <div class="nav-dropdown-item-icon">🏃</div>
+                            <div class="nav-dropdown-item-text">
+                                Locomotion
+                                <div class="nav-dropdown-item-label">Walking, running & movement</div>
+                            </div>
+                        </a>
+                        <a href="#library" class="nav-dropdown-item" onclick="selectCategory('Dance')">
+                            <div class="nav-dropdown-item-icon">💃</div>
+                            <div class="nav-dropdown-item-text">
+                                Dance
+                                <div class="nav-dropdown-item-label">Dance moves & routines</div>
+                            </div>
+                        </a>
+                        <a href="#library" class="nav-dropdown-item" onclick="selectCategory('Idle')">
+                            <div class="nav-dropdown-item-icon">🧘</div>
+                            <div class="nav-dropdown-item-text">
+                                Idle
+                                <div class="nav-dropdown-item-label">Standing & breathing</div>
+                            </div>
+                        </a>
+                        <a href="#library" class="nav-dropdown-item" onclick="selectCategory('Emotes')">
+                            <div class="nav-dropdown-item-icon">🎭</div>
+                            <div class="nav-dropdown-item-text">
+                                Emotes
+                                <div class="nav-dropdown-item-label">Expressions & gestures</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
                 <a href="dashboard.html" onclick="handleDashboardClick(event); return false;" class="nav-link">My Library</a>
                 <a href="#contact" class="nav-link">Contact</a>
                 <a href="#faq" class="nav-link">FAQ</a>
@@ -5566,18 +5816,31 @@
                 <!-- Cart Icon -->
                 <div class="cart-container">
                     <div class="cart-icon" id="cartIconNav" onclick="openCart()" title="View Cart" role="button" aria-label="Shopping cart with 0 items" tabindex="0">
-                        <svg viewBox="0 0 24 24">
+                        <svg class="cart-svg" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
                             <defs>
-                                <linearGradient id="cartGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" style="stop-color:#F59E0B;stop-opacity:1" />
-                                    <stop offset="100%" style="stop-color:#FF6B6B;stop-opacity:1" />
+                                <linearGradient id="cartGradientNav" x1="0%" y1="0%" x2="100%" y2="100%" class="cart__gradient">
+                                    <stop offset="0%" />
+                                    <stop offset="100%" />
                                 </linearGradient>
                             </defs>
-                            <circle cx="9" cy="21" r="1" stroke="url(#cartGradient)"></circle>
-                            <circle cx="20" cy="21" r="1" stroke="url(#cartGradient)"></circle>
-                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" stroke="url(#cartGradient)"></path>
+                            <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
+                                <g class="cart__track">
+                                    <polyline points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                                    <circle cx="43" cy="111" r="13" />
+                                    <circle cx="102" cy="111" r="13" />
+                                </g>
+                                <g class="cart__lines">
+                                    <polyline class="cart__top" points="4,4 21,4 26,22 124,22 112,64 35,64 39,80 106,80" />
+                                    <g class="cart__wheel1">
+                                        <circle class="cart__wheel-stroke" cx="43" cy="111" r="13" />
+                                    </g>
+                                    <g class="cart__wheel2">
+                                        <circle class="cart__wheel-stroke" cx="102" cy="111" r="13" />
+                                    </g>
+                                </g>
+                            </g>
                         </svg>
-                        <span class="cart-badge">0</span>
+                        <span class="cart-badge" data-count="0">0</span>
                     </div>
                 </div>
                 
@@ -6741,7 +7004,7 @@
                 
                 const elementStyles = {
                     base: {
-                        color: '#FEFCE8',
+                        color: '#FFFFFF',
                         fontFamily: '"DM Sans", sans-serif',
                         fontSize: '16px',
                         fontWeight: '400',
@@ -6765,7 +7028,7 @@
                         theme: 'night',
                         variables: {
                             colorBackground: '#2A2A2A',
-                            colorText: '#FEFCE8',
+                            colorText: '#FFFFFF',
                             colorDanger: '#FCA5A5',
                             fontFamily: 'DM Sans, sans-serif',
                             borderRadius: '50px'
@@ -7589,6 +7852,15 @@
             });
             
             cards.forEach(card => observer.observe(card));
+        }
+
+        // Select category from nav dropdown
+        function selectCategory(category) {
+            const categoryFilter = document.getElementById('categoryFilter');
+            if (categoryFilter) {
+                categoryFilter.value = category;
+                filterAnimations();
+            }
         }
 
         // Filter function
@@ -8764,8 +9036,20 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             try {
                 const cartItems = await API.getCartItems();
                 const badge = document.querySelector('.cart-badge');
+                const cartIcon = document.querySelector('.cart-icon');
+                
                 if (badge) {
                     badge.textContent = cartItems.length;
+                    badge.setAttribute('data-count', cartItems.length);
+                }
+                
+                // Add/remove has-items class for slow animation
+                if (cartIcon) {
+                    if (cartItems.length > 0) {
+                        cartIcon.classList.add('has-items');
+                    } else {
+                        cartIcon.classList.remove('has-items');
+                    }
                 }
                 
                 // Update hover dropdown
