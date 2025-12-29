@@ -1,4 +1,4 @@
-=<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- VERSION: 2024-12-29-v103 - ADMIN OFFERS PANEL + PROFESSIONAL CONSOLE -->
@@ -10024,6 +10024,12 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                     const ctaBanner = document.querySelector('.cta-banner');
                     if (ctaBanner) ctaBanner.style.display = 'none';
                 }
+
+                // Special Offer Button (floating side CTA)
+                if (settingsMap['special_offer_button'] === false) {
+                    const floatingCta = document.querySelector('.floating-side-cta');
+                    if (floatingCta) floatingCta.style.display = 'none';
+                }
             } catch (e) {
                 // Silently fail - show all banners by default
             }
@@ -11431,13 +11437,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             const prevBtn = document.getElementById('carouselPrev');
             const nextBtn = document.getElementById('carouselNext');
             const items = document.querySelectorAll('.carousel-item');
-
-                track: !!track,
-                carousel: !!carousel,
-                prevBtn: !!prevBtn,
-                nextBtn: !!nextBtn,
-                items: items.length
-            });
 
             // Disable CSS animation - we'll use JS interval instead
             if (track) {
