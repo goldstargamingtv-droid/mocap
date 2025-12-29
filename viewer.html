@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- VIEWER VERSION 5 - Skeleton Debug -->
+<!-- VIEWER VERSION 6 - Skeleton Visualization -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Viewer V5 - MocapWork</title>
+    <title>3D Viewer V6 - MocapWork</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -569,8 +569,8 @@
     <div id="debug-log"></div>
 
     <script type="module">
-        // VERSION 5 - Skeleton debug
-        console.log('=== VIEWER VERSION 5 ===');
+        // VERSION 6 - Skeleton visualization
+        console.log('=== VIEWER VERSION 6 ===');
         console.log('Module script executing...');
         
         // Debug logger
@@ -726,6 +726,7 @@
                         let meshCount = 0;
                         let boneCount = 0;
                         let skinnedMeshCount = 0;
+                        let rootBone = null;
                         
                         currentModel.traverse(function(child) {
                             log('Child: ' + child.type + ' | ' + child.name);
@@ -737,7 +738,6 @@
                                 child.visible = true;
                                 child.frustumCulled = false;
                                 
-                                // Force material to be visible
                                 if (child.material) {
                                     if (Array.isArray(child.material)) {
                                         child.material.forEach(mat => {
@@ -759,6 +759,7 @@
                             }
                             if (child.isBone) {
                                 boneCount++;
+                                if (!rootBone) rootBone = child;
                             }
                             if (child.isSkinnedMesh) {
                                 skinnedMeshCount++;
@@ -770,21 +771,57 @@
                         
                         log('Summary - Meshes: ' + meshCount + ', Bones: ' + boneCount + ', SkinnedMeshes: ' + skinnedMeshCount);
                         
-                        // If we have bones but no meshes, show skeleton helper
-                        if (boneCount > 0) {
-                            log('Adding skeleton helper...');
+                        // If no meshes but we have bones, create skeleton visualization
+                        if (meshCount === 0 && boneCount > 0) {
+                            log('No meshes found - creating skeleton visualization');
+                            
+                            // Add skeleton helper to show bones as lines
+                            const skeletonHelper = new THREE.SkeletonHelper(currentModel);
+                            skeletonHelper.material.linewidth = 3;
+                            scene.add(skeletonHelper);
+                            log('SkeletonHelper added');
+                            
+                            // Create spheres at each bone position for better visibility
+                            const boneMaterial = new THREE.MeshBasicMaterial({ color: 0xF59E0B });
+                            const boneGeometry = new THREE.SphereGeometry(0.02, 8, 8);
+                            
                             currentModel.traverse(function(child) {
-                                if (child.isSkinnedMesh && child.skeleton) {
-                                    const skeletonHelper = new THREE.SkeletonHelper(child);
-                                    scene.add(skeletonHelper);
-                                    log('SkeletonHelper added from SkinnedMesh');
+                                if (child.isBone) {
+                                    const sphere = new THREE.Mesh(boneGeometry, boneMaterial);
+                                    child.add(sphere);
                                 }
                             });
+                            log('Bone spheres added');
                             
-                            // Also try adding helper for the whole model
-                            const skeletonHelper = new THREE.SkeletonHelper(currentModel);
-                            scene.add(skeletonHelper);
-                            log('SkeletonHelper added for model');
+                            // Recalculate bounds based on bones
+                            if (rootBone) {
+                                rootBone.updateWorldMatrix(true, true);
+                                const bonePositions = [];
+                                currentModel.traverse(function(child) {
+                                    if (child.isBone) {
+                                        const worldPos = new THREE.Vector3();
+                                        child.getWorldPosition(worldPos);
+                                        bonePositions.push(worldPos);
+                                    }
+                                });
+                                
+                                if (bonePositions.length > 0) {
+                                    const minY = Math.min(...bonePositions.map(p => p.y));
+                                    const maxY = Math.max(...bonePositions.map(p => p.y));
+                                    const height = maxY - minY;
+                                    log('Skeleton height: ' + height.toFixed(2));
+                                    
+                                    // Position camera to see skeleton
+                                    const avgX = bonePositions.reduce((a, p) => a + p.x, 0) / bonePositions.length;
+                                    const avgY = bonePositions.reduce((a, p) => a + p.y, 0) / bonePositions.length;
+                                    const avgZ = bonePositions.reduce((a, p) => a + p.z, 0) / bonePositions.length;
+                                    
+                                    controls.target.set(avgX, avgY, avgZ);
+                                    camera.position.set(avgX, avgY + 1, avgZ + Math.max(3, height * 2));
+                                    controls.update();
+                                    log('Camera repositioned to skeleton center');
+                                }
+                            }
                         }
 
                         const box = new THREE.Box3().setFromObject(currentModel);
@@ -794,21 +831,26 @@
                         log('Model size: ' + size.x.toFixed(2) + ' x ' + size.y.toFixed(2) + ' x ' + size.z.toFixed(2));
                         log('Model center: ' + center.x.toFixed(2) + ', ' + center.y.toFixed(2) + ', ' + center.z.toFixed(2));
                         
-                        currentModel.position.x = -center.x;
-                        currentModel.position.z = -center.z;
-                        currentModel.position.y = -box.min.y;
-                        
-                        log('Model position set to: ' + currentModel.position.x.toFixed(2) + ', ' + currentModel.position.y.toFixed(2) + ', ' + currentModel.position.z.toFixed(2));
+                        // Only reposition if we have valid dimensions
+                        if (size.x > 0 && size.y > 0 && size.z > 0 && isFinite(box.min.y)) {
+                            currentModel.position.x = -center.x;
+                            currentModel.position.z = -center.z;
+                            currentModel.position.y = -box.min.y;
+                            
+                            log('Model position set to: ' + currentModel.position.x.toFixed(2) + ', ' + currentModel.position.y.toFixed(2) + ', ' + currentModel.position.z.toFixed(2));
 
-                        const maxDim = Math.max(size.x, size.y, size.z);
-                        log('Max dimension: ' + maxDim.toFixed(2));
-                        if (maxDim > 3) {
-                            const scale = 2 / maxDim;
-                            currentModel.scale.setScalar(scale);
-                            log('Scaled model by: ' + scale.toFixed(4));
+                            const maxDim = Math.max(size.x, size.y, size.z);
+                            log('Max dimension: ' + maxDim.toFixed(2));
+                            if (maxDim > 3) {
+                                const scale = 2 / maxDim;
+                                currentModel.scale.setScalar(scale);
+                                log('Scaled model by: ' + scale.toFixed(4));
+                            }
+                            
+                            log('Final scale: ' + currentModel.scale.x.toFixed(4));
+                        } else {
+                            log('Invalid dimensions - skipping repositioning');
                         }
-                        
-                        log('Final scale: ' + currentModel.scale.x.toFixed(4));
 
                         scene.add(currentModel);
                         log('Model added to scene');
