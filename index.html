@@ -4203,9 +4203,9 @@
             max-width: 1800px;
             background: #000000;
             border-radius: 20px;
-            border: 2px solid rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(13, 76, 89, 0.5);
             overflow: hidden;
-            box-shadow: 0 0 60px rgba(245, 158, 11, 0.2);
+            box-shadow: 0 0 60px rgba(13, 76, 89, 0.3);
         }
 
         .viewer-modal-close {
@@ -4217,7 +4217,7 @@
             height: 48px;
             border-radius: 50%;
             background: rgba(15, 15, 15, 0.9);
-            border: 2px solid rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(13, 76, 89, 0.5);
             color: #FEFCE8;
             font-size: 24px;
             cursor: pointer;
@@ -4229,8 +4229,8 @@
         }
 
         .viewer-modal-close:hover {
-            background: rgba(245, 158, 11, 0.2);
-            border-color: var(--teal);
+            background: rgba(13, 76, 89, 0.3);
+            border-color: #0d4c59;
             transform: scale(1.1);
         }
 
@@ -8859,276 +8859,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
     <!-- SIMPLE ANIMATIONS - Particles + Hero Text -->
     <!-- ========================================== -->
     <script>
-        // ==========================================
-        // LIQUID METAL FLUID SIMULATION
-        // ==========================================
-        class LiquidMetal {
-            constructor(canvas) {
-                this.canvas = canvas;
-                this.ctx = canvas.getContext('2d');
-                this.width = canvas.width = window.innerWidth;
-                this.height = canvas.height = window.innerHeight;
-                
-                // Fluid grid - SMALLER RESOLUTION = MORE ORBS
-                this.resolution = 32; // Reduced from 64 - creates 2x more grid cells
-                this.gridWidth = Math.floor(this.width / this.resolution);
-                this.gridHeight = Math.floor(this.height / this.resolution);
-                
-                // Velocity fields
-                this.vx = this.createGrid();
-                this.vy = this.createGrid();
-                this.vx0 = this.createGrid();
-                this.vy0 = this.createGrid();
-                
-                // Density field (for color)
-                this.density = this.createGrid();
-                this.density0 = this.createGrid();
-                
-                // Metallic blobs - ORANGE & TEAL ONLY, EXTRA SLOW
-                this.blobs = [];
-                const colors = ['#F59E0B', '#00D4FF']; // Orange, Teal (no red)
-                
-                for (let i = 0; i < 12; i++) {
-                    this.blobs.push({
-                        x: Math.random() * this.width,
-                        y: Math.random() * this.height,
-                        vx: (Math.random() - 0.5) * 0.2, // Reduced from 0.3 to 0.2 (even slower!)
-                        vy: (Math.random() - 0.5) * 0.2, // Reduced from 0.3 to 0.2
-                        radius: 15 + Math.random() * 25,
-                        color: colors[Math.floor(Math.random() * colors.length)]
-                    });
-                }
-                
-                this.mouse = { x: this.width / 2, y: this.height / 2, px: 0, py: 0 };
-                this.setupListeners();
-                this.animate();
-            }
-            
-            createGrid() {
-                return new Array(this.gridWidth * this.gridHeight).fill(0);
-            }
-            
-            setupListeners() {
-                // Use window mousemove since canvas has pointer-events: none
-                window.addEventListener('mousemove', (e) => {
-                    this.mouse.px = this.mouse.x;
-                    this.mouse.py = this.mouse.y;
-                    this.mouse.x = e.clientX;
-                    this.mouse.y = e.clientY;
-                });
-                
-                window.addEventListener('resize', () => {
-                    this.width = this.canvas.width = window.innerWidth;
-                    this.height = this.canvas.height = window.innerHeight;
-                    this.gridWidth = Math.floor(this.width / this.resolution);
-                    this.gridHeight = Math.floor(this.height / this.resolution);
-                });
-            }
-            
-            addVelocity(x, y, vx, vy) {
-                const gx = Math.floor(x / this.resolution);
-                const gy = Math.floor(y / this.resolution);
-                const idx = gx + gy * this.gridWidth;
-                
-                if (idx >= 0 && idx < this.vx.length) {
-                    this.vx[idx] += vx;
-                    this.vy[idx] += vy;
-                    this.density[idx] += 50;
-                }
-            }
-            
-            diffuse(x, x0, diff) {
-                const a = diff * this.gridWidth * this.gridHeight;
-                for (let k = 0; k < 4; k++) {
-                    for (let i = 1; i < this.gridWidth - 1; i++) {
-                        for (let j = 1; j < this.gridHeight - 1; j++) {
-                            const idx = i + j * this.gridWidth;
-                            x[idx] = (x0[idx] + a * (
-                                x[idx - 1] + x[idx + 1] +
-                                x[idx - this.gridWidth] + x[idx + this.gridWidth]
-                            )) / (1 + 4 * a);
-                        }
-                    }
-                }
-            }
-            
-            step() {
-                // Add mouse interaction - FASTER CURSOR TRAIL
-                const dx = this.mouse.x - this.mouse.px;
-                const dy = this.mouse.y - this.mouse.py;
-                
-                // Only add force if mouse is in hero area (top part of page)
-                if (this.mouse.y < this.height) {
-                    this.addVelocity(this.mouse.x, this.mouse.y, dx * 3, dy * 3); // Increased from 1.5 to 3
-                    
-                    // Minimal ripple - just 1-2 dots around mouse
-                    const rippleRadius = 20; // Much smaller - was 40
-                    for (let angle = 0; angle < 360; angle += 180) { // Only 2 points instead of 4
-                        const rad = angle * Math.PI / 180;
-                        const rippleX = this.mouse.x + Math.cos(rad) * rippleRadius;
-                        const rippleY = this.mouse.y + Math.sin(rad) * rippleRadius;
-                        this.addVelocity(rippleX, rippleY, dx * 0.5, dy * 0.5); // Increased from 0.2 to 0.5
-                    }
-                }
-                
-                // Add random disturbances from blobs - SLOWER
-                this.blobs.forEach(blob => {
-                    this.addVelocity(blob.x, blob.y, blob.vx * 1, blob.vy * 1); // Reduced from 2 to 1
-                });
-                
-                // Diffuse velocity
-                this.diffuse(this.vx, this.vx0, 0.0001);
-                this.diffuse(this.vy, this.vy0, 0.0001);
-                
-                // Fade density - HIGHER = SLOWER FADE = LONGER TRAIL
-                for (let i = 0; i < this.density.length; i++) {
-                    this.density[i] *= 0.99; // Changed from 0.85 to 0.99 (dots stay WAY longer!)
-                }
-                
-                // Update blobs
-                this.blobs.forEach(blob => {
-                    blob.x += blob.vx;
-                    blob.y += blob.vy;
-                    
-                    if (blob.x < 0 || blob.x > this.width) blob.vx *= -1;
-                    if (blob.y < 0 || blob.y > this.height) blob.vy *= -1;
-                    
-                    blob.x = Math.max(0, Math.min(this.width, blob.x));
-                    blob.y = Math.max(0, Math.min(this.height, blob.y));
-                });
-            }
-            
-            render() {
-                // NO GREY OVERLAY - Don't clear canvas, just draw fresh
-                this.ctx.clearRect(0, 0, this.width, this.height);
-                
-                // Draw metallic fluid field - TEAL COLORED DOTS WITH TRANSPARENCY
-                for (let i = 0; i < this.gridWidth; i++) {
-                    for (let j = 0; j < this.gridHeight; j++) {
-                        const idx = i + j * this.gridWidth;
-                        const d = this.density[idx];
-                        
-                        // Skip top 2 rows to avoid navbar interference
-                        if (j < 2) continue;
-                        
-                        if (d > 0.1) { // LOWERED from 0.5 - dots appear much earlier and stay visible longer
-                            const x = i * this.resolution;
-                            const y = j * this.resolution;
-                            
-                            // Fixed orb size regardless of grid resolution
-                            const orbSize = 20; // Keep orbs at 20px diameter
-                            const centerX = x + this.resolution / 2;
-                            const centerY = y + this.resolution / 2;
-                            
-                            // Radial gradient for rounded effect - TEAL COLOR WITH TRANSPARENCY
-                            const gradient = this.ctx.createRadialGradient(
-                                centerX, centerY, 0,
-                                centerX, centerY, orbSize / 2
-                            );
-                            
-                            const intensity = Math.min(d / 100, 1);
-                            // Teal with reduced opacity (0.4 and 0.25 instead of 0.6 and 0.4)
-                            gradient.addColorStop(0, `rgba(0, 212, 255, ${intensity * 0.4})`);
-                            gradient.addColorStop(0.5, `rgba(0, 212, 255, ${intensity * 0.25})`);
-                            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-                            
-                            this.ctx.fillStyle = gradient;
-                            
-                            // Draw as circle
-                            this.ctx.beginPath();
-                            this.ctx.arc(centerX, centerY, orbSize / 2, 0, Math.PI * 2);
-                            this.ctx.fill();
-                        }
-                    }
-                }
-                
-                // Draw flowing blobs - TEAL EXTRA TRANSPARENT, ALL ORBS MORE TRANSPARENT
-                this.blobs.forEach(blob => {
-                    // Check if teal for extra transparency
-                    const isTeal = blob.color === '#00D4FF';
-                    const transparencyMultiplier = isTeal ? 0.5 : 0.8; // Teal: 50%, Orange: 80% (was 60% and 100%)
-                    
-                    // Outer glow
-                    const outerGradient = this.ctx.createRadialGradient(
-                        blob.x, blob.y, 0,
-                        blob.x, blob.y, blob.radius * 1.5
-                    );
-                    const outerOpacity1 = Math.floor(0x40 * transparencyMultiplier).toString(16).padStart(2, '0');
-                    const outerOpacity2 = Math.floor(0x15 * transparencyMultiplier).toString(16).padStart(2, '0');
-                    outerGradient.addColorStop(0, blob.color + outerOpacity1);
-                    outerGradient.addColorStop(0.5, blob.color + outerOpacity2);
-                    outerGradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-                    
-                    this.ctx.fillStyle = outerGradient;
-                    this.ctx.beginPath();
-                    this.ctx.arc(blob.x, blob.y, blob.radius * 1.5, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    
-                    // Inner metallic blob
-                    const gradient = this.ctx.createRadialGradient(
-                        blob.x - blob.radius * 0.3, blob.y - blob.radius * 0.3, 0,
-                        blob.x, blob.y, blob.radius
-                    );
-                    
-                    gradient.addColorStop(0, `rgba(255, 255, 255, ${0.5 * transparencyMultiplier})`);
-                    gradient.addColorStop(0.2, blob.color + Math.floor(0xB3 * transparencyMultiplier).toString(16).padStart(2, '0'));
-                    gradient.addColorStop(0.6, blob.color + Math.floor(0x99 * transparencyMultiplier).toString(16).padStart(2, '0'));
-                    gradient.addColorStop(1, blob.color + Math.floor(0x26 * transparencyMultiplier).toString(16).padStart(2, '0'));
-                    
-                    this.ctx.fillStyle = gradient;
-                    this.ctx.beginPath();
-                    this.ctx.arc(blob.x, blob.y, blob.radius, 0, Math.PI * 2);
-                    this.ctx.fill();
-                    
-                    // Highlight
-                    const highlight = this.ctx.createRadialGradient(
-                        blob.x - blob.radius * 0.4, blob.y - blob.radius * 0.4, 0,
-                        blob.x - blob.radius * 0.4, blob.y - blob.radius * 0.4, blob.radius * 0.3
-                    );
-                    highlight.addColorStop(0, `rgba(255, 255, 255, ${0.5 * transparencyMultiplier})`);
-                    highlight.addColorStop(1, 'rgba(255, 255, 255, 0)');
-                    
-                    this.ctx.fillStyle = highlight;
-                    this.ctx.beginPath();
-                    this.ctx.arc(
-                        blob.x - blob.radius * 0.4, 
-                        blob.y - blob.radius * 0.4, 
-                        blob.radius * 0.3, 
-                        0, Math.PI * 2
-                    );
-                    this.ctx.fill();
-                });
-                
-                // Draw connection lines between close blobs
-                for (let i = 0; i < this.blobs.length; i++) {
-                    for (let j = i + 1; j < this.blobs.length; j++) {
-                        const b1 = this.blobs[i];
-                        const b2 = this.blobs[j];
-                        const dist = Math.hypot(b2.x - b1.x, b2.y - b1.y);
-                        
-                        if (dist < 300) {
-                            const alpha = (1 - dist / 300) * 0.3;
-                            const gradient = this.ctx.createLinearGradient(b1.x, b1.y, b2.x, b2.y);
-                            gradient.addColorStop(0, b1.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
-                            gradient.addColorStop(1, b2.color + Math.floor(alpha * 255).toString(16).padStart(2, '0'));
-                            
-                            this.ctx.strokeStyle = gradient;
-                            this.ctx.lineWidth = 2;
-                            this.ctx.beginPath();
-                            this.ctx.moveTo(b1.x, b1.y);
-                            this.ctx.lineTo(b2.x, b2.y);
-                            this.ctx.stroke();
-                        }
-                    }
-                }
-            }
-            
-            animate() {
-                this.step();
-                this.render();
-                requestAnimationFrame(() => this.animate());
-            }
-        }
 
         // Add particle burst to cards when they're rendered
         window.initCardParticles = function() {
@@ -9145,41 +8875,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             
             console.log('🎬 Initializing animations...');
 
-            // ==========================================
-            // INITIALIZE LIQUID METAL BACKGROUND
-            // ==========================================
-            const heroBackground = document.querySelector('.hero-background');
-            if (heroBackground) {
-                const liquidCanvas = document.createElement('canvas');
-                liquidCanvas.style.cssText = `
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 2;
-                    pointer-events: none;
-                    opacity: 1;
-                    -webkit-mask-image: linear-gradient(to bottom, 
-                        rgba(0,0,0,1) 0%, 
-                        rgba(0,0,0,1) 40%, 
-                        rgba(0,0,0,0.7) 60%, 
-                        rgba(0,0,0,0.3) 75%,
-                        rgba(0,0,0,0.1) 85%,
-                        rgba(0,0,0,0) 92%);
-                    mask-image: linear-gradient(to bottom, 
-                        rgba(0,0,0,1) 0%, 
-                        rgba(0,0,0,1) 40%, 
-                        rgba(0,0,0,0.7) 60%, 
-                        rgba(0,0,0,0.3) 75%,
-                        rgba(0,0,0,0.1) 85%,
-                        rgba(0,0,0,0) 92%);
-                `;
-                heroBackground.insertBefore(liquidCanvas, heroBackground.firstChild);
-                
-                new LiquidMetal(liquidCanvas);
-                console.log('🌊 Liquid metal simulation initialized');
-            }
 
             // ==========================================
             // SLOW HERO TEXT ANIMATION
