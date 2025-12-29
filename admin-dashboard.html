@@ -1332,6 +1332,23 @@
                         </div>
                     </div>
 
+                    <div class="content-card" style="border: 2px solid rgba(251, 125, 71, 0.3);">
+                        <h2 class="card-title" style="display: flex; align-items: center; gap: 8px;">
+                            <svg viewBox="0 0 24 24" width="24" height="24" fill="#fb7d47" stroke="none"><path d="M12 23c-3.866 0-7-3.134-7-7 0-2.526 1.394-4.727 3.453-5.882-.07.463-.107.943-.107 1.432 0 2.485 1.349 4.656 3.354 5.822-.696-.772-1.121-1.795-1.121-2.922 0-2.209 1.672-4.013 3.82-4.245.138-.015.277-.023.417-.023 1.115 0 2.133.44 2.884 1.16A6.968 6.968 0 0 1 19 16c0 3.866-3.134 7-7 7zM12 1c.552 0 1 .448 1 1v2c0 .552-.448 1-1 1s-1-.448-1-1V2c0-.552.448-1 1-1z"/></svg>
+                            Special Offer Button
+                        </h2>
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                            The floating "Special Offer" button on the right side of the screen that opens the promo popup.
+                        </p>
+                        <div style="display: flex; align-items: center; gap: 16px;">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="specialOfferToggle" onchange="toggleOffer('special_offer_button', this.checked)">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <span id="specialOfferStatus" style="color: var(--text-secondary);">Loading...</span>
+                        </div>
+                    </div>
+
                     <div style="margin-top: 24px; padding: 16px; background: rgba(251, 125, 71, 0.1); border: 2px solid rgba(251, 125, 71, 0.2); border-radius: 12px;">
                         <p style="color: var(--text-secondary); font-size: 14px; margin: 0;">
                             <strong style="color: #fb7d47;">💡 Note:</strong> Changes take effect immediately on the main site. Visitors will see the updated state on their next page load.
@@ -2242,20 +2259,23 @@
             const rewardsBanner = settingsMap['rewards_banner'] !== false;
             const aiRecommendations = settingsMap['ai_recommendations'] !== false;
             const ctaBanner = settingsMap['cta_banner'] !== false;
+            const specialOfferButton = settingsMap['special_offer_button'] !== false;
 
             document.getElementById('premiumBannerToggle').checked = premiumBanner;
             document.getElementById('rewardsBannerToggle').checked = rewardsBanner;
             document.getElementById('aiRecommendationsToggle').checked = aiRecommendations;
             document.getElementById('ctaBannerToggle').checked = ctaBanner;
+            document.getElementById('specialOfferToggle').checked = specialOfferButton;
 
             document.getElementById('premiumBannerStatus').textContent = premiumBanner ? 'Visible' : 'Hidden';
             document.getElementById('rewardsBannerStatus').textContent = rewardsBanner ? 'Visible' : 'Hidden';
             document.getElementById('aiRecommendationsStatus').textContent = aiRecommendations ? 'Visible' : 'Hidden';
             document.getElementById('ctaBannerStatus').textContent = ctaBanner ? 'Visible' : 'Hidden';
+            document.getElementById('specialOfferStatus').textContent = specialOfferButton ? 'Visible' : 'Hidden';
 
             // Update overall status
-            const activeCount = [premiumBanner, rewardsBanner, aiRecommendations, ctaBanner].filter(Boolean).length;
-            document.getElementById('offersStatus').textContent = `${activeCount}/4 Active`;
+            const activeCount = [premiumBanner, rewardsBanner, aiRecommendations, ctaBanner, specialOfferButton].filter(Boolean).length;
+            document.getElementById('offersStatus').textContent = `${activeCount}/5 Active`;
         }
 
         // Initialize default offer settings
@@ -2264,7 +2284,8 @@
                 { key: 'premium_banner', value: 'true' },
                 { key: 'rewards_banner', value: 'true' },
                 { key: 'ai_recommendations', value: 'true' },
-                { key: 'cta_banner', value: 'true' }
+                { key: 'cta_banner', value: 'true' },
+                { key: 'special_offer_button', value: 'true' }
             ];
 
             for (const setting of defaults) {
@@ -2293,7 +2314,8 @@
                 'premium_banner': 'premiumBannerStatus',
                 'rewards_banner': 'rewardsBannerStatus',
                 'ai_recommendations': 'aiRecommendationsStatus',
-                'cta_banner': 'ctaBannerStatus'
+                'cta_banner': 'ctaBannerStatus',
+                'special_offer_button': 'specialOfferStatus'
             };
 
             document.getElementById(statusMap[key]).textContent = enabled ? 'Visible' : 'Hidden';
@@ -2303,9 +2325,10 @@
                 document.getElementById('premiumBannerToggle').checked,
                 document.getElementById('rewardsBannerToggle').checked,
                 document.getElementById('aiRecommendationsToggle').checked,
-                document.getElementById('ctaBannerToggle').checked
+                document.getElementById('ctaBannerToggle').checked,
+                document.getElementById('specialOfferToggle').checked
             ].filter(Boolean).length;
-            document.getElementById('offersStatus').textContent = `${activeCount}/4 Active`;
+            document.getElementById('offersStatus').textContent = `${activeCount}/5 Active`;
 
             showNotification(`${key.replace('_', ' ')} ${enabled ? 'enabled' : 'disabled'}`, 'success');
         }
