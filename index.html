@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-29-v71 - REMOVED GLASSMORPHISM FROM FLOATING SIDE CTA -->
+    <!-- VERSION: 2024-12-29-v101 - STEP DESCRIPTIONS WITH SEO KEYWORDS -->
     <!-- ============================================ -->
     <!-- PALETTE 2: WARM LUXE AMBER -->
-    <!-- Rich black (#000000) with muted gold (#F59E0B) and warm coral (#FF6B6B) -->
+    <!-- Rich black (#000000) with muted gold (#fb7d47) and warm coral (#FF6B6B) -->
     <!-- Luxurious, inviting, premium warmth -->
     <!-- ============================================ -->
     <meta charset="UTF-8">
@@ -138,7 +138,7 @@
             position: absolute;
             top: -40px;
             left: 0;
-            background: var(--teal);
+            background: #fb7d47;
             color: var(--bg-primary);
             padding: 8px 16px;
             text-decoration: none;
@@ -149,6 +149,19 @@
         
         .skip-link:focus {
             top: 0;
+        }
+        
+        /* Visually hidden but accessible to screen readers and SEO */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
 
         body {
@@ -183,7 +196,7 @@
         /* Firefox Scrollbar */
         * {
             scrollbar-width: thin;
-            scrollbar-color: #F59E0B #1a1a1a;
+            scrollbar-color: #fb7d47 #1a1a1a;
         }
 
         .font-sora {
@@ -218,7 +231,7 @@
         }
 
         .glow-coral {
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+            text-shadow: 0 0 30px rgba(251, 125, 71, 0.4);
         }
 
         /* Button Styles */
@@ -236,45 +249,149 @@
         }
 
         .btn-primary {
-            background: rgba(0, 212, 255, 0.1);
+            padding: 12px 24px;
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.3);
-            color: var(--teal);
+            color: #ffffff;
             border-radius: 50px;
             font-weight: 600;
-            backdrop-filter: blur(10px) saturate(150%);
-            -webkit-backdrop-filter: blur(10px) saturate(150%);
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease, border-color 0.2s ease;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+            isolation: isolate;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+        
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50px;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: -1;
         }
 
         .btn-primary:hover {
-            transform: translateY(-2px);
-            background: rgba(0, 212, 255, 0.2);
-            border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4),
-                        0 4px 20px rgba(0, 0, 0, 0.3);
+            transform: scale(1.03);
+            border-color: rgba(10, 10, 10, 0.95);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
+        }
+        
+        .btn-primary:hover::before {
+            opacity: 1;
+            animation-play-state: running;
         }
 
         .btn-secondary {
-            background: rgba(0, 212, 255, 0.08);
-            border: 2px solid rgba(0, 212, 255, 0.25);
-            color: var(--teal);
-            font-weight: 600;
             padding: 12px 24px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            color: #ffffff;
+            font-weight: 600;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, border-color 0.2s ease;
             font-family: 'DM Sans', sans-serif;
             text-decoration: none;
             font-size: 14px;
-            backdrop-filter: blur(10px) saturate(150%);
-            -webkit-backdrop-filter: blur(10px) saturate(150%);
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+            isolation: isolate;
+        }
+        
+        .btn-secondary::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+        
+        .btn-secondary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50px;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: -1;
         }
 
         .btn-secondary:hover {
-            background: rgba(0, 212, 255, 0.15);
-            border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3),
-                        0 4px 20px rgba(0, 0, 0, 0.3);
-            transform: translateY(-2px);
+            transform: scale(1.03);
+            border-color: rgba(10, 10, 10, 0.95);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
+        }
+        
+        .btn-secondary:hover::before {
+            opacity: 1;
+            animation-play-state: running;
         }
 
         /* Navbar */
@@ -318,45 +435,94 @@
             font-weight: 600;
             font-size: 14px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
+            transition: all 0.3s ease, border-color 0.2s ease;
+            border: 2px solid rgba(0, 212, 255, 0.3);
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(20px);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 4px 20px rgba(0, 0, 0, 0.4);
             min-width: 200px;
             justify-content: center;
+            position: relative;
+            isolation: isolate;
         }
 
         .selection-bar-btn-primary {
-            background: rgba(0, 212, 255, 0.15);
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            color: var(--teal);
+            background: rgba(10, 10, 10, 0.95);
+            color: #ffffff;
+        }
+        
+        .selection-bar-btn-primary::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+        
+        .selection-bar-btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50px;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: -1;
         }
 
         .selection-bar-btn-primary:hover {
-            background: rgba(0, 212, 255, 0.25);
-            border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5), 0 4px 20px rgba(0, 0, 0, 0.4);
-            transform: translateY(-2px);
+            border-color: rgba(10, 10, 10, 0.95);
+            transform: scale(1.03);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
+        }
+        
+        .selection-bar-btn-primary:hover::before {
+            opacity: 1;
+            animation-play-state: running;
         }
 
         .selection-bar-btn-secondary {
-            background: rgba(255, 107, 107, 0.15);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(255, 107, 107, 0.3);
             color: #FF6B6B;
         }
 
         .selection-bar-btn-secondary:hover {
-            background: rgba(255, 107, 107, 0.25);
             border-color: #FF6B6B;
-            transform: translateY(-2px);
+            transform: scale(1.03);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(255, 107, 107, 0.4);
         }
 
         .selection-count-badge {
-            background: linear-gradient(135deg, var(--teal), var(--amber));
-            color: black;
+            background: #fb7d47;
+            color: white;
             padding: 4px 10px;
             border-radius: 12px;
             font-weight: 700;
@@ -369,23 +535,45 @@
             padding: 0 40px;
             display: flex;
             align-items: center;
-            gap: 24px;
+            gap: 20px;
             height: 70px;
-            justify-content: space-between;
+        }
+
+        .nav-search {
+            flex: 1;
+            position: relative;
+        }
+
+        .nav-links-left {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .nav-links-right {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-shrink: 0;
         }
 
         .nav-center {
+            display: none;
+        }
+
+        .nav-right {
             display: flex;
-            gap: 24px;
+            gap: 16px;
             align-items: center;
-            margin-left: 0;
+            flex-shrink: 0;
         }
 
         .nav-link {
             color: var(--text-primary);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 700;
             font-size: 15px;
+            font-family: 'Sora', sans-serif;
             transition: color 0.3s ease;
             position: relative;
             white-space: nowrap;
@@ -448,8 +636,8 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
             z-index: 10003;
         }
         
@@ -486,7 +674,7 @@
         
         .nav-dropdown-item:hover {
             background: rgba(245, 158, 11, 0.15);
-            color: var(--teal);
+            color: #fb7d47;
         }
         
         .nav-dropdown-item-icon {
@@ -517,12 +705,6 @@
         }
 
         /* Navbar Search */
-        .nav-search {
-            flex: 1;
-            position: relative;
-            margin-left: 24px;
-            margin-right: 24px;
-        }
 
         .search-input-nav {
             width: 100%;
@@ -536,7 +718,7 @@
             transition: all 0.3s ease;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1);
         }
 
         .search-input-nav:focus {
@@ -544,8 +726,8 @@
             border-color: rgba(0, 212, 255, 0.4);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 20px rgba(0, 212, 255, 0.2);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 20px rgba(251, 125, 71, 0.2);
         }
 
         .search-input-nav::placeholder {
@@ -595,8 +777,8 @@
             display: none;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
             z-index: 1000;
         }
 
@@ -616,16 +798,9 @@
             overflow-y: auto;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
             z-index: 10000;
-        }
-
-        .nav-right {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-            margin-left: auto;
         }
         
         /* Profile Icon */
@@ -636,46 +811,95 @@
         }
         
         .profile-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: rgba(0, 212, 255, 0.15);
-            border: 2px solid #F59E0B;
-            display: flex;
+            position: relative;
+            padding: 8px;
+            border-radius: 12px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            color: #F59E0B;
+            transition: all 0.3s ease, border-color 0.2s ease;
+            isolation: isolate;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .profile-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 14px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+        
+        .profile-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: -1;
         }
         
         .profile-icon svg {
-            width: 20px;
-            height: 20px;
-            fill: #F59E0B;
+            width: 28px;
+            height: 28px;
+            fill: #FFFFFF;
+            position: relative;
+            z-index: 1;
         }
         
         .profile-icon:hover {
-            background: rgba(0, 212, 255, 0.25);
-            border-color: #FBBF24;
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+            border-color: rgba(10, 10, 10, 0.95);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
+        }
+        
+        .profile-icon:hover::before {
+            opacity: 1;
+            animation-play-state: running;
         }
         
         .profile-dropdown {
             position: absolute;
             top: calc(100% + 12px);
             right: 0;
-            width: 220px;
+            min-width: 220px;
             background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
-            border-radius: 12px;
-            padding: 8px;
+            border-radius: 16px;
+            padding: 12px;
             display: none;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
             z-index: 10003;
         }
         
@@ -695,69 +919,173 @@
             display: block;
         }
         
+        .profile-dropdown-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            padding: 8px 12px 12px;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            margin-bottom: 8px;
+        }
+        
         .profile-dropdown-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 16px;
-            color: var(--text-secondary);
+            padding: 12px 14px;
+            color: var(--text-primary);
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-weight: 500;
             font-size: 14px;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             cursor: pointer;
         }
         
         .profile-dropdown-item:hover {
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--text-primary);
-            transform: translateX(4px);
+            background: rgba(245, 158, 11, 0.15);
+            color: #fb7d47;
         }
         
-        .profile-dropdown-item svg {
+        .profile-dropdown-item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: rgba(0, 212, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .profile-dropdown-item-icon svg {
             width: 18px;
             height: 18px;
-            opacity: 0.7;
+            fill: #fb7d47;
+        }
+        
+        .profile-dropdown-item:hover .profile-dropdown-item-icon {
+            background: rgba(245, 158, 11, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .profile-dropdown-item.signout-item {
+            color: #FF6B6B;
+        }
+        
+        .profile-dropdown-item.signout-item:hover {
+            background: rgba(239, 68, 68, 0.15);
+            color: #FF6B6B;
+        }
+        
+        .profile-dropdown-item.signout-item .profile-dropdown-item-icon {
+            background: rgba(239, 68, 68, 0.1);
+        }
+        
+        .profile-dropdown-item.signout-item .profile-dropdown-item-icon svg {
+            fill: #FF6B6B;
+        }
+        
+        .profile-dropdown-item.signout-item:hover .profile-dropdown-item-icon {
+            background: rgba(239, 68, 68, 0.2);
         }
         
         .profile-dropdown-divider {
             height: 1px;
             background: rgba(0, 212, 255, 0.1);
-            margin: 4px 0;
+            margin: 8px 0;
         }
 
         .cart-container {
             position: relative;
             display: inline-block;
+            margin-left: 6px;
         }
 
         .cart-icon {
             position: relative !important;
             cursor: pointer;
-            padding: 4px;
+            padding: 8px;
+            margin-right: 10px;
             display: inline-flex !important;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, border-color 0.2s ease;
             isolation: isolate;
+            background: rgba(10, 10, 10, 0.95);
+            border-radius: 12px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cart-icon::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 14px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+        
+        .cart-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: -1;
         }
 
         .cart-icon:hover {
             transform: scale(1.05);
+            border-color: rgba(10, 10, 10, 0.95);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
         }
-
+        
+        .cart-icon:hover::before {
+            opacity: 1;
+            animation-play-state: running;
+        }
+        
         .cart-icon svg {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             fill: none;
             stroke-linecap: round;
             stroke-linejoin: round;
+            position: relative;
+            z-index: 1;
         }
         
         /* Animated cart gradient */
         .cart-icon .cart__gradient stop:first-child {
-            stop-color: #F59E0B;
+            stop-color: #fb7d47;
         }
         .cart-icon .cart__gradient stop:last-child {
             stop-color: #FF6B6B;
@@ -861,8 +1189,8 @@
 
         .cart-badge {
             position: absolute !important;
-            top: -2px !important;
-            right: -6px !important;
+            top: -4px !important;
+            right: -4px !important;
             background: linear-gradient(135deg, #F59E0B 0%, #FF6B6B 100%);
             color: #000000;
             min-width: 18px;
@@ -904,8 +1232,8 @@
             border-radius: 12px;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
             display: none;
             z-index: 10003;
             overflow: hidden;
@@ -1128,8 +1456,9 @@
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 700;
             font-size: 15px;
+            font-family: 'Sora', sans-serif;
             transition: color 0.3s ease;
             position: relative;
         }
@@ -1141,7 +1470,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--teal);
+            background: #fb7d47;
             transition: width 0.3s ease;
         }
 
@@ -1156,25 +1485,173 @@
         
         .btn-login {
             padding: 10px 28px;
-            background: rgba(0, 212, 255, 0.1);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border-radius: 50px;
             border: 2px solid rgba(0, 212, 255, 0.3);
-            color: var(--teal) !important;
+            color: #ffffff !important;
             text-decoration: none;
             font-weight: 700;
             font-size: 15px;
             font-family: 'Sora', sans-serif;
-            transition: all 0.3s ease;
-            display: inline-block;
+            transition: all 0.3s ease, border-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-login svg {
+            width: 16px;
+            height: 16px;
+            stroke: #fb7d47;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+        
+        .btn-login::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50px;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: -1;
         }
         
         .btn-login:hover {
-            background: rgba(0, 212, 255, 0.2);
-            border-color: var(--teal);
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            border-color: rgba(10, 10, 10, 0.95);
+            transform: scale(1.05);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
+        }
+        
+        .btn-login:hover::before {
+            opacity: 1;
+            animation-play-state: running;
+        }
+        
+        @keyframes liquidFlow {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* CTA Buttons - same style as Sign In */
+        .btn-cta {
+            padding: 14px 32px;
+            background: rgba(10, 10, 10, 0.95);
+            border-radius: 50px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            color: #ffffff !important;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            font-family: 'Sora', sans-serif;
+            transition: all 0.3s ease, border-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        
+        .btn-cta svg {
+            width: 18px;
+            height: 18px;
+            stroke: #fb7d47;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+        
+        .btn-cta::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+        
+        .btn-cta::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50px;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: -1;
+        }
+        
+        .btn-cta:hover {
+            border-color: rgba(10, 10, 10, 0.95);
+            transform: scale(1.05);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
+        }
+        
+        .btn-cta:hover::before {
+            opacity: 1;
+            animation-play-state: running;
         }
 
         /* Admin Dashboard Button */
@@ -1260,8 +1737,8 @@
 
         .search-input:focus {
             outline: none;
-            border-color: var(--teal);
-            box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1);
+            border-color: #fb7d47;
+            box-shadow: 0 0 0 4px rgba(251, 125, 71, 0.1);
         }
 
         .search-input::placeholder {
@@ -1311,8 +1788,8 @@
             display: none;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
         }
 
         .search-dropdown.active {
@@ -1363,11 +1840,11 @@
 
         .search-result-text {
             flex: 1;
-            color: var(--text-primary);
+            color: var(--text-white);
         }
 
         .search-result-text strong {
-            color: var(--teal);
+            color: var(--text-white);
         }
 
         .search-tags {
@@ -1389,7 +1866,7 @@
 
         .search-tag:hover {
             background: rgba(0, 212, 255, 0.2);
-            color: var(--teal);
+            color: #fb7d47;
         }
 
         .search-filters {
@@ -1415,8 +1892,8 @@
         .search-filter-btn:hover,
         .search-filter-btn.active {
             background: rgba(0, 212, 255, 0.1);
-            border-color: var(--teal);
-            color: var(--teal);
+            border-color: #fb7d47;
+            color: #fb7d47;
         }
 
         /* Hero Section */
@@ -1517,22 +1994,30 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 6px 16px;
-            background: rgba(0, 212, 255, 0.08);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            padding: 8px 16px;
+            background: rgba(100, 116, 139, 0.1);
+            border: 2px solid rgba(100, 116, 139, 0.2);
             border-radius: 50px;
-            color: var(--teal);
-            font-size: 13px;
+            color: #fb7d47;
+            font-size: 12px;
             font-weight: 600;
             margin-bottom: 8px;
+            margin-top: 5px;
             backdrop-filter: blur(10px);
         }
 
         .badge-dot {
-            width: 8px;
-            height: 8px;
-            background: var(--teal);
-            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .badge-dot svg {
+            width: 16px;
+            height: 16px;
+            fill: #fb7d47;
             animation: pulse 2s infinite;
         }
 
@@ -1577,11 +2062,133 @@
         }
 
         .hero-subtitle-platforms-gradient {
-            background: linear-gradient(135deg, #FF6B6B, #F59E0B);
+            background: linear-gradient(135deg, #FF6B6B, #fb7d47);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             font-weight: 600;
+        }
+
+        /* Hero 3-Step Process */
+        .hero-steps {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .hero-step {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-align: left;
+            padding: 12px 18px;
+            background: rgba(10, 10, 10, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 50px;
+            gap: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+        
+        .hero-step:hover {
+            border-color: #fb7d47;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(251, 125, 71, 0.2);
+        }
+        
+        .hero-step-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(251, 125, 71, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .hero-step:hover .hero-step-icon {
+            background: rgba(251, 125, 71, 0.2);
+            transform: scale(1.05);
+        }
+        
+        .hero-step-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .hero-step-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        
+        .hero-step-number {
+            font-size: 10px;
+            font-weight: 700;
+            color: #fb7d47;
+            letter-spacing: 1.5px;
+            font-family: 'Sora', sans-serif;
+            line-height: 1;
+        }
+        
+        .hero-step-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-white);
+            font-family: 'Sora', sans-serif;
+            line-height: 1.2;
+        }
+        
+        .hero-step-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.3;
+            font-weight: 400;
+        }
+        
+        .hero-step-connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-step-connector svg {
+            width: 20px;
+            height: 20px;
+            opacity: 0.4;
+        }
+        
+        @media (max-width: 900px) {
+            .hero-steps {
+                gap: 8px;
+            }
+            
+            .hero-step {
+                padding: 10px 14px;
+            }
+            
+            .hero-step-connector {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .hero-steps {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .hero-step {
+                width: 100%;
+                max-width: 280px;
+                padding: 10px 16px;
+            }
         }
 
         .hero-buttons {
@@ -1620,14 +2227,14 @@
             border: 2px solid rgba(100, 116, 139, 0.2);
             border-radius: 50px;
             font-size: 12px;
-            color: var(--teal);
+            color: #fb7d47;
             margin-top: 6px;
             margin-bottom: 8px;
             backdrop-filter: blur(10px);
         }
 
         .trust-badge svg {
-            fill: var(--teal);
+            fill: #fb7d47;
         }
 
         .hero-buttons .btn-secondary {
@@ -1636,7 +2243,10 @@
         }
 
         .hero-buttons .btn-secondary:hover {
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
             transform: scale(1.05);
         }
 
@@ -1712,7 +2322,7 @@
 
         .carousel-item:hover {
             border-color: rgba(0, 212, 255, 0.6);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 15px 40px rgba(251, 125, 71, 0.2);
         }
 
         /* Position each card around the 3D circle - 7 items = 360/7 ≈ 51.43deg apart */
@@ -1758,7 +2368,7 @@
         .carousel-placeholder-text {
             font-size: 14px;
             font-weight: 700;
-            color: var(--teal);
+            color: #fb7d47;
             margin-bottom: 4px;
         }
 
@@ -1781,9 +2391,9 @@
         
         .carousel-play-icon {
             font-size: 48px;
-            color: var(--teal);
+            color: #fb7d47;
             margin-bottom: 12px;
-            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+            filter: drop-shadow(0 0 10px rgba(251, 125, 71, 0.5));
         }
 
         /* Carousel Overlay Label */
@@ -1817,35 +2427,83 @@
 
         /* Arrow Buttons */
         .carousel-arrow {
-            width: 44px;
-            height: 44px;
-            min-width: 44px;
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
             border-radius: 50%;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.3);
-            color: var(--teal);
+            color: #fb7d47;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, border-color 0.2s ease;
             flex-shrink: 0;
             z-index: 100;
             position: relative;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .carousel-arrow::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+        
+        .carousel-arrow::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: -1;
         }
 
         .carousel-arrow:hover {
-            background: rgba(0, 212, 255, 0.2);
-            border-color: rgba(0, 212, 255, 0.6);
-            color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-            transform: scale(1.1);
+            border-color: rgba(10, 10, 10, 0.95);
+            transform: scale(1.05);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
+        }
+        
+        .carousel-arrow:hover::before {
+            opacity: 1;
+            animation-play-state: running;
         }
 
         .carousel-arrow svg {
             width: 22px;
             height: 22px;
-            stroke: currentColor;
+            stroke: #fb7d47;
+            position: relative;
+            z-index: 1;
         }
 
         /* Responsive */
@@ -1855,9 +2513,9 @@
             }
 
             .carousel-arrow {
-                width: 36px;
-                height: 36px;
-                min-width: 36px;
+                width: 40px;
+                height: 40px;
+                min-width: 40px;
             }
 
             .carousel-arrow svg {
@@ -2026,13 +2684,13 @@
             background: rgba(10, 10, 10, 0.5);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 2px solid rgba(245, 158, 11, 0.2);
+            border: 2px solid rgba(0, 212, 255, 0.3);
             border-radius: 16px;
             text-align: center;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(245, 158, 11, 0.1),
-                0 0 40px rgba(245, 158, 11, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
             animation: fadeInDown 0.6s ease 0.2s backwards;
             transition: all 0.3s ease;
             position: relative;
@@ -2046,13 +2704,13 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(251, 125, 71, 0.1), transparent);
             animation: shine 4s infinite;
         }
         
         .premium-banner:hover {
-            border-color: rgba(245, 158, 11, 0.4);
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            border-color: #fb7d47;
+            box-shadow: 0 0 20px rgba(251, 125, 71, 0.3);
         }
 
         .premium-banner-text {
@@ -2089,11 +2747,11 @@
 
         @keyframes pulseGlowGrey {
             0%, 100% {
-                box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2), 
+                box-shadow: 0 8px 32px rgba(251, 125, 71, 0.2), 
                             inset 0 1px 0 rgba(255, 255, 255, 0.1);
             }
             50% {
-                box-shadow: 0 8px 32px rgba(0, 212, 255, 0.35), 
+                box-shadow: 0 8px 32px rgba(251, 125, 71, 0.35), 
                             inset 0 1px 0 rgba(255, 255, 255, 0.15);
             }
         }
@@ -2109,8 +2767,8 @@
             z-index: 100;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
             animation: fadeInScale 0.6s ease 0.3s backwards;
             transform-origin: center top;
         }
@@ -2143,7 +2801,7 @@
             font-size: 22px;
             z-index: 2;
             transition: all 0.3s ease;
-            filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.6));
+            filter: drop-shadow(0 0 8px rgba(251, 125, 71, 0.6));
         }
 
         .search-input {
@@ -2159,8 +2817,8 @@
             font-family: 'DM Sans', sans-serif;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
             font-weight: 500;
         }
 
@@ -2173,9 +2831,9 @@
             border-color: rgba(0, 212, 255, 0.4);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.1),
-                0 0 20px rgba(0, 212, 255, 0.2);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.1),
+                0 0 20px rgba(251, 125, 71, 0.2);
             transform: scale(1.02);
             padding-top: 28px;
             padding-bottom: 20px;
@@ -2199,7 +2857,7 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
-            color: #F59E0B;
+            color: #fb7d47;
             opacity: 0;
             transform: translateY(5px);
             transition: all 0.3s ease;
@@ -2250,8 +2908,8 @@
             justify-content: space-between;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
             text-align: left;
         }
 
@@ -2259,9 +2917,9 @@
             border-color: rgba(0, 212, 255, 0.4);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.1),
-                0 0 20px rgba(0, 212, 255, 0.2);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.1),
+                0 0 20px rgba(251, 125, 71, 0.2);
             transform: translateY(-2px);
         }
 
@@ -2269,8 +2927,8 @@
             border-color: rgba(0, 212, 255, 0.4);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 20px rgba(0, 212, 255, 0.2);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 20px rgba(251, 125, 71, 0.2);
         }
 
         .dropdown-arrow {
@@ -2298,8 +2956,8 @@
             z-index: 1000;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
             max-height: 320px;
             overflow-y: auto;
             display: none;
@@ -2445,19 +3103,19 @@
             position: relative;
             width: 48px;
             height: 26px;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(10, 10, 10, 0.8);
             border-radius: 50px;
             transition: all 0.3s ease;
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(10, 10, 10, 0.8);
         }
 
         .ai-toggle-slider::before {
             content: '';
             position: absolute;
-            top: 2px;
-            left: 2px;
-            width: 20px;
-            height: 20px;
+            top: 3px;
+            left: 3px;
+            width: 16px;
+            height: 16px;
             background: #FFFFFF;
             border-radius: 50%;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2465,16 +3123,14 @@
         }
 
         .ai-toggle-input:checked + .ai-toggle-slider {
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
-            border-color: rgba(0, 212, 255, 0.3);
-            box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
-            animation: gradientShift 3s ease infinite;
-            background-size: 200% auto;
+            background: rgba(10, 10, 10, 0.95);
+            border-color: #fb7d47;
+            box-shadow: 0 0 20px rgba(251, 125, 71, 0.3);
         }
 
         .ai-toggle-input:checked + .ai-toggle-slider::before {
             transform: translateX(22px);
-            box-shadow: 0 2px 8px rgba(255, 107, 107, 0.5);
+            box-shadow: 0 2px 8px rgba(251, 125, 71, 0.5);
         }
 
         .ai-toggle-text {
@@ -2488,7 +3144,7 @@
         }
 
         .ai-toggle-label:hover .ai-toggle-text {
-            color: #F59E0B;
+            color: #fb7d47;
         }
 
         .ai-icon {
@@ -2545,16 +3201,15 @@
 
         /* AI Recommendations Banner */
         .ai-recommendations-banner {
-            background: linear-gradient(135deg, rgba(100, 116, 139, 0.15), rgba(71, 85, 105, 0.15));
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.8);
+            border: 2px solid rgba(251, 125, 71, 0.3);
             border-radius: 16px;
             padding: 20px 24px;
             margin-bottom: 32px;
             display: none;
             align-items: center;
             gap: 16px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.25);
+            box-shadow: 0 8px 24px rgba(251, 125, 71, 0.15);
             animation: fadeInScale 0.4s ease;
         }
 
@@ -2565,16 +3220,56 @@
         .ai-banner-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, #00D4FF, #0EA5E9);
-            border-radius: 50%;
+            background: rgba(10, 10, 10, 0.95);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
             flex-shrink: 0;
-            animation: pulse 2s ease-in-out infinite, gradientShift 3s ease infinite;
-            background-size: 200% auto;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+            position: relative;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .ai-banner-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: liquidFlow 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .ai-banner-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: #fb7d47;
+            fill: none;
+            stroke-width: 2;
+            position: relative;
+            z-index: 2;
         }
 
         .ai-banner-content {
@@ -2584,10 +3279,7 @@
         .ai-banner-title {
             font-size: 16px;
             font-weight: 700;
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #fb7d47;
             margin-bottom: 4px;
         }
 
@@ -2601,14 +3293,14 @@
             align-items: center;
             gap: 8px;
             font-size: 13px;
-            color: #F59E0B;
+            color: #fb7d47;
         }
 
         .ai-loading-spinner {
             width: 16px;
             height: 16px;
             border: 2px solid rgba(245, 158, 11, 0.3);
-            border-top-color: #F59E0B;
+            border-top-color: #fb7d47;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
@@ -2621,39 +3313,79 @@
         .ai-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             padding: 8px 16px;
-            background: rgba(0, 212, 255, 0.1);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.95);
+            border: none;
             border-radius: 50px;
             font-size: 11px;
             font-weight: 700;
-            color: var(--teal);
+            color: #ffffff;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-left: 12px;
             transition: all 0.3s ease;
+            position: relative;
+            cursor: default;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .ai-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50px;
+            padding: 2px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: liquidFlow 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .ai-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
+        }
+        
+        .ai-badge svg {
+            width: 14px;
+            height: 14px;
+            stroke: #fb7d47;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
         }
 
         .ai-badge-icon {
-            width: 14px;
-            height: 14px;
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 0.8;
-            }
+            display: none;
         }
 
         /* Animation Grid */
@@ -2695,8 +3427,8 @@
             height: 580px;
             width: 310px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6),
-                        0 0 30px rgba(0, 212, 255, 0.15);
-            border-color: var(--teal);
+                        0 0 30px rgba(251, 125, 71, 0.15);
+            border-color: #fb7d47;
         }
 
         /* Top Bar with badges */
@@ -2720,7 +3452,7 @@
         .card-badges-row {
             display: flex;
             gap: 4px;
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }
 
         .card-stock-badge {
@@ -2887,7 +3619,7 @@
         }
 
         .card-rating .star {
-            color: #F59E0B;
+            color: #fb7d47;
             font-size: 11px;
         }
 
@@ -2931,16 +3663,16 @@
             cursor: pointer;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
         }
         
         .feature-card:hover {
             transform: translateY(-12px);
-            border-color: var(--teal);
+            border-color: #fb7d47;
             box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 
-                        0 0 40px rgba(0, 212, 255, 0.25),
-                        0 0 20px rgba(245, 158, 11, 0.15);
+                        0 0 40px rgba(251, 125, 71, 0.25),
+                        0 0 20px rgba(251, 125, 71, 0.15);
         }
 
         /* Mobile Responsiveness */
@@ -2989,14 +3721,14 @@
             overflow: hidden;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
         }
         
         .faq-item:hover {
-            border-color: var(--teal);
+            border-color: #fb7d47;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 
-                        0 0 30px rgba(0, 212, 255, 0.15);
+                        0 0 30px rgba(251, 125, 71, 0.15);
         }
         
         .faq-question {
@@ -3012,7 +3744,7 @@
             font-size: 18px;
             font-weight: 700;
             font-family: 'Sora', sans-serif;
-            color: var(--teal);
+            color: #fb7d47;
             margin: 0;
             flex: 1;
         }
@@ -3030,7 +3762,7 @@
         .faq-arrow svg {
             width: 20px;
             height: 20px;
-            stroke: var(--teal);
+            stroke: #fb7d47;
             stroke-width: 2;
             fill: none;
         }
@@ -3058,8 +3790,8 @@
         
         .card-checkbox {
             position: absolute;
-            top: 12px;
-            right: 12px;
+            top: 14px;
+            right: 13px;
             z-index: 10;
         }
         
@@ -3073,7 +3805,7 @@
             justify-content: center;
             width: 36px;
             height: 36px;
-            border: 2px solid rgba(245, 158, 11, 0.5);
+            border: 2px solid rgba(251, 125, 71, 0.5);
             border-radius: 8px;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(10px);
@@ -3094,8 +3826,8 @@
         
         .card-checkbox label:hover {
             transform: scale(1.1);
-            border-color: var(--teal);
-            background: rgba(245, 158, 11, 0.1);
+            border-color: #fb7d47;
+            background: rgba(251, 125, 71, 0.1);
         }
         
         .card-checkbox label:hover svg {
@@ -3103,13 +3835,13 @@
         }
         
         .card-checkbox input[type="checkbox"]:checked + label {
-            background: rgba(245, 158, 11, 0.2);
-            border-color: var(--teal);
+            background: rgba(251, 125, 71, 0.2);
+            border-color: #fb7d47;
         }
         
         .card-checkbox input[type="checkbox"]:checked + label svg {
             opacity: 1;
-            stroke: var(--teal);
+            stroke: #fb7d47;
         }
         
         .card-checkbox input[type="checkbox"]:checked + label::after {
@@ -3119,7 +3851,7 @@
             right: -4px;
             width: 16px;
             height: 16px;
-            background: var(--teal);
+            background: #fb7d47;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -3162,46 +3894,6 @@
             transform: scale(1.05);
         }
         
-        .gif-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(245, 158, 11, 0.05));
-            cursor: pointer;
-        }
-        
-        .video-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(245, 158, 11, 0.05));
-            cursor: pointer;
-        }
-        
-        .gif-placeholder-icon {
-            font-size: 32px;
-            color: var(--teal);
-            margin-bottom: 6px;
-            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
-            transition: transform 0.3s ease;
-        }
-        
-        .animation-card:hover .gif-placeholder-icon {
-            transform: scale(1.2);
-        }
-        
-        .gif-placeholder-text {
-            font-size: 11px;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
         /* Icon badges - positioned in top bar */
         .icon-badge {
             width: 24px;
@@ -3369,7 +4061,7 @@
         .card-btn-cart {
             background: rgba(0, 212, 255, 0.1);
             border-color: rgba(0, 212, 255, 0.3);
-            color: var(--teal);
+            color: #fb7d47;
             font-weight: 700;
             padding: 14px 14px;
             font-size: 12px;
@@ -3384,8 +4076,8 @@
         
         .card-btn-cart:hover {
             background: rgba(0, 212, 255, 0.2);
-            border-color: var(--teal);
-            box-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
+            border-color: #fb7d47;
+            box-shadow: 0 0 12px rgba(251, 125, 71, 0.4);
         }
 
         /* Card Content - Legacy support */
@@ -3436,9 +4128,9 @@
             width: 100%;
             margin-top: 20px;
             padding: 14px;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
-            border: none;
-            border-radius: 12px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
             color: white;
             font-weight: 700;
             cursor: pointer;
@@ -3446,14 +4138,65 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, border-color 0.2s ease;
             font-family: 'Sora', sans-serif;
             font-size: 15px;
+            position: relative;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+            isolation: isolate;
+        }
+        
+        .add-to-cart-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+        
+        .add-to-cart-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50px;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: -1;
         }
 
         .add-to-cart-btn:hover {
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-            transform: translateY(-2px);
+            border-color: rgba(10, 10, 10, 0.95);
+            transform: scale(1.03);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
+        }
+        
+        .add-to-cart-btn:hover::before {
+            opacity: 1;
+            animation-play-state: running;
         }
 
         .load-more {
@@ -3496,8 +4239,8 @@
             padding: 48px;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
         }
 
         .form-grid {
@@ -3555,8 +4298,8 @@
             transition: all 0.3s ease;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
         }
 
         .form-group input[type="text"]:focus,
@@ -3565,8 +4308,8 @@
             border-color: rgba(0, 212, 255, 0.4);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 20px rgba(0, 212, 255, 0.2);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 20px rgba(251, 125, 71, 0.2);
         }
 
         .form-group select {
@@ -3581,8 +4324,8 @@
             transition: all 0.3s ease;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
             cursor: pointer;
             appearance: none;
             -webkit-appearance: none;
@@ -3606,8 +4349,8 @@
             transition: all 0.3s ease;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
             resize: vertical;
             min-height: 120px;
         }
@@ -3621,7 +4364,7 @@
         
         .form-group select option:hover {
             background: rgba(245, 158, 11, 0.2);
-            color: var(--teal);
+            color: #fb7d47;
         }
         
         .form-group select option:checked {
@@ -3635,8 +4378,8 @@
             border-color: rgba(0, 212, 255, 0.4);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 20px rgba(0, 212, 255, 0.2);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 20px rgba(251, 125, 71, 0.2);
         }
         
         .form-group textarea:focus {
@@ -3644,16 +4387,16 @@
             border-color: rgba(0, 212, 255, 0.4);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 20px rgba(0, 212, 255, 0.2);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 20px rgba(251, 125, 71, 0.2);
         }
 
         .form-group select:hover {
             border-color: rgba(0, 212, 255, 0.4);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 20px rgba(0, 212, 255, 0.2);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 20px rgba(251, 125, 71, 0.2);
         }
 
         .form-group textarea {
@@ -3662,29 +4405,9 @@
             border-radius: 24px;
         }
 
-        .submit-btn {
+        /* submit-btn uses btn-cta now - just keep width */
+        .submit-btn.btn-cta {
             width: 100%;
-            padding: 18px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            border-radius: 50px;
-            color: var(--teal);
-            font-weight: 700;
-            font-size: 16px;
-            font-family: 'Sora', sans-serif;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background: rgba(0, 212, 255, 0.2);
-            border-color: var(--teal);
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         @media (max-width: 768px) {
@@ -3711,10 +4434,8 @@
         
         /* Rewards Coming Soon Banner */
         .rewards-banner {
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 2px solid rgba(245, 158, 11, 0.2);
+            background: rgba(10, 10, 10, 0.8);
+            border: 2px solid rgba(0, 212, 255, 0.3);
             border-radius: 16px;
             padding: 24px 32px;
             display: flex;
@@ -3727,8 +4448,8 @@
             overflow: hidden;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(245, 158, 11, 0.1),
-                0 0 40px rgba(245, 158, 11, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
         }
         
         .rewards-banner::before {
@@ -3738,7 +4459,7 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.1), transparent);
+            background: linear-gradient(90deg, transparent, rgba(251, 125, 71, 0.1), transparent);
             animation: shine 4s infinite;
         }
         
@@ -3751,7 +4472,7 @@
         
         .rewards-banner-icon {
             font-size: 40px;
-            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+            filter: drop-shadow(0 0 10px rgba(251, 125, 71, 0.5));
         }
         
         .rewards-banner-text h3 {
@@ -3782,7 +4503,7 @@
 
         /* Promo Strip Banner */
         .promo-strip {
-            background: linear-gradient(90deg, #F59E0B, #FF6B6B, #F59E0B);
+            background: linear-gradient(90deg, #F59E0B, #FF6B6B, #fb7d47);
             background-size: 200% 100%;
             animation: gradientMove 3s ease infinite;
             padding: 12px 20px;
@@ -3822,8 +4543,8 @@
             overflow: hidden;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
         }
         
         .cta-banner::before {
@@ -3853,9 +4574,9 @@
         
         .cta-banner-buttons {
             display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
         }
 
         /* Social Proof Ticker */
@@ -3902,7 +4623,7 @@
         .ticker-dot {
             width: 6px;
             height: 6px;
-            background: #F59E0B;
+            background: #fb7d47;
             border-radius: 50%;
         }
 
@@ -3939,7 +4660,7 @@
         .cta-animated-icon {
             width: 28px;
             height: 28px;
-            stroke: #F59E0B;
+            stroke: #fb7d47;
             filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.4));
             stroke-dasharray: 100;
             stroke-dashoffset: 100;
@@ -4012,8 +4733,8 @@
             border: 2px solid rgba(0, 212, 255, 0.2);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
         }
         
         .stat-box {
@@ -4097,13 +4818,13 @@
             justify-content: center;
             writing-mode: vertical-rl;
             text-orientation: mixed;
-            color: #F59E0B;
+            color: #fb7d47;
             font-family: 'Sora', sans-serif;
             font-weight: 700;
             font-size: 14px;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            box-shadow: -4px 0 20px rgba(0, 212, 255, 0.15);
+            box-shadow: -4px 0 20px rgba(251, 125, 71, 0.15);
             animation: offersPulse 2s ease-in-out infinite;
             padding-right: 25px;
             z-index: -1;
@@ -4111,15 +4832,15 @@
         
         @keyframes offersPulse {
             0%, 100% {
-                box-shadow: -4px 0 20px rgba(0, 212, 255, 0.15);
+                box-shadow: -4px 0 20px rgba(251, 125, 71, 0.15);
             }
             50% {
-                box-shadow: -4px 0 30px rgba(0, 212, 255, 0.3);
+                box-shadow: -4px 0 30px rgba(251, 125, 71, 0.3);
             }
         }
         
         .floating-side-cta-toggle:hover {
-            box-shadow: -4px 0 35px rgba(0, 212, 255, 0.4);
+            box-shadow: -4px 0 35px rgba(251, 125, 71, 0.4);
             background: rgba(10, 10, 10, 0.4);
             animation: none;
         }
@@ -4147,7 +4868,7 @@
         
         .floating-side-cta-close:hover {
             opacity: 1;
-            color: #F59E0B;
+            color: #fb7d47;
             background: rgba(245, 158, 11, 0.1);
         }
         
@@ -4187,7 +4908,7 @@
         .trust-badge-item svg {
             width: 24px;
             height: 24px;
-            color: #F59E0B;
+            color: #fb7d47;
         }
 
         /* Urgency Banner */
@@ -4295,9 +5016,9 @@
 
         .social-link:hover {
             background: rgba(0, 212, 255, 0.15);
-            border-color: var(--teal);
+            border-color: #fb7d47;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 4px 12px rgba(251, 125, 71, 0.3);
         }
 
         .footer-section h4 {
@@ -4324,7 +5045,7 @@
         }
 
         .footer-links a:hover {
-            color: var(--teal);
+            color: #fb7d47;
             padding-left: 4px;
         }
 
@@ -4358,7 +5079,7 @@
         }
 
         .legal-links a:hover {
-            color: var(--teal);
+            color: #fb7d47;
         }
 
         /* Animations */
@@ -4411,32 +5132,21 @@
             bottom: 30px;
             right: 30px;
             z-index: 1000;
-            padding: 12px 24px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            color: var(--teal);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 14px;
-            font-family: 'Sora', sans-serif;
-            border-radius: 50px;
-            backdrop-filter: blur(10px);
+            padding: 12px 24px !important;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(100px);
-            transition: all 0.3s ease;
+            transform: translateY(100px) !important;
+            transition: all 0.3s ease, transform 0.3s ease !important;
         }
 
         .sticky-browse-btn.show {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0);
+            transform: translateY(0) !important;
         }
 
         .sticky-browse-btn:hover {
-            background: rgba(0, 212, 255, 0.2);
-            border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            transform: scale(1.05) !important;
         }
         
         @media (max-width: 768px) {
@@ -4507,6 +5217,14 @@
         @media (max-width: 768px) {
             /* Hide desktop nav elements */
             .nav-center {
+                display: none;
+            }
+            
+            .nav-links-left {
+                display: none;
+            }
+            
+            .nav-links-right {
                 display: none;
             }
             
@@ -4780,8 +5498,8 @@
             z-index: 1;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
         }
         
         .auth-modal-box {
@@ -4797,8 +5515,8 @@
             overflow: hidden;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
         }
         
         .auth-modal-box::before {
@@ -4966,7 +5684,7 @@
         }
         
         .password-toggle:hover {
-            color: var(--teal);
+            color: #fb7d47;
         }
         
         .eye-icon {
@@ -4979,8 +5697,8 @@
             outline: none;
             border-color: rgba(0, 212, 255, 0.4);
             background: rgba(0, 0, 0, 0.4);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1),
-                        0 0 20px rgba(0, 212, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(251, 125, 71, 0.1),
+                        0 0 20px rgba(251, 125, 71, 0.15);
         }
         
         .form-group input:hover {
@@ -5020,7 +5738,7 @@
         .auth-message.success {
             background: rgba(0, 212, 255, 0.1);
             border: 2px solid rgba(0, 212, 255, 0.3);
-            color: var(--teal);
+            color: #fb7d47;
         }
         
         .auth-modal-icon {
@@ -5058,15 +5776,17 @@
         }
         
         .auth-modal-buttons .btn-secondary {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.3);
-            color: var(--teal);
+            color: #ffffff;
         }
         
         .auth-modal-buttons .btn-secondary:hover {
-            background: rgba(0, 212, 255, 0.2);
-            border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            border-color: rgba(10, 10, 10, 0.95);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
         }
 
         .cart-modal {
@@ -5185,7 +5905,7 @@
             display: block;
             width: 24px;
             height: 24px;
-            border: 2px solid var(--teal);
+            border: 2px solid #fb7d47;
             border-radius: 4px;
             background: rgba(0, 0, 0, 0.4);
             cursor: pointer;
@@ -5341,7 +6061,7 @@
             color: #000000;
             margin-bottom: 60px;
             border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 8px 24px rgba(251, 125, 71, 0.3);
         }
 
         .pricing-banner span {
@@ -5383,26 +6103,34 @@
             width: 100%;
             margin-top: 12px;
             padding: 14px;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.3);
             border-radius: 50px;
-            color: var(--teal);
+            color: #ffffff;
             font-weight: 600;
             cursor: pointer;
             font-family: "Sora", sans-serif;
             font-size: 14px;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, border-color 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            position: relative;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+            isolation: isolate;
         }
 
         .add-to-cart-btn:hover {
-            background: rgba(0, 212, 255, 0.2);
-            border-color: var(--teal);
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            border-color: rgba(10, 10, 10, 0.95);
+            transform: scale(1.03);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
         }
 
         .card-price {
@@ -5566,7 +6294,7 @@
             background: rgba(0, 212, 255, 0.1);
             border: 2px solid rgba(0, 212, 255, 0.3);
             border-radius: 50px;
-            color: var(--teal);
+            color: #fb7d47;
             font-weight: 600;
             cursor: pointer;
             font-size: 15px;
@@ -5579,8 +6307,8 @@
 
         .viewer-3d-btn:hover {
             background: rgba(0, 212, 255, 0.2);
-            border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            border-color: #fb7d47;
+            box-shadow: 0 0 20px rgba(251, 125, 71, 0.5);
             transform: translateY(-2px);
         }
 
@@ -5676,8 +6404,8 @@
                 </span>
             </a>
 
-            <!-- Main Nav Links -->
-            <div class="nav-center">
+            <!-- Animations Dropdown (left of search) -->
+            <div class="nav-links-left">
                 <div class="nav-dropdown-wrapper">
                     <a href="#library" class="nav-link">
                         Animations
@@ -5688,42 +6416,42 @@
                     <div class="nav-dropdown">
                         <div class="nav-dropdown-title">Browse Categories</div>
                         <a href="#library" class="nav-dropdown-item" onclick="selectCategory('All')">
-                            <div class="nav-dropdown-item-icon">🎬</div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 All Animations
                                 <div class="nav-dropdown-item-label">Browse everything</div>
                             </div>
                         </a>
                         <a href="#library" class="nav-dropdown-item" onclick="selectCategory('Combat')">
-                            <div class="nav-dropdown-item-icon">⚔️</div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Combat
                                 <div class="nav-dropdown-item-label">Fighting & action</div>
                             </div>
                         </a>
                         <a href="#library" class="nav-dropdown-item" onclick="selectCategory('Locomotion')">
-                            <div class="nav-dropdown-item-icon">🏃</div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="4" r="2"/><path d="M15.5 21l-3-6.5-4 3V21"/><path d="M8 14l4-3 2.5 3.5"/><path d="M12 11l-3-2.5-3 3.5"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Locomotion
                                 <div class="nav-dropdown-item-label">Walking, running & movement</div>
                             </div>
                         </a>
                         <a href="#library" class="nav-dropdown-item" onclick="selectCategory('Dance')">
-                            <div class="nav-dropdown-item-icon">💃</div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Dance
                                 <div class="nav-dropdown-item-label">Dance moves & routines</div>
                             </div>
                         </a>
                         <a href="#library" class="nav-dropdown-item" onclick="selectCategory('Idle')">
-                            <div class="nav-dropdown-item-icon">🧘</div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Idle
                                 <div class="nav-dropdown-item-label">Standing & breathing</div>
                             </div>
                         </a>
                         <a href="#library" class="nav-dropdown-item" onclick="selectCategory('Emotes')">
-                            <div class="nav-dropdown-item-icon">🎭</div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Emotes
                                 <div class="nav-dropdown-item-label">Expressions & gestures</div>
@@ -5731,14 +6459,11 @@
                         </a>
                     </div>
                 </div>
-                <a href="dashboard.html" onclick="handleDashboardClick(event); return false;" class="nav-link">My Library</a>
-                <a href="#contact" class="nav-link">Contact</a>
-                <a href="#faq" class="nav-link">FAQ</a>
             </div>
 
             <!-- Search Bar -->
             <div class="nav-search">
-                <span class="search-icon-nav">🔍</span>
+                <span class="search-icon-nav"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
                 <input 
                     type="text" 
                     class="search-input-nav" 
@@ -5751,6 +6476,13 @@
                 <div class="search-dropdown-nav" id="searchDropdownNav">
                     <!-- Results populated here -->
                 </div>
+            </div>
+
+            <!-- Nav Links (right of search) -->
+            <div class="nav-links-right">
+                <a href="dashboard.html" onclick="handleDashboardClick(event); return false;" class="nav-link">My Library</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#faq" class="nav-link">FAQ</a>
             </div>
 
             <!-- Right Side Actions -->
@@ -5797,53 +6529,73 @@
                 
                 <!-- Auth Links (not logged in) -->
                 <div id="authLinks">
-                    <a href="#" onclick="showAuthModal('login'); return false;" class="btn-login">Sign In</a>
+                    <a href="#" onclick="showAuthModal('login'); return false;" class="btn-login">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                            <polyline points="10 17 15 12 10 7"/>
+                            <line x1="15" y1="12" x2="3" y2="12"/>
+                        </svg>
+                        Sign In
+                    </a>
                 </div>
                 
                 <!-- Profile Icon (logged in) -->
                 <div id="profileIcon" style="display: none;">
                     <div class="profile-container">
                         <div class="profile-icon" title="My Account">
-                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <svg viewBox="0 0 24 24">
                                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                             </svg>
                         </div>
                         <div class="profile-dropdown">
+                            <div class="profile-dropdown-title">Account</div>
                             <a href="dashboard.html" class="profile-dropdown-item">
-                                <svg fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-                                </svg>
+                                <div class="profile-dropdown-item-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                                    </svg>
+                                </div>
                                 <span>My Library</span>
                             </a>
                             <a href="dashboard.html#favorites" class="profile-dropdown-item">
-                                <svg fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                                </svg>
+                                <div class="profile-dropdown-item-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                    </svg>
+                                </div>
                                 <span>Wishlist</span>
                             </a>
                             <a href="dashboard.html#purchaseHistory" class="profile-dropdown-item">
-                                <svg fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
-                                </svg>
+                                <div class="profile-dropdown-item-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                                    </svg>
+                                </div>
                                 <span>Purchases</span>
                             </a>
                             <a href="dashboard.html#downloads" class="profile-dropdown-item">
-                                <svg fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-                                </svg>
+                                <div class="profile-dropdown-item-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                                    </svg>
+                                </div>
                                 <span>Downloads</span>
                             </a>
                             <a href="dashboard.html#settings" class="profile-dropdown-item">
-                                <svg fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
-                                </svg>
+                                <div class="profile-dropdown-item-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61 l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41 h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87 C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58 c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54 c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96 c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6 s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+                                    </svg>
+                                </div>
                                 <span>Settings</span>
                             </a>
                             <div class="profile-dropdown-divider"></div>
-                            <a href="#" onclick="event.stopPropagation(); logout(); return false;" class="profile-dropdown-item" style="color: #FF6B6B;">
-                                <svg fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
-                                </svg>
+                            <a href="#" onclick="event.stopPropagation(); logout(); return false;" class="profile-dropdown-item signout-item">
+                                <div class="profile-dropdown-item-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                                    </svg>
+                                </div>
                                 <span>Sign Out</span>
                             </a>
                         </div>
@@ -5853,7 +6605,7 @@
             </div>
 
             <!-- Mobile Menu -->
-            <button class="hamburger-menu" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
+            <button class="hamburger-menu" aria-label="Toggle navigation menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
             
             <ul class="nav-links">
                 <button class="mobile-menu-close" onclick="toggleMobileMenu()">✕</button>
@@ -5861,7 +6613,7 @@
                 <!-- Mobile Search -->
                 <li style="padding: 20px; border-bottom: 2px solid rgba(0, 212, 255, 0.1);">
                     <div style="position: relative;" id="mobileSearchWrapper">
-                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.6;">🔍</span>
+                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.6;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
                         <input 
                             type="text" 
                             id="mobileSearch"
@@ -5899,8 +6651,12 @@
     </div>
 
     <!-- Sticky Browse Library Button -->
-    <a href="#library" class="sticky-browse-btn" id="stickyBrowseBtn">
-        📚 Browse Library
+    <a href="#library" class="btn-cta sticky-browse-btn" id="stickyBrowseBtn">
+        <svg viewBox="0 0 24 24">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+        Browse Library
     </a>
 
     <!-- Auth Modal (Login/Signup) -->
@@ -5994,7 +6750,7 @@
     <div id="authRequiredModal" class="auth-modal">
         <div class="auth-modal-overlay" onclick="closeAuthRequiredModal()"></div>
         <div class="auth-modal-content">
-            <div class="auth-modal-icon">🔒</div>
+            <div class="auth-modal-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
             <h2>Sign In Required</h2>
             <p>Please sign in or create an account to start collecting animations and view your library.</p>
             <div class="auth-modal-buttons">
@@ -6057,7 +6813,7 @@
                             <div class="carousel-item" data-index="0">
                                 <div class="carousel-item-content">
                                     <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon">🏃</div>
+                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="4" r="2"/><path d="M15.5 21l-3-6.5-4 3V21"/><path d="M8 14l4-3 2.5 3.5"/><path d="M12 11l-3-2.5-3 3.5"/></svg></div>
                                         <div class="carousel-placeholder-text">Running Pack</div>
                                         <div class="carousel-placeholder-subtext">12 animations</div>
                                     </div>
@@ -6071,7 +6827,7 @@
                             <div class="carousel-item" data-index="1">
                                 <div class="carousel-item-content">
                                     <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon">⚔️</div>
+                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg></div>
                                         <div class="carousel-placeholder-text">Combat Pack</div>
                                         <div class="carousel-placeholder-subtext">24 animations</div>
                                     </div>
@@ -6085,7 +6841,7 @@
                             <div class="carousel-item" data-index="2">
                                 <div class="carousel-item-content">
                                     <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon">🤸</div>
+                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M4 17l4-4 4 4 4-4 4 4"/><path d="M12 11v4"/></svg></div>
                                         <div class="carousel-placeholder-text">Acrobatic Pack</div>
                                         <div class="carousel-placeholder-subtext">18 animations</div>
                                     </div>
@@ -6099,7 +6855,7 @@
                             <div class="carousel-item" data-index="3">
                                 <div class="carousel-item-content">
                                     <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon">🧗</div>
+                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M2 12h20"/><circle cx="12" cy="12" r="4"/><path d="M4.93 4.93l4.24 4.24"/><path d="M14.83 14.83l4.24 4.24"/></svg></div>
                                         <div class="carousel-placeholder-text">Climbing Pack</div>
                                         <div class="carousel-placeholder-subtext">16 animations</div>
                                     </div>
@@ -6113,7 +6869,7 @@
                             <div class="carousel-item" data-index="4">
                                 <div class="carousel-item-content">
                                     <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon">🤾</div>
+                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
                                         <div class="carousel-placeholder-text">Sports Pack</div>
                                         <div class="carousel-placeholder-subtext">20 animations</div>
                                     </div>
@@ -6127,7 +6883,7 @@
                             <div class="carousel-item" data-index="5">
                                 <div class="carousel-item-content">
                                     <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon">💃</div>
+                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg></div>
                                         <div class="carousel-placeholder-text">Dance Pack</div>
                                         <div class="carousel-placeholder-subtext">15 animations</div>
                                     </div>
@@ -6141,7 +6897,7 @@
                             <div class="carousel-item" data-index="6">
                                 <div class="carousel-item-content">
                                     <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon">🧘</div>
+                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
                                         <div class="carousel-placeholder-text">Idle Pack</div>
                                         <div class="carousel-placeholder-subtext">10 animations</div>
                                     </div>
@@ -6163,7 +6919,7 @@
             </div>
 
             <div class="hero-badge">
-                <div class="badge-dot"></div>
+                <div class="badge-dot"><svg viewBox="0 0 24 24"><path d="M12 0l2.5 7.5L22 10l-7.5 2.5L12 20l-2.5-7.5L2 10l7.5-2.5z"/></svg></div>
                 Premium Motion Capture Library
             </div>
             
@@ -6183,11 +6939,62 @@
                 <span>Instant download with <span style="color: var(--amber); font-weight: 600;">royalty-free</span> licenses</span>
             </div>
             
-            <p class="hero-subtitle">
-                <span class="hero-subtitle-buy-gradient">Buy premium motion capture animations</span><br>
-                <span class="hero-subtitle-secondary" style="color: var(--text-primary);">for game development, film, and virtual production.</span><br>
-                <span class="hero-subtitle-professional-glow">Professional mocap</span> <span class="hero-subtitle-platforms-gradient">for Unreal Engine, Unity, Blender, and all major 3D software.</span>
-            </p>
+            <!-- 3-Step Process -->
+            <div class="hero-steps">
+                <div class="hero-step">
+                    <div class="hero-step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"/>
+                            <path d="M21 21l-4.35-4.35"/>
+                        </svg>
+                    </div>
+                    <div class="hero-step-content">
+                        <div class="hero-step-number">01</div>
+                        <div class="hero-step-title">Browse</div>
+                        <div class="hero-step-desc">Game dev, film & virtual production</div>
+                    </div>
+                </div>
+                <div class="hero-step-connector">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0, 212, 255, 0.3)" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </div>
+                <div class="hero-step">
+                    <div class="hero-step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                            <line x1="1" y1="10" x2="23" y2="10"/>
+                        </svg>
+                    </div>
+                    <div class="hero-step-content">
+                        <div class="hero-step-number">02</div>
+                        <div class="hero-step-title">Purchase</div>
+                        <div class="hero-step-desc">Premium motion capture assets</div>
+                    </div>
+                </div>
+                <div class="hero-step-connector">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="rgba(0, 212, 255, 0.3)" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </div>
+                <div class="hero-step">
+                    <div class="hero-step-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </div>
+                    <div class="hero-step-content">
+                        <div class="hero-step-number">03</div>
+                        <div class="hero-step-title">Download</div>
+                        <div class="hero-step-desc">Unreal, Unity, Blender & more</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SEO Keywords (visually hidden) -->
+            <p class="visually-hidden">Buy premium motion capture animations for game development, film, and virtual production. Professional mocap for Unreal Engine, Unity, Blender, and all major 3D software.</p>
             
             <!-- Platform Logos -->
             <div class="platform-logos">
@@ -6197,12 +7004,18 @@
             </div>
             
             <div class="hero-buttons">
-                <a href="#library" class="btn-secondary btn-primary-cta" style="padding: 12px 28px; font-size: 15px; position: relative;">
-                    📚 Browse Library
-                    <span class="button-shine"></span>
+                <a href="#library" class="btn-cta">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                    Browse Library
                 </a>
-                <a href="#" id="heroSignUpBtn" onclick="showAuthModal('signup'); return false;" class="btn-secondary" style="padding: 12px 28px; font-size: 15px;">
-                    ✨ Get Started Free
+                <a href="#" onclick="showAuthModal('signup'); return false;" class="btn-cta">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    Get Started Free
                 </a>
             </div>
             
@@ -6277,15 +7090,15 @@
 
             <!-- Premium Teaser Banner -->
             <div class="premium-banner">
-                <div style="margin-bottom: 4px; font-size: 14px; font-weight: 700; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; z-index: 1;">🔥 Limited Time: New animations added weekly!</div>
-                <div class="premium-banner-text">✨ Premium Animations from $1 — Instant Download — Royalty-Free Forever<br><span style="color: #F59E0B; font-weight: 700;">No Subscription</span></div>
+                <div style="margin-bottom: 4px; font-size: 14px; font-weight: 700; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 6px;"><svg viewBox="0 0 24 24" width="16" height="16" fill="#fb7d47" stroke="none"><path d="M12 23c-3.866 0-7-3.134-7-7 0-2.526 1.394-4.727 3.453-5.882-.07.463-.107.943-.107 1.432 0 2.485 1.349 4.656 3.354 5.822-.696-.772-1.121-1.795-1.121-2.922 0-2.209 1.672-4.013 3.82-4.245.138-.015.277-.023.417-.023 1.115 0 2.133.44 2.884 1.16A6.968 6.968 0 0 1 19 16c0 3.866-3.134 7-7 7zM12 1c.552 0 1 .448 1 1v2c0 .552-.448 1-1 1s-1-.448-1-1V2c0-.552.448-1 1-1z"/></svg> Limited Time: New animations added weekly!</div>
+                <div class="premium-banner-text"><svg viewBox="0 0 24 24" width="14" height="14" fill="#fb7d47" stroke="none" style="display: inline; vertical-align: middle; margin-right: 4px;"><path d="M12 0l2.5 7.5L22 10l-7.5 2.5L12 20l-2.5-7.5L2 10l7.5-2.5z"/></svg>Premium Animations from $1 — Instant Download — Royalty-Free Forever<br><span style="color: #fb7d47; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline;"><polyline points="20 6 9 17 4 12"/></svg>No Subscription</span></div>
             </div>
 
             <!-- Ultra-Premium Filters Card -->
             <div class="filters-card">
                 <!-- Luxe Search Bar -->
                 <div class="search-box">
-                    <span class="search-icon">🔍</span>
+                    <span class="search-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
                     <input type="text" id="searchInput" class="search-input" placeholder="Search animations by name, style, or motion...">
                     <span class="search-floating-label">Search Library</span>
                     <div class="search-dropdown-library" id="searchDropdownLibrary" style="display: none;">
@@ -6395,13 +7208,20 @@
                 
                 <!-- AI Suggestions Toggle -->
                 <div class="ai-suggestions-toggle-container">
-                    <span class="ai-badge" style="margin-left: 0; margin-bottom: 4px;"><span class="ai-badge-icon"></span>AI Enhanced Search</span>
+                    <span class="ai-badge" style="margin-left: 0; margin-bottom: 4px;">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+                            <circle cx="7.5" cy="14.5" r="1.5"/>
+                            <circle cx="16.5" cy="14.5" r="1.5"/>
+                        </svg>
+                        AI Enhanced Search
+                    </span>
                     <div style="display: flex; align-items: center; gap: 12px;">
                         <label class="ai-toggle-label">
                             <input type="checkbox" id="aiSuggestionsToggle" class="ai-toggle-input">
                             <span class="ai-toggle-slider"></span>
                             <span class="ai-toggle-text">
-                                <span class="ai-icon">✨</span>
+                                <span class="ai-icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="#fb7d47" stroke="none"><path d="M12 0l2.5 7.5L22 10l-7.5 2.5L12 20l-2.5-7.5L2 10l7.5-2.5z"/></svg></span>
                                 Show AI-Powered Recommendations
                             </span>
                         </label>
@@ -6420,7 +7240,7 @@
 
             <!-- AI Recommendations Banner -->
             <div class="ai-recommendations-banner" id="aiRecommendationsBanner">
-                <div class="ai-banner-icon">✨</div>
+                <div class="ai-banner-icon"><svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/><circle cx="7.5" cy="14.5" r="1.5"/><circle cx="16.5" cy="14.5" r="1.5"/></svg></div>
                 <div class="ai-banner-content">
                     <div class="ai-banner-title">AI-Powered Recommendations</div>
                     <div class="ai-banner-description" id="aiRecommendationText">Analyzing your preferences...</div>
@@ -6437,8 +7257,18 @@
             </div>
 
             <div class="load-more">
-                <button type="button" class="btn btn-secondary" style="padding: 16px 40px;" onclick="loadMore(); return false;" id="loadMoreBtn">Load More Animations</button>
-                <button type="button" class="btn btn-secondary" style="padding: 16px 40px; display: none;" onclick="scrollToTop(); return false;" id="backToTopBtn">↑ Back to Top</button>
+                <button type="button" class="btn-cta" onclick="loadMore(); return false;" id="loadMoreBtn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 5v14M5 12h14"/>
+                    </svg>
+                    Load More Animations
+                </button>
+                <button type="button" class="btn-cta" style="display: none;" onclick="scrollToTop(); return false;" id="backToTopBtn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 19V5M5 12l7-7 7 7"/>
+                    </svg>
+                    Back to Top
+                </button>
             </div>
         </div>
     </section>
@@ -6446,7 +7276,7 @@
     <!-- Rewards Coming Soon Banner -->
     <div class="rewards-banner" style="margin: 20px auto 0; max-width: 1400px; width: calc(100% - 40px); transform: translateY(-30px);">
         <div class="rewards-banner-content">
-            <div class="rewards-banner-icon">🎁</div>
+            <div class="rewards-banner-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
             <div class="rewards-banner-text">
                 <h3>MocapWork Rewards Program</h3>
                 <p>Earn points on every purchase. Redeem for free animations, exclusive packs & more!</p>
@@ -6485,10 +7315,17 @@
             <h3><span style="color: white;">Can't Find the </span><span class="gradient-text animated-gradient">Perfect Animation</span><span style="color: white;">?</span></h3>
             <p>Our professional mocap team can create custom animations tailored to your exact specifications. From unique character movements to specific action sequences.</p>
             <div class="cta-banner-buttons">
-                <a href="#contact" class="btn btn-primary" style="padding: 14px 32px;">
-                    🎬 Request Custom Animation
+                <a href="#contact" class="btn-cta">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15.6 11.6L22 7v10l-6.4-4.5v-1zM4 5h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2z"/>
+                    </svg>
+                    Request Custom Animation
                 </a>
-                <a href="#library" class="btn btn-secondary" style="padding: 14px 32px;">
+                <a href="#library" class="btn-cta">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
                     Browse Library
                 </a>
             </div>
@@ -6510,33 +7347,32 @@
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
                 <div class="feature-card">
-                    <div style="font-size: 36px; margin-bottom: 16px;">🎮</div>
+                    <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg></div>
                     <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Game Development Ready</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
                         Optimized motion capture animations for Unreal Engine and Unity. Perfect for AAA games, indie projects, and everything in between. 
                         All mocap files include standard FBX format for seamless integration.
                     </p>
-                    <a href="#library" style="display: inline-block; margin-top: 16px; color: #F59E0B; font-weight: 600; font-size: 14px; text-decoration: none;">Browse Game Animations →</a>
+                    <a href="#library" style="display: inline-block; margin-top: 16px; color: #fb7d47; font-weight: 600; font-size: 14px; text-decoration: none;">Browse Game Animations →</a>
                 </div>
                 
                 <div class="feature-card">
-                    <div style="font-size: 36px; margin-bottom: 16px;">🎬</div>
+                    <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg></div>
                     <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Film & Animation</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
                         High-quality mocap animations for film, TV, and animated content. Compatible with Blender, Maya, 3ds Max, and Cinema 4D. 
                         Professional motion capture data captured in our studio facility.
                     </p>
-                    <a href="#library" style="display: inline-block; margin-top: 16px; color: #F59E0B; font-weight: 600; font-size: 14px; text-decoration: none;">Explore Film Assets →</a>
+                    <a href="#library" style="display: inline-block; margin-top: 16px; color: #fb7d47; font-weight: 600; font-size: 14px; text-decoration: none;">Explore Film Assets →</a>
                 </div>
                 
                 <div class="feature-card">
-                    <div style="font-size: 36px; margin-bottom: 16px;">⚡</div>
+                    <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
                     <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Instant Download</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
                         Buy mocap animations and download immediately. No subscription required. 
                         Get lifetime access to your purchased motion capture files with unlimited re-downloads from your dashboard.
                     </p>
-                    <a href="#" onclick="showAuthModal('signup'); return false;" style="display: inline-block; margin-top: 16px; color: #F59E0B; font-weight: 600; font-size: 14px; text-decoration: none;">Create Free Account →</a>
                 </div>
             </div>
         </div>
@@ -6610,11 +7446,11 @@
                         <textarea name="description" rows="5" placeholder="Tell us about the animations you need, including number of animations, style, character details, and timeline..." required></textarea>
                     </div>
                     
-                    <button type="submit" class="submit-btn">
-                        <span>Submit Request</span>
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                    <button type="submit" class="btn-cta submit-btn" style="width: 100%;">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
                         </svg>
+                        <span>Submit Request</span>
                     </button>
                 </form>
             </div>
@@ -6626,7 +7462,7 @@
         <div style="max-width: 900px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 60px;">
                 <h2 style="font-size: 42px; font-weight: 900; font-family: 'Sora', sans-serif; color: var(--text-white); margin-bottom: 16px;">
-                    Frequently Asked Questions
+                    <span style="color: #fb7d47;">F</span>requently <span style="color: #fb7d47;">A</span>sked <span style="color: #fb7d47;">Q</span>uestions
                 </h2>
                 <p style="color: var(--text-primary); font-size: 18px;">
                     Everything you need to know about buying motion capture animations
@@ -6771,15 +7607,25 @@
             Join thousands of game developers, filmmakers, and 3D artists who trust MocapWork for professional motion capture animations.
         </p>
         <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-            <a href="#library" class="btn btn-primary" style="padding: 16px 40px; font-size: 16px;">
-                🚀 Start Browsing Now
+            <a href="#library" class="btn-cta">
+                <svg viewBox="0 0 24 24">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                    <path d="M22 4L12 14.01l-3-3"/>
+                </svg>
+                Start Browsing Now
             </a>
-            <a href="#" onclick="showAuthModal('signup'); return false;" class="btn btn-secondary" style="padding: 16px 40px; font-size: 16px;">
+            <a href="#" onclick="showAuthModal('signup'); return false;" class="btn-cta">
+                <svg viewBox="0 0 24 24">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="8.5" cy="7" r="4"/>
+                    <line x1="20" y1="8" x2="20" y2="14"/>
+                    <line x1="23" y1="11" x2="17" y2="11"/>
+                </svg>
                 Create Free Account
             </a>
         </div>
-        <p style="color: var(--text-muted); font-size: 13px; margin-top: 20px;">
-            ✨ No subscription required • Pay only for what you need • Lifetime access to purchases
+        <p style="color: var(--text-muted); font-size: 13px; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="#fb7d47" stroke="none"><path d="M12 0l2.5 7.5L22 10l-7.5 2.5L12 20l-2.5-7.5L2 10l7.5-2.5z"/></svg> No subscription required • Pay only for what you need • Lifetime access to purchases
         </p>
     </div>
 
@@ -6797,28 +7643,28 @@
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-top: 50px;">
                 <div>
-                    <div style="font-size: 48px; margin-bottom: 16px; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">✓</div>
+                    <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                     <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Studio Quality Mocap</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
                         Professional motion capture recorded with industry-leading mocap technology
                     </p>
                 </div>
                 <div>
-                    <div style="font-size: 48px; margin-bottom: 16px; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">✓</div>
+                    <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                     <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Game Engine Ready</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
                         Optimized for Unreal Engine, Unity, and all major game development platforms
                     </p>
                 </div>
                 <div>
-                    <div style="font-size: 48px; margin-bottom: 16px; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">✓</div>
+                    <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                     <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Royalty-Free License</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
                         Use mocap animations in unlimited commercial projects with no extra fees
                     </p>
                 </div>
                 <div>
-                    <div style="font-size: 48px; margin-bottom: 16px; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">✓</div>
+                    <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                     <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Instant Download</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
                         Buy and download motion capture files immediately—no waiting
@@ -6842,10 +7688,10 @@
                     Elevate your projects with studio-quality mocap data.
                 </p>
                 <div class="social-links">
-                    <a href="#" class="social-link">𝕏</a>
-                    <a href="#" class="social-link">📘</a>
-                    <a href="#" class="social-link">📷</a>
-                    <a href="#" class="social-link">▶️</a>
+                    <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="18" height="18" fill="#fb7d47"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fb7d47"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                    <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                    <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fb7d47"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
                 </div>
             </div>
 
@@ -7229,7 +8075,7 @@
                     spinner.style.display = 'block';
                 } else {
                     button.disabled = false;
-                    buttonText.textContent = '💳 Pay Now';
+                    buttonText.textContent = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Pay Now';
                     spinner.style.display = 'none';
                 }
             }
@@ -7516,31 +8362,11 @@
                 const hasThumbnail = anim.thumbnail && anim.thumbnail !== anim.video;
                 
                 if (anim.videoType === 'video/mp4') {
-                    // MP4 video - use video element
-                    if (hasThumbnail) {
-                        mediaElement = `
-                            <img src="${anim.thumbnail}" alt="${anim.title}" class="card-media-thumbnail">
-                            <video src="${anim.video}" class="card-media-video" muted loop playsinline style="display: none;"></video>
-                        `;
-                    } else {
-                        mediaElement = `
-                            <div class="video-placeholder" data-video="${anim.video}">
-                                <div class="gif-placeholder-icon">▶</div>
-                                <div class="gif-placeholder-text">Hover to preview</div>
-                            </div>
-                            <video src="${anim.video}" class="card-media-video" muted loop playsinline style="display: none;"></video>
-                        `;
-                    }
+                    // MP4 video - autoplay directly
+                    mediaElement = `<video src="${anim.video}" class="card-media-video" muted loop playsinline autoplay></video>`;
                 } else if (anim.videoType === 'image/gif') {
-                    // GIF - use img element with hover loading
-                    if (hasThumbnail) {
-                        mediaElement = `<img src="${anim.thumbnail}" data-gif="${anim.video}" data-thumbnail="${anim.thumbnail}" alt="${anim.title}" loading="lazy" class="lazy-gif">`;
-                    } else {
-                        mediaElement = `<div class="gif-placeholder" data-gif="${anim.video}">
-                            <div class="gif-placeholder-icon">▶</div>
-                            <div class="gif-placeholder-text">Hover to preview</div>
-                        </div>`;
-                    }
+                    // GIF - just show it directly
+                    mediaElement = `<img src="${anim.video}" alt="${anim.title}" loading="lazy">`;
                 } else {
                     // Static image
                     mediaElement = `<img src="${anim.thumbnail || anim.video}" alt="${anim.title}" loading="lazy">`;
@@ -7630,7 +8456,7 @@
                         <!-- Rating + Engine Icons Row -->
                         <div class="card-meta-row">
                             <div class="card-rating">
-                                <span class="star">★</span>
+                                <span class="star"><svg viewBox="0 0 24 24" width="14" height="14" fill="#fb7d47" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
                                 <span class="rating-value">${(4.5 + (anim.id.charCodeAt(0) % 5) / 10).toFixed(1)}</span>
                             </div>
                             <div class="card-engines">
@@ -7702,99 +8528,28 @@
             initCardObserver();
         }
         
-        // Hover-only media loading - GIFs and videos only play when hovered
+        // Autoplay videos - no hover needed
         function initLazyGifs() {
-            // Handle lazy-gif images (have separate thumbnail)
-            const lazyGifs = document.querySelectorAll('.lazy-gif');
-            lazyGifs.forEach(gif => {
-                const gifSrc = gif.dataset.gif;
-                const thumbnailSrc = gif.dataset.thumbnail;
-                
-                // Always show thumbnail by default
-                if (thumbnailSrc && gif.src !== thumbnailSrc) {
-                    gif.src = thumbnailSrc;
-                }
-                
-                // Get parent card for hover events
-                const card = gif.closest('.animation-card');
-                if (card && !card.dataset.gifHooked) {
-                    card.dataset.gifHooked = 'true';
-                    card.addEventListener('mouseenter', () => {
-                        if (gifSrc) {
-                            gif.src = gifSrc;
-                        }
-                    });
-                    
-                    card.addEventListener('mouseleave', () => {
-                        if (thumbnailSrc) {
-                            gif.src = thumbnailSrc;
-                        }
-                    });
-                }
-            });
-            
-            // Handle gif-placeholder divs (no separate thumbnail for GIFs)
-            const gifPlaceholders = document.querySelectorAll('.gif-placeholder');
-            gifPlaceholders.forEach(placeholder => {
-                const gifSrc = placeholder.dataset.gif;
-                const card = placeholder.closest('.animation-card');
-                
-                if (card && !card.dataset.gifHooked) {
-                    card.dataset.gifHooked = 'true';
-                    
-                    card.addEventListener('mouseenter', () => {
-                        if (gifSrc) {
-                            placeholder.innerHTML = `<img src="${gifSrc}" alt="Animation preview" style="width: 100%; height: 100%; object-fit: cover;">`;
-                        }
-                    });
-                    
-                    card.addEventListener('mouseleave', () => {
-                        placeholder.innerHTML = `
-                            <div class="gif-placeholder-icon">▶</div>
-                            <div class="gif-placeholder-text">Hover to preview</div>
-                        `;
-                    });
-                }
-            });
-            
-            // Handle MP4 videos - show thumbnail, play video on hover
-            const videoCards = document.querySelectorAll('.animation-card');
-            videoCards.forEach(card => {
-                const video = card.querySelector('.card-media-video');
-                const thumbnail = card.querySelector('.card-media-thumbnail');
-                const videoPlaceholder = card.querySelector('.video-placeholder');
-                
-                if (video && !card.dataset.videoHooked) {
-                    card.dataset.videoHooked = 'true';
-                    
-                    card.addEventListener('mouseenter', () => {
-                        if (thumbnail) thumbnail.style.display = 'none';
-                        if (videoPlaceholder) videoPlaceholder.style.display = 'none';
-                        video.style.display = 'block';
-                        video.currentTime = 0;
-                        video.play().catch(() => {}); // Ignore autoplay errors
-                    });
-                    
-                    card.addEventListener('mouseleave', () => {
-                        video.pause();
-                        video.style.display = 'none';
-                        if (thumbnail) thumbnail.style.display = 'block';
-                        if (videoPlaceholder) videoPlaceholder.style.display = 'flex';
-                    });
-                }
+            // Videos autoplay via HTML attribute, just ensure they're playing
+            const videos = document.querySelectorAll('.card-media-video');
+            videos.forEach(video => {
+                video.play().catch(() => {}); // Ignore autoplay errors
             });
         }
 
-        // Pause animations when cards are off-screen for performance
+        // Pause/play animations when cards go off-screen for performance
         function initCardObserver() {
             const cards = document.querySelectorAll('.animation-card');
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.remove('paused');
-                    } else {
-                        entry.target.classList.add('paused');
+                    const video = entry.target.querySelector('.card-media-video');
+                    if (video) {
+                        if (entry.isIntersecting) {
+                            video.play().catch(() => {});
+                        } else {
+                            video.pause();
+                        }
                     }
                 });
             }, {
@@ -7927,7 +8682,7 @@
             const popularSearches = ['sword', 'fantasy sword', 'sword pack', 'walking'];
             popularSearches.forEach(term => {
                 html += `<div class="search-result-item" onclick="applyLibrarySearch('${term}')">`;
-                html += '<div class="search-result-icon">🔍</div>';
+                html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
                 html += `<div class="search-result-text"><strong>${term}</strong></div>`;
                 html += '</div>';
             });
@@ -7943,7 +8698,7 @@
                     const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
                     html += `<div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px;">`;
                     html += `<img src="${thumbnailUrl}" alt="${anim.title}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 2px solid rgba(0, 212, 255, 0.2);">`;
-                    html += `<div style="flex: 1;"><div class="search-result-text">${anim.title}</div><div style="font-size: 14px; color: var(--teal); font-weight: 600;">$${finalPrice.toFixed(2)}</div></div>`;
+                    html += `<div style="flex: 1;"><div class="search-result-text">${anim.title}</div><div style="font-size: 14px; color: #fb7d47; font-weight: 600;">$${finalPrice.toFixed(2)}</div></div>`;
                     html += '</div>';
                 });
                 html += '</div>';
@@ -7979,7 +8734,7 @@
                 suggestions.forEach(sugg => {
                     const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
                     html += `<div class="search-result-item" onclick="applyLibrarySearch('${sugg}')">`;
-                    html += '<div class="search-result-icon">🔍</div>';
+                    html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
                     html += `<div class="search-result-text">${highlighted}</div>`;
                     html += '</div>';
                 });
@@ -7997,7 +8752,7 @@
                     const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
                     html += `<div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px;">`;
                     html += `<img src="${thumbnailUrl}" alt="${anim.title}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 2px solid rgba(0, 212, 255, 0.2);">`;
-                    html += `<div style="flex: 1;"><div class="search-result-text">${highlighted}</div><div style="font-size: 14px; color: var(--teal); font-weight: 600;">$${finalPrice.toFixed(2)}</div></div>`;
+                    html += `<div style="flex: 1;"><div class="search-result-text">${highlighted}</div><div style="font-size: 14px; color: #fb7d47; font-weight: 600;">$${finalPrice.toFixed(2)}</div></div>`;
                     html += '</div>';
                 });
                 html += '</div>';
@@ -8516,7 +9271,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             const loading = document.createElement('div');
             loading.id = 'stripe-loading-overlay';
             loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;';
-            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(100, 116, 139, 0.3);"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#F59E0B;">Processing Payment...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
+            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(100, 116, 139, 0.3);"><div style="font-size:24px;margin-bottom:16px;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fb7d47" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div><div style="font-size:18px;font-weight:700;color:#fb7d47;">Processing Payment...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
             document.body.appendChild(loading);
 
             try {
@@ -8683,7 +9438,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             if (cartIds.length === 0) {
                 cartItemsContainer.innerHTML = `
                     <div class="cart-empty">
-                        <span style="font-size: 80px; margin-bottom: 20px; opacity: 0.3;">🛒</span>
+                        <span style="font-size: 80px; margin-bottom: 20px; opacity: 0.3;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
                         <h3 style="margin-bottom: 12px; font-size: 16px;">Your cart is empty</h3>
                         <p style="font-size: 13px; opacity: 0.7; line-height: 1.4;">Any animations you add to your cart will be displayed here.</p>
                     </div>
@@ -8827,7 +9582,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             // Show loading
             const loading = document.createElement('div');
             loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;';
-            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(100, 116, 139, 0.3);"><div style="font-size:24px;margin-bottom:16px;">🛒</div><div style="font-size:18px;font-weight:700;color:#F59E0B;">Processing Cart...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
+            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(100, 116, 139, 0.3);"><div style="font-size:24px;margin-bottom:16px;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><div style="font-size:18px;font-weight:700;color:#fb7d47;">Processing Cart...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
             document.body.appendChild(loading);
 
             try {
@@ -8873,21 +9628,21 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             let colors = {
                 success: {
                     bg: 'rgba(0, 212, 255, 0.15)',
-                    border: 'rgba(0, 212, 255, 0.3)',
+                    border: 'rgba(251, 125, 71, 0.3)',
                     text: '#00D4FF',
-                    icon: '🛒'
+                    icon: '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>'
                 },
                 warning: {
                     bg: 'rgba(245, 158, 11, 0.15)',
                     border: 'rgba(245, 158, 11, 0.3)',
-                    text: '#F59E0B',
-                    icon: 'ℹ️'
+                    text: '#fb7d47',
+                    icon: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>'
                 },
                 error: {
                     bg: 'rgba(255, 107, 107, 0.15)',
                     border: 'rgba(255, 107, 107, 0.3)',
                     text: '#FF6B6B',
-                    icon: '❌'
+                    icon: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FF6B6B" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>'
                 }
             };
             
@@ -9023,7 +9778,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 cartHoverItems.style.overflowY = 'hidden';
                 cartHoverItems.innerHTML = `
                     <div class="cart-hover-empty">
-                        <div class="cart-hover-empty-icon">🛒</div>
+                        <div class="cart-hover-empty-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
                         <div>Your cart is empty</div>
                         <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">Any animations you add to your cart will be displayed here.</div>
                     </div>
@@ -9119,7 +9874,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             // Show loading
             const loading = document.createElement('div');
             loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:9999;';
-            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(100, 116, 139, 0.3);"><div style="font-size:24px;margin-bottom:16px;">🛒</div><div style="font-size:18px;font-weight:700;color:#F59E0B;">Processing Cart...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
+            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(100, 116, 139, 0.3);"><div style="font-size:24px;margin-bottom:16px;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div><div style="font-size:18px;font-weight:700;color:#fb7d47;">Processing Cart...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
             document.body.appendChild(loading);
 
             try {
@@ -9246,7 +10001,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             // On error, complete in red
             if (loadingBar) {
                 loadingBar.style.width = '100%';
-                loadingBar.style.background = 'linear-gradient(90deg, #ef4444, #f59e0b)';
+                loadingBar.style.background = 'linear-gradient(90deg, #ef4444, #F59E0B)';
                 setTimeout(() => {
                     loadingBar.style.opacity = '0';
                     setTimeout(() => loadingBar.style.display = 'none', 300);
@@ -9312,15 +10067,15 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             const colors = {
                 success: {
                     bg: 'rgba(15, 15, 15, 0.98)',
-                    border: 'rgba(0, 212, 255, 0.5)',
-                    text: 'var(--teal)',
-                    shadow: 'rgba(0, 212, 255, 0.3)'
+                    border: 'rgba(251, 125, 71, 0.5)',
+                    text: '#fb7d47',
+                    shadow: 'rgba(251, 125, 71, 0.3)'
                 },
                 warning: {
                     bg: 'rgba(15, 15, 15, 0.98)',
-                    border: 'rgba(245, 158, 11, 0.5)',
-                    text: '#F59E0B',
-                    shadow: 'rgba(245, 158, 11, 0.3)'
+                    border: 'rgba(251, 125, 71, 0.5)',
+                    text: '#fb7d47',
+                    shadow: 'rgba(251, 125, 71, 0.3)'
                 },
                 error: {
                     bg: 'rgba(15, 15, 15, 0.98)',
@@ -9611,7 +10366,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             
             const submitBtn = this.querySelector('.submit-btn');
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span>Submitting...</span>';
+            submitBtn.innerHTML = '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="currentColor" fill="none" stroke-width="2"><animate attributeName="stroke-dasharray" values="0 63;63 63" dur="1s" repeatCount="indefinite"/></circle></svg><span>Submitting...</span>';
             
             try {
                 const result = await API.submitCustomRequest(formData);
@@ -9627,7 +10382,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 alert('Error submitting request. Please try again.');
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>Submit Request</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+                submitBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg><span>Submit Request</span>';
             }
         });
         
@@ -9690,7 +10445,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             const popularSearches = ['sword', 'fantasy sword', 'sword pack', 'walking'];
             popularSearches.forEach(term => {
                 html += `<div class="search-result-item" onclick="applySearchNav('${term}')">`;
-                html += '<div class="search-result-icon">🔍</div>';
+                html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
                 html += `<div class="search-result-text"><strong>${term}</strong></div>`;
                 html += '</div>';
             });
@@ -9710,7 +10465,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                             <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
-                                <div style="font-size: 14px; color: var(--teal); font-weight: 600;">$${finalPrice.toFixed(2)}</div>
+                                <div style="font-size: 14px; color: #fb7d47; font-weight: 600;">$${finalPrice.toFixed(2)}</div>
                             </div>
                         </div>
                     `;
@@ -9755,7 +10510,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 suggestions.forEach(sugg => {
                     const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
                     html += `<div class="search-result-item" onclick="applySearchNav('${sugg}')">`;
-                    html += '<div class="search-result-icon">🔍</div>';
+                    html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
                     html += `<div class="search-result-text">${highlighted}</div>`;
                     html += '</div>';
                 });
@@ -9776,7 +10531,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                             <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
-                                <div style="font-size: 14px; color: var(--teal); font-weight: 600;">$${finalPrice.toFixed(2)}</div>
+                                <div style="font-size: 14px; color: #fb7d47; font-weight: 600;">$${finalPrice.toFixed(2)}</div>
                             </div>
                         </div>
                     `;
@@ -9872,7 +10627,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                             <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
-                                <div style="font-size: 14px; color: var(--teal); font-weight: 600;">$${finalPrice.toFixed(2)}</div>
+                                <div style="font-size: 14px; color: #fb7d47; font-weight: 600;">$${finalPrice.toFixed(2)}</div>
                             </div>
                         </div>
                     `;
@@ -9896,7 +10651,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 suggestions.forEach(sugg => {
                     const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
                     html += `<div class="search-result-item" onclick="applyMobileSearch('${sugg}')">`;
-                    html += '<div class="search-result-icon">🔍</div>';
+                    html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
                     html += `<div class="search-result-text">${highlighted}</div>`;
                     html += '</div>';
                 });
@@ -10027,7 +10782,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                         Download Your Files
                     </a>
                     <p style="color: var(--text-muted); font-size: 12px; margin-top: 10px;">
-                        You can re-download anytime from your <a href="#" onclick="handleDashboardClick(event); closeThankYouModal(); return false;" style="color: var(--teal); text-decoration: none;">Dashboard</a>
+                        You can re-download anytime from your <a href="#" onclick="handleDashboardClick(event); closeThankYouModal(); return false;" style="color: #fb7d47; text-decoration: none;">Dashboard</a>
                     </p>
                 </div>
 
@@ -10068,7 +10823,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         width: 40px;
         height: 40px;
         border: 4px solid rgba(0, 212, 255, 0.1);
-        border-top-color: var(--teal);
+        border-top-color: #fb7d47;
         border-radius: 50%;
         animation: spin 0.8s linear infinite;
     }
@@ -10116,8 +10871,8 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         overflow: hidden;
         box-shadow: 
             0 4px 24px rgba(0, 0, 0, 0.4),
-            inset 0 1px 1px rgba(0, 212, 255, 0.1),
-            0 0 40px rgba(0, 212, 255, 0.05);
+            inset 0 1px 1px rgba(251, 125, 71, 0.1),
+            0 0 40px rgba(251, 125, 71, 0.05);
     }
 
     .stripe-checkout-modal-header {
@@ -10202,9 +10957,9 @@ Focus on diversity while matching user preferences. Prioritize animations the us
 
     .stripe-input:focus-within,
     .stripe-input.StripeElement--focus {
-        border-color: var(--teal);
-        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1),
-                    0 0 20px rgba(0, 212, 255, 0.3);
+        border-color: #fb7d47;
+        box-shadow: 0 0 0 3px rgba(251, 125, 71, 0.1),
+                    0 0 20px rgba(251, 125, 71, 0.3);
         background: #2A2A2A;
     }
 
@@ -10274,27 +11029,75 @@ Focus on diversity while matching user preferences. Prioritize animations the us
     .stripe-pay-button {
         width: 100%;
         padding: 14px 24px;
-        background: rgba(0, 212, 255, 0.1);
+        background: rgba(10, 10, 10, 0.95);
         border: 2px solid rgba(0, 212, 255, 0.3);
         border-radius: 50px;
-        color: var(--teal);
+        color: #ffffff;
         font-weight: 700;
         font-size: 16px;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.3s ease, border-color 0.2s ease;
         font-family: 'Sora', sans-serif;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
-        backdrop-filter: blur(10px);
+        position: relative;
+        box-shadow: 
+            inset 0 1px 1px rgba(255, 255, 255, 0.1),
+            inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+            0 2px 8px rgba(0, 0, 0, 0.2);
+        isolation: isolate;
+    }
+    
+    .stripe-pay-button::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        border-radius: 50px;
+        background: linear-gradient(
+            90deg,
+            transparent 0%,
+            #fb7d47 20%,
+            #fb7d47 40%,
+            #FF6B6B 60%,
+            transparent 80%,
+            transparent 100%
+        );
+        background-size: 200% 100%;
+        z-index: -2;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        animation: liquidFlow 4s ease-in-out infinite paused;
+    }
+    
+    .stripe-pay-button::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 50px;
+        background: rgba(10, 10, 10, 0.95);
+        z-index: -1;
     }
 
     .stripe-pay-button:hover:not(:disabled) {
-        transform: translateY(-2px);
-        background: rgba(0, 212, 255, 0.2);
-        border-color: var(--teal);
-        box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        transform: scale(1.03);
+        border-color: rgba(10, 10, 10, 0.95);
+        box-shadow: 
+            inset 0 1px 1px rgba(255, 255, 255, 0.15),
+            inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+            0 0 25px rgba(251, 125, 71, 0.4);
+    }
+    
+    .stripe-pay-button:hover:not(:disabled)::before {
+        opacity: 1;
+        animation-play-state: running;
     }
 
     .stripe-pay-button:disabled {
@@ -10305,8 +11108,8 @@ Focus on diversity while matching user preferences. Prioritize animations the us
     .stripe-pay-button-spinner {
         width: 20px;
         height: 20px;
-        border: 3px solid rgba(0, 0, 0, 0.3);
-        border-top-color: #000;
+        border: 3px solid rgba(251, 125, 71, 0.3);
+        border-top-color: #fb7d47;
         border-radius: 50%;
         animation: spinButton 0.8s linear infinite;
     }
@@ -10428,13 +11231,13 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         
         // Carousel data (7 items) - will be loaded from database or use defaults
         let carouselData = [
-            { icon: '🏃', title: 'Running Pack', subtitle: '12 animations', label: 'Motion Capture', image_url: null, link_url: '' },
-            { icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', label: 'Motion Capture', image_url: null, link_url: '' },
-            { icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture', image_url: null, link_url: '' },
-            { icon: '🧗', title: 'Climbing Pack', subtitle: '16 animations', label: 'Motion Capture', image_url: null, link_url: '' },
-            { icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', label: 'Motion Capture', image_url: null, link_url: '' },
-            { icon: '💃', title: 'Dance Pack', subtitle: '15 animations', label: 'Motion Capture', image_url: null, link_url: '' },
-            { icon: '🧘', title: 'Idle Pack', subtitle: '10 animations', label: 'Motion Capture', image_url: null, link_url: '' }
+            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="4" r="2"/><path d="M15.5 21l-3-6.5-4 3V21"/><path d="M8 14l4-3 2.5 3.5"/><path d="M12 11l-3-2.5-3 3.5"/></svg>', title: 'Running Pack', subtitle: '12 animations', label: 'Motion Capture', image_url: null, link_url: '' },
+            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>', title: 'Combat Pack', subtitle: '24 animations', label: 'Motion Capture', image_url: null, link_url: '' },
+            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M4 17l4-4 4 4 4-4 4 4"/><path d="M12 11v4"/></svg>', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture', image_url: null, link_url: '' },
+            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M2 12h20"/><circle cx="12" cy="12" r="4"/><path d="M4.93 4.93l4.24 4.24"/><path d="M14.83 14.83l4.24 4.24"/></svg>', title: 'Climbing Pack', subtitle: '16 animations', label: 'Motion Capture', image_url: null, link_url: '' },
+            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>', title: 'Sports Pack', subtitle: '20 animations', label: 'Motion Capture', image_url: null, link_url: '' },
+            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg>', title: 'Dance Pack', subtitle: '15 animations', label: 'Motion Capture', image_url: null, link_url: '' },
+            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>', title: 'Idle Pack', subtitle: '10 animations', label: 'Motion Capture', image_url: null, link_url: '' }
         ];
 
         // Load carousel data from database
@@ -10482,7 +11285,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                         if (data.image_url) {
                             placeholder.innerHTML = `
                                 <div class="carousel-gif-placeholder" data-gif="${data.image_url}">
-                                    <div class="carousel-play-icon">▶</div>
+                                    <div class="carousel-play-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="#fb7d47" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                     <div class="carousel-placeholder-text">${data.title}</div>
                                     <div class="carousel-placeholder-subtext">Hover to preview</div>
                                 </div>
@@ -10512,7 +11315,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                         const gifPlaceholder = item.querySelector('.carousel-gif-placeholder');
                         if (gifPlaceholder && gifPlaceholder.querySelector('img')) {
                             gifPlaceholder.innerHTML = `
-                                <div class="carousel-play-icon">▶</div>
+                                <div class="carousel-play-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="#fb7d47" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
                                 <div class="carousel-placeholder-text">${data.title}</div>
                                 <div class="carousel-placeholder-subtext">Hover to preview</div>
                             `;
@@ -10825,7 +11628,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 
                 <div id="stripe-error-message" class="stripe-error-message"></div>
                 <button id="stripe-pay-button" class="stripe-pay-button">
-                    <span id="stripe-button-text">💳 Pay Now</span>
+                    <span id="stripe-button-text"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:middle;margin-right:4px;"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>Pay Now</span>
                     <div id="stripe-button-spinner" class="stripe-pay-button-spinner" style="display: none;"></div>
                 </button>
                 <div class="stripe-secure-badge">
@@ -10843,16 +11646,20 @@ Focus on diversity while matching user preferences. Prioritize animations the us
     <div class="floating-side-cta" id="floatingSideCta">
         <button class="floating-side-cta-close" onclick="toggleFloatingCta()" aria-label="Close">×</button>
         <button class="floating-side-cta-toggle" onclick="toggleFloatingCta()">
-            ✨ OFFERS
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="#fb7d47" stroke="none" style="margin-right: 4px;"><path d="M12 0l2.5 7.5L22 10l-7.5 2.5L12 20l-2.5-7.5L2 10l7.5-2.5z"/></svg> OFFERS
         </button>
-        <h4>🔥 Special Offer</h4>
-        <p>Get started with premium mocap animations from just <strong style="color: #F59E0B;">$1</strong>. Perfect for indie developers!</p>
-        <a href="#library" class="btn btn-primary" style="width: 100%; text-align: center; padding: 12px; font-size: 14px; font-family: 'DM Sans', sans-serif;" onclick="toggleFloatingCta()">
+        <h4 style="display: flex; align-items: center; gap: 8px;"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fb7d47" stroke="none"><path d="M12 23c-3.866 0-7-3.134-7-7 0-2.526 1.394-4.727 3.453-5.882-.07.463-.107.943-.107 1.432 0 2.485 1.349 4.656 3.354 5.822-.696-.772-1.121-1.795-1.121-2.922 0-2.209 1.672-4.013 3.82-4.245.138-.015.277-.023.417-.023 1.115 0 2.133.44 2.884 1.16A6.968 6.968 0 0 1 19 16c0 3.866-3.134 7-7 7zM12 1c.552 0 1 .448 1 1v2c0 .552-.448 1-1 1s-1-.448-1-1V2c0-.552.448-1 1-1z"/></svg> Special Offer</h4>
+        <p>Get started with premium mocap animations from just <strong style="color: #fb7d47;">$1</strong>. Perfect for indie developers!</p>
+        <a href="#library" class="btn-cta" style="width: 100%; padding: 12px 20px;" onclick="toggleFloatingCta()">
+            <svg viewBox="0 0 24 24">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+            </svg>
             Browse Animations
         </a>
         <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(245, 158, 11, 0.2);">
             <p style="font-size: 13px; margin-bottom: 8px; font-family: 'DM Sans', sans-serif;">Need something custom?</p>
-            <a href="#contact" style="color: #F59E0B; font-size: 14px; font-weight: 600; text-decoration: none; font-family: 'DM Sans', sans-serif;" onclick="toggleFloatingCta()">
+            <a href="#contact" style="color: #fb7d47; font-size: 14px; font-weight: 600; text-decoration: none; font-family: 'DM Sans', sans-serif;" onclick="toggleFloatingCta()">
                 Request Custom Animation →
             </a>
         </div>
