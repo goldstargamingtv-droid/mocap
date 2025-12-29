@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- VIEWER VERSION 2 - 2024 -->
+<!-- VIEWER VERSION 3 - 2024 -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Viewer V2 - MocapWork</title>
+    <title>3D Viewer V3 - MocapWork</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -567,8 +567,8 @@
     <div id="debug-log"></div>
 
     <script type="module">
-        // VERSION 2 - If you don't see this in console, clear cache!
-        console.log('=== VIEWER VERSION 2 ===');
+        // VERSION 3 - If you don't see this in console, clear cache!
+        console.log('=== VIEWER VERSION 3 ===');
         console.log('Module script executing...');
         
         // Debug logger
@@ -731,18 +731,32 @@
                         const center = box.getCenter(new THREE.Vector3());
                         const size = box.getSize(new THREE.Vector3());
                         
+                        log('Model size: ' + size.x.toFixed(2) + ' x ' + size.y.toFixed(2) + ' x ' + size.z.toFixed(2));
+                        log('Model center: ' + center.x.toFixed(2) + ', ' + center.y.toFixed(2) + ', ' + center.z.toFixed(2));
+                        
                         currentModel.position.x = -center.x;
                         currentModel.position.z = -center.z;
                         currentModel.position.y = -box.min.y;
+                        
+                        log('Model position set to: ' + currentModel.position.x.toFixed(2) + ', ' + currentModel.position.y.toFixed(2) + ', ' + currentModel.position.z.toFixed(2));
 
                         const maxDim = Math.max(size.x, size.y, size.z);
+                        log('Max dimension: ' + maxDim.toFixed(2));
                         if (maxDim > 3) {
                             const scale = 2 / maxDim;
                             currentModel.scale.setScalar(scale);
+                            log('Scaled model by: ' + scale.toFixed(4));
                         }
+                        
+                        log('Final scale: ' + currentModel.scale.x.toFixed(4));
 
                         scene.add(currentModel);
                         log('Model added to scene');
+                        log('Scene children count: ' + scene.children.length);
+                        
+                        // Force a render
+                        renderer.render(scene, camera);
+                        log('Forced render complete');
 
                         mixer = new THREE.AnimationMixer(currentModel);
                         buildAnimationUI();
@@ -753,6 +767,9 @@
 
                         modelNameEl.textContent = fileName;
                         loadingScreen.classList.add('hidden');
+                        log('Loading screen hidden: ' + loadingScreen.classList.contains('hidden'));
+                        log('Loading screen display: ' + window.getComputedStyle(loadingScreen).display);
+                        log('Loading screen visibility: ' + window.getComputedStyle(loadingScreen).visibility);
                         
                         // Hide debug after success
                         setTimeout(function() {
@@ -938,6 +955,8 @@
             }
 
             log('Starting animation loop');
+            log('Camera position: ' + camera.position.x.toFixed(2) + ', ' + camera.position.y.toFixed(2) + ', ' + camera.position.z.toFixed(2));
+            log('Controls target: ' + controls.target.x.toFixed(2) + ', ' + controls.target.y.toFixed(2) + ', ' + controls.target.z.toFixed(2));
             animate();
 
             // Load default model
