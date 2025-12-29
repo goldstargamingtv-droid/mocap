@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ADMIN DASHBOARD v5.0 - 2024-12-29 - EDIT FUNCTIONALITY ADDED -->
+    <!-- ADMIN DASHBOARD v6.0 - 2024-12-29 - GLB UPLOAD SUPPORT ADDED -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
@@ -1051,6 +1051,17 @@
                                 <div id="downloadPreview" class="file-preview"></div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="form-label">3D Preview File (GLB) - For 3D Viewer</label>
+                                <div class="file-upload" id="glbUpload" onclick="document.getElementById('glbFile').click()">
+                                    <div class="upload-icon">🎮</div>
+                                    <div class="upload-text">Click to upload GLB file</div>
+                                    <div class="upload-hint">GLB format only (Max 100MB) - Used for 3D preview viewer</div>
+                                </div>
+                                <input type="file" id="glbFile" accept=".glb" style="display:none" onchange="handleGlbSelect(event)">
+                                <div id="glbPreview" class="file-preview"></div>
+                            </div>
+
                             <!-- Toggles -->
                             <div class="form-grid">
                                 <div class="form-group">
@@ -1375,6 +1386,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="form-label">3D Preview (GLB) URL</label>
+                    <input type="text" class="form-input" id="editGlbUrl" placeholder="Supabase storage URL for GLB file">
+                    <div id="editGlbPreview" style="margin-top: 8px; color: var(--text-muted); font-size: 12px;"></div>
+                </div>
+
+                <div class="form-group">
                     <label class="form-label">Badges</label>
                     <div class="toggle-group">
                         <label class="toggle-switch">
@@ -1416,7 +1433,7 @@
 
     <script>
         console.log('========================================');
-        console.log('ADMIN DASHBOARD v5.0 - EDIT FUNCTIONALITY ADDED!');
+        console.log('ADMIN DASHBOARD v6.0 - GLB UPLOAD SUPPORT ADDED!');
         console.log('Timestamp:', new Date().toISOString());
         console.log('========================================');
         
@@ -1435,7 +1452,8 @@
         let uploadedFiles = {
             video: null,
             thumbnail: null,
-            download: null
+            download: null,
+            glb: null
         };
 
         // Initialize
@@ -1678,6 +1696,31 @@
             reader.readAsDataURL(file);
         }
 
+        function handleGlbSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            uploadedFiles.glb = file;
+            
+            const previewDiv = document.getElementById('glbPreview');
+            previewDiv.innerHTML = `
+                <div class="preview-item" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px;">
+                    <span style="font-size: 24px;">🎮</span>
+                    <div style="flex: 1;">
+                        <div style="color: var(--text-primary); font-weight: 600;">${file.name}</div>
+                        <div style="color: var(--text-muted); font-size: 12px;">${(file.size / 1024 / 1024).toFixed(2)} MB</div>
+                    </div>
+                    <button class="preview-remove" onclick="removeGlbFile()" type="button" style="position: relative; top: 0; right: 0;">×</button>
+                </div>
+            `;
+        }
+
+        function removeGlbFile() {
+            uploadedFiles.glb = null;
+            document.getElementById('glbPreview').innerHTML = '';
+            document.getElementById('glbFile').value = '';
+        }
+
         function removeFile(type) {
             uploadedFiles[type] = null;
             document.getElementById(type + 'Preview').innerHTML = '';
@@ -1770,6 +1813,29 @@
                     
                     downloadUrl = publicUrl;
                 }
+
+                // Upload GLB file for 3D preview (if provided)
+                let glbUrl = null;
+                if (uploadedFiles.glb) {
+                    const file = uploadedFiles.glb;
+                    const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.glb`;
+                    
+                    const { data: uploadData, error: uploadError } = await supabaseAdmin.storage
+                        .from('glb-previews')
+                        .upload(fileName, file, {
+                            cacheControl: '3600',
+                            upsert: false
+                        });
+                    
+                    if (uploadError) throw uploadError;
+                    
+                    // Get public URL
+                    const { data: { publicUrl } } = supabaseAdmin.storage
+                        .from('glb-previews')
+                        .getPublicUrl(fileName);
+                    
+                    glbUrl = publicUrl;
+                }
                 
                 const animationData = {
                     title: formData.get('title'),
@@ -1790,6 +1856,7 @@
                     video_url: videoUrl || 'https://via.placeholder.com/400x300/1a1a2e/00d4ff?text=No+Video',
                     thumbnail_url: thumbnailUrl || videoUrl || 'https://via.placeholder.com/400x300/1a1a2e/00d4ff?text=No+Thumbnail',
                     file_url: downloadUrl,
+                    glb_url: glbUrl,
                     video_type: videoType
                 };
 
@@ -1802,10 +1869,11 @@
                 
                 showNotification('Animation created successfully!', 'success');
                 event.target.reset();
-                uploadedFiles = { video: null, thumbnail: null, download: null };
+                uploadedFiles = { video: null, thumbnail: null, download: null, glb: null };
                 document.getElementById('videoPreview').innerHTML = '';
                 document.getElementById('thumbnailPreview').innerHTML = '';
                 document.getElementById('downloadPreview').innerHTML = '';
+                document.getElementById('glbPreview').innerHTML = '';
                 
                 // Restore button
                 submitBtn.disabled = false;
@@ -1850,6 +1918,7 @@
                 document.getElementById('editCompatibleWith').value = anim.compatible_with || '';
                 document.getElementById('editVideoUrl').value = anim.video_url || '';
                 document.getElementById('editThumbnailUrl').value = anim.thumbnail_url || '';
+                document.getElementById('editGlbUrl').value = anim.glb_url || '';
                 document.getElementById('editPopular').checked = anim.popular || false;
                 document.getElementById('editOnSale').checked = anim.on_sale || false;
                 document.getElementById('editHolidaySale').checked = anim.holiday_sale || false;
@@ -1860,6 +1929,11 @@
                 }
                 if (anim.thumbnail_url) {
                     document.getElementById('editThumbnailPreview').innerHTML = `<img src="${anim.thumbnail_url}" style="max-width: 150px; border-radius: 8px;">`;
+                }
+                if (anim.glb_url) {
+                    document.getElementById('editGlbPreview').innerHTML = `🎮 GLB file linked - <a href="${anim.glb_url}" target="_blank" style="color: var(--teal);">View file</a>`;
+                } else {
+                    document.getElementById('editGlbPreview').innerHTML = 'No GLB file linked';
                 }
 
                 // Show modal
@@ -1875,6 +1949,7 @@
             document.getElementById('editModal').classList.add('hidden');
             document.getElementById('editVideoPreview').innerHTML = '';
             document.getElementById('editThumbnailPreview').innerHTML = '';
+            document.getElementById('editGlbPreview').innerHTML = '';
         }
 
         async function handleSaveEdit(event) {
@@ -1903,6 +1978,7 @@
                     compatible_with: document.getElementById('editCompatibleWith').value || null,
                     video_url: document.getElementById('editVideoUrl').value || null,
                     thumbnail_url: document.getElementById('editThumbnailUrl').value || null,
+                    glb_url: document.getElementById('editGlbUrl').value || null,
                     popular: document.getElementById('editPopular').checked,
                     on_sale: document.getElementById('editOnSale').checked,
                     holiday_sale: document.getElementById('editHolidaySale').checked
