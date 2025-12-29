@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-23-v12 - NAVBAR UPDATES & NOTIFICATIONS -->
+    <!-- VERSION: 2024-12-29-v53 - PRICE DOWN 10PX, ANCHORED POSITION -->
     <!-- ============================================ -->
     <!-- PALETTE 2: WARM LUXE AMBER -->
     <!-- Rich black (#000000) with muted gold (#F59E0B) and warm coral (#FF6B6B) -->
@@ -1455,17 +1455,19 @@
             }
         }
 
-        /* Hero Preview Carousel - 3 GIFs with Center Focus */
+        /* ============================================
+           NEW 3D ROTATING CAROUSEL
+           ============================================ */
         .hero-preview-carousel {
             margin-bottom: 8px;
             width: 100%;
-            max-width: 1100px;
-            margin-left: auto;
-            margin-right: auto;
-            position: relative;
-            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 0.5s ease-in-out;
+            overflow: visible;
         }
 
         .hero-preview-carousel.loaded {
@@ -1474,113 +1476,70 @@
 
         .carousel-container {
             position: relative;
+            width: 320px;
             height: 200px;
+            perspective: 1000px;
+            transform-origin: center;
+            transform-style: flat; /* Don't let 3D affect siblings */
+        }
+
+        .carousel-track {
+            position: absolute;
             width: 100%;
-            perspective: 1200px;
+            height: 100%;
+            transform-origin: center;
+            transform-style: preserve-3d;
+            transform: translateZ(-200px) rotateY(0);
+            animation: carouselRotate 18s infinite cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        }
+
+        .carousel-track.paused {
+            animation-play-state: paused;
         }
 
         .carousel-item {
             position: absolute;
-            border-radius: 12px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 180px;
+            height: 200px;
+            margin: auto;
+            border-radius: 16px;
             overflow: hidden;
-            transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-                        opacity 1.2s ease-out,
-                        left 1.2s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            border: 2px solid rgba(100, 116, 139, 0.4);
-            background: #1a1a1a;
-            will-change: transform, opacity;
-            top: 50%;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transform-origin: center;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        /* Position classes for smooth transitions */
-        .carousel-item.pos-far-left {
-            left: 18%;
-            width: 130px;
-            height: 160px;
-            opacity: 0.4;
-            transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+        .carousel-item:hover {
+            border-color: rgba(0, 212, 255, 0.6);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.2);
         }
 
-        .carousel-item.pos-left {
-            left: 32%;
-            width: 130px;
-            height: 160px;
-            opacity: 0.4;
-            transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
-        }
+        /* Position each card around the 3D circle - 7 items = 360/7 ≈ 51.43deg apart */
+        .carousel-item:nth-child(1) { transform: rotateY(0deg) translateZ(280px); }
+        .carousel-item:nth-child(2) { transform: rotateY(51.43deg) translateZ(280px); }
+        .carousel-item:nth-child(3) { transform: rotateY(102.86deg) translateZ(280px); }
+        .carousel-item:nth-child(4) { transform: rotateY(154.29deg) translateZ(280px); }
+        .carousel-item:nth-child(5) { transform: rotateY(205.71deg) translateZ(280px); }
+        .carousel-item:nth-child(6) { transform: rotateY(257.14deg) translateZ(280px); }
+        .carousel-item:nth-child(7) { transform: rotateY(308.57deg) translateZ(280px); }
 
-        .carousel-item.pos-center {
-            left: 50%;
-            width: 220px;
-            height: 165px;
-            opacity: 1;
-            transform: translateX(-50%) translateY(-50%) scale(1) translateZ(0);
-            z-index: 10;
-            box-shadow: 0 12px 35px rgba(0, 212, 255, 0.12),
-                        0 0 20px rgba(0, 212, 255, 0.08);
-            border-color: rgba(0, 212, 255, 0.45);
-        }
-
-        .carousel-item.pos-right {
-            left: 68%;
-            width: 130px;
-            height: 160px;
-            opacity: 0.4;
-            transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
-        }
-
-        .carousel-item.pos-far-right {
-            left: 82%;
-            width: 130px;
-            height: 160px;
-            opacity: 0.4;
-            transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
-        }
-
-        .carousel-item.pos-hidden-left {
-            left: 5%;
-            width: 130px;
-            height: 160px;
-            opacity: 0;
-            transform: translateX(-50%) translateY(-50%) scale(0.6) translateZ(-200px);
-            pointer-events: none;
-        }
-
-        .carousel-item.pos-hidden-right {
-            left: 95%;
-            width: 130px;
-            height: 160px;
-            opacity: 0;
-            transform: translateX(-50%) translateY(-50%) scale(0.6) translateZ(-200px);
-            pointer-events: none;
-        }
-
-        /* Hover states */
-        .carousel-item.side:hover {
-            opacity: 0.65;
-            transform: translateX(-50%) translateY(-50%) scale(0.85) translateZ(-150px);
-        }
-
-        .carousel-item.pos-center:hover {
-            transform: translateX(-50%) translateY(-50%) scale(1) translateZ(0);
-        }
-
-        /* Legacy classes for backwards compatibility */
-        .carousel-item.side {
-            width: 130px;
-            height: 160px;
-            opacity: 0.4;
-        }
-
-        .carousel-item.center {
-            width: 220px;
-            height: 165px;
-            opacity: 1;
+        /* Carousel rotation animation - 7 stops for 7 items */
+        @keyframes carouselRotate {
+            0%, 10%      { transform: translateZ(-280px) rotateY(0deg); }
+            14.28%, 24.28%  { transform: translateZ(-280px) rotateY(-51.43deg); }
+            28.57%, 38.57%  { transform: translateZ(-280px) rotateY(-102.86deg); }
+            42.86%, 52.86%  { transform: translateZ(-280px) rotateY(-154.29deg); }
+            57.14%, 67.14%  { transform: translateZ(-280px) rotateY(-205.71deg); }
+            71.43%, 81.43%  { transform: translateZ(-280px) rotateY(-257.14deg); }
+            85.71%, 95.71%  { transform: translateZ(-280px) rotateY(-308.57deg); }
+            100%         { transform: translateZ(-280px) rotateY(-360deg); }
         }
 
         .carousel-item-content {
@@ -1594,24 +1553,23 @@
 
         .carousel-placeholder {
             text-align: center;
-            padding: 20px 12px;
+            padding: 20px 15px;
         }
 
         .carousel-placeholder-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
-            opacity: 0.5;
+            font-size: 36px;
+            margin-bottom: 10px;
         }
 
         .carousel-placeholder-text {
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
             color: var(--teal);
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
 
         .carousel-placeholder-subtext {
-            font-size: 9px;
+            font-size: 11px;
             color: var(--text-muted);
         }
         
@@ -1641,7 +1599,7 @@
             left: 0;
             right: 0;
             background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
-            padding: 10px;
+            padding: 12px;
             text-align: center;
         }
 
@@ -1649,64 +1607,114 @@
             font-size: 10px;
             font-weight: 600;
             color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        /* Navigation Dots */
-        .carousel-dots {
+        /* Carousel Wrapper with Arrows */
+        .carousel-wrapper {
             display: flex;
-            gap: 8px;
+            align-items: center;
             justify-content: center;
-            margin-top: 12px;
+            gap: 100px;
+            position: relative;
+            transform-style: flat;
         }
 
-        .carousel-dot {
-            width: 7px;
-            height: 7px;
+        /* Arrow Buttons */
+        .carousel-arrow {
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
             border-radius: 50%;
-            background: rgba(245, 158, 11, 0.3);
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            color: var(--teal);
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s ease;
-            border: 1.5px solid rgba(0, 212, 255, 0.5);
+            flex-shrink: 0;
+            z-index: 100;
+            position: relative;
         }
 
-        .carousel-dot.active {
-            background: rgba(245, 158, 11, 1);
-            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-            transform: scale(1.3);
-            border-color: rgba(0, 212, 255, 0.8);
+        .carousel-arrow:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: rgba(0, 212, 255, 0.6);
+            color: var(--teal);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+            transform: scale(1.1);
         }
 
-        .carousel-dot:hover {
-            background: rgba(245, 158, 11, 0.6);
-            border-color: rgba(0, 212, 255, 0.7);
+        .carousel-arrow svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
+            .carousel-wrapper {
+                gap: 40px;
+            }
+
+            .carousel-arrow {
+                width: 36px;
+                height: 36px;
+                min-width: 36px;
+            }
+
+            .carousel-arrow svg {
+                width: 18px;
+                height: 18px;
+            }
+
             .carousel-container {
+                width: 200px;
                 height: 140px;
+                perspective: 600px;
             }
 
-            .carousel-item.side {
-                width: 70px;
-                height: 100px;
+            .carousel-track {
+                transform: translateZ(-140px) rotateY(0);
             }
 
-            .carousel-item.center {
+            .carousel-item {
                 width: 120px;
                 height: 140px;
             }
 
+            .carousel-item:nth-child(1) { transform: rotateY(0deg) translateZ(180px); }
+            .carousel-item:nth-child(2) { transform: rotateY(51.43deg) translateZ(180px); }
+            .carousel-item:nth-child(3) { transform: rotateY(102.86deg) translateZ(180px); }
+            .carousel-item:nth-child(4) { transform: rotateY(154.29deg) translateZ(180px); }
+            .carousel-item:nth-child(5) { transform: rotateY(205.71deg) translateZ(180px); }
+            .carousel-item:nth-child(6) { transform: rotateY(257.14deg) translateZ(180px); }
+            .carousel-item:nth-child(7) { transform: rotateY(308.57deg) translateZ(180px); }
+
+            @keyframes carouselRotate {
+                0%, 10%      { transform: translateZ(-180px) rotateY(0deg); }
+                14.28%, 24.28%  { transform: translateZ(-180px) rotateY(-51.43deg); }
+                28.57%, 38.57%  { transform: translateZ(-180px) rotateY(-102.86deg); }
+                42.86%, 52.86%  { transform: translateZ(-180px) rotateY(-154.29deg); }
+                57.14%, 67.14%  { transform: translateZ(-180px) rotateY(-205.71deg); }
+                71.43%, 81.43%  { transform: translateZ(-180px) rotateY(-257.14deg); }
+                85.71%, 95.71%  { transform: translateZ(-180px) rotateY(-308.57deg); }
+                100%         { transform: translateZ(-180px) rotateY(-360deg); }
+            }
+
             .carousel-placeholder-icon {
-                font-size: 20px;
+                font-size: 24px;
             }
 
             .carousel-placeholder-text {
-                font-size: 10px;
+                font-size: 11px;
             }
 
             .carousel-placeholder-subtext {
-                font-size: 8px;
+                font-size: 9px;
             }
 
             .carousel-overlay-text {
@@ -2468,33 +2476,257 @@
 
         /* Animation Grid */
         .animation-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 28px;
+            align-items: start;
         }
 
+        /* ============================================
+           EXPANDING CARD - Inspired by Codepen
+           ============================================ */
         .animation-card {
             position: relative;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            flex-shrink: 0;
+            height: 400px;
+            width: 250px;
+            background-color: rgba(10, 10, 10, 0.95);
             border-radius: 20px;
             overflow: hidden;
-            cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 7px 15px -5px rgba(0, 0, 0, 0.5);
+            transition: all 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             border: 2px solid rgba(0, 212, 255, 0.2);
-            box-shadow: 
-                0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(0, 212, 255, 0.1),
-                0 0 40px rgba(0, 212, 255, 0.05);
+            cursor: pointer;
+            margin: 0 auto;
         }
 
         .animation-card:hover {
-            transform: translateY(-12px);
+            height: 580px;
+            width: 310px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6),
+                        0 0 30px rgba(0, 212, 255, 0.15);
             border-color: var(--teal);
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 
-                        0 0 40px rgba(0, 212, 255, 0.25),
-                        0 0 20px rgba(245, 158, 11, 0.15);
+        }
+
+        /* Top Bar with badges */
+        .card-top-bar {
+            position: absolute;
+            top: 3px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 5;
+            transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animation-card:hover .card-top-bar {
+            transform: translateY(2px);
+        }
+
+        .card-badges-row {
+            display: flex;
+            gap: 4px;
+            transform: translateY(-5px);
+        }
+
+        .card-stock-badge {
+            font-size: 10px;
+            font-weight: 600;
+            color: #10B981;
+            background: rgba(16, 185, 129, 0.2);
+            padding: 3px 8px;
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        /* Details Panel - Slides up on hover */
+        .card-details {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 142px;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(46, 47, 51, 0.98) 0%, rgba(30, 30, 35, 0.99) 100%);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 10px 20px 20px 20px;
+            transition: height 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow: hidden;
+        }
+
+        .animation-card:hover .card-details {
+            height: 260px;
+            transition: height 0.6s cubic-bezier(0.34, 1.4, 0.64, 1);
+        }
+
+        /* Title Row - Title left, Heart right */
+        .card-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-white);
+            font-family: 'Sora', sans-serif;
+            line-height: 1.3;
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+
+        .animation-card:hover .card-title {
+            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .card-fav-btn {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.25);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 2px;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .card-fav-btn:hover,
+        .card-fav-btn.active {
+            color: #EF4444;
+            transform: scale(1.2);
+        }
+
+        /* Tags + Price Row - Tags left, Price right */
+        .card-tags-price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .card-tags-price-row .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .card-price-display {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-end;
+            line-height: 1;
+            height: 46px;
+            transform: translateY(20px);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .card-price-dollar {
+            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-price-original {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-bottom: 2px;
+        }
+
+        .card-price-main {
+            display: flex;
+            align-items: baseline;
+        }
+
+        /* Duration Row - Always visible */
+        .card-duration-row {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .card-duration-row svg {
+            width: 12px;
+            height: 12px;
+            stroke: currentColor;
+            fill: none;
+        }
+
+        .card-duration-row .separator {
+            margin: 0 3px;
+            opacity: 0.5;
+        }
+
+        /* Meta Row - Rating and Engine Icons */
+        .card-meta-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        .card-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .card-rating .star {
+            color: #F59E0B;
+            font-size: 11px;
+        }
+
+        .card-rating .rating-value {
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .card-engines {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transform: translateY(-2px);
+        }
+
+        .card-engines .engine-icon {
+            font-size: 9px;
+            font-weight: 600;
+            padding: 2px 5px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            letter-spacing: 0.3px;
+        }
+
+        /* Purchase Row - Buttons only */
+        .card-purchase {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
         }
         
         /* Feature Card Styles */
@@ -2710,10 +2942,36 @@
         }
 
         .card-thumbnail {
-            position: relative;
-            aspect-ratio: 4/3;
+            position: absolute;
+            width: calc(100% - 12px);
+            aspect-ratio: 9 / 10;
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            top: 4px;
+            border-radius: 12px;
             overflow: hidden;
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(245, 158, 11, 0.08));
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+            transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .animation-card:hover .card-thumbnail {
+            transform: translateY(-1px);
+        }
+        
+        /* Media fills container naturally */
+        .card-thumbnail img,
+        .card-thumbnail video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center center;
+            transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .animation-card:hover .card-thumbnail img,
+        .animation-card:hover .card-thumbnail video {
+            transform: scale(1.05);
         }
         
         .gif-placeholder {
@@ -2739,38 +2997,27 @@
         }
         
         .gif-placeholder-icon {
-            font-size: 36px;
+            font-size: 32px;
             color: var(--teal);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
             transition: transform 0.3s ease;
         }
         
         .animation-card:hover .gif-placeholder-icon {
-            transform: scale(1.1);
+            transform: scale(1.2);
         }
         
         .gif-placeholder-text {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--text-muted);
             font-weight: 500;
         }
 
-        .card-thumbnail img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease;
-        }
-
-        .animation-card:hover .card-thumbnail img {
-            transform: scale(1.03);
-        }
-
-        /* Icon badges - below GIF, above title */
+        /* Icon badges - positioned in top bar */
         .icon-badge {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             border-radius: 6px;
             display: flex;
             align-items: center;
@@ -2780,85 +3027,109 @@
         }
         
         .icon-badge svg {
-            width: 16px;
-            height: 16px;
+            width: 12px;
+            height: 12px;
         }
         
         .icon-badge:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
         }
         
         .icon-badge-popular {
-            background: rgba(245, 158, 11, 0.15);
+            background: rgba(245, 158, 11, 0.25);
             color: var(--amber);
-            border: 1px solid rgba(245, 158, 11, 0.4);
-            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.5);
         }
         
         .icon-badge-sale {
-            background: rgba(34, 197, 94, 0.15);
+            background: rgba(34, 197, 94, 0.25);
             color: #10B981;
-            border: 1px solid rgba(34, 197, 94, 0.4);
-            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
+            border: 1px solid rgba(34, 197, 94, 0.5);
         }
         
         .icon-badge-holiday {
-            background: rgba(239, 68, 68, 0.15);
+            background: rgba(239, 68, 68, 0.25);
             color: #EF4444;
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.5);
+        };
+            color: var(--amber);
+            border: 1px solid rgba(245, 158, 11, 0.5);
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+        
+        .icon-badge-sale {
+            background: rgba(34, 197, 94, 0.2);
+            color: #10B981;
+            border: 1px solid rgba(34, 197, 94, 0.5);
+            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.3);
+        }
+        
+        .icon-badge-holiday {
+            background: rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+            border: 1px solid rgba(239, 68, 68, 0.5);
+            box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
         }
 
         .card-overlay {
             display: none; /* Overlay removed - buttons moved to bottom */
         }
 
-        /* New Card Actions Layout */
+        /* Card Actions - Fade in on hover */
         .card-actions {
-            padding: 0 16px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .animation-card:hover .card-actions {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.4s ease 0.1s, transform 0.4s cubic-bezier(0.34, 1.2, 0.64, 1) 0.1s;
         }
         
         .card-actions-row {
             display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
+            gap: 6px;
         }
         
-        .card-actions-row:last-child {
-            margin-bottom: 0;
-        }
-        
+        /* Base button styles - pill shaped */
         .card-btn {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            padding: 8px 12px;
+            gap: 4px;
+            padding: 7px 12px;
             border-radius: 50px;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            border: none;
+            border: 1px solid;
         }
         
         .card-btn svg {
-            width: 14px;
-            height: 14px;
+            width: 11px;
+            height: 11px;
             flex-shrink: 0;
         }
         
+        /* Top row buttons - smaller */
         .card-btn-details {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
             color: var(--text-primary);
         }
         
         .card-btn-details:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.12);
             border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
         }
         
         .card-btn-details svg {
@@ -2868,14 +3139,14 @@
         
         .card-btn-3d {
             background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-color: rgba(245, 158, 11, 0.3);
             color: var(--amber);
         }
         
         .card-btn-3d:hover {
             background: rgba(245, 158, 11, 0.2);
             border-color: var(--amber);
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
         }
         
         .card-btn-3d svg {
@@ -2883,18 +3154,19 @@
             fill: none;
         }
         
+        /* Bottom row buttons - larger */
         .card-btn-buy {
-            background: rgba(16, 185, 129, 0.15);
-            border: 1px solid rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.4);
             color: #10B981;
             font-weight: 700;
-            padding: 12px 16px;
-            font-size: 14px;
+            padding: 14px 14px;
+            font-size: 12px;
         }
         
         .card-btn-buy svg {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             stroke: currentColor;
             fill: none;
         }
@@ -2902,21 +3174,21 @@
         .card-btn-buy:hover {
             background: rgba(16, 185, 129, 0.25);
             border-color: #10B981;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
         }
         
         .card-btn-cart {
             background: rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.3);
             color: var(--teal);
             font-weight: 700;
-            padding: 12px 16px;
-            font-size: 14px;
+            padding: 14px 14px;
+            font-size: 12px;
         }
         
         .card-btn-cart svg {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             stroke: currentColor;
             fill: none;
         }
@@ -2924,31 +3196,12 @@
         .card-btn-cart:hover {
             background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.4);
         }
 
+        /* Card Content - Legacy support */
         .card-content {
-            padding: 16px 16px 12px;
-        }
-
-        .card-title {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            transition: color 0.3s ease;
-            font-family: 'Sora', sans-serif;
-            color: var(--text-white);
-        }
-
-        .animation-card:hover .card-title {
-            color: var(--amber);
-        }
-
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
+            display: none; /* Replaced by card-details */
         }
         
         .card-badges {
@@ -2961,11 +3214,11 @@
         }
 
         .tag {
-            padding: 5px 12px;
-            background: rgba(0, 212, 255, 0.08);
-            border: 2px solid rgba(0, 212, 255, 0.2);
-            border-radius: 8px;
-            font-size: 12px;
+            padding: 3px 8px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            border-radius: 5px;
+            font-size: 10px;
             color: var(--text-secondary);
             font-weight: 500;
         }
@@ -4301,7 +4554,23 @@
             }
 
             .animation-grid {
-                grid-template-columns: 1fr;
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            /* Mobile: Cards start expanded since no hover */
+            .animation-card {
+                height: 540px;
+                width: 310px;
+            }
+            
+            .card-details {
+                top: 300px;
+            }
+            
+            .card-thumbnail {
+                transform: translateY(0);
             }
         }
 
@@ -5546,117 +5815,124 @@
         </div>
 
         <div class="hero-content">
-            <!-- Hero Preview Carousel -->
+            <!-- Hero Preview Carousel - 3D Rotating -->
             <div class="hero-preview-carousel">
-                <div class="carousel-container">
-                    <!-- Item 1 -->
-                    <div class="carousel-item side" data-index="0">
-                        <div class="carousel-item-content">
-                            <div class="carousel-placeholder">
-                                <div class="carousel-placeholder-icon">🏃</div>
-                                <div class="carousel-placeholder-text">Running Pack</div>
-                                <div class="carousel-placeholder-subtext">12 animations</div>
+                <div class="carousel-wrapper">
+                    <!-- Left Arrow -->
+                    <button class="carousel-arrow carousel-arrow-left" id="carouselPrev">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15,18 9,12 15,6"></polyline>
+                        </svg>
+                    </button>
+
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            <!-- Item 1 -->
+                            <div class="carousel-item" data-index="0">
+                                <div class="carousel-item-content">
+                                    <div class="carousel-placeholder">
+                                        <div class="carousel-placeholder-icon">🏃</div>
+                                        <div class="carousel-placeholder-text">Running Pack</div>
+                                        <div class="carousel-placeholder-subtext">12 animations</div>
+                                    </div>
+                                </div>
+                                <div class="carousel-overlay">
+                                    <div class="carousel-overlay-text">Motion Capture</div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="carousel-overlay">
-                            <div class="carousel-overlay-text">Motion Capture Preview</div>
+
+                            <!-- Item 2 -->
+                            <div class="carousel-item" data-index="1">
+                                <div class="carousel-item-content">
+                                    <div class="carousel-placeholder">
+                                        <div class="carousel-placeholder-icon">⚔️</div>
+                                        <div class="carousel-placeholder-text">Combat Pack</div>
+                                        <div class="carousel-placeholder-subtext">24 animations</div>
+                                    </div>
+                                </div>
+                                <div class="carousel-overlay">
+                                    <div class="carousel-overlay-text">Motion Capture</div>
+                                </div>
+                            </div>
+
+                            <!-- Item 3 -->
+                            <div class="carousel-item" data-index="2">
+                                <div class="carousel-item-content">
+                                    <div class="carousel-placeholder">
+                                        <div class="carousel-placeholder-icon">🤸</div>
+                                        <div class="carousel-placeholder-text">Acrobatic Pack</div>
+                                        <div class="carousel-placeholder-subtext">18 animations</div>
+                                    </div>
+                                </div>
+                                <div class="carousel-overlay">
+                                    <div class="carousel-overlay-text">Motion Capture</div>
+                                </div>
+                            </div>
+
+                            <!-- Item 4 -->
+                            <div class="carousel-item" data-index="3">
+                                <div class="carousel-item-content">
+                                    <div class="carousel-placeholder">
+                                        <div class="carousel-placeholder-icon">🧗</div>
+                                        <div class="carousel-placeholder-text">Climbing Pack</div>
+                                        <div class="carousel-placeholder-subtext">16 animations</div>
+                                    </div>
+                                </div>
+                                <div class="carousel-overlay">
+                                    <div class="carousel-overlay-text">Motion Capture</div>
+                                </div>
+                            </div>
+
+                            <!-- Item 5 -->
+                            <div class="carousel-item" data-index="4">
+                                <div class="carousel-item-content">
+                                    <div class="carousel-placeholder">
+                                        <div class="carousel-placeholder-icon">🤾</div>
+                                        <div class="carousel-placeholder-text">Sports Pack</div>
+                                        <div class="carousel-placeholder-subtext">20 animations</div>
+                                    </div>
+                                </div>
+                                <div class="carousel-overlay">
+                                    <div class="carousel-overlay-text">Motion Capture</div>
+                                </div>
+                            </div>
+
+                            <!-- Item 6 -->
+                            <div class="carousel-item" data-index="5">
+                                <div class="carousel-item-content">
+                                    <div class="carousel-placeholder">
+                                        <div class="carousel-placeholder-icon">💃</div>
+                                        <div class="carousel-placeholder-text">Dance Pack</div>
+                                        <div class="carousel-placeholder-subtext">15 animations</div>
+                                    </div>
+                                </div>
+                                <div class="carousel-overlay">
+                                    <div class="carousel-overlay-text">Motion Capture</div>
+                                </div>
+                            </div>
+
+                            <!-- Item 7 -->
+                            <div class="carousel-item" data-index="6">
+                                <div class="carousel-item-content">
+                                    <div class="carousel-placeholder">
+                                        <div class="carousel-placeholder-icon">🧘</div>
+                                        <div class="carousel-placeholder-text">Idle Pack</div>
+                                        <div class="carousel-placeholder-subtext">10 animations</div>
+                                    </div>
+                                </div>
+                                <div class="carousel-overlay">
+                                    <div class="carousel-overlay-text">Motion Capture</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Item 2 -->
-                    <div class="carousel-item side" data-index="1">
-                        <div class="carousel-item-content">
-                            <div class="carousel-placeholder">
-                                <div class="carousel-placeholder-icon">⚔️</div>
-                                <div class="carousel-placeholder-text">Combat Pack</div>
-                                <div class="carousel-placeholder-subtext">24 animations</div>
-                            </div>
-                        </div>
-                        <div class="carousel-overlay">
-                            <div class="carousel-overlay-text">Featured Animation</div>
-                        </div>
-                    </div>
-
-                    <!-- Item 3 -->
-                    <div class="carousel-item side" data-index="2">
-                        <div class="carousel-item-content">
-                            <div class="carousel-placeholder">
-                                <div class="carousel-placeholder-icon">🤸</div>
-                                <div class="carousel-placeholder-text">Acrobatic Pack</div>
-                                <div class="carousel-placeholder-subtext">18 animations</div>
-                            </div>
-                        </div>
-                        <div class="carousel-overlay">
-                            <div class="carousel-overlay-text">Motion Capture Preview</div>
-                        </div>
-                    </div>
-
-                    <!-- Item 4 (Center) -->
-                    <div class="carousel-item center" data-index="3">
-                        <div class="carousel-item-content">
-                            <div class="carousel-placeholder">
-                                <div class="carousel-placeholder-icon">🧗</div>
-                                <div class="carousel-placeholder-text">Climbing Pack</div>
-                                <div class="carousel-placeholder-subtext">16 animations</div>
-                            </div>
-                        </div>
-                        <div class="carousel-overlay">
-                            <div class="carousel-overlay-text">Motion Capture Preview</div>
-                        </div>
-                    </div>
-
-                    <!-- Item 5 -->
-                    <div class="carousel-item side" data-index="4">
-                        <div class="carousel-item-content">
-                            <div class="carousel-placeholder">
-                                <div class="carousel-placeholder-icon">🤾</div>
-                                <div class="carousel-placeholder-text">Sports Pack</div>
-                                <div class="carousel-placeholder-subtext">20 animations</div>
-                            </div>
-                        </div>
-                        <div class="carousel-overlay">
-                            <div class="carousel-overlay-text">Motion Capture Preview</div>
-                        </div>
-                    </div>
-
-                    <!-- Item 6 -->
-                    <div class="carousel-item side" data-index="5">
-                        <div class="carousel-item-content">
-                            <div class="carousel-placeholder">
-                                <div class="carousel-placeholder-icon">💃</div>
-                                <div class="carousel-placeholder-text">Dance Pack</div>
-                                <div class="carousel-placeholder-subtext">15 animations</div>
-                            </div>
-                        </div>
-                        <div class="carousel-overlay">
-                            <div class="carousel-overlay-text">Motion Capture Preview</div>
-                        </div>
-                    </div>
-
-                    <!-- Item 7 -->
-                    <div class="carousel-item side" data-index="6">
-                        <div class="carousel-item-content">
-                            <div class="carousel-placeholder">
-                                <div class="carousel-placeholder-icon">🧘</div>
-                                <div class="carousel-placeholder-text">Idle Pack</div>
-                                <div class="carousel-placeholder-subtext">10 animations</div>
-                            </div>
-                        </div>
-                        <div class="carousel-overlay">
-                            <div class="carousel-overlay-text">Motion Capture Preview</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Navigation Dots -->
-                <div class="carousel-dots">
-                    <div class="carousel-dot" data-index="0"></div>
-                    <div class="carousel-dot" data-index="1"></div>
-                    <div class="carousel-dot" data-index="2"></div>
-                    <div class="carousel-dot active" data-index="3"></div>
-                    <div class="carousel-dot" data-index="4"></div>
-                    <div class="carousel-dot" data-index="5"></div>
-                    <div class="carousel-dot" data-index="6"></div>
+                    <!-- Right Arrow -->
+                    <button class="carousel-arrow carousel-arrow-right" id="carouselNext">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9,18 15,12 9,6"></polyline>
+                        </svg>
+                    </button>
                 </div>
             </div>
 
@@ -6394,9 +6670,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-        // CACHE BUSTER - v9 - BUTTON TYPE + LOGGING
+        // CACHE BUSTER - v41 - SMOOTH BOUNCE ANIMATION
         console.log('========================================');
-        console.log('INDEX.HTML VERSION 11 - ICON BADGES!');
+        console.log('INDEX.HTML VERSION 41 - SMOOTH BOUNCE!');
         console.log('Loaded at:', new Date().toISOString());
         console.log('========================================');
         
@@ -7003,6 +7279,12 @@
             displayAnimations.forEach(anim => {
                 const card = document.createElement('div');
                 card.className = 'animation-card';
+                card.style.cursor = 'pointer';
+                card.onclick = function(e) {
+                    // Don't navigate if clicking on buttons, checkboxes, or interactive elements
+                    if (e.target.closest('button, a, input, label, .card-checkbox, .card-fav-btn, .card-btn')) return;
+                    window.location.href = `animation-detail.html?slug=${anim.slug}`;
+                };
                 
                 let mediaElement = '';
                 const hasThumbnail = anim.thumbnail && anim.thumbnail !== anim.video;
@@ -7011,8 +7293,8 @@
                     // MP4 video - use video element
                     if (hasThumbnail) {
                         mediaElement = `
-                            <img src="${anim.thumbnail}" alt="${anim.title}" class="card-media-thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
-                            <video src="${anim.video}" class="card-media-video" muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; display: none;"></video>
+                            <img src="${anim.thumbnail}" alt="${anim.title}" class="card-media-thumbnail">
+                            <video src="${anim.video}" class="card-media-video" muted loop playsinline style="display: none;"></video>
                         `;
                     } else {
                         mediaElement = `
@@ -7020,13 +7302,13 @@
                                 <div class="gif-placeholder-icon">▶</div>
                                 <div class="gif-placeholder-text">Hover to preview</div>
                             </div>
-                            <video src="${anim.video}" class="card-media-video" muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; display: none;"></video>
+                            <video src="${anim.video}" class="card-media-video" muted loop playsinline style="display: none;"></video>
                         `;
                     }
                 } else if (anim.videoType === 'image/gif') {
                     // GIF - use img element with hover loading
                     if (hasThumbnail) {
-                        mediaElement = `<img src="${anim.thumbnail}" data-gif="${anim.video}" data-thumbnail="${anim.thumbnail}" alt="${anim.title}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" class="lazy-gif">`;
+                        mediaElement = `<img src="${anim.thumbnail}" data-gif="${anim.video}" data-thumbnail="${anim.thumbnail}" alt="${anim.title}" loading="lazy" class="lazy-gif">`;
                     } else {
                         mediaElement = `<div class="gif-placeholder" data-gif="${anim.video}">
                             <div class="gif-placeholder-icon">▶</div>
@@ -7035,114 +7317,144 @@
                     }
                 } else {
                     // Static image
-                    mediaElement = `<img src="${anim.thumbnail || anim.video}" alt="${anim.title}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">`;
+                    mediaElement = `<img src="${anim.thumbnail || anim.video}" alt="${anim.title}" loading="lazy">`;
                 }
                 
                 card.innerHTML = `
-                    <div class="card-checkbox" onclick="event.stopPropagation(); toggleSelection('${anim.id}')">
-                        <input type="checkbox" id="check-${anim.id}" />
-                        <label for="check-${anim.id}">
-                            <svg viewBox="0 0 24 24">
-                                <circle cx="9" cy="21" r="1"></circle>
-                                <circle cx="20" cy="21" r="1"></circle>
-                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                            </svg>
-                        </label>
-                    </div>
-                    <div class="card-thumbnail">
-                        ${mediaElement}
-                    </div>
-                    <div class="card-content">
-                            <!-- Icon badges below GIF, above title -->
-                            <div style="display: flex; gap: 8px; margin-bottom: 8px; min-height: 28px; align-items: center;">
-                                ${anim.popular ? `
-                                    <div class="icon-badge icon-badge-popular" title="Popular">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
-                                        </svg>
-                                    </div>
-                                ` : ''}
-                                ${anim.onSale ? `
-                                    <div class="icon-badge icon-badge-sale" title="On Sale">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M21.41 11.58L12.41 2.58C12.05 2.22 11.55 2 11 2H4C2.9 2 2 2.9 2 4V11C2 11.55 2.22 12.05 2.59 12.42L11.59 21.42C11.95 21.78 12.45 22 13 22C13.55 22 14.05 21.78 14.41 21.41L21.41 14.41C21.78 14.05 22 13.55 22 13C22 12.45 21.77 11.94 21.41 11.58ZM5.5 7C4.67 7 4 6.33 4 5.5C4 4.67 4.67 4 5.5 4C6.33 4 7 4.67 7 5.5C7 6.33 6.33 7 5.5 7Z" fill="currentColor"/>
-                                        </svg>
-                                    </div>
-                                ` : ''}
-                                ${anim.holidaySale ? `
-                                    <div class="icon-badge icon-badge-holiday" title="Holiday Sale">
-                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 3L8 8H16L18 3M8 8L3 21H21L16 8M8 8H16M12 11V17M9 14H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                        </svg>
-                                    </div>
-                                ` : ''}
-                            </div>
-                            <h3 class="card-title">${anim.title}</h3>
-                            <div class="card-tags">
-                                ${anim.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
-                            </div>
-                            <div class="card-footer">
-                                <div class="card-duration">
-                                    <svg class="icon" viewBox="0 0 24 24">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <polyline points="12 6 12 12 16 14"></polyline>
+                    <!-- Top Bar with Checkbox and Badges -->
+                    <div class="card-top-bar">
+                        <div class="card-badges-row">
+                            ${anim.popular ? `
+                                <div class="icon-badge icon-badge-popular" title="Popular">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
                                     </svg>
-                                    <span>${anim.duration}</span>
                                 </div>
-                                <div class="card-price">
-                                    ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? `
-                                        <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 2px;">
-                                            <span style="font-size: 14px; font-weight: 500; text-decoration: line-through; text-decoration-color: var(--text-muted);">
-                                                <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: var(--text-muted); text-decoration: line-through;">${anim.price.toFixed(2)}</span>
-                                            </span>
-                                            <span style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; line-height: 1;">
-                                                <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: #FFFFFF;">${(anim.price * (1 - anim.salePercentage / 100)).toFixed(2)}</span>
-                                            </span>
-                                        </div>
-                                    ` : `
-                                        <span style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; line-height: 1;">
-                                            <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: #FFFFFF;">${anim.price.toFixed(2)}</span>
-                                        </span>
-                                    `}
+                            ` : ''}
+                            ${anim.onSale ? `
+                                <div class="icon-badge icon-badge-sale" title="On Sale">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                        <path d="M21.41 11.58L12.41 2.58C12.05 2.22 11.55 2 11 2H4C2.9 2 2 2.9 2 4V11C2 11.55 2.22 12.05 2.59 12.42L11.59 21.42C11.95 21.78 12.45 22 13 22C13.55 22 14.05 21.78 14.41 21.41L21.41 14.41C21.78 14.05 22 13.55 22 13C22 12.45 21.77 11.94 21.41 11.58ZM5.5 7C4.67 7 4 6.33 4 5.5C4 4.67 4.67 4 5.5 4C6.33 4 7 4.67 7 5.5C7 6.33 6.33 7 5.5 7Z" fill="currentColor"/>
+                                    </svg>
                                 </div>
-                            </div>
+                            ` : ''}
+                            ${anim.holidaySale ? `
+                                <div class="icon-badge icon-badge-holiday" title="Holiday Sale">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                                        <path d="M6 3L8 8H16L18 3M8 8L3 21H21L16 8M8 8H16M12 11V17M9 14H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                            ` : ''}
                         </div>
-                    </div>
-                    <div class="card-actions">
-                        <div class="card-actions-row">
-                            <a href="animation-detail.html?slug=${anim.slug}" class="card-btn card-btn-details" onclick="event.stopPropagation();">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                </svg>
-                                Details
-                            </a>
-                            <button class="card-btn card-btn-3d" onclick="event.preventDefault(); event.stopPropagation(); open3DViewer('${anim.glbFile || ''}', '${anim.title}')">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                                    <path d="M2 17l10 5 10-5"></path>
-                                    <path d="M2 12l10 5 10-5"></path>
-                                </svg>
-                                3D
-                            </button>
-                        </div>
-                        <div class="card-actions-row">
-                            <button class="card-btn card-btn-buy" onclick="event.stopPropagation(); handleBuyNow('${anim.id}', '${anim.title}', ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? (anim.price * (1 - anim.salePercentage / 100)).toFixed(2) : anim.price})">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                                    <line x1="1" y1="10" x2="23" y2="10"></line>
-                                </svg>
-                                Buy Now
-                            </button>
-                            <button class="card-btn card-btn-cart" onclick="event.stopPropagation(); handleAddToCart('${anim.id}')">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <div class="card-checkbox" onclick="event.stopPropagation(); toggleSelection('${anim.id}')" style="position: relative; top: auto; left: auto; margin-right: -15px; transform: translateY(0px);">
+                            <input type="checkbox" id="check-${anim.id}" />
+                            <label for="check-${anim.id}">
+                                <svg viewBox="0 0 24 24">
                                     <circle cx="9" cy="21" r="1"></circle>
                                     <circle cx="20" cy="21" r="1"></circle>
                                     <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
                                 </svg>
-                                Add to Cart
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Thumbnail/GIF/Video Container -->
+                    <div class="card-thumbnail">
+                        ${mediaElement}
+                    </div>
+
+                    <!-- Details Panel - Slides up on hover -->
+                    <div class="card-details">
+                        <!-- Title Row: Title left, Heart right -->
+                        <div class="card-title-row">
+                            <h3 class="card-title">${anim.title}</h3>
+                            <button class="card-fav-btn" onclick="event.stopPropagation(); this.classList.toggle('active')">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                                </svg>
                             </button>
+                        </div>
+
+                        <!-- Tags + Price Row: Tags left, Price right -->
+                        <div class="card-tags-price-row">
+                            <div class="card-tags">
+                                ${anim.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('')}
+                            </div>
+                            <div class="card-price-display">
+                                ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? `
+                                    <span class="card-price-original">$${anim.price.toFixed(2)}</span>
+                                    <span class="card-price-main"><span class="card-price-dollar">$</span><span style="color: #fff;">${(anim.price * (1 - anim.salePercentage / 100)).toFixed(2)}</span></span>
+                                ` : `
+                                    <span class="card-price-main"><span class="card-price-dollar">$</span><span style="color: #fff;">${anim.price.toFixed(2)}</span></span>
+                                `}
+                            </div>
+                        </div>
+
+                        <!-- Duration + Frames Row -->
+                        <div class="card-duration-row">
+                            <svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <span>${anim.duration}</span>
+                            <span class="separator">•</span>
+                            <span>${anim.frameRate || 30} fps</span>
+                        </div>
+
+                        <!-- Rating + Engine Icons Row -->
+                        <div class="card-meta-row">
+                            <div class="card-rating">
+                                <span class="star">★</span>
+                                <span class="rating-value">${(4.5 + (anim.id.charCodeAt(0) % 5) / 10).toFixed(1)}</span>
+                            </div>
+                            <div class="card-engines">
+                                <span class="engine-icon">FBX</span>
+                                <span class="engine-icon">UE</span>
+                                <span class="engine-icon">Unity</span>
+                            </div>
+                        </div>
+
+                        <!-- Purchase Section - Buttons only -->
+                        <div class="card-purchase">
+                            
+                            <!-- Action Buttons -->
+                            <div class="card-actions">
+                                <div class="card-actions-row">
+                                    <a href="animation-detail.html?slug=${anim.slug}" class="card-btn card-btn-details" onclick="event.stopPropagation();">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                        </svg>
+                                        Details
+                                    </a>
+                                    <button class="card-btn card-btn-3d" onclick="event.preventDefault(); event.stopPropagation(); open3DViewer('${anim.glbFile || ''}', '${anim.title}')">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                            <path d="M2 17l10 5 10-5"></path>
+                                            <path d="M2 12l10 5 10-5"></path>
+                                        </svg>
+                                        3D
+                                    </button>
+                                </div>
+                                <div class="card-actions-row">
+                                    <button class="card-btn card-btn-buy" onclick="event.stopPropagation(); handleBuyNow('${anim.id}', '${anim.title}', ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? (anim.price * (1 - anim.salePercentage / 100)).toFixed(2) : anim.price})">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                            <line x1="1" y1="10" x2="23" y2="10"></line>
+                                        </svg>
+                                        Buy Now
+                                    </button>
+                                    <button class="card-btn card-btn-cart" onclick="event.stopPropagation(); handleAddToCart('${anim.id}')">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="9" cy="21" r="1"></circle>
+                                            <circle cx="20" cy="21" r="1"></circle>
+                                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                        </svg>
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -7150,9 +7462,9 @@
             });
             
             // Debug: Log alignment values
-            console.log('ALIGNMENT CHECK - Min Heights Applied:');
-            console.log('  Badges: 60px, Title: 72px, Tags: 76px, Price: 56px');
-            console.log('  Version: 2024-12-20-v3 - PRICE COLORS FIXED');
+            console.log('EXPANDING CARDS v47 - GRADIENT TITLE + META ROW');
+            console.log('  Title hover: cyan→amber gradient');
+            console.log('  Added: fps, star rating, engine icons');
 
             document.getElementById('resultsCount').innerHTML = 
                 `Showing <strong>${Math.min(displayAnimations.length, filteredAnimations.length)}</strong> of <strong>${filteredAnimations.length}</strong> animations`;
@@ -9837,80 +10149,69 @@ Focus on diversity while matching user preferences. Prioritize animations the us
 
     <!-- Floating Particles Script - REMOVED for liquid metal effect -->
 
-    <!-- Carousel Auto-Rotation Script -->
+    <!-- Carousel Script - 3D Rotating -->
     <script>
         // Carousel state
-        let currentIndex = 3; // Start with 4th item (index 3) as center
-        let carouselInterval;
+        let currentIndex = 0;
+        let carouselInterval = null;
+        const TOTAL_ITEMS = 7;
+        const ROTATION_PER_ITEM = 360 / TOTAL_ITEMS; // 51.43 degrees
+        const AUTO_ROTATE_DELAY = 3000; // 3 seconds between rotations
         
         // Carousel data (7 items) - will be loaded from database or use defaults
         let carouselData = [
-            { icon: '🏃', title: 'Running Pack', subtitle: '12 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
-            { icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', label: 'Featured Animation', image_url: null, link_url: '' },
-            { icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
-            { icon: '🧗', title: 'Climbing Pack', subtitle: '16 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
-            { icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
-            { icon: '💃', title: 'Dance Pack', subtitle: '15 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
-            { icon: '🧘', title: 'Idle Pack', subtitle: '10 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' }
+            { icon: '🏃', title: 'Running Pack', subtitle: '12 animations', label: 'Motion Capture', image_url: null, link_url: '' },
+            { icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', label: 'Motion Capture', image_url: null, link_url: '' },
+            { icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture', image_url: null, link_url: '' },
+            { icon: '🧗', title: 'Climbing Pack', subtitle: '16 animations', label: 'Motion Capture', image_url: null, link_url: '' },
+            { icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', label: 'Motion Capture', image_url: null, link_url: '' },
+            { icon: '💃', title: 'Dance Pack', subtitle: '15 animations', label: 'Motion Capture', image_url: null, link_url: '' },
+            { icon: '🧘', title: 'Idle Pack', subtitle: '10 animations', label: 'Motion Capture', image_url: null, link_url: '' }
         ];
 
         // Load carousel data from database
         async function loadCarouselData() {
             if (!window.supabaseClient) {
-                console.log('Supabase not available, using default carousel data');
+                console.log('[Carousel] Supabase not available, using default data');
                 return;
             }
             
             try {
-                console.log('Loading carousel data from database...');
+                console.log('[Carousel] Loading data from database...');
                 const { data, error } = await window.supabaseClient
                     .from('carousel_items')
                     .select('*')
                     .order('position', { ascending: true });
 
-                console.log('Carousel query result:', { data, error });
-
                 if (!error && data && data.length > 0) {
-                    // Update carousel data with database values
                     carouselData = data.map(item => ({
                         icon: item.icon,
                         title: item.title,
                         subtitle: item.subtitle,
-                        label: 'Motion Capture Preview',
+                        label: 'Motion Capture',
                         image_url: item.image_url,
                         link_url: item.link_url
                     }));
                     
-                    console.log('Updated carousel data:', carouselData);
-                    
-                    // Update carousel display
+                    console.log('[Carousel] Loaded from DB:', carouselData);
                     updateCarouselContent();
-                } else {
-                    console.log('Using default carousel data');
                 }
             } catch (error) {
-                console.error('Error loading carousel:', error);
-                console.log('Using default carousel data');
+                console.error('[Carousel] Error loading:', error);
             }
         }
 
         // Update carousel content in DOM
         function updateCarouselContent() {
-            console.log('Updating carousel content...');
             const items = document.querySelectorAll('.carousel-item');
-            console.log('Found carousel items:', items.length);
             
             items.forEach((item, index) => {
                 if (carouselData[index]) {
                     const data = carouselData[index];
                     const placeholder = item.querySelector('.carousel-placeholder');
                     
-                    console.log(`Item ${index}:`, data);
-                    
                     if (placeholder) {
-                        // If image_url exists (GIF), show play icon - load on hover
                         if (data.image_url) {
-                            console.log(`Setting placeholder for item ${index}, GIF will load on hover`);
                             placeholder.innerHTML = `
                                 <div class="carousel-gif-placeholder" data-gif="${data.image_url}">
                                     <div class="carousel-play-icon">▶</div>
@@ -9919,24 +10220,20 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                                 </div>
                             `;
                         } else {
-                            console.log(`Setting icon for item ${index}:`, data.icon);
                             placeholder.innerHTML = `
                                 <div class="carousel-placeholder-icon">${data.icon}</div>
                                 <div class="carousel-placeholder-text">${data.title}</div>
                                 <div class="carousel-placeholder-subtext">${data.subtitle}</div>
                             `;
                         }
-                    } else {
-                        console.log(`No placeholder found for item ${index}`);
                     }
                     
-                    // Add hover listeners to load/unload GIF
+                    // GIF hover handlers
                     item.addEventListener('mouseenter', () => {
                         const gifPlaceholder = item.querySelector('.carousel-gif-placeholder');
-                        if (gifPlaceholder) {
-                            const gifUrl = gifPlaceholder.dataset.gif;
+                        if (gifPlaceholder && data.image_url) {
                             gifPlaceholder.innerHTML = `
-                                <img src="${gifUrl}" 
+                                <img src="${data.image_url}" 
                                      alt="${data.title}" 
                                      style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
                             `;
@@ -9946,7 +10243,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                     item.addEventListener('mouseleave', () => {
                         const gifPlaceholder = item.querySelector('.carousel-gif-placeholder');
                         if (gifPlaceholder && gifPlaceholder.querySelector('img')) {
-                            const gifUrl = gifPlaceholder.dataset.gif;
                             gifPlaceholder.innerHTML = `
                                 <div class="carousel-play-icon">▶</div>
                                 <div class="carousel-placeholder-text">${data.title}</div>
@@ -9955,167 +10251,167 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                         }
                     });
                     
-                    // Update overlay label
                     const overlayText = item.querySelector('.carousel-overlay-text');
                     if (overlayText) {
-                        overlayText.textContent = data.label || 'Motion Capture Preview';
+                        overlayText.textContent = data.label || 'Motion Capture';
                     }
                 }
             });
-            
-            // Force carousel to reset to proper positions after content update
-            console.log('Resetting carousel positions to index:', currentIndex);
-            setTimeout(() => {
-                updateCarousel(currentIndex);
-            }, 100);
         }
 
-        function updateCarousel(selectedIndex) {
-            const items = document.querySelectorAll('.carousel-item');
-            const dots = document.querySelectorAll('.carousel-dot');
-            
-            if (!items.length) return;
-
-            const totalItems = items.length;
-            
-            // Calculate positions relative to selected item
-            items.forEach((item, index) => {
-                const dataIndex = parseInt(item.getAttribute('data-index'));
-                
-                // Calculate offset from selected item (-3 to +3 for 7 items)
-                let offset = dataIndex - selectedIndex;
-                
-                // Wrap around to keep within -3 to +3 range
-                while (offset > 3) offset -= totalItems;
-                while (offset < -3) offset += totalItems;
-                
-                // Apply classes based on position
-                item.classList.remove('side', 'center', 'pos-far-left', 'pos-left', 'pos-center', 'pos-right', 'pos-far-right', 'pos-hidden-left', 'pos-hidden-right');
-                
-                if (offset === 0) {
-                    // Center item
-                    item.classList.add('center', 'pos-center');
-                } else {
-                    // Side items
-                    item.classList.add('side');
-                    
-                    // Add specific position class for smooth transitions
-                    if (offset === -3) item.classList.add('pos-hidden-left');
-                    else if (offset === -2) item.classList.add('pos-far-left');
-                    else if (offset === -1) item.classList.add('pos-left');
-                    else if (offset === 1) item.classList.add('pos-right');
-                    else if (offset === 2) item.classList.add('pos-far-right');
-                    else if (offset === 3) item.classList.add('pos-hidden-right');
-                }
-            });
-
-            // Update dots
-            dots.forEach((dot, index) => {
-                dot.classList.toggle('active', index === selectedIndex);
-            });
-            
-            // Update current index
-            currentIndex = selectedIndex;
-        }
-
-        function startCarousel() {
-            // Always clear any existing interval first
-            clearInterval(carouselInterval);
-            const totalItems = document.querySelectorAll('.carousel-item').length;
-            carouselInterval = setInterval(() => {
-                const nextIndex = (currentIndex + 1) % totalItems;
-                updateCarousel(nextIndex);
-            }, 6000);
-            console.log('Carousel started, interval ID:', carouselInterval, 'total items:', totalItems);
-        }
-
-        function stopCarousel() {
-            clearInterval(carouselInterval);
-            carouselInterval = null;
-        }
-        
-        // Pause carousel when tab is inactive
-        document.addEventListener('visibilitychange', function() {
-            if (document.hidden) {
-                stopCarousel();
-            } else {
-                startCarousel();
+        // Rotate to specific item
+        function rotateToItem(index) {
+            const track = document.getElementById('carouselTrack');
+            if (!track) {
+                console.error('[Carousel] Track not found!');
+                return;
             }
-        });
+            
+            // Stop CSS animation - we're taking manual control
+            track.style.animation = 'none';
+            
+            const rotation = -index * ROTATION_PER_ITEM;
+            track.style.transition = 'transform 0.6s cubic-bezier(0.77, 0, 0.175, 1)';
+            track.style.transform = `translateZ(-280px) rotateY(${rotation}deg)`;
+            
+            currentIndex = index;
+            console.log('[Carousel] Rotated to index:', index, 'rotation:', rotation + 'deg');
+        }
+
+        // Start auto-rotation using setInterval
+        function startAutoRotation() {
+            console.log('[Carousel] Starting auto-rotation...');
+            
+            // Clear any existing interval
+            if (carouselInterval) {
+                clearInterval(carouselInterval);
+            }
+            
+            carouselInterval = setInterval(() => {
+                const nextIndex = (currentIndex + 1) % TOTAL_ITEMS;
+                console.log('[Carousel] Auto-rotating to:', nextIndex);
+                rotateToItem(nextIndex);
+            }, AUTO_ROTATE_DELAY);
+            
+            console.log('[Carousel] Auto-rotation started, interval ID:', carouselInterval);
+        }
+
+        // Stop auto-rotation
+        function stopAutoRotation() {
+            if (carouselInterval) {
+                clearInterval(carouselInterval);
+                carouselInterval = null;
+                console.log('[Carousel] Auto-rotation stopped');
+            }
+        }
+
+        // Rotate to next item
+        function rotateNext() {
+            console.log('[Carousel] NEXT clicked, current:', currentIndex);
+            stopAutoRotation();
+            const nextIndex = (currentIndex + 1) % TOTAL_ITEMS;
+            rotateToItem(nextIndex);
+            startAutoRotation();
+        }
+
+        // Rotate to previous item
+        function rotatePrev() {
+            console.log('[Carousel] PREV clicked, current:', currentIndex);
+            stopAutoRotation();
+            const prevIndex = (currentIndex - 1 + TOTAL_ITEMS) % TOTAL_ITEMS;
+            rotateToItem(prevIndex);
+            startAutoRotation();
+        }
 
         // Initialize carousel
         async function initCarousel() {
-            // Load carousel data from database first
+            console.log('[Carousel] Initializing...');
+            
             await loadCarouselData();
             
-            const dots = document.querySelectorAll('.carousel-dot');
+            const track = document.getElementById('carouselTrack');
+            const carousel = document.querySelector('.hero-preview-carousel');
+            const prevBtn = document.getElementById('carouselPrev');
+            const nextBtn = document.getElementById('carouselNext');
             const items = document.querySelectorAll('.carousel-item');
 
-            // Add click handlers to dots
-            // Add click handlers to dots
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    stopCarousel();
-                    updateCarousel(index);
-                    startCarousel();
-                });
+            console.log('[Carousel] Elements found:', {
+                track: !!track,
+                carousel: !!carousel,
+                prevBtn: !!prevBtn,
+                nextBtn: !!nextBtn,
+                items: items.length
             });
 
-            // Add click handlers to items
-            items.forEach((item) => {
+            // Disable CSS animation - we'll use JS interval instead
+            if (track) {
+                track.style.animation = 'none';
+                rotateToItem(0); // Start at first item
+            }
+
+            // Arrow click handlers
+            if (prevBtn) {
+                prevBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    rotatePrev();
+                });
+                console.log('[Carousel] Prev button listener added');
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    rotateNext();
+                });
+                console.log('[Carousel] Next button listener added');
+            }
+
+            // Item click handlers
+            items.forEach((item, index) => {
                 item.addEventListener('click', () => {
-                    const index = parseInt(item.getAttribute('data-index'));
-                    const carouselItem = carouselData[index];
-                    
-                    // If center item and has link_url, navigate to it
-                    if (item.classList.contains('pos-center') && carouselItem && carouselItem.link_url) {
-                        window.location.href = carouselItem.link_url;
-                    } else {
-                        // Otherwise, center the clicked item
-                        stopCarousel();
-                        updateCarousel(index);
-                        startCarousel();
+                    const data = carouselData[index];
+                    if (data && data.link_url) {
+                        window.location.href = data.link_url;
                     }
                 });
-                
-                // Add pointer cursor for items with links
-                const index = parseInt(item.getAttribute('data-index'));
-                if (carouselData[index] && carouselData[index].link_url) {
-                    item.style.cursor = 'pointer';
-                }
             });
 
             // Pause on hover
-            const carousel = document.querySelector('.hero-preview-carousel');
             if (carousel) {
                 carousel.addEventListener('mouseenter', () => {
-                    stopCarousel();
+                    console.log('[Carousel] Mouse enter - pausing');
+                    stopAutoRotation();
                 });
                 carousel.addEventListener('mouseleave', () => {
-                    startCarousel();
+                    console.log('[Carousel] Mouse leave - resuming');
+                    startAutoRotation();
                 });
             }
 
-            // Initialize to starting position (center item)
-            updateCarousel(currentIndex);
-            
-            // Fade in carousel after everything is positioned
+            // Pause when tab inactive
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    console.log('[Carousel] Tab hidden - pausing');
+                    stopAutoRotation();
+                } else {
+                    console.log('[Carousel] Tab visible - resuming');
+                    startAutoRotation();
+                }
+            });
+
+            // Fade in carousel
             setTimeout(() => {
                 if (carousel) {
                     carousel.classList.add('loaded');
                 }
-            }, 200);
+            }, 100);
             
             // Start auto-rotation
-            startCarousel();
+            startAutoRotation();
             
-            // Safety: ensure carousel keeps running (restart every 30 seconds if stopped)
-            setInterval(() => {
-                if (!carouselInterval) {
-                    console.log('Carousel safety restart');
-                    startCarousel();
-                }
-            }, 30000);
+            console.log('[Carousel] Initialization complete!');
         }
 
         // Initialize when DOM is ready
