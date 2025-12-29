@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+=<!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-29-v101 - STEP DESCRIPTIONS WITH SEO KEYWORDS -->
+    <!-- VERSION: 2024-12-29-v103 - ADMIN OFFERS PANEL + PROFESSIONAL CONSOLE -->
     <!-- ============================================ -->
     <!-- PALETTE 2: WARM LUXE AMBER -->
     <!-- Rich black (#000000) with muted gold (#fb7d47) and warm coral (#FF6B6B) -->
@@ -7742,11 +7742,63 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-        // CACHE BUSTER - v41 - SMOOTH BOUNCE ANIMATION
-        console.log('========================================');
-        console.log('INDEX.HTML VERSION 41 - SMOOTH BOUNCE!');
-        console.log('Loaded at:', new Date().toISOString());
-        console.log('========================================');
+        // ═══════════════════════════════════════════════════════════════════
+        // MocapWork Logger - Professional Console Output
+        // ═══════════════════════════════════════════════════════════════════
+        const MocapWork = {
+            version: '1.0.0',
+            debug: false, // Set to true for verbose logging
+            
+            styles: {
+                brand: 'background: linear-gradient(135deg, #fb7d47, #FF6B6B); color: white; padding: 8px 16px; border-radius: 4px; font-weight: bold; font-size: 14px;',
+                info: 'color: #00d4ff; font-weight: 500;',
+                success: 'color: #10B981; font-weight: 500;',
+                warn: 'color: #FBBF24; font-weight: 500;',
+                error: 'color: #FF6B6B; font-weight: bold;',
+                muted: 'color: #6B7280;'
+            },
+            
+            init() {
+                console.log('%cMocapWork', this.styles.brand, `v${this.version}`);
+                console.log('%c━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', this.styles.muted);
+                if (this.debug) {
+                    console.log('%c🔧 Debug mode enabled', this.styles.warn);
+                }
+            },
+            
+            log(message, data = null) {
+                if (this.debug) {
+                    data ? console.log(`%c${message}`, this.styles.info, data) : console.log(`%c${message}`, this.styles.info);
+                }
+            },
+            
+            success(message, data = null) {
+                data ? console.log(`%c✓ ${message}`, this.styles.success, data) : console.log(`%c✓ ${message}`, this.styles.success);
+            },
+            
+            warn(message, data = null) {
+                data ? console.warn(`%c⚠ ${message}`, this.styles.warn, data) : console.warn(`%c⚠ ${message}`, this.styles.warn);
+            },
+            
+            error(message, data = null) {
+                data ? console.error(`%c✕ ${message}`, this.styles.error, data) : console.error(`%c✕ ${message}`, this.styles.error);
+            },
+            
+            group(name) {
+                if (this.debug) console.groupCollapsed(`%c${name}`, this.styles.muted);
+            },
+            
+            groupEnd() {
+                if (this.debug) console.groupEnd();
+            },
+            
+            table(data) {
+                if (this.debug) console.table(data);
+            }
+        };
+        
+        // Initialize logger
+        MocapWork.init();
         
         // Force scroll to top immediately on page load
         if ('scrollRestoration' in history) {
@@ -7912,7 +7964,7 @@
                 // Show modal
                 document.getElementById('stripeCheckoutModal').classList.add('active');
                 
-                console.log('✅ Stripe checkout modal opened', { animationId, cartItems });
+                
             }
             
             // Close Stripe Checkout Modal
@@ -7938,7 +7990,7 @@
             
             // Show Thank You Modal (simple version)
             async function showThankYouModal(paymentIntentId) {
-                console.log('✅ showThankYouModal called with:', paymentIntentId);
+                
                 
                 const thankYouModal = document.getElementById('thankYouModal');
                 if (!thankYouModal) {
@@ -7972,11 +8024,10 @@
                     let attempts = 0;
                     const maxAttempts = 5;
                     
-                    console.log('⏳ Waiting for webhook to process purchase...');
+                    
                     
                     while (!purchase && attempts < maxAttempts) {
                         attempts++;
-                        console.log(`🔍 Attempt ${attempts}/${maxAttempts} to find purchase...`);
                         
                         // Wait before querying (except first attempt)
                         if (attempts > 1) {
@@ -8006,7 +8057,6 @@
                         throw new Error('Purchase not found. Please contact support if you were charged.');
                     }
                     
-                    console.log('✅ Purchase found:', purchase);
                     
                     // Hide loading
                     document.getElementById('thankYouLoading').style.display = 'none';
@@ -8033,7 +8083,6 @@
                         document.getElementById('thankYouOrderDate').textContent = new Date(purchase.purchase_date).toLocaleDateString();
                     }
                     
-                    console.log('✅ Thank you modal loaded successfully!');
                     
                 } catch (error) {
                     console.error('Error loading purchase:', error);
@@ -8099,17 +8148,11 @@
                             showStripeError(error.message);
                             setPayButtonLoading(false);
                         } else if (paymentIntent.status === 'succeeded') {
-                            console.log('✅ Payment successful!', paymentIntent);
-                            console.log('🔍 Checking if showThankYouModal exists...');
-                            console.log('window.showThankYouModal:', typeof window.showThankYouModal);
-                            console.log('showThankYouModal:', typeof showThankYouModal);
-                            
                             // Close checkout modal
                             closeStripeCheckout();
                             
                             // Save purchase directly (don't wait for webhook)
                             try {
-                                console.log('💾 Saving purchase to database...');
                                 const { data: { session } } = await supabaseClient.auth.getSession();
                                 
                                 if (session && currentProductInfo) {
@@ -8128,9 +8171,9 @@
                                             .select();
                                         
                                         if (error) {
-                                            console.error('❌ Error saving cart purchases:', error);
+                                            MocapWork.error('Error saving cart purchases', error);
                                         } else {
-                                            console.log('✅ Cart purchases saved:', data);
+                                            MocapWork.success('Purchase complete');
                                             // Clear cart
                                             localStorage.removeItem('cart');
                                             if (typeof updateCartBadge === 'function') updateCartBadge();
@@ -8148,14 +8191,14 @@
                                             .select();
                                         
                                         if (error) {
-                                            console.error('❌ Error saving purchase:', error);
+                                            MocapWork.error('Error saving purchase', error);
                                         } else {
-                                            console.log('✅ Purchase saved:', data);
+                                            MocapWork.success('Purchase complete');
                                         }
                                     }
                                 }
                             } catch (err) {
-                                console.error('❌ Error in purchase save:', err);
+                                MocapWork.error('Error in purchase save', err);
                             }
                             
                             // Show thank you modal
@@ -8299,9 +8342,7 @@
             // Remove from cart
             async removeFromCart(animationId) {
                 let cart = JSON.parse(localStorage.getItem('cart') || '[]');
-                console.log('Removing from cart:', animationId, 'Current cart:', cart);
                 cart = cart.filter(id => id !== animationId && id !== String(animationId));
-                console.log('After removal:', cart);
                 localStorage.setItem('cart', JSON.stringify(cart));
                 return { success: true };
             },
@@ -8513,11 +8554,6 @@
                 grid.appendChild(card);
             });
             
-            // Debug: Log alignment values
-            console.log('EXPANDING CARDS v47 - GRADIENT TITLE + META ROW');
-            console.log('  Title hover: cyan→amber gradient');
-            console.log('  Added: fps, star rating, engine icons');
-
             document.getElementById('resultsCount').innerHTML = 
                 `Showing <strong>${Math.min(displayAnimations.length, filteredAnimations.length)}</strong> of <strong>${filteredAnimations.length}</strong> animations`;
             
@@ -8571,14 +8607,11 @@
 
         // Filter function
         function filterAnimations() {
-            console.log('=== FILTER ANIMATIONS CALLED ===');
             const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const category = document.getElementById('categoryFilter').value;
             const gender = document.getElementById('genderFilter').value;
             const style = document.getElementById('styleFilter').value;
             const sort = document.getElementById('sortFilter').value;
-            
-            console.log('Sort value:', sort);
 
             let filtered = animations.filter(anim => {
                 const matchesSearch = !searchQuery || 
@@ -8590,9 +8623,6 @@
 
                 return matchesSearch && matchesCategory && matchesGender && matchesStyle;
             });
-            
-            console.log('Filtered animations count:', filtered.length);
-            console.log('First 3 titles BEFORE sort:', filtered.slice(0, 3).map(a => a.title));
 
             // Sort (stable - maintains original database order when values are equal)
             filtered.sort((a, b) => {
@@ -8610,9 +8640,6 @@
                 }
                 return a._originalIndex - b._originalIndex; // Default: maintain database order
             });
-            
-            console.log('First 3 titles AFTER sort:', filtered.slice(0, 3).map(a => a.title));
-            console.log('First 3 _originalIndex:', filtered.slice(0, 3).map(a => a._originalIndex));
 
             // Save filtered results and reset display count
             filteredAnimations = filtered;
@@ -9230,21 +9257,12 @@ Focus on diversity while matching user preferences. Prioritize animations the us
 
         // Load More functionality
         window.loadMore = function() {
-            console.log('=== LOAD MORE CLICKED ===');
-            console.log('Current display count BEFORE:', currentDisplayCount);
-            console.log('filteredAnimations length:', filteredAnimations.length);
-            console.log('filteredAnimations:', filteredAnimations);
-            
             if (!filteredAnimations || filteredAnimations.length === 0) {
-                console.error('ERROR: filteredAnimations is empty!');
-                alert('Error: No animations to display. Please refresh the page.');
+                MocapWork.error('No animations to display');
                 return;
             }
             
             currentDisplayCount += itemsPerPage;
-            console.log('Current display count AFTER:', currentDisplayCount);
-            console.log('Re-rendering with same filter/sort...');
-            // Just re-render with increased count - DON'T re-filter or re-sort!
             renderAnimations(filteredAnimations);
         }
         
@@ -9689,11 +9707,8 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 // Add original index to each animation for stable sorting
                 animations = animations.map((anim, index) => ({ ...anim, _originalIndex: index }));
                 window.animations = animations; // Make available in console for debugging
-                console.log('========================================');
-                console.log('TOTAL ANIMATIONS IN DATABASE:', animations.length);
-                console.log('========================================');
-                console.log('Loaded animations:', animations);
-                console.log('Popular flags:', animations.map(a => ({ title: a.title, popular: a.popular, onSale: a.onSale, holidaySale: a.holidaySale })));
+                
+                MocapWork.success(`Loaded ${animations.length} animations`);
                 
                 // Check for URL parameters (from animation detail page tags/category)
                 const urlParams = new URLSearchParams(window.location.hash.split('?')[1] || '');
@@ -9840,7 +9855,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         // Remove item from cart (from hover dropdown)
         window.removeFromCartHover = async function(animationId) {
             try {
-                console.log('removeFromCartHover called with:', animationId);
                 await API.removeFromCart(animationId);
                 await updateCartBadge();
                 showNotification('Removed from cart', 'warning');
@@ -9973,12 +9987,55 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         // Jump to 60% when scripts are loaded
         if (loadingBar) loadingBar.style.width = '60%';
         
+        // Load offer/banner visibility settings from database
+        async function loadOfferSettings() {
+            try {
+                const { data: settings, error } = await supabaseClient
+                    .from('site_settings')
+                    .select('*');
+
+                if (error || !settings) return;
+
+                const settingsMap = {};
+                settings.forEach(s => settingsMap[s.key] = s.value === 'true');
+
+                // Premium Banner (above library)
+                if (settingsMap['premium_banner'] === false) {
+                    const premiumBanner = document.querySelector('.premium-banner');
+                    if (premiumBanner) premiumBanner.style.display = 'none';
+                }
+
+                // Rewards Banner (below library)
+                if (settingsMap['rewards_banner'] === false) {
+                    const rewardsBanner = document.querySelector('.rewards-banner');
+                    if (rewardsBanner) rewardsBanner.style.display = 'none';
+                }
+
+                // AI Recommendations toggle
+                if (settingsMap['ai_recommendations'] === false) {
+                    const aiToggle = document.querySelector('.ai-toggle-label');
+                    if (aiToggle) aiToggle.parentElement.style.display = 'none';
+                    const aiBanner = document.querySelector('.ai-recommendations-banner');
+                    if (aiBanner) aiBanner.style.display = 'none';
+                }
+
+                // CTA Banner ("Can't Find the Perfect Animation?")
+                if (settingsMap['cta_banner'] === false) {
+                    const ctaBanner = document.querySelector('.cta-banner');
+                    if (ctaBanner) ctaBanner.style.display = 'none';
+                }
+            } catch (e) {
+                // Silently fail - show all banners by default
+            }
+        }
+        
         Promise.all([
             loadAnimations().then(() => {
                 // Jump to 85% when animations loaded
                 if (loadingBar) loadingBar.style.width = '85%';
             }),
-            checkAuth()
+            checkAuth(),
+            loadOfferSettings()
         ]).then(() => {
             // Page fully loaded - complete to 100%
             if (loadingBar) {
@@ -10030,30 +10087,17 @@ Focus on diversity while matching user preferences. Prioritize animations the us
 
         // Check if user has admin role and show admin button
         async function checkAdminStatus(userId) {
-            console.log('=== ADMIN CHECK ===');
-            console.log('Checking admin status for user ID:', userId);
-            
             const { data: userRole, error } = await supabaseClient
                 .from('user_roles')
                 .select('role')
                 .eq('user_id', userId)
                 .single();
             
-            console.log('User role query result:', userRole);
-            console.log('User role query error:', error);
-            
             if (userRole && userRole.role === 'admin') {
-                console.log('✅ User IS admin - showing button');
                 const adminBtn = document.getElementById('adminDashboardBtn');
-                console.log('Admin button element:', adminBtn);
                 if (adminBtn) {
                     adminBtn.style.display = 'inline-flex';
-                    console.log('Admin button should now be visible');
-                } else {
-                    console.error('❌ Admin button element not found in DOM');
                 }
-            } else {
-                console.log('❌ User is NOT admin');
             }
         }
 
@@ -10478,10 +10522,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         }
         
         function performSearchNav(query) {
-            console.log('performSearchNav called with query:', query);
-            console.log('animations array:', animations);
-            console.log('animations length:', animations ? animations.length : 'undefined');
-            
             const lowerQuery = query.toLowerCase();
             
             // Filter animations (handle null values)
@@ -10490,8 +10530,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 (anim.category && anim.category.toLowerCase().includes(lowerQuery)) ||
                 (anim.style && anim.style.toLowerCase().includes(lowerQuery))
             ).slice(0, 5);
-            
-            console.log('Search results:', results);
             
             // Build dropdown
             let html = '';
@@ -10539,7 +10577,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 html += '</div>';
             }
             
-            console.log('Generated HTML:', html);
             searchDropdownNav.innerHTML = html;
             searchDropdownNav.classList.add('active');
         }
@@ -11243,12 +11280,10 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         // Load carousel data from database
         async function loadCarouselData() {
             if (!window.supabaseClient) {
-                console.log('[Carousel] Supabase not available, using default data');
                 return;
             }
             
             try {
-                console.log('[Carousel] Loading data from database...');
                 const { data, error } = await window.supabaseClient
                     .from('carousel_items')
                     .select('*')
@@ -11264,7 +11299,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                         link_url: item.link_url
                     }));
                     
-                    console.log('[Carousel] Loaded from DB:', carouselData);
                     updateCarouselContent();
                 }
             } catch (error) {
@@ -11346,12 +11380,10 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             track.style.transform = `translateZ(-280px) rotateY(${rotation}deg)`;
             
             currentIndex = index;
-            console.log('[Carousel] Rotated to index:', index, 'rotation:', rotation + 'deg');
         }
 
         // Start auto-rotation using setInterval
         function startAutoRotation() {
-            console.log('[Carousel] Starting auto-rotation...');
             
             // Clear any existing interval
             if (carouselInterval) {
@@ -11360,11 +11392,9 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             
             carouselInterval = setInterval(() => {
                 const nextIndex = (currentIndex + 1) % TOTAL_ITEMS;
-                console.log('[Carousel] Auto-rotating to:', nextIndex);
                 rotateToItem(nextIndex);
             }, AUTO_ROTATE_DELAY);
             
-            console.log('[Carousel] Auto-rotation started, interval ID:', carouselInterval);
         }
 
         // Stop auto-rotation
@@ -11372,13 +11402,11 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             if (carouselInterval) {
                 clearInterval(carouselInterval);
                 carouselInterval = null;
-                console.log('[Carousel] Auto-rotation stopped');
             }
         }
 
         // Rotate to next item
         function rotateNext() {
-            console.log('[Carousel] NEXT clicked, current:', currentIndex);
             stopAutoRotation();
             const nextIndex = (currentIndex + 1) % TOTAL_ITEMS;
             rotateToItem(nextIndex);
@@ -11387,7 +11415,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
 
         // Rotate to previous item
         function rotatePrev() {
-            console.log('[Carousel] PREV clicked, current:', currentIndex);
             stopAutoRotation();
             const prevIndex = (currentIndex - 1 + TOTAL_ITEMS) % TOTAL_ITEMS;
             rotateToItem(prevIndex);
@@ -11396,7 +11423,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
 
         // Initialize carousel
         async function initCarousel() {
-            console.log('[Carousel] Initializing...');
             
             await loadCarouselData();
             
@@ -11406,7 +11432,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             const nextBtn = document.getElementById('carouselNext');
             const items = document.querySelectorAll('.carousel-item');
 
-            console.log('[Carousel] Elements found:', {
                 track: !!track,
                 carousel: !!carousel,
                 prevBtn: !!prevBtn,
@@ -11427,7 +11452,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                     e.stopPropagation();
                     rotatePrev();
                 });
-                console.log('[Carousel] Prev button listener added');
             }
 
             if (nextBtn) {
@@ -11436,7 +11460,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                     e.stopPropagation();
                     rotateNext();
                 });
-                console.log('[Carousel] Next button listener added');
             }
 
             // Item click handlers
@@ -11452,11 +11475,9 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             // Pause on hover
             if (carousel) {
                 carousel.addEventListener('mouseenter', () => {
-                    console.log('[Carousel] Mouse enter - pausing');
                     stopAutoRotation();
                 });
                 carousel.addEventListener('mouseleave', () => {
-                    console.log('[Carousel] Mouse leave - resuming');
                     startAutoRotation();
                 });
             }
@@ -11464,10 +11485,8 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             // Pause when tab inactive
             document.addEventListener('visibilitychange', () => {
                 if (document.hidden) {
-                    console.log('[Carousel] Tab hidden - pausing');
                     stopAutoRotation();
                 } else {
-                    console.log('[Carousel] Tab visible - resuming');
                     startAutoRotation();
                 }
             });
@@ -11482,7 +11501,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             // Start auto-rotation
             startAutoRotation();
             
-            console.log('[Carousel] Initialization complete!');
         }
 
         // Initialize when DOM is ready
@@ -11535,12 +11553,9 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', () => {
             if (typeof gsap === 'undefined') {
-                console.error('❌ GSAP not loaded');
+                MocapWork.error('GSAP not loaded');
                 return;
             }
-            
-            console.log('🎬 Initializing animations...');
-
 
             // ==========================================
             // SLOW HERO TEXT ANIMATION
@@ -11573,8 +11588,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                         ease: 'power2.out'
                     }, index * 0.25); // More delay between words - was 0.15
                 });
-                
-                console.log('✅ Hero text animation initialized');
             }
             
             });
