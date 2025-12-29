@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-29-v53 - PRICE DOWN 10PX, ANCHORED POSITION -->
+    <!-- VERSION: 2024-12-29-v56 - PERFORMANCE OPTIMIZATIONS -->
     <!-- ============================================ -->
     <!-- PALETTE 2: WARM LUXE AMBER -->
     <!-- Rich black (#000000) with muted gold (#F59E0B) and warm coral (#FF6B6B) -->
@@ -297,6 +297,7 @@
             z-index: 10002;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             background: transparent;
+            will-change: background, border-color;
         }
 
         .navbar.scrolled {
@@ -2499,6 +2500,14 @@
             border: 2px solid rgba(0, 212, 255, 0.2);
             cursor: pointer;
             margin: 0 auto;
+            will-change: height, width, box-shadow;
+        }
+        
+        /* Pause animations when off-screen */
+        .animation-card.paused,
+        .animation-card.paused * {
+            transition: none !important;
+            animation: none !important;
         }
 
         .animation-card:hover {
@@ -2520,6 +2529,7 @@
             align-items: center;
             z-index: 5;
             transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: transform;
         }
 
         .animation-card:hover .card-top-bar {
@@ -2558,6 +2568,7 @@
             padding: 10px 20px 20px 20px;
             transition: height 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             overflow: hidden;
+            will-change: height;
         }
 
         .animation-card:hover .card-details {
@@ -3083,6 +3094,7 @@
             opacity: 0;
             transform: translateY(10px);
             transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            will-change: opacity, transform;
         }
         
         .animation-card:hover .card-actions {
@@ -7471,6 +7483,9 @@
             
             // Initialize lazy GIF loading
             initLazyGifs();
+            
+            // Initialize off-screen pause observer
+            initCardObserver();
         }
         
         // Hover-only media loading - GIFs and videos only play when hovered
@@ -7554,6 +7569,26 @@
                     });
                 }
             });
+        }
+
+        // Pause animations when cards are off-screen for performance
+        function initCardObserver() {
+            const cards = document.querySelectorAll('.animation-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.remove('paused');
+                    } else {
+                        entry.target.classList.add('paused');
+                    }
+                });
+            }, {
+                rootMargin: '100px',
+                threshold: 0
+            });
+            
+            cards.forEach(card => observer.observe(card));
         }
 
         // Filter function
