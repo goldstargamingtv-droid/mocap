@@ -842,11 +842,6 @@
         </div>
         <div class="header-right">
             <div class="model-name" id="model-name">No model loaded</div>
-            <label class="upload-btn">
-                <span>📁</span>
-                <span>Load Model</span>
-                <input type="file" id="file-input" accept=".glb,.gltf">
-            </label>
         </div>
     </header>
 
@@ -854,6 +849,13 @@
     <div class="fps-counter">
         <span class="fps-value" id="fps-value">60</span> FPS
     </div>
+
+    <!-- Upload Button -->
+    <label class="upload-btn" style="position: fixed; top: 110px; right: 24px; z-index: 100;">
+        <span>📁</span>
+        <span>Load Model</span>
+        <input type="file" id="file-input" accept=".glb,.gltf">
+    </label>
 
     <!-- Canvas -->
     <div id="canvas-container"></div>
@@ -1773,7 +1775,16 @@
 
         // Start
         animate();
-        loadModel('/tester.glb', 'tester.glb');
+        
+        // Check for model URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const modelParam = urlParams.get('model');
+        
+        if (modelParam) {
+            loadModel(modelParam, modelParam.split('/').pop());
+        } else {
+            loadModel('/tester.glb', 'tester.glb');
+        }
     </script>
 </body>
 </html>
