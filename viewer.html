@@ -18,11 +18,10 @@
             --bg-primary: #000000;
             --bg-secondary: #0F0F0F;
             --bg-card: rgba(26, 26, 26, 0.8);
-            --amber: #F59E0B;
-            --amber-dark: #D97706;
-            --amber-glow: rgba(245, 158, 11, 0.4);
+            --accent: #F59E0B;
+            --accent-dark: #D97706;
+            --accent-glow: rgba(245, 158, 11, 0.4);
             --coral: #FF6B6B;
-            --coral-light: #FF8E8E;
             --text-white: #FFFFFF;
             --text-primary: #FEFCE8;
             --text-secondary: #E7E5D3;
@@ -49,23 +48,7 @@
             z-index: 1;
         }
 
-        canvas {
-            display: block;
-        }
-
-        .bg-gradient {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(245, 158, 11, 0.08), transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(255, 107, 107, 0.06), transparent 40%);
-            transition: opacity 0.5s ease;
-        }
+        canvas { display: block; }
 
         /* Header */
         .header {
@@ -74,16 +57,16 @@
             left: 0;
             right: 0;
             z-index: 100;
-            padding: 20px 30px;
+            padding: 16px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%);
         }
 
         .logo {
             font-family: 'Sora', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: var(--text-white);
             display: flex;
@@ -92,14 +75,14 @@
         }
 
         .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, var(--amber), var(--coral));
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, var(--accent), var(--coral));
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .header-right {
@@ -110,83 +93,59 @@
 
         .model-name {
             font-family: 'Sora', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            padding: 8px 16px;
+            padding: 8px 14px;
             border-radius: 20px;
             backdrop-filter: blur(10px);
         }
 
-        /* Icon Buttons */
-        .icon-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            border: 1px solid var(--glass-border);
-            background: var(--glass-bg);
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(20px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-
-        .icon-btn:hover {
-            background: rgba(245, 158, 11, 0.15);
-            border-color: var(--amber);
-            color: var(--text-white);
-            transform: scale(1.05);
-        }
-
-        .icon-btn.active {
-            background: var(--amber);
-            border-color: var(--amber);
-            color: var(--bg-primary);
-        }
-
-        /* Controls Panel */
-        .controls-panel {
+        /* FPS Counter */
+        .fps-counter {
             position: fixed;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 70px;
+            right: 24px;
+            z-index: 100;
+            font-family: 'Sora', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 6px 12px;
+            border-radius: 6px;
+            backdrop-filter: blur(10px);
+        }
+
+        .fps-counter .fps-value {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        /* Panels */
+        .panel {
+            position: fixed;
             z-index: 100;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
-            padding: 20px;
+            padding: 18px;
             backdrop-filter: blur(20px);
-            min-width: 260px;
-            max-height: 70vh;
-            overflow-y: auto;
         }
 
-        .controls-panel::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .controls-panel::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .controls-panel::-webkit-scrollbar-thumb {
-            background: var(--amber);
-            border-radius: 2px;
-        }
+        .panel::-webkit-scrollbar { width: 4px; }
+        .panel::-webkit-scrollbar-track { background: transparent; }
+        .panel::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
         .panel-title {
             font-family: 'Sora', sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1.5px;
-            color: var(--amber);
-            margin-bottom: 16px;
+            color: var(--accent);
+            margin-bottom: 14px;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -194,34 +153,38 @@
 
         .panel-title::before {
             content: '';
-            width: 8px;
-            height: 8px;
-            background: var(--amber);
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
             border-radius: 50%;
-            animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        /* Left Panel */
+        .controls-panel {
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 260px;
+            max-height: 75vh;
+            overflow-y: auto;
         }
 
         .animation-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 6px;
+            margin-bottom: 16px;
         }
 
         .animation-btn {
             width: 100%;
-            padding: 12px 16px;
+            padding: 10px 14px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 10px;
             color: var(--text-secondary);
             font-family: 'DM Sans', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             text-align: left;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -239,75 +202,71 @@
 
         .animation-btn.active {
             background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(255, 107, 107, 0.1));
-            border-color: var(--amber);
+            border-color: var(--accent);
             color: var(--text-white);
         }
 
         .animation-btn .icon {
-            width: 28px;
-            height: 28px;
+            width: 26px;
+            height: 26px;
             background: rgba(245, 158, 11, 0.15);
             border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             flex-shrink: 0;
         }
 
         .animation-btn.active .icon {
-            background: var(--amber);
+            background: var(--accent);
             color: var(--bg-primary);
         }
 
         .no-animations {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-align: center;
-            padding: 20px;
+            padding: 16px;
         }
 
-        /* View Options */
-        .view-options {
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 16px;
-        }
-
-        .view-options .panel-title {
-            margin-bottom: 12px;
+        /* Sections */
+        .section {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 14px;
+            margin-top: 14px;
         }
 
         .option-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
+            padding: 6px 0;
         }
 
         .option-label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-secondary);
         }
 
+        /* Toggle */
         .toggle {
-            width: 44px;
-            height: 24px;
+            width: 40px;
+            height: 22px;
             background: rgba(255,255,255,0.1);
-            border-radius: 12px;
+            border-radius: 11px;
             position: relative;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .toggle.active {
-            background: var(--amber);
-        }
+        .toggle.active { background: var(--accent); }
 
         .toggle::after {
             content: '';
             position: absolute;
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             background: white;
             border-radius: 50%;
             top: 3px;
@@ -315,16 +274,109 @@
             transition: all 0.3s ease;
         }
 
-        .toggle.active::after {
-            left: 23px;
+        .toggle.active::after { left: 21px; }
+
+        /* Slider */
+        .slider-container {
+            margin: 8px 0;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        /* Color Picker */
+        .color-picker-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .color-swatch {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .color-swatch:hover { transform: scale(1.1); }
+        .color-swatch.active { border-color: white; }
+
+        /* Environment Presets */
+        .env-presets {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .env-btn {
+            padding: 10px 8px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .env-btn:hover {
+            background: rgba(245, 158, 11, 0.1);
+            border-color: var(--accent);
+            color: var(--text-white);
+        }
+
+        .env-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .env-btn .env-icon {
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 4px;
         }
 
         /* Camera Presets */
         .camera-presets {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-top: 12px;
+            gap: 6px;
+            margin-top: 8px;
         }
 
         .camera-btn {
@@ -333,39 +385,99 @@
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 8px;
             color: var(--text-muted);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .camera-btn:hover {
             background: rgba(245, 158, 11, 0.1);
-            border-color: var(--amber);
+            border-color: var(--accent);
             color: var(--text-white);
+        }
+
+        /* Right Tools Panel */
+        .tools-panel {
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 12px;
+        }
+
+        .tool-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.03);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .tool-btn:hover {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: var(--accent);
+            color: var(--text-white);
+            transform: scale(1.1);
+        }
+
+        .tool-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        .tool-btn .tooltip {
+            position: absolute;
+            right: 54px;
+            background: var(--bg-primary);
+            color: var(--text-white);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.2s ease;
+        }
+
+        .tool-btn:hover .tooltip {
+            opacity: 1;
+            right: 50px;
         }
 
         /* Timeline */
         .timeline-container {
             position: fixed;
-            bottom: 100px;
+            bottom: 90px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 100;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 12px;
-            padding: 16px 24px;
+            padding: 14px 20px;
             backdrop-filter: blur(20px);
-            width: 60%;
-            max-width: 600px;
+            width: 50%;
+            max-width: 500px;
         }
 
         .timeline-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.75rem;
+            margin-bottom: 8px;
+            font-size: 0.7rem;
             color: var(--text-muted);
+            font-family: 'Sora', monospace;
         }
 
         .timeline-track {
@@ -379,7 +491,7 @@
 
         .timeline-progress {
             height: 100%;
-            background: linear-gradient(90deg, var(--amber), var(--coral));
+            background: linear-gradient(90deg, var(--accent), var(--coral));
             border-radius: 3px;
             position: relative;
             transition: width 0.05s linear;
@@ -387,14 +499,14 @@
 
         .timeline-handle {
             position: absolute;
-            right: -8px;
+            right: -7px;
             top: 50%;
             transform: translateY(-50%);
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             background: var(--text-white);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--amber-glow);
+            box-shadow: 0 0 10px var(--accent-glow);
             cursor: grab;
         }
 
@@ -406,23 +518,23 @@
         /* Playback Controls */
         .playback-controls {
             position: fixed;
-            bottom: 30px;
+            bottom: 24px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 100;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 50px;
-            padding: 12px 24px;
+            padding: 10px 20px;
             backdrop-filter: blur(20px);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .playback-btn {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             border: none;
             background: rgba(255, 255, 255, 0.05);
@@ -432,7 +544,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
 
         .playback-btn:hover {
@@ -442,31 +554,31 @@
         }
 
         .playback-btn.primary {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--amber), var(--amber-dark));
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
             color: var(--bg-primary);
         }
 
         .playback-btn.primary:hover {
             transform: scale(1.15);
-            box-shadow: 0 0 30px var(--amber-glow);
+            box-shadow: 0 0 25px var(--accent-glow);
         }
 
         .divider {
             width: 1px;
-            height: 30px;
+            height: 26px;
             background: rgba(255,255,255,0.1);
         }
 
         .speed-control {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .speed-label {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -474,108 +586,48 @@
 
         .speed-value {
             font-family: 'Sora', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            color: var(--amber);
-            min-width: 40px;
+            color: var(--accent);
+            min-width: 38px;
             text-align: center;
-        }
-
-        /* Right Panel - Tools */
-        .tools-panel {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .tool-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            background: var(--glass-bg);
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(20px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            position: relative;
-        }
-
-        .tool-btn:hover {
-            background: rgba(245, 158, 11, 0.15);
-            border-color: var(--amber);
-            color: var(--text-white);
-            transform: scale(1.1);
-        }
-
-        .tool-btn.active {
-            background: var(--amber);
-            border-color: var(--amber);
-            color: var(--bg-primary);
-        }
-
-        .tool-btn .tooltip {
-            position: absolute;
-            right: 60px;
-            background: var(--bg-primary);
-            color: var(--text-white);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: all 0.2s ease;
-        }
-
-        .tool-btn:hover .tooltip {
-            opacity: 1;
-            right: 56px;
         }
 
         /* Info Panel */
         .info-panel {
-            position: fixed;
-            right: 80px;
-            bottom: 30px;
-            z-index: 100;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 16px 20px;
-            backdrop-filter: blur(20px);
-            font-size: 0.8rem;
-            color: var(--text-muted);
+            right: 84px;
+            bottom: 24px;
+            padding: 14px 16px;
+            font-size: 0.75rem;
         }
 
         .info-row {
             display: flex;
             justify-content: space-between;
-            gap: 20px;
-            margin-bottom: 6px;
+            gap: 16px;
+            margin-bottom: 4px;
         }
 
-        .info-row:last-child {
-            margin-bottom: 0;
+        .info-row:last-child { margin-bottom: 0; }
+        .info-label { color: var(--text-muted); }
+        .info-value { color: var(--text-secondary); font-weight: 500; }
+
+        /* Bone Info Tooltip */
+        .bone-tooltip {
+            position: fixed;
+            z-index: 200;
+            background: var(--bg-primary);
+            border: 1px solid var(--accent);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: var(--text-white);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
         }
 
-        .info-label {
-            color: var(--text-muted);
-        }
-
-        .info-value {
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
+        .bone-tooltip.visible { opacity: 1; }
 
         /* Loading Screen */
         .loading-screen {
@@ -590,7 +642,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 30px;
+            gap: 24px;
             transition: opacity 0.5s ease, visibility 0.5s ease;
         }
 
@@ -601,21 +653,19 @@
         }
 
         .loader {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border: 3px solid rgba(245, 158, 11, 0.1);
-            border-top-color: var(--amber);
+            border-top-color: var(--accent);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         .loading-text {
             font-family: 'Sora', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             letter-spacing: 2px;
         }
@@ -633,16 +683,14 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
         }
 
-        .drop-overlay.active {
-            display: flex;
-        }
+        .drop-overlay.active { display: flex; }
 
         .drop-icon {
-            font-size: 4rem;
-            color: var(--amber);
+            font-size: 3.5rem;
+            color: var(--accent);
             animation: bounce 1s infinite;
         }
 
@@ -653,7 +701,7 @@
 
         .drop-text {
             font-family: 'Sora', sans-serif;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             color: var(--text-white);
         }
 
@@ -668,25 +716,22 @@
             z-index: 3000;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.1s ease;
         }
 
-        .screenshot-flash.active {
-            opacity: 0.8;
-        }
+        .screenshot-flash.active { opacity: 0.7; }
 
-        /* Toast Notification */
+        /* Toast */
         .toast {
             position: fixed;
-            bottom: 200px;
+            bottom: 180px;
             left: 50%;
             transform: translateX(-50%) translateY(20px);
             background: var(--glass-bg);
-            border: 1px solid var(--amber);
-            padding: 12px 24px;
+            border: 1px solid var(--accent);
+            padding: 10px 20px;
             border-radius: 8px;
             color: var(--text-white);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             opacity: 0;
             pointer-events: none;
             transition: all 0.3s ease;
@@ -698,59 +743,49 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* Fullscreen styles */
-        body.fullscreen .header,
-        body.fullscreen .controls-panel,
-        body.fullscreen .tools-panel,
-        body.fullscreen .info-panel {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        body.fullscreen:hover .header,
-        body.fullscreen:hover .controls-panel,
-        body.fullscreen:hover .tools-panel,
-        body.fullscreen:hover .info-panel {
-            opacity: 1;
-            pointer-events: all;
-        }
-
         /* Upload Button */
         .upload-btn {
-            padding: 10px 16px;
+            padding: 8px 14px;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 10px;
             color: var(--text-secondary);
             font-family: 'DM Sans', sans-serif;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(20px);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .upload-btn:hover {
             background: rgba(245, 158, 11, 0.15);
-            border-color: var(--amber);
+            border-color: var(--accent);
             color: var(--text-white);
         }
 
-        #file-input {
-            display: none;
+        #file-input { display: none; }
+
+        /* Fullscreen */
+        body.fullscreen .header,
+        body.fullscreen .controls-panel,
+        body.fullscreen .tools-panel,
+        body.fullscreen .info-panel,
+        body.fullscreen .fps-counter {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
         }
 
-        /* Hotkey hints */
-        .hotkey {
-            display: inline-block;
-            padding: 2px 6px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 4px;
-            font-size: 0.7rem;
-            margin-left: 8px;
-            color: var(--text-muted);
+        body.fullscreen:hover .header,
+        body.fullscreen:hover .controls-panel,
+        body.fullscreen:hover .tools-panel,
+        body.fullscreen:hover .info-panel,
+        body.fullscreen:hover .fps-counter {
+            opacity: 1;
+            pointer-events: all;
         }
 
         /* Mobile */
@@ -759,59 +794,35 @@
                 left: 10px;
                 right: 10px;
                 top: auto;
-                bottom: 180px;
+                bottom: 160px;
                 transform: none;
-                max-height: 200px;
+                width: auto;
+                max-height: 180px;
             }
 
             .timeline-container {
-                width: 90%;
-                bottom: 120px;
+                width: 85%;
+                bottom: 100px;
             }
 
             .playback-controls {
-                bottom: 20px;
-                padding: 10px 16px;
-                gap: 8px;
+                bottom: 16px;
+                padding: 8px 14px;
             }
 
-            .playback-btn {
-                width: 38px;
-                height: 38px;
-            }
-
-            .playback-btn.primary {
-                width: 48px;
-                height: 48px;
-            }
-
-            .speed-control {
-                display: none;
-            }
-
-            .info-panel,
-            .tools-panel {
-                display: none;
-            }
-
-            .header {
-                padding: 15px 20px;
-            }
-
-            .model-name {
-                display: none;
-            }
-
-            .view-options {
-                display: none;
-            }
+            .playback-btn { width: 36px; height: 36px; }
+            .playback-btn.primary { width: 44px; height: 44px; }
+            .speed-control, .info-panel, .tools-panel, .fps-counter { display: none; }
+            .header { padding: 12px 16px; }
+            .model-name { display: none; }
+            .section { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="bg-gradient" id="bg-gradient"></div>
     <div class="screenshot-flash" id="screenshot-flash"></div>
     <div class="toast" id="toast"></div>
+    <div class="bone-tooltip" id="bone-tooltip"></div>
 
     <div class="loading-screen" id="loading-screen">
         <div class="loader"></div>
@@ -827,7 +838,7 @@
     <header class="header">
         <div class="logo">
             <div class="logo-icon">▶</div>
-            <span>3D Viewer</span>
+            <span>MocapWork</span>
         </div>
         <div class="header-right">
             <div class="model-name" id="model-name">No model loaded</div>
@@ -839,17 +850,42 @@
         </div>
     </header>
 
+    <!-- FPS Counter -->
+    <div class="fps-counter">
+        <span class="fps-value" id="fps-value">60</span> FPS
+    </div>
+
     <!-- Canvas -->
     <div id="canvas-container"></div>
 
-    <!-- Left Panel - Animations & Options -->
-    <div class="controls-panel" id="controls-panel">
+    <!-- Left Panel -->
+    <div class="panel controls-panel" id="controls-panel">
         <div class="panel-title">Animations</div>
         <div class="animation-list" id="animation-list">
             <div class="no-animations">No animations found</div>
         </div>
         
-        <div class="view-options">
+        <!-- Environment -->
+        <div class="section">
+            <div class="panel-title">Environment</div>
+            <div class="env-presets">
+                <button class="env-btn active" data-env="studio">
+                    <span class="env-icon">🎬</span>Studio
+                </button>
+                <button class="env-btn" data-env="outdoor">
+                    <span class="env-icon">🌤</span>Outdoor
+                </button>
+                <button class="env-btn" data-env="night">
+                    <span class="env-icon">🌙</span>Night
+                </button>
+                <button class="env-btn" data-env="gradient">
+                    <span class="env-icon">🎨</span>Gradient
+                </button>
+            </div>
+        </div>
+
+        <!-- View Options -->
+        <div class="section">
             <div class="panel-title">View Options</div>
             
             <div class="option-row">
@@ -866,8 +902,89 @@
                 <span class="option-label">Show Grid</span>
                 <div class="toggle active" id="toggle-grid"></div>
             </div>
+
+            <div class="option-row">
+                <span class="option-label">Bone Highlight</span>
+                <div class="toggle" id="toggle-bones"></div>
+            </div>
+        </div>
+
+        <!-- Post Processing -->
+        <div class="section">
+            <div class="panel-title">Post Processing</div>
             
-            <div class="panel-title" style="margin-top: 16px;">Camera</div>
+            <div class="slider-container">
+                <div class="slider-header">
+                    <span>Bloom</span>
+                    <span id="bloom-value">0.3</span>
+                </div>
+                <input type="range" class="slider" id="slider-bloom" min="0" max="1" step="0.05" value="0.3">
+            </div>
+            
+            <div class="slider-container">
+                <div class="slider-header">
+                    <span>Vignette</span>
+                    <span id="vignette-value">0.4</span>
+                </div>
+                <input type="range" class="slider" id="slider-vignette" min="0" max="1" step="0.05" value="0.4">
+            </div>
+            
+            <div class="slider-container">
+                <div class="slider-header">
+                    <span>Exposure</span>
+                    <span id="exposure-value">1.2</span>
+                </div>
+                <input type="range" class="slider" id="slider-exposure" min="0.5" max="2" step="0.1" value="1.2">
+            </div>
+        </div>
+
+        <!-- Retargeting -->
+        <div class="section">
+            <div class="panel-title">Retarget Preview</div>
+            
+            <div class="slider-container">
+                <div class="slider-header">
+                    <span>Height</span>
+                    <span id="height-value">100%</span>
+                </div>
+                <input type="range" class="slider" id="slider-height" min="50" max="150" step="5" value="100">
+            </div>
+            
+            <div class="slider-container">
+                <div class="slider-header">
+                    <span>Arm Length</span>
+                    <span id="arms-value">100%</span>
+                </div>
+                <input type="range" class="slider" id="slider-arms" min="50" max="150" step="5" value="100">
+            </div>
+            
+            <div class="slider-container">
+                <div class="slider-header">
+                    <span>Leg Length</span>
+                    <span id="legs-value">100%</span>
+                </div>
+                <input type="range" class="slider" id="slider-legs" min="50" max="150" step="5" value="100">
+            </div>
+        </div>
+
+        <!-- Accent Color -->
+        <div class="section">
+            <div class="panel-title">Accent Color</div>
+            <div class="color-picker-row">
+                <div class="color-swatch active" style="background: #F59E0B;" data-color="#F59E0B"></div>
+                <div class="color-swatch" style="background: #EF4444;" data-color="#EF4444"></div>
+                <div class="color-swatch" style="background: #EC4899;" data-color="#EC4899"></div>
+                <div class="color-swatch" style="background: #8B5CF6;" data-color="#8B5CF6"></div>
+                <div class="color-swatch" style="background: #3B82F6;" data-color="#3B82F6"></div>
+                <div class="color-swatch" style="background: #10B981;" data-color="#10B981"></div>
+                <div class="color-swatch" style="background: #06B6D4;" data-color="#06B6D4"></div>
+                <div class="color-swatch" style="background: #FFFFFF;" data-color="#FFFFFF"></div>
+            </div>
+        </div>
+
+        <!-- Camera -->
+        <div class="section">
+            <div class="panel-title">Camera</div>
             <div class="camera-presets">
                 <button class="camera-btn" data-view="front">Front</button>
                 <button class="camera-btn" data-view="side">Side</button>
@@ -879,58 +996,57 @@
         </div>
     </div>
 
-    <!-- Right Panel - Tools -->
-    <div class="tools-panel">
-        <button class="tool-btn" id="btn-screenshot" title="Take Screenshot">
-            📸
-            <span class="tooltip">Screenshot (S)</span>
+    <!-- Right Tools -->
+    <div class="panel tools-panel">
+        <button class="tool-btn" id="btn-screenshot">
+            📸<span class="tooltip">Screenshot (S)</span>
         </button>
-        <button class="tool-btn" id="btn-fullscreen" title="Fullscreen">
-            ⛶
-            <span class="tooltip">Fullscreen (F)</span>
+        <button class="tool-btn" id="btn-fullscreen">
+            ⛶<span class="tooltip">Fullscreen (F)</span>
         </button>
-        <button class="tool-btn" id="btn-loop" title="Loop Mode">
-            🔁
-            <span class="tooltip">Loop (L)</span>
+        <button class="tool-btn active" id="btn-loop">
+            🔁<span class="tooltip">Loop (L)</span>
         </button>
-        <button class="tool-btn active" id="btn-shadows" title="Shadows">
-            💡
-            <span class="tooltip">Shadows</span>
+        <button class="tool-btn active" id="btn-shadows">
+            💡<span class="tooltip">Shadows</span>
+        </button>
+        <button class="tool-btn" id="btn-postfx">
+            ✨<span class="tooltip">Post FX (P)</span>
         </button>
     </div>
 
     <!-- Timeline -->
-    <div class="timeline-container" id="timeline-container">
+    <div class="timeline-container">
         <div class="timeline-header">
             <span id="time-current">0:00</span>
             <span id="time-total">0:00</span>
         </div>
         <div class="timeline-track" id="timeline-track">
             <div class="timeline-progress" id="timeline-progress">
-                <div class="timeline-handle" id="timeline-handle"></div>
+                <div class="timeline-handle"></div>
             </div>
         </div>
     </div>
 
     <!-- Playback Controls -->
-    <div class="playback-controls" id="playback-controls">
-        <button class="playback-btn" id="prev-btn" title="Previous">⏮</button>
-        <button class="playback-btn" id="stop-btn" title="Stop">⏹</button>
-        <button class="playback-btn primary" id="play-btn" title="Play/Pause">▶</button>
-        <button class="playback-btn" id="next-btn" title="Next">⏭</button>
+    <div class="playback-controls">
+        <button class="playback-btn" id="prev-btn">⏮</button>
+        <button class="playback-btn" id="stop-btn">⏹</button>
+        <button class="playback-btn primary" id="play-btn">▶</button>
+        <button class="playback-btn" id="next-btn">⏭</button>
         <div class="divider"></div>
         <div class="speed-control">
-            <button class="playback-btn" id="speed-down" style="width:36px;height:36px;">−</button>
+            <button class="playback-btn" id="speed-down" style="width:32px;height:32px;font-size:1rem;">−</button>
             <div>
                 <div class="speed-label">Speed</div>
                 <div class="speed-value" id="speed-value">1.0x</div>
             </div>
-            <button class="playback-btn" id="speed-up" style="width:36px;height:36px;">+</button>
+            <button class="playback-btn" id="speed-up" style="width:32px;height:32px;font-size:1rem;">+</button>
         </div>
     </div>
 
     <!-- Info Panel -->
-    <div class="info-panel" id="info-panel">
+    <div class="panel info-panel">
         <div class="info-row">
             <span class="info-label">Duration</span>
             <span class="info-value" id="info-duration">0.0s</span>
@@ -945,16 +1061,48 @@
         import * as THREE from 'https://esm.sh/three@0.160.0';
         import { OrbitControls } from 'https://esm.sh/three@0.160.0/examples/jsm/controls/OrbitControls.js';
         import { GLTFLoader } from 'https://esm.sh/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+        import { EffectComposer } from 'https://esm.sh/three@0.160.0/examples/jsm/postprocessing/EffectComposer.js';
+        import { RenderPass } from 'https://esm.sh/three@0.160.0/examples/jsm/postprocessing/RenderPass.js';
+        import { UnrealBloomPass } from 'https://esm.sh/three@0.160.0/examples/jsm/postprocessing/UnrealBloomPass.js';
+        import { ShaderPass } from 'https://esm.sh/three@0.160.0/examples/jsm/postprocessing/ShaderPass.js';
+        import { RGBELoader } from 'https://esm.sh/three@0.160.0/examples/jsm/loaders/RGBELoader.js';
 
-        // Scene setup
+        // Vignette Shader
+        const VignetteShader = {
+            uniforms: {
+                tDiffuse: { value: null },
+                darkness: { value: 0.4 },
+                offset: { value: 1.0 }
+            },
+            vertexShader: `
+                varying vec2 vUv;
+                void main() {
+                    vUv = uv;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+                }
+            `,
+            fragmentShader: `
+                uniform sampler2D tDiffuse;
+                uniform float darkness;
+                uniform float offset;
+                varying vec2 vUv;
+                void main() {
+                    vec4 texel = texture2D(tDiffuse, vUv);
+                    vec2 uv = (vUv - vec2(0.5)) * vec2(offset);
+                    float vig = clamp(1.0 - dot(uv, uv), 0.0, 1.0);
+                    texel.rgb *= mix(1.0, vig, darkness);
+                    gl_FragColor = texel;
+                }
+            `
+        };
+
+        // Scene
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         
         // Camera
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(0, 1.5, 4);
-        const defaultCameraPos = camera.position.clone();
-        const defaultCameraTarget = new THREE.Vector3(0, 1, 0);
 
         // Renderer
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
@@ -967,16 +1115,33 @@
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         container.appendChild(renderer.domElement);
 
+        // Post Processing
+        const composer = new EffectComposer(renderer);
+        const renderPass = new RenderPass(scene, camera);
+        composer.addPass(renderPass);
+
+        const bloomPass = new UnrealBloomPass(
+            new THREE.Vector2(window.innerWidth, window.innerHeight),
+            0.3, 0.4, 0.85
+        );
+        composer.addPass(bloomPass);
+
+        const vignettePass = new ShaderPass(VignetteShader);
+        vignettePass.uniforms.darkness.value = 0.4;
+        composer.addPass(vignettePass);
+
+        let postProcessingEnabled = false;
+
         // Controls
         const controls = new OrbitControls(camera, renderer.domElement);
         controls.enableDamping = true;
         controls.dampingFactor = 0.05;
         controls.minDistance = 1;
         controls.maxDistance = 20;
-        controls.target.copy(defaultCameraTarget);
+        controls.target.set(0, 1, 0);
 
         // Lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
 
         const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
@@ -996,25 +1161,93 @@
         dirLight.shadow.camera.bottom = -10;
         scene.add(dirLight);
 
-        const backLight = new THREE.DirectionalLight(0xF59E0B, 0.3);
+        const backLight = new THREE.DirectionalLight(0xF59E0B, 0.4);
         backLight.position.set(-5, 5, -5);
         scene.add(backLight);
 
+        const fillLight = new THREE.DirectionalLight(0x4488ff, 0.2);
+        fillLight.position.set(-3, 2, 4);
+        scene.add(fillLight);
+
         // Ground
-        const groundGeometry = new THREE.CircleGeometry(5, 64);
+        const groundGeometry = new THREE.CircleGeometry(6, 64);
         const groundMaterial = new THREE.MeshStandardMaterial({
             color: 0x111111,
-            roughness: 0.9,
-            metalness: 0.1
+            roughness: 0.85,
+            metalness: 0.15
         });
         const ground = new THREE.Mesh(groundGeometry, groundMaterial);
         ground.rotation.x = -Math.PI / 2;
         ground.receiveShadow = true;
         scene.add(ground);
 
-        const gridHelper = new THREE.GridHelper(10, 20, 0x333333, 0x222222);
+        const gridHelper = new THREE.GridHelper(12, 24, 0x333333, 0x222222);
         gridHelper.position.y = 0.001;
         scene.add(gridHelper);
+
+        // Environment backgrounds
+        const environments = {
+            studio: {
+                bg: new THREE.Color(0x0a0a0a),
+                ambient: 0.5,
+                hemi: 0.6
+            },
+            outdoor: {
+                bg: new THREE.Color(0x87CEEB),
+                ambient: 0.8,
+                hemi: 1.0
+            },
+            night: {
+                bg: new THREE.Color(0x050510),
+                ambient: 0.2,
+                hemi: 0.3
+            },
+            gradient: {
+                bg: null, // Use gradient texture
+                ambient: 0.6,
+                hemi: 0.7
+            }
+        };
+
+        // Create gradient background
+        function createGradientTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 2;
+            canvas.height = 512;
+            const ctx = canvas.getContext('2d');
+            const gradient = ctx.createLinearGradient(0, 0, 0, 512);
+            gradient.addColorStop(0, '#1a1a2e');
+            gradient.addColorStop(0.5, '#16213e');
+            gradient.addColorStop(1, '#0f0f1a');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 2, 512);
+            const texture = new THREE.CanvasTexture(canvas);
+            texture.mapping = THREE.EquirectangularReflectionMapping;
+            return texture;
+        }
+
+        const gradientTexture = createGradientTexture();
+
+        function setEnvironment(envName) {
+            const env = environments[envName];
+            if (!env) return;
+
+            if (envName === 'gradient') {
+                scene.background = gradientTexture;
+            } else {
+                scene.background = env.bg;
+            }
+            
+            ambientLight.intensity = env.ambient;
+            hemiLight.intensity = env.hemi;
+
+            document.querySelectorAll('.env-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.env === envName);
+            });
+        }
+
+        // Set initial environment
+        scene.background = new THREE.Color(0x0a0a0a);
 
         // Loader
         const loader = new GLTFLoader();
@@ -1028,10 +1261,15 @@
         let isPlaying = true;
         let playbackSpeed = 1.0;
         let isLooping = true;
-        let autoRotate = false;
-        let wireframeMode = false;
         let shadowsEnabled = true;
+        let boneHighlightEnabled = false;
+        let skeletonHelper = null;
         const clock = new THREE.Clock();
+
+        // FPS tracking
+        let frameCount = 0;
+        let lastFpsTime = performance.now();
+        const fpsValue = document.getElementById('fps-value');
 
         // DOM Elements
         const loadingScreen = document.getElementById('loading-screen');
@@ -1047,8 +1285,9 @@
         const timelineCurrent = document.getElementById('time-current');
         const timelineTotal = document.getElementById('time-total');
         const toast = document.getElementById('toast');
+        const boneTooltip = document.getElementById('bone-tooltip');
 
-        // Toast notification
+        // Toast
         function showToast(message) {
             toast.textContent = message;
             toast.classList.add('show');
@@ -1062,12 +1301,27 @@
             return `${mins}:${secs.toString().padStart(2, '0')}`;
         }
 
+        // Update accent color
+        function updateAccentColor(color) {
+            document.documentElement.style.setProperty('--accent', color);
+            document.documentElement.style.setProperty('--accent-glow', color + '66');
+            backLight.color.set(color);
+            
+            document.querySelectorAll('.color-swatch').forEach(s => {
+                s.classList.toggle('active', s.dataset.color === color);
+            });
+        }
+
         // Load model
         function loadModel(url, fileName) {
             loadingScreen.classList.remove('hidden');
             
             if (currentModel) {
                 scene.remove(currentModel);
+                if (skeletonHelper) {
+                    scene.remove(skeletonHelper);
+                    skeletonHelper = null;
+                }
                 if (mixer) mixer.stopAllAction();
             }
 
@@ -1076,7 +1330,7 @@
                     currentModel = gltf.scene;
                     animations = gltf.animations;
                     
-                    currentModel.traverse(function(child) {
+                    currentModel.traverse(child => {
                         if (child.isMesh) {
                             child.castShadow = true;
                             child.receiveShadow = true;
@@ -1096,19 +1350,21 @@
 
                         const maxDim = Math.max(size.x, size.y, size.z);
                         if (maxDim > 3) {
-                            const scale = 2 / maxDim;
-                            currentModel.scale.setScalar(scale);
+                            currentModel.scale.setScalar(2 / maxDim);
                         }
                     }
 
                     scene.add(currentModel);
                     
+                    // Create skeleton helper for bone highlighting
+                    skeletonHelper = new THREE.SkeletonHelper(currentModel);
+                    skeletonHelper.visible = boneHighlightEnabled;
+                    scene.add(skeletonHelper);
+                    
                     mixer = new THREE.AnimationMixer(currentModel);
                     buildAnimationUI();
 
-                    if (animations.length > 0) {
-                        playAnimation(0);
-                    }
+                    if (animations.length > 0) playAnimation(0);
 
                     modelNameEl.textContent = fileName;
                     loadingScreen.classList.add('hidden');
@@ -1130,11 +1386,11 @@
                 return;
             }
 
-            animations.forEach(function(clip, index) {
+            animations.forEach((clip, index) => {
                 const btn = document.createElement('button');
                 btn.className = 'animation-btn';
                 btn.innerHTML = `<span class="icon">▶</span><span>${clip.name || 'Animation ' + (index + 1)}</span>`;
-                btn.addEventListener('click', function() { playAnimation(index); });
+                btn.addEventListener('click', () => playAnimation(index));
                 animationList.appendChild(btn);
             });
         }
@@ -1145,9 +1401,7 @@
             
             currentAnimIndex = index;
             
-            if (currentAction) {
-                currentAction.fadeOut(0.3);
-            }
+            if (currentAction) currentAction.fadeOut(0.3);
 
             const clip = animations[index];
             currentAction = mixer.clipAction(clip);
@@ -1158,7 +1412,6 @@
             isPlaying = true;
             playBtn.textContent = '⏸';
 
-            // Update UI
             const buttons = animationList.querySelectorAll('.animation-btn');
             buttons.forEach((btn, i) => btn.classList.toggle('active', i === index));
 
@@ -1184,14 +1437,12 @@
 
         function prevAnimation() {
             if (animations.length === 0) return;
-            const newIndex = (currentAnimIndex - 1 + animations.length) % animations.length;
-            playAnimation(newIndex);
+            playAnimation((currentAnimIndex - 1 + animations.length) % animations.length);
         }
 
         function nextAnimation() {
             if (animations.length === 0) return;
-            const newIndex = (currentAnimIndex + 1) % animations.length;
-            playAnimation(newIndex);
+            playAnimation((currentAnimIndex + 1) % animations.length);
         }
 
         function changeSpeed(delta) {
@@ -1206,28 +1457,16 @@
 
         function scrubTimeline(e) {
             if (!currentAction || !animations[currentAnimIndex]) return;
-            
             const rect = timelineTrack.getBoundingClientRect();
             const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
             const progress = x / rect.width;
-            const clip = animations[currentAnimIndex];
-            
-            currentAction.time = progress * clip.duration;
+            currentAction.time = progress * animations[currentAnimIndex].duration;
             mixer.update(0);
         }
 
-        timelineTrack.addEventListener('mousedown', (e) => {
-            isDraggingTimeline = true;
-            scrubTimeline(e);
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if (isDraggingTimeline) scrubTimeline(e);
-        });
-
-        document.addEventListener('mouseup', () => {
-            isDraggingTimeline = false;
-        });
+        timelineTrack.addEventListener('mousedown', e => { isDraggingTimeline = true; scrubTimeline(e); });
+        document.addEventListener('mousemove', e => { if (isDraggingTimeline) scrubTimeline(e); });
+        document.addEventListener('mouseup', () => { isDraggingTimeline = false; });
 
         // Camera presets
         const cameraViews = {
@@ -1241,8 +1480,7 @@
 
         document.querySelectorAll('.camera-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                const view = btn.dataset.view;
-                const preset = cameraViews[view];
+                const preset = cameraViews[btn.dataset.view];
                 if (preset) {
                     camera.position.set(...preset.pos);
                     controls.target.set(...preset.target);
@@ -1251,24 +1489,33 @@
             });
         });
 
-        // Toggle functions
+        // Environment presets
+        document.querySelectorAll('.env-btn').forEach(btn => {
+            btn.addEventListener('click', () => setEnvironment(btn.dataset.env));
+        });
+
+        // Color picker
+        document.querySelectorAll('.color-swatch').forEach(swatch => {
+            swatch.addEventListener('click', () => updateAccentColor(swatch.dataset.color));
+        });
+
+        // Toggles
         document.getElementById('toggle-autorotate').addEventListener('click', function() {
             this.classList.toggle('active');
-            autoRotate = this.classList.contains('active');
-            controls.autoRotate = autoRotate;
+            controls.autoRotate = this.classList.contains('active');
             controls.autoRotateSpeed = 2;
         });
 
         document.getElementById('toggle-wireframe').addEventListener('click', function() {
             this.classList.toggle('active');
-            wireframeMode = this.classList.contains('active');
+            const wireframe = this.classList.contains('active');
             if (currentModel) {
                 currentModel.traverse(child => {
                     if (child.isMesh && child.material) {
                         if (Array.isArray(child.material)) {
-                            child.material.forEach(m => m.wireframe = wireframeMode);
+                            child.material.forEach(m => m.wireframe = wireframe);
                         } else {
-                            child.material.wireframe = wireframeMode;
+                            child.material.wireframe = wireframe;
                         }
                     }
                 });
@@ -1280,9 +1527,52 @@
             gridHelper.visible = this.classList.contains('active');
         });
 
+        document.getElementById('toggle-bones').addEventListener('click', function() {
+            this.classList.toggle('active');
+            boneHighlightEnabled = this.classList.contains('active');
+            if (skeletonHelper) skeletonHelper.visible = boneHighlightEnabled;
+        });
+
+        // Sliders
+        document.getElementById('slider-bloom').addEventListener('input', function() {
+            document.getElementById('bloom-value').textContent = this.value;
+            bloomPass.strength = parseFloat(this.value);
+        });
+
+        document.getElementById('slider-vignette').addEventListener('input', function() {
+            document.getElementById('vignette-value').textContent = this.value;
+            vignettePass.uniforms.darkness.value = parseFloat(this.value);
+        });
+
+        document.getElementById('slider-exposure').addEventListener('input', function() {
+            document.getElementById('exposure-value').textContent = this.value;
+            renderer.toneMappingExposure = parseFloat(this.value);
+        });
+
+        // Retargeting sliders
+        document.getElementById('slider-height').addEventListener('input', function() {
+            document.getElementById('height-value').textContent = this.value + '%';
+            if (currentModel) {
+                const scale = this.value / 100;
+                currentModel.scale.y = scale * (currentModel.userData.baseScale || 1);
+            }
+        });
+
+        document.getElementById('slider-arms').addEventListener('input', function() {
+            document.getElementById('arms-value').textContent = this.value + '%';
+            // Arm scaling would require bone manipulation
+            // For preview purposes, this is visual feedback
+        });
+
+        document.getElementById('slider-legs').addEventListener('input', function() {
+            document.getElementById('legs-value').textContent = this.value + '%';
+            // Leg scaling would require bone manipulation
+        });
+
         // Tool buttons
         document.getElementById('btn-screenshot').addEventListener('click', takeScreenshot);
         document.getElementById('btn-fullscreen').addEventListener('click', toggleFullscreen);
+        
         document.getElementById('btn-loop').addEventListener('click', function() {
             this.classList.toggle('active');
             isLooping = this.classList.contains('active');
@@ -1297,6 +1587,8 @@
             this.classList.toggle('active');
             shadowsEnabled = this.classList.contains('active');
             renderer.shadowMap.enabled = shadowsEnabled;
+            dirLight.castShadow = shadowsEnabled;
+            ground.receiveShadow = shadowsEnabled;
             if (currentModel) {
                 currentModel.traverse(child => {
                     if (child.isMesh) {
@@ -1305,18 +1597,32 @@
                     }
                 });
             }
-            ground.receiveShadow = shadowsEnabled;
+        });
+
+        document.getElementById('btn-postfx').addEventListener('click', function() {
+            this.classList.toggle('active');
+            postProcessingEnabled = this.classList.contains('active');
+            showToast(postProcessingEnabled ? 'Post FX enabled' : 'Post FX disabled');
         });
 
         // Screenshot
         function takeScreenshot() {
             const flash = document.getElementById('screenshot-flash');
+            flash.style.transition = 'none';
             flash.classList.add('active');
-            setTimeout(() => flash.classList.remove('active'), 100);
+            setTimeout(() => {
+                flash.style.transition = 'opacity 0.3s';
+                flash.classList.remove('active');
+            }, 100);
 
-            renderer.render(scene, camera);
+            if (postProcessingEnabled) {
+                composer.render();
+            } else {
+                renderer.render(scene, camera);
+            }
+            
             const link = document.createElement('a');
-            link.download = `mocapwork-screenshot-${Date.now()}.png`;
+            link.download = `mocapwork-${Date.now()}.png`;
             link.href = renderer.domElement.toDataURL('image/png');
             link.click();
             showToast('Screenshot saved!');
@@ -1333,6 +1639,43 @@
             }
         }
 
+        // Bone raycasting
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        renderer.domElement.addEventListener('mousemove', (e) => {
+            if (!boneHighlightEnabled || !currentModel) return;
+            
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+            
+            raycaster.setFromCamera(mouse, camera);
+            
+            let closestBone = null;
+            let closestDist = 0.1;
+            
+            currentModel.traverse(child => {
+                if (child.isBone) {
+                    const worldPos = new THREE.Vector3();
+                    child.getWorldPosition(worldPos);
+                    const dist = raycaster.ray.distanceToPoint(worldPos);
+                    if (dist < closestDist) {
+                        closestDist = dist;
+                        closestBone = child;
+                    }
+                }
+            });
+            
+            if (closestBone) {
+                boneTooltip.textContent = closestBone.name || 'Bone';
+                boneTooltip.style.left = e.clientX + 15 + 'px';
+                boneTooltip.style.top = e.clientY + 15 + 'px';
+                boneTooltip.classList.add('visible');
+            } else {
+                boneTooltip.classList.remove('visible');
+            }
+        });
+
         // Event listeners
         playBtn.addEventListener('click', togglePlay);
         document.getElementById('stop-btn').addEventListener('click', stopAnimation);
@@ -1341,75 +1684,42 @@
         document.getElementById('speed-down').addEventListener('click', () => changeSpeed(-0.1));
         document.getElementById('speed-up').addEventListener('click', () => changeSpeed(0.1));
 
-        fileInput.addEventListener('change', (e) => {
+        fileInput.addEventListener('change', e => {
             const file = e.target.files[0];
-            if (file) {
-                const url = URL.createObjectURL(file);
-                loadModel(url, file.name);
-            }
+            if (file) loadModel(URL.createObjectURL(file), file.name);
         });
 
         // Drag and drop
-        document.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropOverlay.classList.add('active');
+        document.addEventListener('dragover', e => { e.preventDefault(); dropOverlay.classList.add('active'); });
+        document.addEventListener('dragleave', e => {
+            if (e.target === dropOverlay || e.target === document.body) dropOverlay.classList.remove('active');
         });
-
-        document.addEventListener('dragleave', (e) => {
-            if (e.target === dropOverlay || e.target === document.body) {
-                dropOverlay.classList.remove('active');
-            }
-        });
-
-        document.addEventListener('drop', (e) => {
+        document.addEventListener('drop', e => {
             e.preventDefault();
             dropOverlay.classList.remove('active');
             const file = e.dataTransfer.files[0];
             if (file && (file.name.endsWith('.glb') || file.name.endsWith('.gltf'))) {
-                const url = URL.createObjectURL(file);
-                loadModel(url, file.name);
+                loadModel(URL.createObjectURL(file), file.name);
             }
         });
 
         // Keyboard shortcuts
-        document.addEventListener('keydown', (e) => {
+        document.addEventListener('keydown', e => {
             if (e.target.tagName === 'INPUT') return;
-            
             switch(e.code) {
-                case 'Space':
-                    e.preventDefault();
-                    togglePlay();
-                    break;
-                case 'ArrowLeft':
-                    prevAnimation();
-                    break;
-                case 'ArrowRight':
-                    nextAnimation();
-                    break;
-                case 'ArrowUp':
-                    changeSpeed(0.1);
-                    break;
-                case 'ArrowDown':
-                    changeSpeed(-0.1);
-                    break;
-                case 'KeyS':
-                    takeScreenshot();
-                    break;
-                case 'KeyF':
-                    toggleFullscreen();
-                    break;
-                case 'KeyL':
-                    document.getElementById('btn-loop').click();
-                    break;
-                case 'KeyR':
-                    document.querySelectorAll('.camera-btn')[5].click(); // Reset
-                    break;
-                case 'KeyG':
-                    document.getElementById('toggle-grid').click();
-                    break;
-                case 'KeyW':
-                    document.getElementById('toggle-wireframe').click();
-                    break;
+                case 'Space': e.preventDefault(); togglePlay(); break;
+                case 'ArrowLeft': prevAnimation(); break;
+                case 'ArrowRight': nextAnimation(); break;
+                case 'ArrowUp': changeSpeed(0.1); break;
+                case 'ArrowDown': changeSpeed(-0.1); break;
+                case 'KeyS': takeScreenshot(); break;
+                case 'KeyF': toggleFullscreen(); break;
+                case 'KeyL': document.getElementById('btn-loop').click(); break;
+                case 'KeyR': document.querySelectorAll('.camera-btn')[5].click(); break;
+                case 'KeyG': document.getElementById('toggle-grid').click(); break;
+                case 'KeyW': document.getElementById('toggle-wireframe').click(); break;
+                case 'KeyP': document.getElementById('btn-postfx').click(); break;
+                case 'KeyB': document.getElementById('toggle-bones').click(); break;
             }
         });
 
@@ -1418,6 +1728,7 @@
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
+            composer.setSize(window.innerWidth, window.innerHeight);
         });
 
         // Animation loop
@@ -1426,10 +1737,19 @@
             
             const delta = clock.getDelta();
             
+            // FPS counter
+            frameCount++;
+            const now = performance.now();
+            if (now - lastFpsTime >= 500) {
+                const fps = Math.round(frameCount / ((now - lastFpsTime) / 1000));
+                fpsValue.textContent = fps;
+                frameCount = 0;
+                lastFpsTime = now;
+            }
+            
             if (mixer && isPlaying) {
                 mixer.update(delta);
                 
-                // Update timeline and info
                 if (currentAction && animations[currentAnimIndex]) {
                     const clip = animations[currentAnimIndex];
                     const progress = (currentAction.time % clip.duration) / clip.duration;
@@ -1443,7 +1763,12 @@
             }
             
             controls.update();
-            renderer.render(scene, camera);
+            
+            if (postProcessingEnabled) {
+                composer.render();
+            } else {
+                renderer.render(scene, camera);
+            }
         }
 
         // Start
