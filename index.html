@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- VERSION: 2024-12-29-v62 - FULL BRIGHTNESS HERO BG -->
+    <!-- VERSION: 2024-12-29-v71 - REMOVED GLASSMORPHISM FROM FLOATING SIDE CTA -->
     <!-- ============================================ -->
     <!-- PALETTE 2: WARM LUXE AMBER -->
     <!-- Rich black (#000000) with muted gold (#F59E0B) and warm coral (#FF6B6B) -->
@@ -290,21 +290,8 @@
         }
 
         .navbar.scrolled {
-            background: transparent;
+            background: rgba(10, 10, 10, 0.95);
             border-bottom: 2px solid rgba(0, 212, 255, 0.15);
-        }
-        
-        .navbar.scrolled::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            z-index: -1;
         }
 
         /* Transparent Sticky Selection Bar */
@@ -450,11 +437,8 @@
             position: absolute;
             top: calc(100% + 12px);
             left: 50%;
-            transform: translateX(-50%);
             min-width: 220px;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 16px;
             padding: 12px;
@@ -543,9 +527,7 @@
         .search-input-nav {
             width: 100%;
             padding: 10px 40px 10px 40px;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 25px;
             color: var(--text-primary);
@@ -605,9 +587,7 @@
             top: calc(100% + 8px);
             left: 0;
             right: 0;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 12px;
             max-height: 400px;
@@ -629,9 +609,7 @@
             top: calc(100% + 8px);
             left: 0;
             right: 0;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 12px;
             max-height: 400px;
@@ -689,9 +667,7 @@
             top: calc(100% + 12px);
             right: 0;
             width: 220px;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 12px;
             padding: 8px;
@@ -923,9 +899,7 @@
             right: 0;
             width: 350px;
             max-height: 500px;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 12px;
             box-shadow: 
@@ -1183,6 +1157,8 @@
         .btn-login {
             padding: 10px 28px;
             background: rgba(0, 212, 255, 0.1);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-radius: 50px;
             border: 2px solid rgba(0, 212, 255, 0.3);
             color: var(--teal) !important;
@@ -1251,8 +1227,7 @@
             position: sticky;
             top: 70px;
             z-index: 999;
-            background: rgba(26, 26, 26, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.98);
             border-bottom: 2px solid rgba(0, 212, 255, 0.1);
             padding: 16px 0;
             transition: all 0.3s ease;
@@ -1328,9 +1303,7 @@
             top: calc(100% + 8px);
             left: 0;
             right: 0;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 16px;
             max-height: 500px;
@@ -1489,18 +1462,45 @@
             background-position: center;
             background-repeat: no-repeat;
         }
+        
+        /* Static gradient overlay on top of JPG */
+        .hero-static-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 30% 20%, rgba(0, 212, 255, 0.15), transparent 50%),
+                              radial-gradient(circle at 70% 80%, rgba(245, 158, 11, 0.15), transparent 50%);
+            z-index: 2;
+            pointer-events: none;
+        }
 
-        /* Floating shapes - DISABLED */
+        /* Floating shapes - animated gradient blobs */
         .floating-shape {
-            display: none;
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float 8s ease-in-out infinite;
+            z-index: 3;
         }
 
         .shape-1 {
-            display: none;
+            top: 20%;
+            left: 15%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.15), transparent);
         }
 
         .shape-2 {
-            display: none;
+            bottom: 20%;
+            right: 15%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.15), transparent);
+            animation-delay: 4s;
         }
 
         .hero-content {
@@ -1544,8 +1544,6 @@
             letter-spacing: -3px;
             font-family: 'Sora', sans-serif;
             color: #000000;
-            text-shadow: 0 0 40px rgba(245, 158, 11, 0.3),
-                         0 0 80px rgba(245, 158, 11, 0.1);
         }
 
         .hero-subtitle {
@@ -1574,11 +1572,8 @@
 
         .hero-subtitle-professional-glow {
             color: #FBBF24;
-            font-weight: 800; /* Increased from 700 */
-            font-size: 1.15em; /* Slightly larger than surrounding text */
-            text-shadow: 0 0 15px rgba(251, 191, 36, 0.6),
-                         0 0 30px rgba(251, 191, 36, 0.4),
-                         0 0 45px rgba(251, 191, 36, 0.2);
+            font-weight: 800;
+            font-size: 1.15em;
         }
 
         .hero-subtitle-platforms-gradient {
@@ -2106,7 +2101,7 @@
         /* Ultra-Premium Filters Card */
         .filters-card {
             position: relative;
-            background: transparent;
+            background: rgba(10, 10, 10, 0.8);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 28px;
             padding: 32px 40px;
@@ -2120,19 +2115,7 @@
             transform-origin: center top;
         }
         
-        .filters-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-radius: 26px;
-            z-index: -1;
-        }
+        /* Removed glassmorphism pseudo-element */
 
         @keyframes fadeInScale {
             from {
@@ -2165,7 +2148,7 @@
 
         .search-input {
             width: 100%;
-            background: rgba(10, 10, 10, 0.6);
+            background: rgba(10, 10, 10, 0.8);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 50px;
             padding: 24px 32px 24px 68px;
@@ -2249,7 +2232,7 @@
         /* Custom Dropdown Button */
         .custom-dropdown-btn {
             width: 100%;
-            background: rgba(10, 10, 10, 0.6);
+            background: rgba(10, 10, 10, 0.8);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 50px;
             padding: 16px 20px;
@@ -2308,9 +2291,7 @@
             top: calc(100% + 8px);
             left: 0;
             right: 0;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 16px;
             padding: 12px;
@@ -2643,6 +2624,8 @@
             gap: 6px;
             padding: 8px 16px;
             background: rgba(0, 212, 255, 0.1);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 2px solid rgba(0, 212, 255, 0.3);
             border-radius: 50px;
             font-size: 11px;
@@ -2758,7 +2741,7 @@
             right: 0;
             height: 142px;
             width: 100%;
-            background: linear-gradient(180deg, rgba(46, 47, 51, 0.98) 0%, rgba(30, 30, 35, 0.99) 100%);
+            background: rgba(10, 10, 10, 0.8);
             border-radius: 20px;
             display: flex;
             flex-direction: column;
@@ -2940,9 +2923,7 @@
         
         /* Feature Card Styles */
         .feature-card {
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.8);
             padding: 32px;
             border-radius: 16px;
             border: 2px solid rgba(0, 212, 255, 0.2);
@@ -3000,9 +2981,7 @@
         
         /* FAQ Item Styles */
         .faq-item {
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.8);
             padding: 0;
             border-radius: 16px;
             border: 2px solid rgba(0, 212, 255, 0.2);
@@ -3511,7 +3490,7 @@
 
         .request-form {
             position: relative;
-            background: transparent;
+            background: rgba(10, 10, 10, 0.8);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 20px;
             padding: 48px;
@@ -3519,20 +3498,6 @@
                 0 4px 24px rgba(0, 0, 0, 0.4),
                 inset 0 1px 1px rgba(0, 212, 255, 0.1),
                 0 0 40px rgba(0, 212, 255, 0.05);
-        }
-        
-        .request-form::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-radius: 18px;
-            z-index: -1;
         }
 
         .form-grid {
@@ -3848,9 +3813,7 @@
 
         /* Mid-Page CTA Banner */
         .cta-banner {
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.8);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 20px;
             padding: 48px 40px;
@@ -4097,9 +4060,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(10, 10, 10, 0.3);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-right: none;
             border-radius: 16px 0 0 16px;
@@ -4126,9 +4087,7 @@
             transform: translateY(-50%);
             width: 49px;
             height: 120px;
-            background: rgba(10, 10, 10, 0.3);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-right: none;
             border-radius: 12px 0 0 12px;
@@ -4600,9 +4559,7 @@
                 right: -100%;
                 width: 280px;
                 height: 100vh;
-                background: rgba(10, 10, 10, 0.5);
-                backdrop-filter: blur(20px) saturate(180%);
-                -webkit-backdrop-filter: blur(20px) saturate(180%);
+                background: rgba(10, 10, 10, 0.98);
                 flex-direction: column;
                 gap: 0;
                 padding: 80px 0 20px;
@@ -4811,9 +4768,7 @@
         }
         
         .auth-modal-content {
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 20px;
             padding: 48px;
@@ -4830,9 +4785,7 @@
         }
         
         .auth-modal-box {
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 20px;
             padding: 0;
@@ -5144,9 +5097,7 @@
             width: 500px;
             max-width: 90vw;
             height: 100vh;
-            background: rgba(10, 10, 10, 0.5);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(10, 10, 10, 0.95);
             border-left: 2px solid rgba(0, 212, 255, 0.2);
             display: flex;
             flex-direction: column;
@@ -10153,9 +10104,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
     }
 
     .stripe-checkout-modal-content {
-        background: rgba(10, 10, 10, 0.5);
-        backdrop-filter: blur(20px) saturate(180%);
-        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        background: rgba(10, 10, 10, 0.95);
         border: 2px solid rgba(0, 212, 255, 0.2);
         border-radius: 20px;
         padding: 0;
