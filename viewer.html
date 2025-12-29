@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- VIEWER VERSION 4 - Material Fix -->
+<!-- VIEWER VERSION 5 - Skeleton Debug -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Viewer V4 - MocapWork</title>
+    <title>3D Viewer V5 - MocapWork</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -353,6 +353,8 @@
         .loading-screen.hidden {
             opacity: 0;
             visibility: hidden;
+            pointer-events: none;
+            display: none !important;
         }
 
         .loader {
@@ -567,8 +569,8 @@
     <div id="debug-log"></div>
 
     <script type="module">
-        // VERSION 4 - Material fix
-        console.log('=== VIEWER VERSION 4 ===');
+        // VERSION 5 - Skeleton debug
+        console.log('=== VIEWER VERSION 5 ===');
         console.log('Module script executing...');
         
         // Debug logger
@@ -720,8 +722,16 @@
                         animations = gltf.animations;
                         log('Animations found: ' + animations.length);
                         
+                        log('Traversing model children...');
+                        let meshCount = 0;
+                        let boneCount = 0;
+                        let skinnedMeshCount = 0;
+                        
                         currentModel.traverse(function(child) {
+                            log('Child: ' + child.type + ' | ' + child.name);
+                            
                             if (child.isMesh) {
+                                meshCount++;
                                 child.castShadow = true;
                                 child.receiveShadow = true;
                                 child.visible = true;
@@ -748,14 +758,34 @@
                                 log('Mesh found: ' + child.name + ' | visible: ' + child.visible);
                             }
                             if (child.isBone) {
-                                log('Bone found: ' + child.name);
+                                boneCount++;
                             }
                             if (child.isSkinnedMesh) {
+                                skinnedMeshCount++;
                                 log('SkinnedMesh found: ' + child.name);
                                 child.visible = true;
                                 child.frustumCulled = false;
                             }
                         });
+                        
+                        log('Summary - Meshes: ' + meshCount + ', Bones: ' + boneCount + ', SkinnedMeshes: ' + skinnedMeshCount);
+                        
+                        // If we have bones but no meshes, show skeleton helper
+                        if (boneCount > 0) {
+                            log('Adding skeleton helper...');
+                            currentModel.traverse(function(child) {
+                                if (child.isSkinnedMesh && child.skeleton) {
+                                    const skeletonHelper = new THREE.SkeletonHelper(child);
+                                    scene.add(skeletonHelper);
+                                    log('SkeletonHelper added from SkinnedMesh');
+                                }
+                            });
+                            
+                            // Also try adding helper for the whole model
+                            const skeletonHelper = new THREE.SkeletonHelper(currentModel);
+                            scene.add(skeletonHelper);
+                            log('SkeletonHelper added for model');
+                        }
 
                         const box = new THREE.Box3().setFromObject(currentModel);
                         const center = box.getCenter(new THREE.Vector3());
