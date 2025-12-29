@@ -234,13 +234,13 @@
 
         /* Button Styles */
         .btn {
-            padding: 14px 28px;
+            padding: 12px 24px;
             border-radius: 12px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border: none;
-            font-size: 16px;
+            font-size: 15px;
             text-decoration: none;
             display: inline-block;
             font-family: 'Sora', sans-serif;
@@ -252,18 +252,21 @@
             color: var(--teal);
             border-radius: 50px;
             font-weight: 600;
+            backdrop-filter: blur(10px) saturate(150%);
+            -webkit-backdrop-filter: blur(10px) saturate(150%);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
             background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4),
+                        0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .btn-secondary {
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(0, 212, 255, 0.08);
+            border: 2px solid rgba(0, 212, 255, 0.25);
             color: var(--teal);
             font-weight: 600;
             padding: 12px 24px;
@@ -272,12 +275,17 @@
             transition: all 0.3s ease;
             font-family: 'DM Sans', sans-serif;
             text-decoration: none;
+            font-size: 14px;
+            backdrop-filter: blur(10px) saturate(150%);
+            -webkit-backdrop-filter: blur(10px) saturate(150%);
         }
 
         .btn-secondary:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(0, 212, 255, 0.15);
             border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3),
+                        0 4px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
         }
 
         /* Navbar */
@@ -292,9 +300,21 @@
         }
 
         .navbar.scrolled {
-            background: rgba(15, 15, 15, 0.92);
-            backdrop-filter: blur(20px);
-            border-bottom: 2px solid rgba(100, 116, 139, 0.15);
+            background: transparent;
+            border-bottom: 2px solid rgba(0, 212, 255, 0.15);
+        }
+        
+        .navbar.scrolled::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            z-index: -1;
         }
 
         /* Transparent Sticky Selection Bar */
@@ -425,20 +445,27 @@
         .search-input-nav {
             width: 100%;
             padding: 10px 40px 10px 40px;
-            background: rgba(26, 26, 26, 0.6);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 25px;
             color: var(--text-primary);
             font-size: 14px;
             font-family: 'DM Sans', sans-serif;
             transition: all 0.3s ease;
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1);
         }
 
         .search-input-nav:focus {
             outline: none;
-            border-color: var(--teal);
-            background: rgba(26, 26, 26, 0.8);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 20px rgba(0, 212, 255, 0.2);
         }
 
         .search-input-nav::placeholder {
@@ -480,13 +507,18 @@
             top: calc(100% + 8px);
             left: 0;
             right: 0;
-            background: var(--bg-secondary);
-            border: 2px solid rgba(100, 116, 139, 0.3);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 12px;
             max-height: 400px;
             overflow-y: auto;
             display: none;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
             z-index: 1000;
         }
 
@@ -499,12 +531,17 @@
             top: calc(100% + 8px);
             left: 0;
             right: 0;
-            background: var(--bg-secondary);
-            border: 2px solid rgba(100, 116, 139, 0.3);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 12px;
             max-height: 400px;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
             z-index: 10000;
         }
 
@@ -554,14 +591,18 @@
             top: calc(100% + 12px);
             right: 0;
             width: 220px;
-            background: rgba(15, 15, 15, 0.98);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 12px;
             padding: 8px;
             display: none;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 212, 255, 0.1);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
             z-index: 10003;
-            backdrop-filter: blur(20px);
         }
         
         /* Invisible bridge to keep dropdown open */
@@ -595,7 +636,7 @@
         }
         
         .profile-dropdown-item:hover {
-            background: rgba(245, 158, 11, 0.1);
+            background: rgba(0, 212, 255, 0.1);
             color: var(--text-primary);
             transform: translateX(4px);
         }
@@ -608,7 +649,7 @@
         
         .profile-dropdown-divider {
             height: 1px;
-            background: rgba(100, 116, 139, 0.2);
+            background: rgba(0, 212, 255, 0.1);
             margin: 4px 0;
         }
 
@@ -671,30 +712,34 @@
             right: 0;
             width: 350px;
             max-height: 500px;
-            background: rgba(15, 15, 15, 0.98);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 212, 255, 0.1);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
             display: none;
             z-index: 10003;
             overflow: hidden;
-            backdrop-filter: blur(20px);
         }
 
 
         .cart-hover-header {
             padding: 16px 20px;
-            border-bottom: 2px solid rgba(100, 116, 139, 0.1);
+            border-bottom: 2px solid rgba(0, 212, 255, 0.1);
             font-weight: 700;
             font-size: 16px;
             color: var(--text-primary);
-            background: #1a1a1a;
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .cart-hover-items {
             max-height: 320px;
             overflow-y: auto;
-            background: #1a1a1a;
+            background: transparent;
         }
 
         .cart-hover-items::-webkit-scrollbar {
@@ -702,7 +747,7 @@
         }
 
         .cart-hover-items::-webkit-scrollbar-track {
-            background: #1a1a1a;
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 3px;
         }
 
@@ -801,8 +846,8 @@
 
         .cart-hover-footer {
             padding: 16px 20px;
-            border-top: 2px solid rgba(100, 116, 139, 0.1);
-            background: #0f0f0f;
+            border-top: 2px solid rgba(0, 212, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .cart-hover-total {
@@ -1072,13 +1117,18 @@
             top: calc(100% + 8px);
             left: 0;
             right: 0;
-            background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 16px;
             max-height: 500px;
             overflow-y: auto;
             display: none;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
         }
 
         .search-dropdown.active {
@@ -1087,7 +1137,7 @@
 
         .search-section {
             padding: 16px 20px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 2px solid rgba(0, 212, 255, 0.1);
         }
 
         .search-section:last-child {
@@ -1192,8 +1242,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-top: 90px;
-            overflow: hidden;
+            padding-top: 70px;
+            padding-bottom: 10px;
+            overflow: visible;
             /* No background - use body's fixed background */
             background: transparent;
         }
@@ -1201,9 +1252,14 @@
         /* Floating Particles - REMOVED for liquid metal effect */
 
         .hero-background {
-            position: absolute;
-            inset: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
         }
 
         /* Static Background Image */
@@ -1222,21 +1278,6 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* Fade out at bottom for seamless transition */
-            -webkit-mask-image: linear-gradient(to bottom, 
-                rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,1) 40%, 
-                rgba(0,0,0,0.7) 60%, 
-                rgba(0,0,0,0.3) 75%,
-                rgba(0,0,0,0.1) 85%,
-                rgba(0,0,0,0) 92%);
-            mask-image: linear-gradient(to bottom, 
-                rgba(0,0,0,1) 0%, 
-                rgba(0,0,0,1) 40%, 
-                rgba(0,0,0,0.7) 60%, 
-                rgba(0,0,0,0.3) 75%,
-                rgba(0,0,0,0.1) 85%,
-                rgba(0,0,0,0) 92%);
         }
 
         .floating-shape {
@@ -1267,23 +1308,24 @@
             position: relative;
             z-index: 10;
             text-align: center;
-            padding: 0 32px;
-            max-width: 1200px;
+            padding: 0 24px;
+            max-width: 1600px;
+            width: 100%;
             animation: fadeInUp 1s ease-out;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             padding: 6px 16px;
             background: rgba(0, 212, 255, 0.08);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 50px;
             color: var(--teal);
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
             backdrop-filter: blur(10px);
         }
 
@@ -1296,11 +1338,11 @@
         }
 
         .hero-title {
-            font-size: clamp(2rem, 6vw, 4rem);
+            font-size: clamp(3rem, 9vw, 6rem);
             font-weight: 800;
-            line-height: 1.05;
-            margin-bottom: 12px;
-            letter-spacing: -2px;
+            line-height: 1.0;
+            margin-bottom: 10px;
+            letter-spacing: -3px;
             font-family: 'Sora', sans-serif;
             color: #000000;
             text-shadow: 0 0 40px rgba(245, 158, 11, 0.3),
@@ -1308,10 +1350,10 @@
         }
 
         .hero-subtitle {
-            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             color: var(--text-secondary);
-            margin-bottom: 16px;
-            max-width: 650px;
+            margin-bottom: 6px;
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
             line-height: 1.4;
@@ -1350,10 +1392,10 @@
 
         .hero-buttons {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .btn-primary-cta {
@@ -1385,8 +1427,8 @@
             border-radius: 50px;
             font-size: 12px;
             color: var(--teal);
-            margin-top: 12px;
-            margin-bottom: 12px;
+            margin-top: 6px;
+            margin-bottom: 8px;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
         }
@@ -1421,18 +1463,18 @@
 
         .hero-stats {
             display: flex;
-            gap: 36px;
+            gap: 40px;
             justify-content: center;
-            font-size: 12px;
+            font-size: 13px;
             color: var(--text-muted);
             flex-wrap: wrap;
         }
 
         /* Hero Preview Carousel - 3 GIFs with Center Focus */
         .hero-preview-carousel {
-            margin-bottom: 20px;
+            margin-bottom: 8px;
             width: 100%;
-            max-width: 900px;
+            max-width: 1100px;
             margin-left: auto;
             margin-right: auto;
             position: relative;
@@ -1447,14 +1489,14 @@
 
         .carousel-container {
             position: relative;
-            height: 220px;
+            height: 200px;
             width: 100%;
             perspective: 1200px;
         }
 
         .carousel-item {
             position: absolute;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             transition: transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
                         opacity 1.2s ease-out,
@@ -1469,8 +1511,8 @@
         /* Position classes for smooth transitions */
         .carousel-item.pos-far-left {
             left: 5%;
-            width: 140px;
-            height: 170px;
+            width: 130px;
+            height: 160px;
             opacity: 0.4;
             transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
@@ -1478,8 +1520,8 @@
 
         .carousel-item.pos-left {
             left: 27%;
-            width: 140px;
-            height: 170px;
+            width: 130px;
+            height: 160px;
             opacity: 0.4;
             transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
@@ -1487,8 +1529,8 @@
 
         .carousel-item.pos-center {
             left: 50%;
-            width: 240px;
-            height: 180px;
+            width: 220px;
+            height: 165px;
             opacity: 1;
             transform: translateX(-50%) translateY(-50%) scale(1) translateZ(0);
             z-index: 10;
@@ -1499,8 +1541,8 @@
 
         .carousel-item.pos-right {
             left: 73%;
-            width: 140px;
-            height: 170px;
+            width: 130px;
+            height: 160px;
             opacity: 0.4;
             transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
@@ -1508,8 +1550,8 @@
 
         .carousel-item.pos-far-right {
             left: 95%;
-            width: 140px;
-            height: 170px;
+            width: 130px;
+            height: 160px;
             opacity: 0.4;
             transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
@@ -1527,14 +1569,14 @@
 
         /* Legacy classes for backwards compatibility */
         .carousel-item.side {
-            width: 140px;
-            height: 170px;
+            width: 130px;
+            height: 160px;
             opacity: 0.4;
         }
 
         .carousel-item.center {
-            width: 240px;
-            height: 180px;
+            width: 220px;
+            height: 165px;
             opacity: 1;
         }
 
@@ -1688,22 +1730,22 @@
 
         .platform-logos {
             display: flex;
-            gap: 24px;
+            gap: 32px;
             justify-content: center;
             align-items: center;
-            margin: 16px 0;
+            margin: 6px 0;
             opacity: 0.8;
         }
 
         .platform-logo {
-            height: 48px; /* Increased from 32px */
+            height: 40px;
             width: auto;
             opacity: 0.8;
             transition: all 0.3s ease;
         }
 
         .platform-logo:first-child {
-            height: 70px; /* Increased from 52px */
+            height: 60px;
         }
 
         .platform-logo:hover {
@@ -1867,18 +1909,32 @@
         /* Ultra-Premium Filters Card */
         .filters-card {
             position: relative;
-            background: linear-gradient(145deg, rgba(26, 26, 26, 0.7), rgba(20, 20, 20, 0.8));
-            backdrop-filter: blur(30px);
-            border: 2px solid rgba(0, 212, 255, 0.25);
+            background: transparent;
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 28px;
             padding: 32px 40px;
             margin: 0 0 32px 0;
             z-index: 100;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
-                        0 0 0 1px rgba(0, 212, 255, 0.1),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
             animation: fadeInScale 0.6s ease 0.3s backwards;
             transform-origin: center top;
+        }
+        
+        .filters-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 26px;
+            z-index: -1;
         }
 
         @keyframes fadeInScale {
@@ -1912,8 +1968,8 @@
 
         .search-input {
             width: 100%;
-            background: rgba(15, 15, 15, 0.8);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 50px;
             padding: 24px 32px 24px 68px;
             color: var(--text-primary);
@@ -1921,8 +1977,10 @@
             outline: none;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             font-family: 'DM Sans', sans-serif;
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3),
-                        0 0 0 0 rgba(245, 158, 11, 0);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
             font-weight: 500;
         }
 
@@ -1932,10 +1990,12 @@
         }
 
         .search-input:focus {
-            border-color: var(--teal);
-            background: rgba(15, 15, 15, 0.95);
-            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4),
-                        0 0 20px rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.1),
+                0 0 20px rgba(0, 212, 255, 0.2);
             transform: scale(1.02);
             padding-top: 28px;
             padding-bottom: 20px;
@@ -1992,8 +2052,8 @@
         /* Custom Dropdown Button */
         .custom-dropdown-btn {
             width: 100%;
-            background: rgba(15, 15, 15, 0.8);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 50px;
             padding: 16px 20px;
             color: var(--text-primary);
@@ -2008,21 +2068,29 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
             text-align: left;
         }
 
         .custom-dropdown-btn:hover {
-            border-color: var(--teal);
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2),
-                        0 0 20px rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.1),
+                0 0 20px rgba(0, 212, 255, 0.2);
             transform: translateY(-2px);
         }
 
         .custom-dropdown-btn.active {
-            border-color: var(--teal);
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3),
-                        0 0 20px rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 20px rgba(0, 212, 255, 0.2);
         }
 
         .dropdown-arrow {
@@ -2043,14 +2111,17 @@
             top: calc(100% + 8px);
             left: 0;
             right: 0;
-            background: rgba(15, 15, 15, 0.98);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 16px;
             padding: 12px;
             z-index: 1000;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6),
-                        0 0 0 1px rgba(0, 212, 255, 0.1);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
             max-height: 320px;
             overflow-y: auto;
             display: none;
@@ -2078,7 +2149,7 @@
         }
 
         .custom-dropdown-menu::-webkit-scrollbar-track {
-            background: rgba(26, 26, 26, 0.5);
+            background: rgba(0, 0, 0, 0.2);
             border-radius: 3px;
         }
 
@@ -2414,12 +2485,18 @@
 
         .animation-card {
             position: relative;
-            background: var(--bg-card);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border-radius: 20px;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
         }
 
         .animation-card:hover {
@@ -2432,12 +2509,18 @@
         
         /* Feature Card Styles */
         .feature-card {
-            background: rgba(26, 26, 26, 0.6);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             padding: 32px;
             border-radius: 16px;
-            border: 2px solid rgba(0, 212, 255, 0.1);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
         }
         
         .feature-card:hover {
@@ -2486,16 +2569,22 @@
         
         /* FAQ Item Styles */
         .faq-item {
-            background: var(--bg-secondary);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             padding: 28px;
             border-radius: 16px;
-            border: 2px solid rgba(0, 212, 255, 0.1);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
         }
         
         .faq-item:hover {
-            transform: translateY(-12px);
+            transform: translateY(-8px);
             border-color: var(--teal);
             box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 
                         0 0 40px rgba(0, 212, 255, 0.25),
@@ -2787,10 +2876,29 @@
         }
 
         .request-form {
-            background: rgba(26, 26, 26, 0.6);
+            position: relative;
+            background: transparent;
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 20px;
             padding: 48px;
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
+        }
+        
+        .request-form::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 18px;
+            z-index: -1;
         }
 
         .form-grid {
@@ -2838,36 +2946,44 @@
         .form-group input[type="text"],
         .form-group input[type="email"] {
             width: 100%;
-            background: rgba(15, 15, 15, 0.8);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 50px !important;
             padding: 16px 24px;
             color: var(--text-primary);
             font-size: 15px;
             font-family: 'DM Sans', sans-serif;
             transition: all 0.3s ease;
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
         }
 
         .form-group input[type="text"]:focus,
         .form-group input[type="email"]:focus {
             outline: none;
-            border-color: var(--teal);
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2),
-                        0 0 20px rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 20px rgba(0, 212, 255, 0.2);
         }
 
         .form-group select {
             width: 100%;
-            background: rgba(15, 15, 15, 0.8);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 50px !important;
             padding: 16px 24px;
             color: var(--text-primary);
             font-size: 15px;
             font-family: 'DM Sans', sans-serif;
             transition: all 0.3s ease;
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
             cursor: pointer;
             appearance: none;
             -webkit-appearance: none;
@@ -2881,15 +2997,18 @@
 
         .form-group textarea {
             width: 100%;
-            background: rgba(15, 15, 15, 0.8);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.6);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 16px !important;
             padding: 16px 24px;
             color: var(--text-primary);
             font-size: 15px;
             font-family: 'DM Sans', sans-serif;
             transition: all 0.3s ease;
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
             resize: vertical;
             min-height: 120px;
         }
@@ -2914,22 +3033,28 @@
 
         .form-group select:focus {
             outline: none;
-            border-color: var(--teal);
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2),
-                        0 0 20px rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 20px rgba(0, 212, 255, 0.2);
         }
         
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--teal);
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2),
-                        0 0 20px rgba(0, 212, 255, 0.4);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 20px rgba(0, 212, 255, 0.2);
         }
 
         .form-group select:hover {
-            border-color: var(--teal);
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2),
-                        0 0 20px rgba(0, 212, 255, 0.3);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 20px rgba(0, 212, 255, 0.2);
         }
 
         .form-group textarea {
@@ -2979,6 +3104,416 @@
             padding: 60px 32px 32px;
             position: relative;
             z-index: 1;
+        }
+
+        /* ========================================== */
+        /* CONVERSION BOOSTING CTAs & BANNERS        */
+        /* ========================================== */
+        
+        /* Rewards Coming Soon Banner */
+        .rewards-banner {
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(245, 158, 11, 0.2);
+            border-radius: 16px;
+            padding: 24px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            margin: 40px auto;
+            max-width: 1000px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(245, 158, 11, 0.1),
+                0 0 40px rgba(245, 158, 11, 0.05);
+        }
+        
+        .rewards-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.1), transparent);
+            animation: shine 4s infinite;
+        }
+        
+        .rewards-banner-content {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 1;
+        }
+        
+        .rewards-banner-icon {
+            font-size: 40px;
+            filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.5));
+        }
+        
+        .rewards-banner-text h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: #FBBF24;
+            margin-bottom: 4px;
+        }
+        
+        .rewards-banner-text p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .rewards-banner-badge {
+            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            z-index: 1;
+        }
+
+        /* Promo Strip Banner */
+        .promo-strip {
+            background: linear-gradient(90deg, #F59E0B, #FF6B6B, #F59E0B);
+            background-size: 200% 100%;
+            animation: gradientMove 3s ease infinite;
+            padding: 12px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .promo-strip-text {
+            color: #000;
+            font-weight: 700;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .promo-strip-text a {
+            color: #000;
+            text-decoration: underline;
+            font-weight: 800;
+        }
+
+        /* Mid-Page CTA Banner */
+        .cta-banner {
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 20px;
+            padding: 48px 40px;
+            text-align: center;
+            margin: 60px auto;
+            max-width: 900px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
+        }
+        
+        .cta-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
+            animation: rotateBg 20s linear infinite;
+        }
+        
+        @keyframes rotateBg {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .cta-banner-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-banner h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        
+        .cta-banner p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            margin-bottom: 24px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-banner-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Social Proof Ticker */
+        .social-proof-ticker {
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-top: 2px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 2px solid rgba(0, 212, 255, 0.15);
+            padding: 14px 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .ticker-track {
+            display: flex;
+            animation: ticker 30s linear infinite;
+            width: max-content;
+        }
+        
+        @keyframes ticker {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 40px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        .ticker-item strong {
+            color: #FBBF24;
+        }
+        
+        .ticker-dot {
+            width: 6px;
+            height: 6px;
+            background: #F59E0B;
+            border-radius: 50%;
+        }
+
+        /* Stats Counter Section */
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            padding: 60px 40px;
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 20px;
+            margin: 40px auto;
+            max-width: 1200px;
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
+        }
+        
+        .stat-box {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: 'Sora', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Floating Side CTA */
+        .floating-side-cta {
+            position: fixed;
+            right: -300px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10, 10, 10, 0.3);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-right: none;
+            border-radius: 16px 0 0 16px;
+            padding: 24px;
+            width: 280px;
+            z-index: 9999;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                -4px 0 24px rgba(0, 0, 0, 0.4),
+                inset 1px 0 1px rgba(0, 212, 255, 0.1),
+                -20px 0 40px rgba(0, 212, 255, 0.05);
+        }
+        
+        .floating-side-cta.show {
+            right: 0;
+        }
+        
+        .floating-side-cta-toggle {
+            position: absolute;
+            left: -57px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 22px;
+            height: 120px;
+            background: rgba(10, 10, 10, 0.3);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            border-right: none;
+            border-radius: 12px 0 0 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            color: #F59E0B;
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: -4px 0 20px rgba(245, 158, 11, 0.2);
+        }
+        
+        .floating-side-cta-toggle:hover {
+            box-shadow: -4px 0 30px rgba(245, 158, 11, 0.4);
+            background: rgba(10, 10, 10, 0.4);
+        }
+        
+        .floating-side-cta h4 {
+            font-family: 'Sora', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #FBBF24;
+            margin-bottom: 8px;
+        }
+        
+        .floating-side-cta p {
+            color: var(--text-secondary);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        /* Trust Badges Row */
+        .trust-badges-row {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 30px 20px;
+            flex-wrap: wrap;
+        }
+        
+        .trust-badge-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+        
+        .trust-badge-item svg {
+            width: 24px;
+            height: 24px;
+            color: #F59E0B;
+        }
+
+        /* Urgency Banner */
+        .urgency-banner {
+            background: rgba(239, 68, 68, 0.1);
+            border: 2px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        
+        .urgency-banner-icon {
+            font-size: 20px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        .urgency-banner-text {
+            color: #FCA5A5;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .urgency-banner-text strong {
+            color: #F87171;
+        }
+
+        @media (max-width: 768px) {
+            .rewards-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 40px 20px;
+            }
+            
+            .stat-number {
+                font-size: 36px;
+            }
+            
+            .floating-side-cta {
+                display: none;
+            }
+            
+            .cta-banner {
+                padding: 32px 20px;
+            }
+            
+            .cta-banner h3 {
+                font-size: 24px;
+            }
         }
 
         .footer-grid {
@@ -3292,12 +3827,13 @@
                 right: -100%;
                 width: 280px;
                 height: 100vh;
-                background: rgba(15, 15, 15, 0.98);
-                backdrop-filter: blur(20px);
+                background: rgba(10, 10, 10, 0.5);
+                backdrop-filter: blur(20px) saturate(180%);
+                -webkit-backdrop-filter: blur(20px) saturate(180%);
                 flex-direction: column;
                 gap: 0;
                 padding: 80px 0 20px;
-                border-left: 2px solid rgba(100, 116, 139, 0.15);
+                border-left: 2px solid rgba(0, 212, 255, 0.2);
                 transition: right 0.3s ease;
                 z-index: 9999;
                 overflow-y: auto;
@@ -3472,7 +4008,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(8px);
             z-index: 20000;
             display: none;
@@ -3490,30 +4026,51 @@
         }
         
         .auth-modal-content {
-            background: var(--bg-secondary);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 20px;
             padding: 48px;
             max-width: 500px;
             width: 90%;
             text-align: center;
-            animation: modalSlideIn 0.3s ease;
+            animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             z-index: 1;
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
         }
         
         .auth-modal-box {
-            background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-radius: 20px;
             padding: 0;
             max-width: 480px;
             width: 90%;
-            animation: modalSlideIn 0.3s ease;
+            animation: modalSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             z-index: 1;
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(0, 212, 255, 0.1),
+                0 0 40px rgba(0, 212, 255, 0.05);
+        }
+        
+        .auth-modal-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
         }
         
         @keyframes modalSlideIn {
@@ -3532,9 +4089,9 @@
             right: 16px;
             width: 44px;
             height: 44px;
-            border: none;
-            background: rgba(239, 68, 68, 0.2);
-            color: #FCA5A5;
+            border: 2px solid rgba(0, 212, 255, 0.15);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--text-secondary);
             font-size: 24px;
             font-weight: bold;
             border-radius: 50%;
@@ -3547,13 +4104,16 @@
         }
         
         .auth-close:hover {
-            background: rgba(239, 68, 68, 0.3);
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #FCA5A5;
             transform: scale(1.1);
         }
         
         .auth-tabs {
             display: flex;
-            border-bottom: 2px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 2px solid rgba(0, 212, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
         }
         
         .auth-tab {
@@ -3569,8 +4129,14 @@
             position: relative;
         }
         
+        .auth-tab:hover {
+            color: var(--text-primary);
+            background: rgba(0, 212, 255, 0.03);
+        }
+        
         .auth-tab.active {
             color: var(--text-primary);
+            background: rgba(0, 212, 255, 0.05);
         }
         
         .auth-tab.active::after {
@@ -3628,13 +4194,17 @@
         .form-group input {
             width: 100%;
             padding: 16px 24px;
-            background: rgba(20, 20, 20, 0.6);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(0, 212, 255, 0.15);
             border-radius: 50px;
             color: var(--text-primary);
             font-size: 15px;
             font-family: 'DM Sans', sans-serif;
             transition: all 0.3s ease;
+        }
+        
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.35);
         }
         
         .password-input-wrapper input {
@@ -3669,9 +4239,15 @@
         .form-group input:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--teal);
+            border-color: rgba(0, 212, 255, 0.4);
+            background: rgba(0, 0, 0, 0.4);
             box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1),
-                        0 0 20px rgba(0, 212, 255, 0.3);
+                        0 0 20px rgba(0, 212, 255, 0.15);
+        }
+        
+        .form-group input:hover {
+            border-color: rgba(0, 212, 255, 0.25);
+            background: rgba(0, 0, 0, 0.35);
         }
         
         /* Prevent autocomplete blue background */
@@ -3679,9 +4255,9 @@
         .form-group input:-webkit-autofill:hover,
         .form-group input:-webkit-autofill:focus,
         .form-group input:-webkit-autofill:active {
-            -webkit-box-shadow: 0 0 0 30px rgba(20, 20, 20, 0.6) inset !important;
+            -webkit-box-shadow: 0 0 0 30px rgba(10, 10, 10, 0.8) inset !important;
             -webkit-text-fill-color: var(--text-primary) !important;
-            border: 2px solid rgba(0, 212, 255, 0.2) !important;
+            border: 2px solid rgba(0, 212, 255, 0.15) !important;
             transition: background-color 5000s ease-in-out 0s;
         }
         
@@ -3774,8 +4350,8 @@
         .cart-modal-overlay {
             position: absolute;
             inset: 0;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(4px);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
         }
         
         .cart-modal-content {
@@ -3783,11 +4359,17 @@
             width: 500px;
             max-width: 90vw;
             height: 100vh;
-            background: var(--bg-secondary);
-            border-left: 2px solid rgba(100, 116, 139, 0.2);
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-left: 2px solid rgba(0, 212, 255, 0.2);
             display: flex;
             flex-direction: column;
             animation: slideIn 0.3s ease;
+            box-shadow: 
+                -4px 0 24px rgba(0, 0, 0, 0.4),
+                inset 1px 0 1px rgba(0, 212, 255, 0.1),
+                -20px 0 40px rgba(0, 212, 255, 0.05);
         }
         
         @keyframes slideIn {
@@ -3797,10 +4379,11 @@
         
         .cart-header {
             padding: 24px;
-            border-bottom: 2px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 2px solid rgba(0, 212, 255, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: rgba(0, 0, 0, 0.2);
         }
         
         .cart-header h2 {
@@ -3836,8 +4419,8 @@
         }
         
         .cart-item {
-            background: rgba(26, 26, 26, 0.6);
-            border: 2px solid rgba(0, 212, 255, 0.1);
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(0, 212, 255, 0.15);
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 12px;
@@ -3848,7 +4431,8 @@
         }
         
         .cart-item:hover {
-            border-color: var(--teal);
+            border-color: rgba(0, 212, 255, 0.3);
+            background: rgba(0, 0, 0, 0.35);
         }
         
         .cart-item-checkbox {
@@ -3971,10 +4555,11 @@
         
         .cart-footer {
             padding: 24px;
-            border-top: 2px solid rgba(0, 212, 255, 0.15);
+            border-top: 2px solid rgba(0, 212, 255, 0.1);
             display: flex;
             flex-direction: column;
             gap: 12px;
+            background: rgba(0, 0, 0, 0.2);
         }
         
         .cart-total {
@@ -4480,9 +5065,9 @@
                             type="text" 
                             id="mobileSearch"
                             placeholder="Search animations..."
-                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
+                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(10, 10, 10, 0.5); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
                         >
-                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(100, 116, 139, 0.3); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 10000;">
+                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: rgba(10, 10, 10, 0.5); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); z-index: 10000;">
                             <!-- Results populated here -->
                         </div>
                     </div>
@@ -4752,7 +5337,7 @@
             <p class="hero-subtitle">
                 <span class="hero-subtitle-buy-gradient">Buy premium motion capture animations</span><br>
                 <span class="hero-subtitle-secondary" style="color: var(--text-primary);">for game development, film, and virtual production.</span><br>
-                <span class="hero-subtitle-professional-glow">Professional mocap</span> <span id="typewriter-text" class="hero-subtitle-platforms-gradient"></span>
+                <span class="hero-subtitle-professional-glow">Professional mocap</span> <span class="hero-subtitle-platforms-gradient">for Unreal Engine, Unity, Blender, and all major 3D software.</span>
             </p>
             
             <!-- Platform Logos -->
@@ -4773,11 +5358,11 @@
             </div>
             
             <div class="hero-buttons">
-                <a href="#library" class="btn-secondary btn-primary-cta" style="padding: 14px 28px; font-size: 15px; position: relative;">
+                <a href="#library" class="btn-secondary btn-primary-cta" style="padding: 12px 28px; font-size: 15px; position: relative;">
                     📚 Browse Library
                     <span class="button-shine"></span>
                 </a>
-                <a href="#" id="heroSignUpBtn" onclick="showAuthModal('signup'); return false;" class="btn-secondary" style="padding: 14px 28px; font-size: 15px;">
+                <a href="#" id="heroSignUpBtn" onclick="showAuthModal('signup'); return false;" class="btn-secondary" style="padding: 12px 28px; font-size: 15px;">
                     ✨ Get Started Free
                 </a>
             </div>
@@ -4822,6 +5407,28 @@
         </div>
     </section>
 
+    <!-- Social Proof Ticker -->
+    <div class="social-proof-ticker">
+        <div class="ticker-track">
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Instant download</strong> after purchase</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Royalty-free</strong> forever license</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unreal Engine</strong></div>
+            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unity</strong></div>
+            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Blender</strong></div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>No subscription</strong> required</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>FBX format</strong> included</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Lifetime access</strong> to purchases</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Instant download</strong> after purchase</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Royalty-free</strong> forever license</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unreal Engine</strong></div>
+            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unity</strong></div>
+            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Blender</strong></div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>No subscription</strong> required</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>FBX format</strong> included</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Lifetime access</strong> to purchases</div>
+        </div>
+    </div>
+
     <!-- Library Section -->
     <section id="library" class="library-section">
         <div class="container">
@@ -4833,8 +5440,8 @@
 
             <!-- Premium Teaser Banner -->
             <div class="premium-banner">
-                <div style="margin-bottom: 4px; font-size: 14px; font-weight: 700; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">🎬 Professional mocap animations for every project</div>
-                <div class="premium-banner-text">✨ Premium Animations from $1 — Instant Download — Royalty-Free Forever</div>
+                <div style="margin-bottom: 4px; font-size: 14px; font-weight: 700; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">🔥 Limited Time: New animations added weekly!</div>
+                <div class="premium-banner-text">✨ Premium Animations from $1 — Instant Download — Royalty-Free Forever — <span style="color: #F59E0B; font-weight: 700;">No Subscription</span></div>
             </div>
 
             <!-- Ultra-Premium Filters Card -->
@@ -5000,6 +5607,44 @@
     </section>
 
     <!-- Features Section -->
+
+    <!-- Rewards Coming Soon Banner -->
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
+        <div class="rewards-banner">
+            <div class="rewards-banner-content">
+                <div class="rewards-banner-icon">🎁</div>
+                <div class="rewards-banner-text">
+                    <h3>MocapWork Rewards Program</h3>
+                    <p>Earn points on every purchase. Redeem for free animations, exclusive packs & more!</p>
+                </div>
+            </div>
+            <div class="rewards-banner-badge">Coming Soon</div>
+        </div>
+    </div>
+
+    <!-- Value Props Section -->
+    <div style="padding: 0 20px;">
+        <div class="stats-section">
+            <div class="stat-box">
+                <div class="stat-number">$1</div>
+                <div class="stat-label">Starting Price</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">FBX</div>
+                <div class="stat-label">Universal Format</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">∞</div>
+                <div class="stat-label">Lifetime Access</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">0</div>
+                <div class="stat-label">Subscriptions Required</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
     <section style="background: transparent; padding: 80px 20px; border-top: 2px solid rgba(0, 212, 255, 0.1); position: relative; z-index: 1;">
         <div style="max-width: 1400px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 60px;">
@@ -5020,6 +5665,7 @@
                         Optimized motion capture animations for Unreal Engine and Unity. Perfect for AAA games, indie projects, and everything in between. 
                         All mocap files include standard FBX format for seamless integration.
                     </p>
+                    <a href="#library" style="display: inline-block; margin-top: 16px; color: #F59E0B; font-weight: 600; font-size: 14px; text-decoration: none;">Browse Game Animations →</a>
                 </div>
                 
                 <div class="feature-card">
@@ -5029,6 +5675,7 @@
                         High-quality mocap animations for film, TV, and animated content. Compatible with Blender, Maya, 3ds Max, and Cinema 4D. 
                         Professional motion capture data captured in our studio facility.
                     </p>
+                    <a href="#library" style="display: inline-block; margin-top: 16px; color: #F59E0B; font-weight: 600; font-size: 14px; text-decoration: none;">Explore Film Assets →</a>
                 </div>
                 
                 <div class="feature-card">
@@ -5038,10 +5685,29 @@
                         Buy mocap animations and download immediately. No subscription required. 
                         Get lifetime access to your purchased motion capture files with unlimited re-downloads from your dashboard.
                     </p>
+                    <a href="#" onclick="showAuthModal('signup'); return false;" style="display: inline-block; margin-top: 16px; color: #F59E0B; font-weight: 600; font-size: 14px; text-decoration: none;">Create Free Account →</a>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Can't Find What You Need CTA -->
+    <div style="padding: 0 20px;">
+        <div class="cta-banner">
+            <div class="cta-banner-content">
+                <h3><span style="color: white;">Can't Find the </span><span class="gradient-text animated-gradient">Perfect Animation</span><span style="color: white;">?</span></h3>
+                <p>Our professional mocap team can create custom animations tailored to your exact specifications. From unique character movements to specific action sequences.</p>
+                <div class="cta-banner-buttons">
+                    <a href="#contact" class="btn btn-primary" style="padding: 14px 32px;">
+                        🎬 Request Custom Animation
+                    </a>
+                    <a href="#library" class="btn btn-secondary" style="padding: 14px 32px;">
+                        Browse Library
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Custom Request Section -->
     <section class="custom-request-section" id="contact">
@@ -5121,6 +5787,47 @@
             </div>
         </div>
     </section>
+
+    <!-- Trust Badges -->
+    <div class="trust-badges-row">
+        <div class="trust-badge-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <span>Secure Checkout</span>
+        </div>
+        <div class="trust-badge-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7,10 12,15 17,10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span>Instant Download</span>
+        </div>
+        <div class="trust-badge-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                <line x1="9" y1="9" x2="9.01" y2="9"/>
+                <line x1="15" y1="9" x2="15.01" y2="9"/>
+            </svg>
+            <span>100% Satisfaction</span>
+        </div>
+        <div class="trust-badge-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+            </svg>
+            <span>Royalty-Free License</span>
+        </div>
+        <div class="trust-badge-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                <polyline points="22,4 12,14.01 9,11.01"/>
+            </svg>
+            <span>Professional Quality</span>
+        </div>
+    </div>
 
     <!-- FAQ Section -->
     <section id="faq" style="background: transparent; padding: 100px 20px; position: relative; z-index: 1;">
@@ -5283,6 +5990,27 @@
     </section>
 
     </main>
+
+    <!-- Final CTA Banner -->
+    <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(255, 107, 107, 0.05)); padding: 60px 20px; text-align: center; border-top: 1px solid rgba(245, 158, 11, 0.2);">
+        <h2 style="font-family: 'Sora', sans-serif; font-size: 36px; font-weight: 800; margin-bottom: 16px;">
+            <span style="color: white;">Ready to </span><span class="gradient-text animated-gradient">Elevate Your Project</span><span style="color: white;">?</span>
+        </h2>
+        <p style="color: var(--text-secondary); font-size: 18px; max-width: 600px; margin: 0 auto 24px;">
+            Join thousands of game developers, filmmakers, and 3D artists who trust MocapWork for professional motion capture animations.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <a href="#library" class="btn btn-primary" style="padding: 16px 40px; font-size: 16px;">
+                🚀 Start Browsing Now
+            </a>
+            <a href="#" onclick="showAuthModal('signup'); return false;" class="btn btn-secondary" style="padding: 16px 40px; font-size: 16px;">
+                Create Free Account
+            </a>
+        </div>
+        <p style="color: var(--text-muted); font-size: 13px; margin-top: 20px;">
+            ✨ No subscription required • Pay only for what you need • Lifetime access to purchases
+        </p>
+    </div>
 
     <footer class="footer">
         <div class="footer-grid">
@@ -6133,6 +6861,14 @@
         const searchDropdownLibrary = document.getElementById('searchDropdownLibrary');
         let librarySearchTimeout;
 
+        // Show popular animations on focus
+        searchInputLibrary.addEventListener('focus', function() {
+            const query = this.value.trim();
+            if (query.length === 0) {
+                showPopularAnimationsLibrary();
+            }
+        });
+
         searchInputLibrary.addEventListener('input', function(e) {
             const query = e.target.value.trim();
             
@@ -6143,15 +6879,14 @@
             clearTimeout(librarySearchTimeout);
             
             if (query.length === 0) {
-                searchDropdownLibrary.style.display = 'none';
+                showPopularAnimationsLibrary();
                 return;
             }
             
-            if (query.length < 2) return;
-            
+            // Start searching from first character
             librarySearchTimeout = setTimeout(() => {
                 performLibrarySearch(query);
-            }, 300);
+            }, 150);
         });
 
         // Enter key for library search
@@ -6169,6 +6904,44 @@
                 }
             }
         });
+
+        function showPopularAnimationsLibrary() {
+            // Get popular/featured animations (first 6 or random selection)
+            const popularAnims = animations.slice(0, 6);
+            
+            let html = '';
+            
+            // Popular searches
+            html += '<div class="search-section">';
+            html += '<div class="search-section-title">SUGGESTED SEARCHES</div>';
+            const popularSearches = ['sword', 'fantasy sword', 'sword pack', 'walking'];
+            popularSearches.forEach(term => {
+                html += `<div class="search-result-item" onclick="applyLibrarySearch('${term}')">`;
+                html += '<div class="search-result-icon">🔍</div>';
+                html += `<div class="search-result-text"><strong>${term}</strong></div>`;
+                html += '</div>';
+            });
+            html += '</div>';
+            
+            // Popular animations
+            if (popularAnims.length > 0) {
+                html += '<div class="search-section">';
+                html += '<div class="search-section-title">POPULAR ANIMATIONS</div>';
+                popularAnims.forEach(anim => {
+                    const thumbnailUrl = anim.thumbnail_url || anim.video_url;
+                    const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
+                    const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
+                    html += `<div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px;">`;
+                    html += `<img src="${thumbnailUrl}" alt="${anim.title}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 2px solid rgba(0, 212, 255, 0.2);">`;
+                    html += `<div style="flex: 1;"><div class="search-result-text">${anim.title}</div><div style="font-size: 14px; color: var(--teal); font-weight: 600;">$${finalPrice.toFixed(2)}</div></div>`;
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+            
+            searchDropdownLibrary.innerHTML = html;
+            searchDropdownLibrary.style.display = 'block';
+        }
 
         function performLibrarySearch(query) {
             const lowerQuery = query.toLowerCase();
@@ -6192,7 +6965,7 @@
             // Suggested searches
             if (suggestions.length > 0) {
                 html += '<div class="search-section">';
-                html += '<div class="search-section-title">Suggested</div>';
+                html += '<div class="search-section-title">SUGGESTED SEARCHES</div>';
                 suggestions.forEach(sugg => {
                     const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
                     html += `<div class="search-result-item" onclick="applyLibrarySearch('${sugg}')">`;
@@ -6206,13 +6979,15 @@
             // Animation results
             if (results.length > 0) {
                 html += '<div class="search-section">';
-                html += '<div class="search-section-title">Animations</div>';
+                html += '<div class="search-section-title">ANIMATIONS</div>';
                 results.forEach(anim => {
                     const highlighted = anim.title.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
                     const thumbnailUrl = anim.thumbnail_url || anim.video_url;
+                    const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
+                    const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
                     html += `<div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px;">`;
                     html += `<img src="${thumbnailUrl}" alt="${anim.title}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 2px solid rgba(0, 212, 255, 0.2);">`;
-                    html += `<div class="search-result-text">${highlighted}</div>`;
+                    html += `<div style="flex: 1;"><div class="search-result-text">${highlighted}</div><div style="font-size: 14px; color: var(--teal); font-weight: 600;">$${finalPrice.toFixed(2)}</div></div>`;
                     html += '</div>';
                 });
                 html += '</div>';
@@ -7842,6 +8617,14 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         let searchTimeout;
         
         if (searchInputNav) {
+            // Show popular animations on focus
+            searchInputNav.addEventListener('focus', function() {
+                const query = this.value.trim();
+                if (query.length === 0) {
+                    showPopularAnimationsNav();
+                }
+            });
+
             searchInputNav.addEventListener('input', function(e) {
                 const query = e.target.value.trim();
                 
@@ -7852,15 +8635,14 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 clearTimeout(searchTimeout);
                 
                 if (query.length === 0) {
-                    searchDropdownNav.classList.remove('active');
+                    showPopularAnimationsNav();
                     return;
                 }
                 
-                if (query.length < 2) return;
-                
+                // Start searching from first character
                 searchTimeout = setTimeout(() => {
                     performSearchNav(query);
-                }, 300);
+                }, 150);
             });
 
             // Enter key for navbar search
@@ -7872,6 +8654,50 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                     }
                 }
             });
+        }
+        
+        function showPopularAnimationsNav() {
+            // Get popular/featured animations
+            const popularAnims = animations.slice(0, 5);
+            
+            let html = '';
+            
+            // Popular searches
+            html += '<div class="search-section">';
+            html += '<div class="search-section-title">SUGGESTED SEARCHES</div>';
+            const popularSearches = ['sword', 'fantasy sword', 'sword pack', 'walking'];
+            popularSearches.forEach(term => {
+                html += `<div class="search-result-item" onclick="applySearchNav('${term}')">`;
+                html += '<div class="search-result-icon">🔍</div>';
+                html += `<div class="search-result-text"><strong>${term}</strong></div>`;
+                html += '</div>';
+            });
+            html += '</div>';
+            
+            // Popular animations
+            if (popularAnims.length > 0) {
+                html += '<div class="search-section">';
+                html += '<div class="search-section-title">POPULAR ANIMATIONS</div>';
+                popularAnims.forEach(anim => {
+                    const imageUrl = anim.video_type === 'image/gif' ? anim.video_url : anim.thumbnail_url;
+                    const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
+                    const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
+                    
+                    html += `
+                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                            <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
+                                <div style="font-size: 14px; color: var(--teal); font-weight: 600;">$${finalPrice.toFixed(2)}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+            }
+            
+            searchDropdownNav.innerHTML = html;
+            searchDropdownNav.classList.add('active');
         }
         
         function performSearchNav(query) {
@@ -7893,10 +8719,31 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             // Build dropdown
             let html = '';
             
+            // Suggested searches first
+            const suggestions = [
+                query,
+                'fantasy ' + query,
+                query + ' pack',
+                'walking'
+            ].slice(0, 4);
+            
+            if (suggestions.length > 0) {
+                html += '<div class="search-section">';
+                html += '<div class="search-section-title">SUGGESTED SEARCHES</div>';
+                suggestions.forEach(sugg => {
+                    const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
+                    html += `<div class="search-result-item" onclick="applySearchNav('${sugg}')">`;
+                    html += '<div class="search-result-icon">🔍</div>';
+                    html += `<div class="search-result-text">${highlighted}</div>`;
+                    html += '</div>';
+                });
+                html += '</div>';
+            }
+            
             // Animation results with thumbnails
             if (results.length > 0) {
                 html += '<div class="search-section">';
-                html += '<div class="search-section-title">Animations</div>';
+                html += '<div class="search-section-title">ANIMATIONS</div>';
                 results.forEach(anim => {
                     const imageUrl = anim.video_type === 'image/gif' ? anim.video_url : anim.thumbnail_url;
                     const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
@@ -7911,29 +8758,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                             </div>
                         </div>
                     `;
-                });
-                html += '</div>';
-            }
-            
-            // Suggested searches below animations
-            const suggestions = [
-                query,
-                'fantasy ' + query,
-                query + ' pack',
-                'walking',
-                'running',
-                'combat'
-            ].slice(0, 4);
-            
-            if (suggestions.length > 0) {
-                html += '<div class="search-section">';
-                html += '<div class="search-section-title">Suggested Searches</div>';
-                suggestions.forEach(sugg => {
-                    const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
-                    html += `<div class="search-result-item" onclick="applySearchNav('${sugg}')">`;
-                    html += '<div class="search-result-icon">🔍</div>';
-                    html += `<div class="search-result-text">${highlighted}</div>`;
-                    html += '</div>';
                 });
                 html += '</div>';
             }
@@ -8164,7 +8988,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
 
                 <!-- Animation Preview -->
                 <div id="thankYouPreview" style="display: none; margin-bottom: 20px;">
-                    <div style="background: var(--bg-secondary); border-radius: 12px; padding: 12px; border: 2px solid rgba(0, 212, 255, 0.1);">
+                    <div style="background: rgba(0, 0, 0, 0.3); border-radius: 12px; padding: 12px; border: 2px solid rgba(0, 212, 255, 0.15);">
                         <img id="thankYouGif" src="" alt="Animation Preview" style="width: 100%; max-width: 200px; border-radius: 8px; display: block; margin: 0 auto;">
                         <p id="thankYouAnimationName" style="text-align: center; margin-top: 8px; font-weight: 600; color: var(--text-primary); font-size: 14px;"></p>
                     </div>
@@ -8186,7 +9010,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 </div>
 
                 <!-- Order Details -->
-                <div id="thankYouOrderDetails" style="display: none; background: rgba(26, 26, 26, 0.4); border-radius: 10px; padding: 16px; border: 2px solid rgba(0, 212, 255, 0.1);">
+                <div id="thankYouOrderDetails" style="display: none; background: rgba(0, 0, 0, 0.3); border-radius: 10px; padding: 16px; border: 2px solid rgba(0, 212, 255, 0.15);">
                     <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary);">Order Details</h3>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
                         <div style="display: flex; justify-content: space-between;">
@@ -8240,7 +9064,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         left: 0;
         right: 0;
         bottom: 0;
-        background: rgba(0, 0, 0, 0.85);
+        background: rgba(0, 0, 0, 0.4);
         backdrop-filter: blur(8px);
         z-index: 20000;
         display: none;
@@ -8258,8 +9082,10 @@ Focus on diversity while matching user preferences. Prioritize animations the us
     }
 
     .stripe-checkout-modal-content {
-        background: var(--bg-secondary);
-        border: 2px solid rgba(0, 212, 255, 0.3);
+        background: rgba(10, 10, 10, 0.5);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 2px solid rgba(0, 212, 255, 0.2);
         border-radius: 20px;
         padding: 0;
         max-width: 500px;
@@ -8268,13 +9094,16 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         position: relative;
         z-index: 1;
         overflow: hidden;
-        box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
+        box-shadow: 
+            0 4px 24px rgba(0, 0, 0, 0.4),
+            inset 0 1px 1px rgba(0, 212, 255, 0.1),
+            0 0 40px rgba(0, 212, 255, 0.05);
     }
 
     .stripe-checkout-modal-header {
-        background: rgba(30, 30, 30, 0.8);
+        background: rgba(0, 0, 0, 0.2);
         padding: 24px;
-        border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        border-bottom: 2px solid rgba(0, 212, 255, 0.1);
         position: relative;
     }
 
@@ -8295,9 +9124,9 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         right: 16px;
         width: 36px;
         height: 36px;
-        border: none;
-        background: rgba(239, 68, 68, 0.2);
-        color: #FCA5A5;
+        border: 2px solid rgba(0, 212, 255, 0.15);
+        background: rgba(0, 0, 0, 0.3);
+        color: var(--text-secondary);
         font-size: 20px;
         font-weight: bold;
         border-radius: 50%;
@@ -8310,7 +9139,9 @@ Focus on diversity while matching user preferences. Prioritize animations the us
     }
 
     .stripe-checkout-modal-close:hover {
-        background: rgba(239, 68, 68, 0.3);
+        background: rgba(239, 68, 68, 0.2);
+        border-color: rgba(239, 68, 68, 0.4);
+        color: #FCA5A5;
         transform: scale(1.1);
     }
 
@@ -8911,53 +9742,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                 console.log('✅ Hero text animation initialized');
             }
             
-            // ==========================================
-            // TYPEWRITER EFFECT - LOOPING
-            // ==========================================
-            const typewriterText = document.getElementById('typewriter-text');
-            if (typewriterText) {
-                const fullText = 'for Unreal Engine, Unity, Blender, and all major 3D platforms.';
-                let charIndex = 0;
-                let isDeleting = false;
-                let isPaused = false;
-                
-                function typeWriter() {
-                    if (isPaused) {
-                        setTimeout(typeWriter, 3500); // Increased pause to 3.5 seconds (was 2 seconds)
-                        isPaused = false;
-                        return;
-                    }
-                    
-                    if (!isDeleting) {
-                        // Typing
-                        typewriterText.textContent = fullText.substring(0, charIndex + 1);
-                        charIndex++;
-                        
-                        if (charIndex === fullText.length) {
-                            isPaused = true;
-                            isDeleting = true;
-                        }
-                        
-                        setTimeout(typeWriter, 50); // Typing speed
-                    } else {
-                        // Deleting
-                        typewriterText.textContent = fullText.substring(0, charIndex - 1);
-                        charIndex--;
-                        
-                        if (charIndex === 0) {
-                            isDeleting = false;
-                            setTimeout(typeWriter, 500); // Pause before typing again
-                        } else {
-                            setTimeout(typeWriter, 30); // Deleting speed (faster)
-                        }
-                    }
-                }
-                
-                // Start typewriter after hero text animation completes
-                setTimeout(typeWriter, 2000);
-                console.log('✅ Typewriter effect initialized');
-            }
-        });
+            });
     </script>
 
     <!-- ==========================================
@@ -9021,6 +9806,53 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             </div>
         </div>
     </div>
+
+<!-- Floating Side CTA -->
+    <div class="floating-side-cta" id="floatingSideCta">
+        <button class="floating-side-cta-toggle" onclick="toggleFloatingCta()">
+            ✨ OFFERS
+        </button>
+        <h4>🔥 Special Offer</h4>
+        <p>Get started with premium mocap animations from just <strong style="color: #F59E0B;">$1</strong>. Perfect for indie developers!</p>
+        <a href="#library" class="btn btn-primary" style="width: 100%; text-align: center; padding: 12px; font-size: 14px; font-family: 'DM Sans', sans-serif;" onclick="toggleFloatingCta()">
+            Browse Animations
+        </a>
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(245, 158, 11, 0.2);">
+            <p style="font-size: 13px; margin-bottom: 8px; font-family: 'DM Sans', sans-serif;">Need something custom?</p>
+            <a href="#contact" style="color: #F59E0B; font-size: 14px; font-weight: 600; text-decoration: none; font-family: 'DM Sans', sans-serif;" onclick="toggleFloatingCta()">
+                Request Custom Animation →
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Floating Side CTA
+        let floatingCtaVisible = false;
+        
+        function toggleFloatingCta() {
+            const cta = document.getElementById('floatingSideCta');
+            floatingCtaVisible = !floatingCtaVisible;
+            cta.classList.toggle('show', floatingCtaVisible);
+        }
+        
+        // Show floating CTA after scrolling past hero
+        let floatingCtaShown = false;
+        window.addEventListener('scroll', function() {
+            if (!floatingCtaShown && window.scrollY > window.innerHeight * 0.5) {
+                floatingCtaShown = true;
+                // Auto-show after 3 seconds of scrolling past hero
+                setTimeout(() => {
+                    if (!floatingCtaVisible) {
+                        toggleFloatingCta();
+                        // Auto-hide after 5 seconds
+                        setTimeout(() => {
+                            if (floatingCtaVisible) toggleFloatingCta();
+                        }, 5000);
+                    }
+                }, 3000);
+            }
+        }, { passive: true });
+    </script>
 
 </body>
 </html>
