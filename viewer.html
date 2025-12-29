@@ -565,12 +565,20 @@
 
     <div id="debug-log"></div>
 
-    <!-- Load Three.js via script tags instead of ES modules -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.168.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
 
-    <script>
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
         // Debug logger
         const debugLog = document.getElementById('debug-log');
         function log(msg) {
@@ -597,7 +605,7 @@
             const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            renderer.outputEncoding = THREE.sRGBEncoding;
+            renderer.outputColorSpace = THREE.SRGBColorSpace;
             renderer.toneMapping = THREE.ACESFilmicToneMapping;
             renderer.toneMappingExposure = 1.2;
             renderer.shadowMap.enabled = true;
@@ -606,7 +614,7 @@
             log('Renderer created');
 
             // Controls
-            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            const controls = new OrbitControls(camera, renderer.domElement);
             controls.enableDamping = true;
             controls.dampingFactor = 0.05;
             controls.minDistance = 1;
@@ -652,7 +660,7 @@
             log('Ground added');
 
             // Loader setup
-            const loader = new THREE.GLTFLoader();
+            const loader = new GLTFLoader();
             log('Loader created');
 
             // State
