@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- VIEWER VERSION 3 - 2024 -->
+<!-- VIEWER VERSION 4 - Material Fix -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Viewer V3 - MocapWork</title>
+    <title>3D Viewer V4 - MocapWork</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -567,8 +567,8 @@
     <div id="debug-log"></div>
 
     <script type="module">
-        // VERSION 3 - If you don't see this in console, clear cache!
-        console.log('=== VIEWER VERSION 3 ===');
+        // VERSION 4 - Material fix
+        console.log('=== VIEWER VERSION 4 ===');
         console.log('Module script executing...');
         
         // Debug logger
@@ -724,6 +724,36 @@
                             if (child.isMesh) {
                                 child.castShadow = true;
                                 child.receiveShadow = true;
+                                child.visible = true;
+                                child.frustumCulled = false;
+                                
+                                // Force material to be visible
+                                if (child.material) {
+                                    if (Array.isArray(child.material)) {
+                                        child.material.forEach(mat => {
+                                            mat.visible = true;
+                                            mat.transparent = false;
+                                            mat.opacity = 1;
+                                            mat.side = THREE.DoubleSide;
+                                            mat.needsUpdate = true;
+                                        });
+                                    } else {
+                                        child.material.visible = true;
+                                        child.material.transparent = false;
+                                        child.material.opacity = 1;
+                                        child.material.side = THREE.DoubleSide;
+                                        child.material.needsUpdate = true;
+                                    }
+                                }
+                                log('Mesh found: ' + child.name + ' | visible: ' + child.visible);
+                            }
+                            if (child.isBone) {
+                                log('Bone found: ' + child.name);
+                            }
+                            if (child.isSkinnedMesh) {
+                                log('SkinnedMesh found: ' + child.name);
+                                child.visible = true;
+                                child.frustumCulled = false;
                             }
                         });
 
@@ -753,6 +783,11 @@
                         scene.add(currentModel);
                         log('Model added to scene');
                         log('Scene children count: ' + scene.children.length);
+                        
+                        // Add bounding box helper to see where model is
+                        const boxHelper = new THREE.BoxHelper(currentModel, 0xffff00);
+                        scene.add(boxHelper);
+                        log('Bounding box helper added');
                         
                         // Force a render
                         renderer.render(scene, camera);
