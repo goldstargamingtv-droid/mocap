@@ -18,16 +18,17 @@
             --bg-primary: #000000;
             --bg-secondary: #0F0F0F;
             --bg-card: rgba(26, 26, 26, 0.8);
-            --accent: #00D4FF;
-            --accent-dark: #00B4E6;
-            --accent-glow: rgba(0, 212, 255, 0.4);
+            --accent: #0d4c59;
+            --accent-dark: #0a3d47;
+            --accent-glow: rgba(13, 76, 89, 0.4);
             --coral: #FF6B6B;
             --text-white: #FFFFFF;
             --text-primary: #FEFCE8;
             --text-secondary: #E7E5D3;
             --text-muted: #A8A593;
             --glass-bg: rgba(15, 15, 15, 0.85);
-            --glass-border: rgba(0, 212, 255, 0.2);
+            --glass-border: rgba(13, 76, 89, 0.3);
+            --brand-gradient: linear-gradient(135deg, #F59E0B, #FF6B6B);
         }
 
         body {
@@ -194,14 +195,14 @@
         }
 
         .animation-btn:hover {
-            background: rgba(0, 212, 255, 0.1);
-            border-color: rgba(0, 212, 255, 0.3);
+            background: rgba(13, 76, 89, 0.1);
+            border-color: rgba(13, 76, 89, 0.3);
             color: var(--text-white);
             transform: translateX(4px);
         }
 
         .animation-btn.active {
-            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 107, 107, 0.1));
+            background: linear-gradient(135deg, rgba(13, 76, 89, 0.2), rgba(255, 107, 107, 0.1));
             border-color: var(--accent);
             color: var(--text-white);
         }
@@ -209,7 +210,7 @@
         .animation-btn .icon {
             width: 26px;
             height: 26px;
-            background: rgba(0, 212, 255, 0.15);
+            background: rgba(13, 76, 89, 0.15);
             border-radius: 6px;
             display: flex;
             align-items: center;
@@ -354,7 +355,7 @@
         }
 
         .env-btn:hover {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(13, 76, 89, 0.1);
             border-color: var(--accent);
             color: var(--text-white);
         }
@@ -391,7 +392,7 @@
         }
 
         .camera-btn:hover {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(13, 76, 89, 0.1);
             border-color: var(--accent);
             color: var(--text-white);
         }
@@ -424,7 +425,7 @@
         }
 
         .tool-btn:hover {
-            background: rgba(0, 212, 255, 0.15);
+            background: rgba(13, 76, 89, 0.15);
             border-color: var(--accent);
             color: var(--text-white);
             transform: scale(1.1);
@@ -491,7 +492,7 @@
 
         .timeline-progress {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--coral));
+            background: linear-gradient(90deg, #F59E0B, #FF6B6B);
             border-radius: 3px;
             position: relative;
             transition: width 0.05s linear;
@@ -548,7 +549,7 @@
         }
 
         .playback-btn:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(13, 76, 89, 0.2);
             color: var(--text-white);
             transform: scale(1.1);
         }
@@ -655,7 +656,7 @@
         .loader {
             width: 50px;
             height: 50px;
-            border: 3px solid rgba(0, 212, 255, 0.1);
+            border: 3px solid rgba(13, 76, 89, 0.1);
             border-top-color: var(--accent);
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -761,7 +762,7 @@
         }
 
         .upload-btn:hover {
-            background: rgba(0, 212, 255, 0.15);
+            background: rgba(13, 76, 89, 0.15);
             border-color: var(--accent);
             color: var(--text-white);
         }
@@ -973,12 +974,12 @@
         <div class="section">
             <div class="panel-title">Accent Color</div>
             <div class="color-picker-row">
-                <div class="color-swatch active" style="background: #00D4FF;" data-color="#00D4FF"></div>
+                <div class="color-swatch active" style="background: #0d4c59;" data-color="#0d4c59"></div>
+                <div class="color-swatch" style="background: #00D4FF;" data-color="#00D4FF"></div>
                 <div class="color-swatch" style="background: #F59E0B;" data-color="#F59E0B"></div>
                 <div class="color-swatch" style="background: #EF4444;" data-color="#EF4444"></div>
                 <div class="color-swatch" style="background: #EC4899;" data-color="#EC4899"></div>
                 <div class="color-swatch" style="background: #8B5CF6;" data-color="#8B5CF6"></div>
-                <div class="color-swatch" style="background: #3B82F6;" data-color="#3B82F6"></div>
                 <div class="color-swatch" style="background: #10B981;" data-color="#10B981"></div>
                 <div class="color-swatch" style="background: #FFFFFF;" data-color="#FFFFFF"></div>
             </div>
@@ -1163,7 +1164,7 @@
         dirLight.shadow.camera.bottom = -10;
         scene.add(dirLight);
 
-        const backLight = new THREE.DirectionalLight(0x00D4FF, 0.4);
+        const backLight = new THREE.DirectionalLight(0x0d4c59, 0.4);
         backLight.position.set(-5, 5, -5);
         scene.add(backLight);
 
