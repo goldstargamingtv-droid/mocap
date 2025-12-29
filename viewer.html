@@ -1191,9 +1191,9 @@
         // Environment backgrounds
         const environments = {
             studio: {
-                bg: new THREE.Color(0x0a0a0a),
-                ambient: 0.5,
-                hemi: 0.6
+                bg: new THREE.Color(0xffffff),
+                ambient: 0.6,
+                hemi: 0.7
             },
             outdoor: {
                 bg: new THREE.Color(0x87CEEB),
@@ -1250,7 +1250,7 @@
         }
 
         // Set initial environment
-        scene.background = new THREE.Color(0x0a0a0a);
+        scene.background = new THREE.Color(0xffffff);
 
         // Loader
         const loader = new GLTFLoader();
