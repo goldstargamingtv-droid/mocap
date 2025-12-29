@@ -104,7 +104,7 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="dns-prefetch" href="https://js.stripe.com">
     <link rel="dns-prefetch" href="https://api.stripe.com">
-    <link rel="preconnect" href="https://ekzablbemepokrcitvco.supabase.co">
+    <link rel="preconnect" href="https://ekzablbemeponkrcitco.supabase.co">
     
     <style>
         * {
@@ -1430,12 +1430,6 @@
             margin-top: 6px;
             margin-bottom: 8px;
             backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-        
-        .trust-badge:hover {
-            border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         .trust-badge svg {
@@ -1459,15 +1453,6 @@
             50% {
                 transform: scale(1.02);
             }
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            justify-content: center;
-            font-size: 13px;
-            color: var(--text-muted);
-            flex-wrap: wrap;
         }
 
         /* Hero Preview Carousel - 3 GIFs with Center Focus */
@@ -1510,7 +1495,7 @@
 
         /* Position classes for smooth transitions */
         .carousel-item.pos-far-left {
-            left: 5%;
+            left: 18%;
             width: 130px;
             height: 160px;
             opacity: 0.4;
@@ -1519,7 +1504,7 @@
         }
 
         .carousel-item.pos-left {
-            left: 27%;
+            left: 32%;
             width: 130px;
             height: 160px;
             opacity: 0.4;
@@ -1540,7 +1525,7 @@
         }
 
         .carousel-item.pos-right {
-            left: 73%;
+            left: 68%;
             width: 130px;
             height: 160px;
             opacity: 0.4;
@@ -1549,12 +1534,30 @@
         }
 
         .carousel-item.pos-far-right {
-            left: 95%;
+            left: 82%;
             width: 130px;
             height: 160px;
             opacity: 0.4;
             transform: translateX(-50%) translateY(-50%) scale(0.8) translateZ(-150px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .carousel-item.pos-hidden-left {
+            left: 5%;
+            width: 130px;
+            height: 160px;
+            opacity: 0;
+            transform: translateX(-50%) translateY(-50%) scale(0.6) translateZ(-200px);
+            pointer-events: none;
+        }
+
+        .carousel-item.pos-hidden-right {
+            left: 95%;
+            width: 130px;
+            height: 160px;
+            opacity: 0;
+            transform: translateX(-50%) translateY(-50%) scale(0.6) translateZ(-200px);
+            pointer-events: none;
         }
 
         /* Hover states */
@@ -1610,6 +1613,25 @@
         .carousel-placeholder-subtext {
             font-size: 9px;
             color: var(--text-muted);
+        }
+        
+        .carousel-gif-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(245, 158, 11, 0.1));
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        
+        .carousel-play-icon {
+            font-size: 48px;
+            color: var(--teal);
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
         }
 
         /* Carousel Overlay Label */
@@ -1716,16 +1738,6 @@
                 margin-top: 4px;
                 font-size: 10px;
             }
-            
-            .hero-stats {
-                gap: 32px;
-                font-size: 12px;
-            }
-            
-            .stat-icon svg {
-                width: 16px;
-                height: 16px;
-            }
         }
 
         .platform-logos {
@@ -1751,46 +1763,6 @@
         .platform-logo:hover {
             opacity: 1;
             transform: translateY(-4px);
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .stat-icon {
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .stat-icon svg {
-            width: 16px;
-            height: 16px;
-            fill: var(--teal);
-            filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6));
-            animation: iconPulse 3s ease-in-out infinite;
-        }
-
-        @keyframes iconPulse {
-            0%, 100% {
-                filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.6));
-                transform: scale(1);
-            }
-            50% {
-                filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.8));
-                transform: scale(1.05);
-            }
-        }
-
-        .stat-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
         }
 
         .scroll-indicator {
@@ -1849,20 +1821,36 @@
             max-width: 900px;
             margin: 0 auto 40px;
             padding: 16px 32px;
-            background: linear-gradient(135deg, rgba(100, 116, 139, 0.15), rgba(71, 85, 105, 0.15));
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            border-radius: 50px;
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(245, 158, 11, 0.2);
+            border-radius: 16px;
             text-align: center;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(245, 158, 11, 0.1),
+                0 0 40px rgba(245, 158, 11, 0.05);
             animation: fadeInDown 0.6s ease 0.2s backwards;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.1), transparent);
+            animation: shine 4s infinite;
         }
         
         .premium-banner:hover {
-            border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            border-color: rgba(245, 158, 11, 0.4);
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
         }
 
         .premium-banner-text {
@@ -1871,6 +1859,8 @@
             color: #FFFFFF;
             letter-spacing: 0.3px;
             text-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes fadeInUp {
@@ -2572,11 +2562,11 @@
             background: rgba(10, 10, 10, 0.5);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            padding: 28px;
+            padding: 0;
             border-radius: 16px;
             border: 2px solid rgba(0, 212, 255, 0.2);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
                 inset 0 1px 1px rgba(0, 212, 255, 0.1),
@@ -2584,11 +2574,66 @@
         }
         
         .faq-item:hover {
-            transform: translateY(-8px);
             border-color: var(--teal);
-            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6), 
-                        0 0 40px rgba(0, 212, 255, 0.25),
-                        0 0 20px rgba(245, 158, 11, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 
+                        0 0 30px rgba(0, 212, 255, 0.15);
+        }
+        
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 28px;
+            cursor: pointer;
+            gap: 16px;
+        }
+        
+        .faq-question h3 {
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            color: var(--teal);
+            margin: 0;
+            flex: 1;
+        }
+        
+        .faq-arrow {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .faq-arrow svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--teal);
+            stroke-width: 2;
+            fill: none;
+        }
+        
+        .faq-item.open .faq-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+        }
+        
+        .faq-answer p {
+            padding: 0 28px 24px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin: 0;
+        }
+        
+        .faq-item.open .faq-answer {
+            max-height: 500px;
         }
         
         .card-checkbox {
@@ -2670,28 +2715,73 @@
             overflow: hidden;
             background: linear-gradient(135deg, rgba(0, 212, 255, 0.08), rgba(245, 158, 11, 0.08));
         }
+        
+        .gif-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(245, 158, 11, 0.05));
+            cursor: pointer;
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(245, 158, 11, 0.05));
+            cursor: pointer;
+        }
+        
+        .gif-placeholder-icon {
+            font-size: 36px;
+            color: var(--teal);
+            margin-bottom: 8px;
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+            transition: transform 0.3s ease;
+        }
+        
+        .animation-card:hover .gif-placeholder-icon {
+            transform: scale(1.1);
+        }
+        
+        .gif-placeholder-text {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
 
         .card-thumbnail img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.4s ease;
         }
 
         .animation-card:hover .card-thumbnail img {
-            transform: scale(1.1);
+            transform: scale(1.03);
         }
 
         /* Icon badges - below GIF, above title */
         .icon-badge {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
             cursor: help;
+        }
+        
+        .icon-badge svg {
+            width: 16px;
+            height: 16px;
         }
         
         .icon-badge:hover {
@@ -2701,69 +2791,150 @@
         .icon-badge-popular {
             background: rgba(245, 158, 11, 0.15);
             color: var(--amber);
-            border: 2px solid rgba(245, 158, 11, 0.4);
+            border: 1px solid rgba(245, 158, 11, 0.4);
             box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
         }
         
         .icon-badge-sale {
             background: rgba(34, 197, 94, 0.15);
             color: #10B981;
-            border: 2px solid rgba(34, 197, 94, 0.4);
+            border: 1px solid rgba(34, 197, 94, 0.4);
             box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
         }
         
         .icon-badge-holiday {
             background: rgba(239, 68, 68, 0.15);
             color: #EF4444;
-            border: 2px solid rgba(239, 68, 68, 0.4);
+            border: 1px solid rgba(239, 68, 68, 0.4);
             box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
         }
 
         .card-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(20, 20, 20, 0.75);
-            backdrop-filter: blur(6px);
+            display: none; /* Overlay removed - buttons moved to bottom */
+        }
+
+        /* New Card Actions Layout */
+        .card-actions {
+            padding: 0 16px 16px;
+        }
+        
+        .card-actions-row {
             display: flex;
-            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .card-actions-row:last-child {
+            margin-bottom: 0;
+        }
+        
+        .card-btn {
+            flex: 1;
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 16px;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .animation-card:hover .card-overlay {
-            opacity: 1;
-        }
-
-        .quick-preview-btn {
-            padding: 12px 28px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            gap: 6px;
+            padding: 8px 12px;
             border-radius: 50px;
-            color: var(--teal);
+            font-size: 12px;
             font-weight: 600;
             cursor: pointer;
-            font-size: 15px;
             transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
         }
-
-        .quick-preview-btn:hover {
+        
+        .card-btn svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+        
+        .card-btn-details {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-primary);
+        }
+        
+        .card-btn-details:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .card-btn-details svg {
+            stroke: currentColor;
+            fill: none;
+        }
+        
+        .card-btn-3d {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: var(--amber);
+        }
+        
+        .card-btn-3d:hover {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: var(--amber);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        .card-btn-3d svg {
+            stroke: currentColor;
+            fill: none;
+        }
+        
+        .card-btn-buy {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #10B981;
+            font-weight: 700;
+            padding: 12px 16px;
+            font-size: 14px;
+        }
+        
+        .card-btn-buy svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+        }
+        
+        .card-btn-buy:hover {
+            background: rgba(16, 185, 129, 0.25);
+            border-color: #10B981;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+        
+        .card-btn-cart {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            color: var(--teal);
+            font-weight: 700;
+            padding: 12px 16px;
+            font-size: 14px;
+        }
+        
+        .card-btn-cart svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+        }
+        
+        .card-btn-cart:hover {
             background: rgba(0, 212, 255, 0.2);
             border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
         }
 
         .card-content {
-            padding: 24px;
+            padding: 16px 16px 12px;
         }
 
         .card-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 14px;
+            margin-bottom: 10px;
             transition: color 0.3s ease;
             font-family: 'Sora', sans-serif;
             color: var(--text-white);
@@ -2777,7 +2948,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
         
         .card-badges {
@@ -2803,8 +2974,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 16px;
-            border-top: 2px solid rgba(0, 212, 255, 0.1);
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
         }
 
         .card-duration {
@@ -3122,8 +3293,8 @@
             align-items: center;
             justify-content: space-between;
             gap: 24px;
-            margin: 40px auto;
-            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
             position: relative;
             overflow: hidden;
             box-shadow: 
@@ -3221,8 +3392,6 @@
             border-radius: 20px;
             padding: 48px 40px;
             text-align: center;
-            margin: 60px auto;
-            max-width: 900px;
             position: relative;
             overflow: hidden;
             box-shadow: 
@@ -3232,19 +3401,7 @@
         }
         
         .cta-banner::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(245, 158, 11, 0.05) 0%, transparent 70%);
-            animation: rotateBg 20s linear infinite;
-        }
-        
-        @keyframes rotateBg {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            display: none;
         }
         
         .cta-banner-content {
@@ -3287,6 +3444,10 @@
             position: relative;
         }
         
+        .social-proof-ticker:hover .ticker-track {
+            animation-play-state: paused;
+        }
+        
         .ticker-track {
             display: flex;
             animation: ticker 30s linear infinite;
@@ -3317,6 +3478,97 @@
             height: 6px;
             background: #F59E0B;
             border-radius: 50%;
+        }
+
+        /* CTA Strip Banner */
+        .cta-strip-banner {
+            background: rgba(10, 10, 10, 0.5);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.15);
+            padding: 20px 0;
+            position: relative;
+            width: 100%;
+        }
+        
+        .cta-strip-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .cta-strip-icon {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .cta-animated-icon {
+            width: 28px;
+            height: 28px;
+            stroke: #F59E0B;
+            filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.4));
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: drawIconLoop 3s ease-in-out infinite;
+        }
+        
+        @keyframes drawIconLoop {
+            0% {
+                stroke-dashoffset: 100;
+                filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.4));
+            }
+            40% {
+                stroke-dashoffset: 0;
+                filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.6));
+            }
+            60% {
+                stroke-dashoffset: 0;
+                filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.8));
+            }
+            100% {
+                stroke-dashoffset: 100;
+                filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.4));
+            }
+        }
+        
+        .cta-strip-content .cta-strip-icon:nth-child(4) .cta-animated-icon {
+            animation-delay: 0.4s;
+        }
+        
+        .cta-strip-content .cta-strip-icon:nth-child(7) .cta-animated-icon {
+            animation-delay: 0.8s;
+        }
+        
+        .cta-strip-content .cta-strip-icon:nth-child(10) .cta-animated-icon {
+            animation-delay: 1.2s;
+        }
+        
+        .cta-strip-content .cta-strip-icon:nth-child(13) .cta-animated-icon {
+            animation-delay: 1.6s;
+        }
+        
+        .cta-strip-text {
+            color: var(--text-secondary);
+            font-size: 15px;
+            font-weight: 500;
+        }
+        
+        .cta-strip-text strong {
+            color: #FBBF24;
+            font-weight: 700;
+        }
+        
+        .cta-strip-divider {
+            color: rgba(0, 212, 255, 0.4);
+            font-size: 20px;
         }
 
         /* Stats Counter Section */
@@ -3366,20 +3618,38 @@
             right: -300px;
             top: 50%;
             transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            border-radius: 16px 0 0 16px;
+            padding: 24px;
+            width: 280px;
+            z-index: 9999;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .floating-side-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             background: rgba(10, 10, 10, 0.3);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
             border: 2px solid rgba(0, 212, 255, 0.2);
             border-right: none;
             border-radius: 16px 0 0 16px;
-            padding: 24px;
-            width: 280px;
-            z-index: 9999;
-            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
             box-shadow: 
                 -4px 0 24px rgba(0, 0, 0, 0.4),
                 inset 1px 0 1px rgba(0, 212, 255, 0.1),
                 -20px 0 40px rgba(0, 212, 255, 0.05);
+        }
+        
+        .floating-side-cta > *:not(.floating-side-cta-toggle):not(.floating-side-cta-close) {
+            position: relative;
+            z-index: 2;
         }
         
         .floating-side-cta.show {
@@ -3388,15 +3658,15 @@
         
         .floating-side-cta-toggle {
             position: absolute;
-            left: -57px;
+            left: -47px;
             top: 50%;
             transform: translateY(-50%);
-            width: 22px;
+            width: 49px;
             height: 120px;
             background: rgba(10, 10, 10, 0.3);
             backdrop-filter: blur(20px) saturate(180%);
             -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 2px solid rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(0, 212, 255, 0.2);
             border-right: none;
             border-radius: 12px 0 0 12px;
             cursor: pointer;
@@ -3411,12 +3681,52 @@
             font-size: 14px;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            box-shadow: -4px 0 20px rgba(245, 158, 11, 0.2);
+            box-shadow: -4px 0 20px rgba(0, 212, 255, 0.15);
+            animation: offersPulse 2s ease-in-out infinite;
+            padding-right: 25px;
+            z-index: -1;
+        }
+        
+        @keyframes offersPulse {
+            0%, 100% {
+                box-shadow: -4px 0 20px rgba(0, 212, 255, 0.15);
+            }
+            50% {
+                box-shadow: -4px 0 30px rgba(0, 212, 255, 0.3);
+            }
         }
         
         .floating-side-cta-toggle:hover {
-            box-shadow: -4px 0 30px rgba(245, 158, 11, 0.4);
+            box-shadow: -4px 0 35px rgba(0, 212, 255, 0.4);
             background: rgba(10, 10, 10, 0.4);
+            animation: none;
+        }
+        
+        .floating-side-cta-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            left: auto;
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+            opacity: 0.6;
+            z-index: 10;
+        }
+        
+        .floating-side-cta-close:hover {
+            opacity: 1;
+            color: #F59E0B;
+            background: rgba(245, 158, 11, 0.1);
         }
         
         .floating-side-cta h4 {
@@ -3915,10 +4225,6 @@
             
             #userMenu a {
                 white-space: nowrap;
-            }
-
-            .hero-stats {
-                gap: 32px;
             }
 
             .footer-brand {
@@ -5271,8 +5577,8 @@
                         </div>
                     </div>
 
-                    <!-- Center Item (Featured) - Item 3 -->
-                    <div class="carousel-item center" data-index="2">
+                    <!-- Item 3 -->
+                    <div class="carousel-item side" data-index="2">
                         <div class="carousel-item-content">
                             <div class="carousel-placeholder">
                                 <div class="carousel-placeholder-icon">🤸</div>
@@ -5285,8 +5591,8 @@
                         </div>
                     </div>
 
-                    <!-- Item 4 -->
-                    <div class="carousel-item side" data-index="3">
+                    <!-- Item 4 (Center) -->
+                    <div class="carousel-item center" data-index="3">
                         <div class="carousel-item-content">
                             <div class="carousel-placeholder">
                                 <div class="carousel-placeholder-icon">🧗</div>
@@ -5312,15 +5618,45 @@
                             <div class="carousel-overlay-text">Motion Capture Preview</div>
                         </div>
                     </div>
+
+                    <!-- Item 6 -->
+                    <div class="carousel-item side" data-index="5">
+                        <div class="carousel-item-content">
+                            <div class="carousel-placeholder">
+                                <div class="carousel-placeholder-icon">💃</div>
+                                <div class="carousel-placeholder-text">Dance Pack</div>
+                                <div class="carousel-placeholder-subtext">15 animations</div>
+                            </div>
+                        </div>
+                        <div class="carousel-overlay">
+                            <div class="carousel-overlay-text">Motion Capture Preview</div>
+                        </div>
+                    </div>
+
+                    <!-- Item 7 -->
+                    <div class="carousel-item side" data-index="6">
+                        <div class="carousel-item-content">
+                            <div class="carousel-placeholder">
+                                <div class="carousel-placeholder-icon">🧘</div>
+                                <div class="carousel-placeholder-text">Idle Pack</div>
+                                <div class="carousel-placeholder-subtext">10 animations</div>
+                            </div>
+                        </div>
+                        <div class="carousel-overlay">
+                            <div class="carousel-overlay-text">Motion Capture Preview</div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Navigation Dots -->
                 <div class="carousel-dots">
                     <div class="carousel-dot" data-index="0"></div>
                     <div class="carousel-dot" data-index="1"></div>
-                    <div class="carousel-dot active" data-index="2"></div>
-                    <div class="carousel-dot" data-index="3"></div>
+                    <div class="carousel-dot" data-index="2"></div>
+                    <div class="carousel-dot active" data-index="3"></div>
                     <div class="carousel-dot" data-index="4"></div>
+                    <div class="carousel-dot" data-index="5"></div>
+                    <div class="carousel-dot" data-index="6"></div>
                 </div>
             </div>
 
@@ -5329,10 +5665,21 @@
                 Premium Motion Capture Library
             </div>
             
+            <!-- Trust Badge (moved under hero badge) -->
             <h1 class="hero-title font-sora">
                 <span style="color: var(--text-white);">Professional</span> <span class="gradient-text animated-gradient">Motion</span><br>
                 <span class="gradient-text animated-gradient">Capture</span> <span style="color: var(--text-white);">Animations</span>
             </h1>
+            
+            <!-- Trust Badge -->
+            <div class="trust-badge" style="pointer-events: none;">
+                <svg viewBox="0 0 24 24" fill="none" style="width: 16px; height: 16px; margin-right: 6px;">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                </svg>
+                <span style="font-weight: 600;">100+ Professional Animations</span>
+                <span style="margin: 0 8px; opacity: 0.5;">•</span>
+                <span>Instant download with <span style="color: var(--amber); font-weight: 600;">royalty-free</span> licenses</span>
+            </div>
             
             <p class="hero-subtitle">
                 <span class="hero-subtitle-buy-gradient">Buy premium motion capture animations</span><br>
@@ -5347,16 +5694,6 @@
                 <img src="blender-white.svg" alt="Blender" class="platform-logo">
             </div>
             
-            <!-- Trust Badge (moved above buttons) -->
-            <div class="trust-badge">
-                <svg viewBox="0 0 24 24" fill="none" style="width: 16px; height: 16px; margin-right: 6px;">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
-                </svg>
-                <span style="font-weight: 600;">100+ Professional Animations</span>
-                <span style="margin: 0 8px; opacity: 0.5;">•</span>
-                <span>Instant download with <span style="color: var(--amber); font-weight: 600;">royalty-free</span> licenses</span>
-            </div>
-            
             <div class="hero-buttons">
                 <a href="#library" class="btn-secondary btn-primary-cta" style="padding: 12px 28px; font-size: 15px; position: relative;">
                     📚 Browse Library
@@ -5366,68 +5703,66 @@
                     ✨ Get Started Free
                 </a>
             </div>
-
-
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <!-- Film Reel Icon for Exclusive Rights -->
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
-                            <circle cx="7" cy="8" r="1.5" fill="currentColor"/>
-                            <circle cx="7" cy="16" r="1.5" fill="currentColor"/>
-                            <circle cx="17" cy="8" r="1.5" fill="currentColor"/>
-                            <circle cx="17" cy="16" r="1.5" fill="currentColor"/>
-                            <line x1="10" y1="4" x2="10" y2="20" stroke="currentColor" stroke-width="2"/>
-                            <line x1="14" y1="4" x2="14" y2="20" stroke="currentColor" stroke-width="2"/>
+            
+            <!-- CTA Strip Banner -->
+            <div class="cta-strip-banner" style="margin: 24px auto 4px; border-radius: 16px; max-width: 1400px; width: calc(100% - 40px);">
+                <div class="cta-strip-content">
+                    <div class="cta-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                         </svg>
                     </div>
-                    <span>Exclusive Rights</span>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <!-- Diamond/Sparkle Icon for Studio Quality -->
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                    <div class="cta-strip-text">
+                        <strong>Secure</strong> Checkout
+                    </div>
+                    <span class="cta-strip-divider">•</span>
+                    <div class="cta-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7,10 12,15 17,10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
                         </svg>
                     </div>
-                    <span>Studio Quality</span>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <!-- Lightning Download Icon for Instant Download -->
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" fill="currentColor"/>
+                    <div class="cta-strip-text">
+                        <strong>Instant</strong> Download
+                    </div>
+                    <span class="cta-strip-divider">•</span>
+                    <div class="cta-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                            <line x1="9" y1="9" x2="9.01" y2="9"/>
+                            <line x1="15" y1="9" x2="15.01" y2="9"/>
                         </svg>
                     </div>
-                    <span>Instant Download</span>
+                    <div class="cta-strip-text">
+                        <strong>100%</strong> Satisfaction
+                    </div>
+                    <span class="cta-strip-divider">•</span>
+                    <div class="cta-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <div class="cta-strip-text">
+                        <strong>Royalty-Free</strong> License
+                    </div>
+                    <span class="cta-strip-divider">•</span>
+                    <div class="cta-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22,4 12,14.01 9,11.01"/>
+                        </svg>
+                    </div>
+                    <div class="cta-strip-text">
+                        <strong>Professional</strong> Quality
+                    </div>
                 </div>
             </div>
 
         </div>
     </section>
-
-    <!-- Social Proof Ticker -->
-    <div class="social-proof-ticker">
-        <div class="ticker-track">
-            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Instant download</strong> after purchase</div>
-            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Royalty-free</strong> forever license</div>
-            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unreal Engine</strong></div>
-            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unity</strong></div>
-            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Blender</strong></div>
-            <div class="ticker-item"><span class="ticker-dot"></span> <strong>No subscription</strong> required</div>
-            <div class="ticker-item"><span class="ticker-dot"></span> <strong>FBX format</strong> included</div>
-            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Lifetime access</strong> to purchases</div>
-            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Instant download</strong> after purchase</div>
-            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Royalty-free</strong> forever license</div>
-            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unreal Engine</strong></div>
-            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unity</strong></div>
-            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Blender</strong></div>
-            <div class="ticker-item"><span class="ticker-dot"></span> <strong>No subscription</strong> required</div>
-            <div class="ticker-item"><span class="ticker-dot"></span> <strong>FBX format</strong> included</div>
-            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Lifetime access</strong> to purchases</div>
-        </div>
-    </div>
 
     <!-- Library Section -->
     <section id="library" class="library-section">
@@ -5440,8 +5775,8 @@
 
             <!-- Premium Teaser Banner -->
             <div class="premium-banner">
-                <div style="margin-bottom: 4px; font-size: 14px; font-weight: 700; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">🔥 Limited Time: New animations added weekly!</div>
-                <div class="premium-banner-text">✨ Premium Animations from $1 — Instant Download — Royalty-Free Forever — <span style="color: #F59E0B; font-weight: 700;">No Subscription</span></div>
+                <div style="margin-bottom: 4px; font-size: 14px; font-weight: 700; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; position: relative; z-index: 1;">🔥 Limited Time: New animations added weekly!</div>
+                <div class="premium-banner-text">✨ Premium Animations from $1 — Instant Download — Royalty-Free Forever<br><span style="color: #F59E0B; font-weight: 700;">No Subscription</span></div>
             </div>
 
             <!-- Ultra-Premium Filters Card -->
@@ -5606,40 +5941,54 @@
         </div>
     </section>
 
-    <!-- Features Section -->
-
     <!-- Rewards Coming Soon Banner -->
-    <div style="max-width: 1400px; margin: 0 auto; padding: 0 20px;">
-        <div class="rewards-banner">
-            <div class="rewards-banner-content">
-                <div class="rewards-banner-icon">🎁</div>
-                <div class="rewards-banner-text">
-                    <h3>MocapWork Rewards Program</h3>
-                    <p>Earn points on every purchase. Redeem for free animations, exclusive packs & more!</p>
-                </div>
+    <div class="rewards-banner" style="margin: 20px auto 0; max-width: 1400px; width: calc(100% - 40px); transform: translateY(-30px);">
+        <div class="rewards-banner-content">
+            <div class="rewards-banner-icon">🎁</div>
+            <div class="rewards-banner-text">
+                <h3>MocapWork Rewards Program</h3>
+                <p>Earn points on every purchase. Redeem for free animations, exclusive packs & more!</p>
             </div>
-            <div class="rewards-banner-badge">Coming Soon</div>
+        </div>
+        <div class="rewards-banner-badge">Coming Soon</div>
+    </div>
+
+    <!-- Social Proof Ticker - Full Width -->
+    <div class="social-proof-ticker" style="margin-top: 20px;">
+        <div class="ticker-track">
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Instant download</strong> after purchase</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Royalty-free</strong> forever license</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unreal Engine</strong></div>
+            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unity</strong></div>
+            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Blender</strong></div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>No subscription</strong> required</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>FBX format</strong> included</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Lifetime access</strong> to purchases</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Instant download</strong> after purchase</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Royalty-free</strong> forever license</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unreal Engine</strong></div>
+            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unity</strong></div>
+            <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Blender</strong></div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>No subscription</strong> required</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>FBX format</strong> included</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Lifetime access</strong> to purchases</div>
         </div>
     </div>
 
-    <!-- Value Props Section -->
-    <div style="padding: 0 20px;">
-        <div class="stats-section">
-            <div class="stat-box">
-                <div class="stat-number">$1</div>
-                <div class="stat-label">Starting Price</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">FBX</div>
-                <div class="stat-label">Universal Format</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">∞</div>
-                <div class="stat-label">Lifetime Access</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number">0</div>
-                <div class="stat-label">Subscriptions Required</div>
+    <!-- Features Section -->
+
+    <!-- Can't Find What You Need CTA -->
+    <div class="cta-banner" style="margin: 60px auto; max-width: 1400px; width: calc(100% - 40px);">
+        <div class="cta-banner-content">
+            <h3><span style="color: white;">Can't Find the </span><span class="gradient-text animated-gradient">Perfect Animation</span><span style="color: white;">?</span></h3>
+            <p>Our professional mocap team can create custom animations tailored to your exact specifications. From unique character movements to specific action sequences.</p>
+            <div class="cta-banner-buttons">
+                <a href="#contact" class="btn btn-primary" style="padding: 14px 32px;">
+                    🎬 Request Custom Animation
+                </a>
+                <a href="#library" class="btn btn-secondary" style="padding: 14px 32px;">
+                    Browse Library
+                </a>
             </div>
         </div>
     </div>
@@ -5690,24 +6039,6 @@
             </div>
         </div>
     </section>
-
-    <!-- Can't Find What You Need CTA -->
-    <div style="padding: 0 20px;">
-        <div class="cta-banner">
-            <div class="cta-banner-content">
-                <h3><span style="color: white;">Can't Find the </span><span class="gradient-text animated-gradient">Perfect Animation</span><span style="color: white;">?</span></h3>
-                <p>Our professional mocap team can create custom animations tailored to your exact specifications. From unique character movements to specific action sequences.</p>
-                <div class="cta-banner-buttons">
-                    <a href="#contact" class="btn btn-primary" style="padding: 14px 32px;">
-                        🎬 Request Custom Animation
-                    </a>
-                    <a href="#library" class="btn btn-secondary" style="padding: 14px 32px;">
-                        Browse Library
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Custom Request Section -->
     <section class="custom-request-section" id="contact">
@@ -5788,49 +6119,8 @@
         </div>
     </section>
 
-    <!-- Trust Badges -->
-    <div class="trust-badges-row">
-        <div class="trust-badge-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-            <span>Secure Checkout</span>
-        </div>
-        <div class="trust-badge-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7,10 12,15 17,10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            <span>Instant Download</span>
-        </div>
-        <div class="trust-badge-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                <line x1="9" y1="9" x2="9.01" y2="9"/>
-                <line x1="15" y1="9" x2="15.01" y2="9"/>
-            </svg>
-            <span>100% Satisfaction</span>
-        </div>
-        <div class="trust-badge-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-            </svg>
-            <span>Royalty-Free License</span>
-        </div>
-        <div class="trust-badge-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22,4 12,14.01 9,11.01"/>
-            </svg>
-            <span>Professional Quality</span>
-        </div>
-    </div>
-
     <!-- FAQ Section -->
-    <section id="faq" style="background: transparent; padding: 100px 20px; position: relative; z-index: 1;">
+    <section id="faq" style="background: transparent; padding: 100px 20px; position: relative; z-index: 1; border-top: 2px solid rgba(0, 212, 255, 0.1);">
         <div style="max-width: 900px; margin: 0 auto;">
             <div style="text-align: center; margin-bottom: 60px;">
                 <h2 style="font-size: 42px; font-weight: 900; font-family: 'Sora', sans-serif; color: var(--text-white); margin-bottom: 16px;">
@@ -5841,113 +6131,160 @@
                 </p>
             </div>
             
-            <div style="display: flex; flex-direction: column; gap: 24px;">
+            <div style="display: flex; flex-direction: column; gap: 16px;">
                 <!-- FAQ Item 1 -->
-                <div class="faq-item">
-                    <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
-                        What is motion capture and how does it work?
-                    </h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8;">
-                        Motion capture (mocap) is the process of recording real human movement and translating it into digital 3D animation data. 
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <h3>What is motion capture and how does it work?</h3>
+                        <div class="faq-arrow">
+                            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Motion capture (mocap) is the process of recording real human movement and translating it into digital 3D animation data. 
                         Our professional motion capture animations are recorded in a studio using advanced mocap technology, then cleaned and optimized for use in 
-                        game engines like Unreal Engine and Unity, as well as 3D software like Blender, Maya, and 3ds Max.
-                    </p>
+                        game engines like Unreal Engine and Unity, as well as 3D software like Blender, Maya, and 3ds Max.</p>
+                    </div>
                 </div>
                 
                 <!-- FAQ Item 2 -->
-                <div class="faq-item">
-                    <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
-                        What file formats do your mocap animations come in?
-                    </h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8;">
-                        All motion capture animations are provided in industry-standard FBX format, which is compatible with Unreal Engine, Unity, Blender, Maya, 
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <h3>What file formats do your mocap animations come in?</h3>
+                        <div class="faq-arrow">
+                            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>All motion capture animations are provided in industry-standard FBX format, which is compatible with Unreal Engine, Unity, Blender, Maya, 
                         3ds Max, Cinema 4D, and virtually all major 3D software and game engines. Each mocap asset includes clean, optimized animation data 
-                        ready for immediate use in your projects.
-                    </p>
+                        ready for immediate use in your projects.</p>
+                    </div>
                 </div>
                 
                 <!-- FAQ Item 3 -->
-                <div class="faq-item">
-                    <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
-                        Can I use these motion capture animations in commercial projects?
-                    </h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8;">
-                        Yes! When you buy mocap animations from MocapWork, you receive a royalty-free license for commercial use. 
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <h3>Can I use these motion capture animations in commercial projects?</h3>
+                        <div class="faq-arrow">
+                            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! When you buy mocap animations from MocapWork, you receive a royalty-free license for commercial use. 
                         Use our professional motion capture in video games, films, commercials, virtual production, and any other commercial projects 
-                        without additional fees or royalties. Perfect for game development studios, independent filmmakers, and 3D artists.
-                    </p>
+                        without additional fees or royalties. Perfect for game development studios, independent filmmakers, and 3D artists.</p>
+                    </div>
                 </div>
                 
                 <!-- FAQ Item 4 -->
-                <div class="faq-item">
-                    <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
-                        How do I use motion capture animations in Unreal Engine?
-                    </h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8;">
-                        Using our mocap animations in Unreal Engine is simple: 
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <h3>How do I use motion capture animations in Unreal Engine?</h3>
+                        <div class="faq-arrow">
+                            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Using our mocap animations in Unreal Engine is simple: 
                         1) Download your purchased motion capture files, 
                         2) Import the FBX file into your Unreal Engine project, 
                         3) Retarget the animation to your character skeleton, 
                         4) Start using the mocap in your game. 
-                        Our animations are compatible with Unreal Engine 4 and Unreal Engine 5, including MetaHuman characters.
-                    </p>
+                        Our animations are compatible with Unreal Engine 4 and Unreal Engine 5, including MetaHuman characters.</p>
+                    </div>
                 </div>
                 
                 <!-- FAQ Item 5 -->
-                <div class="faq-item">
-                    <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
-                        Are Unity mocap assets compatible with Unity?
-                    </h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8;">
-                        Absolutely! Our motion capture animations work perfectly with Unity. Simply import the FBX file into your Unity project, 
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <h3>Are Unity mocap assets compatible with Unity?</h3>
+                        <div class="faq-arrow">
+                            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! Our motion capture animations work perfectly with Unity. Simply import the FBX file into your Unity project, 
                         and the mocap will be ready to use with your humanoid characters. Our Unity mocap assets are compatible with Unity's Mecanim animation system 
-                        and work with all Unity versions. Perfect for Unity game development, VR projects, and real-time applications.
-                    </p>
+                        and work with all Unity versions. Perfect for Unity game development, VR projects, and real-time applications.</p>
+                    </div>
                 </div>
                 
                 <!-- FAQ Item 6 -->
-                <div class="faq-item">
-                    <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
-                        Do I need a subscription to buy mocap animations?
-                    </h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8;">
-                        No subscription required! Buy motion capture animations individually as you need them. 
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <h3>Do I need a subscription to buy mocap animations?</h3>
+                        <div class="faq-arrow">
+                            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No subscription required! Buy motion capture animations individually as you need them. 
                         Each purchase gives you lifetime access to download and re-download your mocap files from your personal dashboard. 
-                        No monthly fees, no hidden costs—just affordable, professional motion capture animations from $1.
-                    </p>
+                        No monthly fees, no hidden costs—just affordable, professional motion capture animations from $1.</p>
+                    </div>
                 </div>
                 
                 <!-- FAQ Item 7 -->
-                <div class="faq-item">
-                    <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
-                        What types of mocap animations do you offer?
-                    </h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8;">
-                        Our motion capture library includes fighting animations, walking cycles, running animations, idle poses, combat moves, 
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <h3>What types of mocap animations do you offer?</h3>
+                        <div class="faq-arrow">
+                            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our motion capture library includes fighting animations, walking cycles, running animations, idle poses, combat moves, 
                         dance mocap, sports movements, everyday actions, and character interactions. 
                         All professional motion capture for game development, film production, and 3D animation projects. 
-                        New mocap animations added regularly to expand our library.
-                    </p>
+                        New mocap animations added regularly to expand our library.</p>
+                    </div>
                 </div>
                 
                 <!-- FAQ Item 8 -->
-                <div class="faq-item">
-                    <h3 style="font-size: 20px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px; color: var(--teal);">
-                        Can I request custom motion capture animations?
-                    </h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8;">
-                        Yes! We offer custom motion capture services for game developers and studios who need specific animations. 
+                <div class="faq-item" onclick="toggleFaq(this)">
+                    <div class="faq-question">
+                        <h3>Can I request custom motion capture animations?</h3>
+                        <div class="faq-arrow">
+                            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! We offer custom motion capture services for game developers and studios who need specific animations. 
                         Fill out our custom request form below with your requirements, and our motion capture team will provide a quote. 
-                        Custom mocap is perfect for unique character movements, specialized actions, or project-specific animation needs.
-                    </p>
+                        Custom mocap is perfect for unique character movements, specialized actions, or project-specific animation needs.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
+    <!-- Final CTA Banner -->
+    <div style="background: transparent; padding: 60px 20px; text-align: center; border-top: 1px solid rgba(0, 212, 255, 0.1);">
+        <h2 style="font-family: 'Sora', sans-serif; font-size: 36px; font-weight: 800; margin-bottom: 16px;">
+            <span style="color: white;">Ready to </span><span class="gradient-text animated-gradient">Elevate Your Project</span><span style="color: white;">?</span>
+        </h2>
+        <p style="color: var(--text-secondary); font-size: 18px; max-width: 600px; margin: 0 auto 24px;">
+            Join thousands of game developers, filmmakers, and 3D artists who trust MocapWork for professional motion capture animations.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <a href="#library" class="btn btn-primary" style="padding: 16px 40px; font-size: 16px;">
+                🚀 Start Browsing Now
+            </a>
+            <a href="#" onclick="showAuthModal('signup'); return false;" class="btn btn-secondary" style="padding: 16px 40px; font-size: 16px;">
+                Create Free Account
+            </a>
+        </div>
+        <p style="color: var(--text-muted); font-size: 13px; margin-top: 20px;">
+            ✨ No subscription required • Pay only for what you need • Lifetime access to purchases
+        </p>
+    </div>
+
+    </main>
+
     <!-- Why Choose MocapWork -->
-    <section style="background: var(--bg-secondary); padding: 80px 20px; border-top: 2px solid rgba(0, 212, 255, 0.1);">
+    <section style="background: rgba(10, 10, 10, 0.8); padding: 80px 20px; border-top: 2px solid rgba(0, 212, 255, 0.1);">
         <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
             <h2 style="font-size: 42px; font-weight: 900; font-family: 'Sora', sans-serif; margin-bottom: 20px;">
                 <span style="color: white;">Why Choose Mocap</span><span class="gradient-text animated-gradient">Work</span> <span style="color: white;">for</span> <span class="gradient-text animated-gradient">Motion Capture</span><span style="color: white;">?</span>
@@ -5988,29 +6325,6 @@
             </div>
         </div>
     </section>
-
-    </main>
-
-    <!-- Final CTA Banner -->
-    <div style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(255, 107, 107, 0.05)); padding: 60px 20px; text-align: center; border-top: 1px solid rgba(245, 158, 11, 0.2);">
-        <h2 style="font-family: 'Sora', sans-serif; font-size: 36px; font-weight: 800; margin-bottom: 16px;">
-            <span style="color: white;">Ready to </span><span class="gradient-text animated-gradient">Elevate Your Project</span><span style="color: white;">?</span>
-        </h2>
-        <p style="color: var(--text-secondary); font-size: 18px; max-width: 600px; margin: 0 auto 24px;">
-            Join thousands of game developers, filmmakers, and 3D artists who trust MocapWork for professional motion capture animations.
-        </p>
-        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-            <a href="#library" class="btn btn-primary" style="padding: 16px 40px; font-size: 16px;">
-                🚀 Start Browsing Now
-            </a>
-            <a href="#" onclick="showAuthModal('signup'); return false;" class="btn btn-secondary" style="padding: 16px 40px; font-size: 16px;">
-                Create Free Account
-            </a>
-        </div>
-        <p style="color: var(--text-muted); font-size: 13px; margin-top: 20px;">
-            ✨ No subscription required • Pay only for what you need • Lifetime access to purchases
-        </p>
-    </div>
 
     <footer class="footer">
         <div class="footer-grid">
@@ -6109,7 +6423,12 @@
             const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
             
             // Initialize Supabase client - make it global so carousel can access it
-            window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            // Realtime disabled to prevent unnecessary WebSocket connections
+            window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+                realtime: {
+                    enabled: false
+                }
+            });
             const supabaseClient = window.supabaseClient; // Keep local reference for this scope
             
             // Stripe Configuration
@@ -6686,10 +7005,37 @@
                 card.className = 'animation-card';
                 
                 let mediaElement = '';
-                if (anim.videoType === 'image/gif') {
-                    mediaElement = `<img src="${anim.video}" alt="${anim.title} - Professional motion capture animation for game development" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">`;
+                const hasThumbnail = anim.thumbnail && anim.thumbnail !== anim.video;
+                
+                if (anim.videoType === 'video/mp4') {
+                    // MP4 video - use video element
+                    if (hasThumbnail) {
+                        mediaElement = `
+                            <img src="${anim.thumbnail}" alt="${anim.title}" class="card-media-thumbnail" style="width: 100%; height: 100%; object-fit: cover;">
+                            <video src="${anim.video}" class="card-media-video" muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; display: none;"></video>
+                        `;
+                    } else {
+                        mediaElement = `
+                            <div class="video-placeholder" data-video="${anim.video}">
+                                <div class="gif-placeholder-icon">▶</div>
+                                <div class="gif-placeholder-text">Hover to preview</div>
+                            </div>
+                            <video src="${anim.video}" class="card-media-video" muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; display: none;"></video>
+                        `;
+                    }
+                } else if (anim.videoType === 'image/gif') {
+                    // GIF - use img element with hover loading
+                    if (hasThumbnail) {
+                        mediaElement = `<img src="${anim.thumbnail}" data-gif="${anim.video}" data-thumbnail="${anim.thumbnail}" alt="${anim.title}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" class="lazy-gif">`;
+                    } else {
+                        mediaElement = `<div class="gif-placeholder" data-gif="${anim.video}">
+                            <div class="gif-placeholder-icon">▶</div>
+                            <div class="gif-placeholder-text">Hover to preview</div>
+                        </div>`;
+                    }
                 } else {
-                    mediaElement = `<img src="${anim.thumbnail}" alt="${anim.title} - Motion capture animation thumbnail" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">`;
+                    // Static image
+                    mediaElement = `<img src="${anim.thumbnail || anim.video}" alt="${anim.title}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">`;
                 }
                 
                 card.innerHTML = `
@@ -6705,21 +7051,10 @@
                     </div>
                     <div class="card-thumbnail">
                         ${mediaElement}
-                        <div class="card-overlay">
-                            <a href="animation-detail.html?slug=${anim.slug}" class="quick-preview-btn" style="text-decoration: none;">View Details</a>
-                            <button class="viewer-3d-btn" onclick="event.preventDefault(); event.stopPropagation(); open3DViewer('${anim.glbFile || ''}', '${anim.title}')">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                                    <path d="M2 17l10 5 10-5"></path>
-                                    <path d="M2 12l10 5 10-5"></path>
-                                </svg>
-                                3D Viewer
-                            </button>
-                        </div>
                     </div>
                     <div class="card-content">
                             <!-- Icon badges below GIF, above title -->
-                            <div style="display: flex; gap: 8px; margin-bottom: 12px; min-height: 32px; align-items: center;">
+                            <div style="display: flex; gap: 8px; margin-bottom: 8px; min-height: 28px; align-items: center;">
                                 ${anim.popular ? `
                                     <div class="icon-badge icon-badge-popular" title="Popular">
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -6773,18 +7108,42 @@
                             </div>
                         </div>
                     </div>
-                    <div style="padding: 0 24px 24px;">
-                        <button class="buy-now-btn" onclick="event.stopPropagation(); handleBuyNow('${anim.id}', '${anim.title}', ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? (anim.price * (1 - anim.salePercentage / 100)).toFixed(2) : anim.price})">
-                            💳 Buy Now
-                        </button>
-                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); handleAddToCart('${anim.id}')">
-                            <svg class="icon" viewBox="0 0 24 24">
-                                <circle cx="9" cy="21" r="1"></circle>
-                                <circle cx="20" cy="21" r="1"></circle>
-                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                            </svg>
-                            Add to Cart
-                        </button>
+                    <div class="card-actions">
+                        <div class="card-actions-row">
+                            <a href="animation-detail.html?slug=${anim.slug}" class="card-btn card-btn-details" onclick="event.stopPropagation();">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                </svg>
+                                Details
+                            </a>
+                            <button class="card-btn card-btn-3d" onclick="event.preventDefault(); event.stopPropagation(); open3DViewer('${anim.glbFile || ''}', '${anim.title}')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                    <path d="M2 17l10 5 10-5"></path>
+                                    <path d="M2 12l10 5 10-5"></path>
+                                </svg>
+                                3D
+                            </button>
+                        </div>
+                        <div class="card-actions-row">
+                            <button class="card-btn card-btn-buy" onclick="event.stopPropagation(); handleBuyNow('${anim.id}', '${anim.title}', ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? (anim.price * (1 - anim.salePercentage / 100)).toFixed(2) : anim.price})">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                                </svg>
+                                Buy Now
+                            </button>
+                            <button class="card-btn card-btn-cart" onclick="event.stopPropagation(); handleAddToCart('${anim.id}')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="9" cy="21" r="1"></circle>
+                                    <circle cx="20" cy="21" r="1"></circle>
+                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                </svg>
+                                Add to Cart
+                            </button>
+                        </div>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -6798,10 +7157,91 @@
             document.getElementById('resultsCount').innerHTML = 
                 `Showing <strong>${Math.min(displayAnimations.length, filteredAnimations.length)}</strong> of <strong>${filteredAnimations.length}</strong> animations`;
             
-            // Initialize particle effects after cards render
-            if (typeof initCardParticles === 'function') {
-                initCardParticles();
-            }
+            // Initialize lazy GIF loading
+            initLazyGifs();
+        }
+        
+        // Hover-only media loading - GIFs and videos only play when hovered
+        function initLazyGifs() {
+            // Handle lazy-gif images (have separate thumbnail)
+            const lazyGifs = document.querySelectorAll('.lazy-gif');
+            lazyGifs.forEach(gif => {
+                const gifSrc = gif.dataset.gif;
+                const thumbnailSrc = gif.dataset.thumbnail;
+                
+                // Always show thumbnail by default
+                if (thumbnailSrc && gif.src !== thumbnailSrc) {
+                    gif.src = thumbnailSrc;
+                }
+                
+                // Get parent card for hover events
+                const card = gif.closest('.animation-card');
+                if (card && !card.dataset.gifHooked) {
+                    card.dataset.gifHooked = 'true';
+                    card.addEventListener('mouseenter', () => {
+                        if (gifSrc) {
+                            gif.src = gifSrc;
+                        }
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        if (thumbnailSrc) {
+                            gif.src = thumbnailSrc;
+                        }
+                    });
+                }
+            });
+            
+            // Handle gif-placeholder divs (no separate thumbnail for GIFs)
+            const gifPlaceholders = document.querySelectorAll('.gif-placeholder');
+            gifPlaceholders.forEach(placeholder => {
+                const gifSrc = placeholder.dataset.gif;
+                const card = placeholder.closest('.animation-card');
+                
+                if (card && !card.dataset.gifHooked) {
+                    card.dataset.gifHooked = 'true';
+                    
+                    card.addEventListener('mouseenter', () => {
+                        if (gifSrc) {
+                            placeholder.innerHTML = `<img src="${gifSrc}" alt="Animation preview" style="width: 100%; height: 100%; object-fit: cover;">`;
+                        }
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        placeholder.innerHTML = `
+                            <div class="gif-placeholder-icon">▶</div>
+                            <div class="gif-placeholder-text">Hover to preview</div>
+                        `;
+                    });
+                }
+            });
+            
+            // Handle MP4 videos - show thumbnail, play video on hover
+            const videoCards = document.querySelectorAll('.animation-card');
+            videoCards.forEach(card => {
+                const video = card.querySelector('.card-media-video');
+                const thumbnail = card.querySelector('.card-media-thumbnail');
+                const videoPlaceholder = card.querySelector('.video-placeholder');
+                
+                if (video && !card.dataset.videoHooked) {
+                    card.dataset.videoHooked = 'true';
+                    
+                    card.addEventListener('mouseenter', () => {
+                        if (thumbnail) thumbnail.style.display = 'none';
+                        if (videoPlaceholder) videoPlaceholder.style.display = 'none';
+                        video.style.display = 'block';
+                        video.currentTime = 0;
+                        video.play().catch(() => {}); // Ignore autoplay errors
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        video.pause();
+                        video.style.display = 'none';
+                        if (thumbnail) thumbnail.style.display = 'block';
+                        if (videoPlaceholder) videoPlaceholder.style.display = 'flex';
+                    });
+                }
+            });
         }
 
         // Filter function
@@ -7442,7 +7882,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                     <h2 class="modal-title">${anim.title}</h2>
                     <p class="modal-description">${anim.description || "Professional motion capture animation."}</p>
                     <div class="modal-price">$${anim.price}</div>
-                    <button class="buy-now-btn">💳 Buy Now - $${anim.price}</button>
+                    <button class="buy-now-btn"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" style="width:18px;height:18px;vertical-align:middle;margin-right:6px;"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>Buy Now - $${anim.price}</button>
                 </div>
             `;
             
@@ -9360,13 +9800,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
     // Make globally accessible
     window.closeThankYouModal = closeThankYouModal;
 
-            console.error('Error loading purchase:', error);
-            document.getElementById('thankYouLoading').style.display = 'none';
-            document.getElementById('thankYouError').style.display = 'block';
-            document.getElementById('thankYouErrorMessage').textContent = error.message || 'Unable to load purchase details. Please contact support.';
-        }
-    }
-
     // Check URL for payment success on page load
     window.addEventListener('load', function() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -9407,16 +9840,18 @@ Focus on diversity while matching user preferences. Prioritize animations the us
     <!-- Carousel Auto-Rotation Script -->
     <script>
         // Carousel state
-        let currentIndex = 2; // Start with 3rd item (index 2 - Acrobatic Pack)
+        let currentIndex = 3; // Start with 4th item (index 3) as center
         let carouselInterval;
         
-        // Carousel data (5 items) - will be loaded from database or use defaults
+        // Carousel data (7 items) - will be loaded from database or use defaults
         let carouselData = [
             { icon: '🏃', title: 'Running Pack', subtitle: '12 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
             { icon: '⚔️', title: 'Combat Pack', subtitle: '24 animations', label: 'Featured Animation', image_url: null, link_url: '' },
             { icon: '🤸', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
             { icon: '🧗', title: 'Climbing Pack', subtitle: '16 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
-            { icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' }
+            { icon: '🤾', title: 'Sports Pack', subtitle: '20 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
+            { icon: '💃', title: 'Dance Pack', subtitle: '15 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' },
+            { icon: '🧘', title: 'Idle Pack', subtitle: '10 animations', label: 'Motion Capture Preview', image_url: null, link_url: '' }
         ];
 
         // Load carousel data from database
@@ -9473,13 +9908,15 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                     console.log(`Item ${index}:`, data);
                     
                     if (placeholder) {
-                        // If image_url exists, use it; otherwise use icon
+                        // If image_url exists (GIF), show play icon - load on hover
                         if (data.image_url) {
-                            console.log(`Setting image for item ${index}:`, data.image_url);
+                            console.log(`Setting placeholder for item ${index}, GIF will load on hover`);
                             placeholder.innerHTML = `
-                                <img src="${data.image_url}" 
-                                     alt="${data.title}" 
-                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                                <div class="carousel-gif-placeholder" data-gif="${data.image_url}">
+                                    <div class="carousel-play-icon">▶</div>
+                                    <div class="carousel-placeholder-text">${data.title}</div>
+                                    <div class="carousel-placeholder-subtext">Hover to preview</div>
+                                </div>
                             `;
                         } else {
                             console.log(`Setting icon for item ${index}:`, data.icon);
@@ -9492,6 +9929,31 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                     } else {
                         console.log(`No placeholder found for item ${index}`);
                     }
+                    
+                    // Add hover listeners to load/unload GIF
+                    item.addEventListener('mouseenter', () => {
+                        const gifPlaceholder = item.querySelector('.carousel-gif-placeholder');
+                        if (gifPlaceholder) {
+                            const gifUrl = gifPlaceholder.dataset.gif;
+                            gifPlaceholder.innerHTML = `
+                                <img src="${gifUrl}" 
+                                     alt="${data.title}" 
+                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                            `;
+                        }
+                    });
+                    
+                    item.addEventListener('mouseleave', () => {
+                        const gifPlaceholder = item.querySelector('.carousel-gif-placeholder');
+                        if (gifPlaceholder && gifPlaceholder.querySelector('img')) {
+                            const gifUrl = gifPlaceholder.dataset.gif;
+                            gifPlaceholder.innerHTML = `
+                                <div class="carousel-play-icon">▶</div>
+                                <div class="carousel-placeholder-text">${data.title}</div>
+                                <div class="carousel-placeholder-subtext">Hover to preview</div>
+                            `;
+                        }
+                    });
                     
                     // Update overlay label
                     const overlayText = item.querySelector('.carousel-overlay-text');
@@ -9520,15 +9982,15 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             items.forEach((item, index) => {
                 const dataIndex = parseInt(item.getAttribute('data-index'));
                 
-                // Calculate offset from selected item (-2 to +2)
+                // Calculate offset from selected item (-3 to +3 for 7 items)
                 let offset = dataIndex - selectedIndex;
                 
-                // Wrap around to keep within -2 to +2 range
-                while (offset > 2) offset -= totalItems;
-                while (offset < -2) offset += totalItems;
+                // Wrap around to keep within -3 to +3 range
+                while (offset > 3) offset -= totalItems;
+                while (offset < -3) offset += totalItems;
                 
                 // Apply classes based on position
-                item.classList.remove('side', 'center', 'pos-far-left', 'pos-left', 'pos-center', 'pos-right', 'pos-far-right');
+                item.classList.remove('side', 'center', 'pos-far-left', 'pos-left', 'pos-center', 'pos-right', 'pos-far-right', 'pos-hidden-left', 'pos-hidden-right');
                 
                 if (offset === 0) {
                     // Center item
@@ -9538,10 +10000,12 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                     item.classList.add('side');
                     
                     // Add specific position class for smooth transitions
-                    if (offset === -2) item.classList.add('pos-far-left');
+                    if (offset === -3) item.classList.add('pos-hidden-left');
+                    else if (offset === -2) item.classList.add('pos-far-left');
                     else if (offset === -1) item.classList.add('pos-left');
                     else if (offset === 1) item.classList.add('pos-right');
                     else if (offset === 2) item.classList.add('pos-far-right');
+                    else if (offset === 3) item.classList.add('pos-hidden-right');
                 }
             });
 
@@ -9557,14 +10021,17 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         function startCarousel() {
             // Always clear any existing interval first
             clearInterval(carouselInterval);
+            const totalItems = document.querySelectorAll('.carousel-item').length;
             carouselInterval = setInterval(() => {
-                const nextIndex = (currentIndex + 1) % carouselData.length;
+                const nextIndex = (currentIndex + 1) % totalItems;
                 updateCarousel(nextIndex);
             }, 6000);
+            console.log('Carousel started, interval ID:', carouselInterval, 'total items:', totalItems);
         }
 
         function stopCarousel() {
             clearInterval(carouselInterval);
+            carouselInterval = null;
         }
         
         // Pause carousel when tab is inactive
@@ -9625,13 +10092,12 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                     stopCarousel();
                 });
                 carousel.addEventListener('mouseleave', () => {
-                    stopCarousel(); // Ensure fully stopped
-                    startCarousel(); // Then start fresh
+                    startCarousel();
                 });
             }
 
-            // Initialize to starting position (Acrobatic Pack - index 2)
-            updateCarousel(2);
+            // Initialize to starting position (center item)
+            updateCarousel(currentIndex);
             
             // Fade in carousel after everything is positioned
             setTimeout(() => {
@@ -9642,6 +10108,14 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             
             // Start auto-rotation
             startCarousel();
+            
+            // Safety: ensure carousel keeps running (restart every 30 seconds if stopped)
+            setInterval(() => {
+                if (!carouselInterval) {
+                    console.log('Carousel safety restart');
+                    startCarousel();
+                }
+            }, 30000);
         }
 
         // Initialize when DOM is ready
@@ -9687,15 +10161,9 @@ Focus on diversity while matching user preferences. Prioritize animations the us
     </script>
 
     <!-- ========================================== -->
-    <!-- SIMPLE ANIMATIONS - Particles + Hero Text -->
+    <!-- SIMPLE ANIMATIONS - Hero Text -->
     <!-- ========================================== -->
     <script>
-
-        // Add particle burst to cards when they're rendered
-        window.initCardParticles = function() {
-            // Particles disabled for performance
-            console.log(`✨ Card effects initialized`);
-        };
 
         // Initialize on page load
         window.addEventListener('DOMContentLoaded', () => {
@@ -9809,6 +10277,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
 
 <!-- Floating Side CTA -->
     <div class="floating-side-cta" id="floatingSideCta">
+        <button class="floating-side-cta-close" onclick="toggleFloatingCta()" aria-label="Close">×</button>
         <button class="floating-side-cta-toggle" onclick="toggleFloatingCta()">
             ✨ OFFERS
         </button>
@@ -9829,6 +10298,19 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         // Floating Side CTA
         let floatingCtaVisible = false;
         
+// FAQ Accordion Toggle
+        function toggleFaq(element) {
+            // Close all other FAQs
+            const allFaqs = document.querySelectorAll('.faq-item');
+            allFaqs.forEach(faq => {
+                if (faq !== element) {
+                    faq.classList.remove('open');
+                }
+            });
+            // Toggle clicked FAQ
+            element.classList.toggle('open');
+        }
+
         function toggleFloatingCta() {
             const cta = document.getElementById('floatingSideCta');
             floatingCtaVisible = !floatingCtaVisible;
