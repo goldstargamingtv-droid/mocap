@@ -1,9 +1,10 @@
 <!DOCTYPE html>
+<!-- VIEWER VERSION 2 - 2024 -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Model Viewer - MocapWork Style</title>
+    <title>3D Viewer V2 - MocapWork</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -566,34 +567,45 @@
     <div id="debug-log"></div>
 
     <script type="module">
+        // VERSION 2 - If you don't see this in console, clear cache!
+        console.log('=== VIEWER VERSION 2 ===');
+        console.log('Module script executing...');
+        
         // Debug logger
         const debugLog = document.getElementById('debug-log');
         function log(msg) {
             console.log(msg);
-            debugLog.style.display = 'block';
-            debugLog.innerHTML += msg + '<br>';
-            debugLog.scrollTop = debugLog.scrollHeight;
+            if (debugLog) {
+                debugLog.style.display = 'block';
+                debugLog.innerHTML += msg + '<br>';
+                debugLog.scrollTop = debugLog.scrollHeight;
+            }
         }
 
         log('Script starting...');
+        log('Browser: ' + navigator.userAgent.slice(0, 50));
         log('Importing Three.js...');
 
         let THREE, OrbitControls, GLTFLoader;
         
         try {
+            log('Fetching three module...');
             const threeModule = await import('https://esm.sh/three@0.160.0');
             THREE = threeModule;
-            log('THREE imported');
+            log('THREE imported: ' + typeof THREE);
             
+            log('Fetching OrbitControls...');
             const controlsModule = await import('https://esm.sh/three@0.160.0/examples/jsm/controls/OrbitControls.js');
             OrbitControls = controlsModule.OrbitControls;
-            log('OrbitControls imported');
+            log('OrbitControls imported: ' + typeof OrbitControls);
             
+            log('Fetching GLTFLoader...');
             const loaderModule = await import('https://esm.sh/three@0.160.0/examples/jsm/loaders/GLTFLoader.js');
             GLTFLoader = loaderModule.GLTFLoader;
-            log('GLTFLoader imported');
+            log('GLTFLoader imported: ' + typeof GLTFLoader);
         } catch (importError) {
             log('IMPORT ERROR: ' + importError.message);
+            console.error('Full import error:', importError);
             throw importError;
         }
 
