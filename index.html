@@ -4174,6 +4174,99 @@
         .hidden {
             display: none;
         }
+
+        /* 3D Viewer Modal */
+        .viewer-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 100000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .viewer-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .viewer-modal {
+            position: relative;
+            width: 95vw;
+            height: 95vh;
+            max-width: 1800px;
+            background: #000000;
+            border-radius: 20px;
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            overflow: hidden;
+            box-shadow: 0 0 60px rgba(245, 158, 11, 0.2);
+        }
+
+        .viewer-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100001;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(15, 15, 15, 0.9);
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            color: #FEFCE8;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .viewer-modal-close:hover {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: var(--teal);
+            transform: scale(1.1);
+        }
+
+        .viewer-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .viewer-3d-btn {
+            padding: 12px 28px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 50px;
+            color: var(--teal);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .viewer-3d-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--teal);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .viewer-3d-btn svg {
+            width: 18px;
+            height: 18px;
+        }
     </style>
     
     <!-- Structured Data (JSON-LD) for SEO -->
@@ -4217,6 +4310,14 @@
     
     <!-- Loading Progress Bar for Auth -->
     <div id="authLoadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #F59E0B, #FF6B6B); z-index: 99999; transition: width 0.3s ease; display: none;"></div>
+
+    <!-- 3D Viewer Modal -->
+    <div class="viewer-modal-overlay" id="viewer3dModal">
+        <div class="viewer-modal">
+            <button class="viewer-modal-close" onclick="close3DViewer()" aria-label="Close 3D Viewer">✕</button>
+            <iframe id="viewer3dFrame" src="" allow="fullscreen"></iframe>
+        </div>
+    </div>
     
     <!-- Start loading bar immediately -->
     <script>
@@ -5878,6 +5979,14 @@
                         ${mediaElement}
                         <div class="card-overlay">
                             <a href="animation-detail.html?slug=${anim.slug}" class="quick-preview-btn" style="text-decoration: none;">View Details</a>
+                            <button class="viewer-3d-btn" onclick="event.preventDefault(); event.stopPropagation(); open3DViewer('${anim.glbFile || ''}', '${anim.title}')">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                    <path d="M2 17l10 5 10-5"></path>
+                                    <path d="M2 12l10 5 10-5"></path>
+                                </svg>
+                                3D Viewer
+                            </button>
                         </div>
                     </div>
                     <div class="card-content">
@@ -7981,6 +8090,50 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         
         updateCartBadge();
         })(); // End of IIFE
+
+        // ==========================================
+        // 3D VIEWER MODAL FUNCTIONS
+        // ==========================================
+        function open3DViewer(glbFile, title) {
+            const modal = document.getElementById('viewer3dModal');
+            const iframe = document.getElementById('viewer3dFrame');
+            
+            // Use the viewer page with optional glb parameter
+            let viewerUrl = 'viewer.html';
+            if (glbFile && glbFile !== 'undefined' && glbFile !== '') {
+                viewerUrl += '?model=' + encodeURIComponent(glbFile);
+            }
+            
+            iframe.src = viewerUrl;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function close3DViewer() {
+            const modal = document.getElementById('viewer3dModal');
+            const iframe = document.getElementById('viewer3dFrame');
+            
+            modal.classList.remove('active');
+            iframe.src = '';
+            document.body.style.overflow = '';
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('viewer3dModal');
+                if (modal && modal.classList.contains('active')) {
+                    close3DViewer();
+                }
+            }
+        });
+
+        // Close modal when clicking overlay
+        document.getElementById('viewer3dModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                close3DViewer();
+            }
+        });
     </script>
     <!-- Thank You Modal -->
     <div id="thankYouModal" class="auth-modal">
