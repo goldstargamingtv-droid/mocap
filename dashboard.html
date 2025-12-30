@@ -26,8 +26,8 @@
         :root {
             --bg-primary: #000000;
             --bg-secondary: #0F0F0F;
-            --teal: #fb7d47;
-            --amber: #FF6B6B;
+            --teal: #7ED321;
+            --amber: #7ED321;
             --text-white: #FFFFFF;
             --text-primary: #FFFFFF;
             --text-secondary: #E7E5D3;
@@ -39,8 +39,8 @@
         body {
             font-family: 'DM Sans', sans-serif;
             background: var(--bg-primary);
-            background-image: radial-gradient(circle at 30% 20%, rgba(0, 212, 255, 0.12), transparent 50%),
-                              radial-gradient(circle at 70% 80%, rgba(251, 125, 71, 0.12), transparent 50%);
+            background-image: radial-gradient(circle at 30% 20%, rgba(126, 211, 33, 0.12), transparent 50%),
+                              radial-gradient(circle at 70% 80%, rgba(126, 211, 33, 0.12), transparent 50%);
             background-attachment: fixed;
             color: var(--text-primary);
             min-height: 100vh;
@@ -59,19 +59,19 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #fb7d47 0%, #FF6B6B 100%);
+            background: linear-gradient(180deg, #7ED321 0%, #7ED321 100%);
             border-radius: 6px;
             border: 2px solid #1a1a1a;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #FBBF24 0%, #FF8E8E 100%);
+            background: linear-gradient(180deg, #7ED321 0%, #7ED321 100%);
         }
 
         /* Firefox Scrollbar */
         * {
             scrollbar-width: thin;
-            scrollbar-color: #fb7d47 #1a1a1a;
+            scrollbar-color: #7ED321 #1a1a1a;
         }
         
         /* Navbar */
@@ -82,7 +82,7 @@
             right: 0;
             z-index: 10002;
             background: var(--bg-secondary);
-            border-bottom: 2px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 2px solid rgba(126, 211, 33, 0.1);
             transition: all 0.3s ease;
         }
 
@@ -185,7 +185,7 @@
             left: 0;
             background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(20px);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(126, 211, 33, 0.15);
             border-radius: 16px;
             padding: 12px;
             min-width: 260px;
@@ -225,14 +225,14 @@
         }
         
         .nav-dropdown-item:hover {
-            background: rgba(251, 125, 71, 0.1);
+            background: rgba(126, 211, 33, 0.1);
             color: var(--text-primary);
         }
         
         .nav-dropdown-item-icon {
             width: 36px;
             height: 36px;
-            background: rgba(251, 125, 71, 0.1);
+            background: rgba(126, 211, 33, 0.1);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -240,7 +240,7 @@
         }
         
         .nav-dropdown-item:hover .nav-dropdown-item-icon {
-            background: rgba(251, 125, 71, 0.2);
+            background: rgba(126, 211, 33, 0.2);
         }
         
         .nav-dropdown-item-text {
@@ -266,7 +266,7 @@
         .logo-icon {
             width: 44px;
             height: 44px;
-            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
+            background: linear-gradient(135deg, #7ED321, #7ED321);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -292,7 +292,7 @@
         }
 
         .logo-text span {
-            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
+            background: linear-gradient(135deg, #7ED321, #7ED321);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -307,7 +307,7 @@
             padding: 14px 32px;
             background: rgba(10, 10, 10, 0.95);
             border-radius: 50px;
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(126, 211, 33, 0.3);
             color: #ffffff !important;
             text-decoration: none;
             font-weight: 700;
@@ -329,7 +329,7 @@
         .btn-cta svg {
             width: 18px;
             height: 18px;
-            stroke: #fb7d47;
+            stroke: #7ED321;
             fill: none;
             stroke-width: 2;
             stroke-linecap: round;
@@ -348,9 +348,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -379,7 +379,7 @@
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.15),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 0 25px rgba(251, 125, 71, 0.4);
+                0 0 25px rgba(126, 211, 33, 0.4);
         }
         
         .btn-cta:hover::before {
@@ -400,10 +400,10 @@
         /* Admin Dashboard Button */
         .btn-admin {
             padding: 10px 20px;
-            background: linear-gradient(135deg, rgba(251, 125, 71, 0.15), rgba(0, 212, 255, 0.15));
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.15), rgba(126, 211, 33, 0.15));
             border-radius: 10px;
-            border: 2px solid rgba(251, 125, 71, 0.5);
-            color: #fb7d47 !important;
+            border: 2px solid rgba(126, 211, 33, 0.5);
+            color: #7ED321 !important;
             text-decoration: none;
             font-weight: 700;
             font-size: 14px;
@@ -415,9 +415,9 @@
         }
 
         .btn-admin:hover {
-            background: linear-gradient(135deg, rgba(251, 125, 71, 0.25), rgba(0, 212, 255, 0.25));
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.25), rgba(126, 211, 33, 0.25));
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(251, 125, 71, 0.3);
+            box-shadow: 0 8px 24px rgba(126, 211, 33, 0.3);
         }
 
         /* Navbar Search */
@@ -426,7 +426,7 @@
             padding: 10px 40px 10px 40px;
             background: rgba(10, 10, 10, 0.5);
             backdrop-filter: blur(20px);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(126, 211, 33, 0.2);
             border-radius: 25px;
             color: var(--text-primary);
             font-size: 14px;
@@ -436,9 +436,9 @@
 
         .search-input-nav:focus {
             outline: none;
-            border-color: #fb7d47;
+            border-color: #7ED321;
             background: rgba(10, 10, 10, 0.7);
-            box-shadow: 0 0 0 3px rgba(251, 125, 71, 0.1);
+            box-shadow: 0 0 0 3px rgba(126, 211, 33, 0.1);
         }
 
         .search-input-nav::placeholder {
@@ -476,7 +476,7 @@
             right: 0;
             background: rgba(10, 10, 10, 0.95);
             backdrop-filter: blur(20px);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(126, 211, 33, 0.2);
             border-radius: 12px;
             max-height: 400px;
             overflow-y: auto;
@@ -492,7 +492,7 @@
         .search-result-item {
             padding: 12px 16px;
             cursor: pointer;
-            border-bottom: 2px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 2px solid rgba(126, 211, 33, 0.1);
             transition: all 0.2s;
             display: flex;
             align-items: center;
@@ -500,7 +500,7 @@
         }
 
         .search-result-item:hover {
-            background: rgba(251, 125, 71, 0.1);
+            background: rgba(126, 211, 33, 0.1);
         }
 
         .search-result-thumb {
@@ -528,12 +528,12 @@
 
         .search-result-price {
             font-size: 14px;
-            color: #fb7d47;
+            color: #7ED321;
             font-weight: 600;
         }
         
         .search-section {
-            border-bottom: 2px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 2px solid rgba(126, 211, 33, 0.1);
         }
         
         .search-section:last-child {
@@ -580,7 +580,7 @@
             isolation: isolate;
             background: rgba(10, 10, 10, 0.95);
             border-radius: 12px;
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(126, 211, 33, 0.3);
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.1),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.1),
@@ -598,9 +598,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -629,7 +629,7 @@
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.15),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 0 25px rgba(251, 125, 71, 0.4);
+                0 0 25px rgba(126, 211, 33, 0.4);
         }
         
         .cart-icon:hover::before {
@@ -649,10 +649,10 @@
         
         /* Animated cart gradient */
         .cart-icon .cart__gradient stop:first-child {
-            stop-color: #fb7d47;
+            stop-color: #7ED321;
         }
         .cart-icon .cart__gradient stop:last-child {
-            stop-color: #FF6B6B;
+            stop-color: #7ED321;
         }
         
         /* Default state - white, no animation */
@@ -755,7 +755,7 @@
             position: absolute !important;
             top: -4px !important;
             right: -4px !important;
-            background: linear-gradient(135deg, #fb7d47 0%, #FF6B6B 100%);
+            background: linear-gradient(135deg, #7ED321 0%, #7ED321 100%);
             color: #000000;
             min-width: 18px;
             height: 18px;
@@ -768,14 +768,14 @@
             font-weight: 800;
             font-family: 'Sora', sans-serif;
             z-index: 10;
-            box-shadow: 0 2px 8px rgba(251, 125, 71, 0.4);
+            box-shadow: 0 2px 8px rgba(126, 211, 33, 0.4);
             border: 1.5px solid rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
         
         .cart-icon:hover .cart-badge {
             transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(251, 125, 71, 0.6);
+            box-shadow: 0 4px 12px rgba(126, 211, 33, 0.6);
         }
         
         /* Hide badge when empty */
@@ -793,12 +793,12 @@
             width: 350px;
             max-height: 500px;
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(126, 211, 33, 0.2);
             border-radius: 12px;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 40px rgba(251, 125, 71, 0.05);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 40px rgba(126, 211, 33, 0.05);
             display: none;
             z-index: 10003;
             overflow: hidden;
@@ -807,7 +807,7 @@
 
         .cart-hover-header {
             padding: 16px 20px;
-            border-bottom: 2px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 2px solid rgba(126, 211, 33, 0.1);
             font-weight: 700;
             font-size: 16px;
             color: var(--text-primary);
@@ -830,7 +830,7 @@
         }
 
         .cart-hover-items::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #fb7d47 0%, #FF6B6B 100%);
+            background: linear-gradient(180deg, #7ED321 0%, #7ED321 100%);
             border-radius: 3px;
         }
 
@@ -847,8 +847,8 @@
         }
 
         .cart-hover-item:hover {
-            background: rgba(251, 125, 71, 0.15);
-            border: 2px solid rgba(251, 125, 71, 0.3);
+            background: rgba(126, 211, 33, 0.15);
+            border: 2px solid rgba(126, 211, 33, 0.3);
         }
 
         .cart-hover-item-img {
@@ -856,7 +856,7 @@
             height: 50px;
             border-radius: 6px;
             object-fit: cover;
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(126, 211, 33, 0.2);
         }
 
         .cart-hover-item-info {
@@ -924,7 +924,7 @@
 
         .cart-hover-footer {
             padding: 16px 20px;
-            border-top: 2px solid rgba(0, 212, 255, 0.1);
+            border-top: 2px solid rgba(126, 211, 33, 0.1);
             background: rgba(0, 0, 0, 0.2);
         }
 
@@ -966,7 +966,7 @@
         .btn-primary {
             padding: 12px 24px;
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(126, 211, 33, 0.3);
             color: #ffffff;
             border-radius: 50px;
             font-weight: 600;
@@ -996,9 +996,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -1027,7 +1027,7 @@
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.15),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 0 25px rgba(251, 125, 71, 0.4);
+                0 0 25px rgba(126, 211, 33, 0.4);
         }
         
         .btn-primary:hover::before {
@@ -1038,7 +1038,7 @@
         .btn-secondary {
             padding: 12px 24px;
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(126, 211, 33, 0.3);
             color: #ffffff;
             font-weight: 600;
             border-radius: 50px;
@@ -1070,9 +1070,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -1101,7 +1101,7 @@
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.15),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 0 25px rgba(251, 125, 71, 0.4);
+                0 0 25px rgba(126, 211, 33, 0.4);
         }
         
         .btn-secondary:hover::before {
@@ -1139,14 +1139,14 @@
             max-width: 90vw;
             height: 100vh;
             background: rgba(10, 10, 10, 0.95);
-            border-left: 2px solid rgba(0, 212, 255, 0.2);
+            border-left: 2px solid rgba(126, 211, 33, 0.2);
             display: flex;
             flex-direction: column;
             animation: slideIn 0.3s ease;
             box-shadow: 
                 -4px 0 24px rgba(0, 0, 0, 0.4),
-                inset 1px 0 1px rgba(0, 212, 255, 0.1),
-                -20px 0 40px rgba(0, 212, 255, 0.05);
+                inset 1px 0 1px rgba(126, 211, 33, 0.1),
+                -20px 0 40px rgba(126, 211, 33, 0.05);
         }
         
         @keyframes slideIn {
@@ -1156,7 +1156,7 @@
         
         .cart-header {
             padding: 24px;
-            border-bottom: 2px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 2px solid rgba(126, 211, 33, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -1176,7 +1176,7 @@
             width: 40px;
             height: 40px;
             border: none;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(126, 211, 33, 0.1);
             color: var(--text-primary);
             font-size: 24px;
             border-radius: 8px;
@@ -1185,7 +1185,7 @@
         }
         
         .cart-close:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(126, 211, 33, 0.2);
             transform: rotate(90deg);
         }
         
@@ -1197,7 +1197,7 @@
         
         .cart-item {
             background: rgba(0, 0, 0, 0.3);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(126, 211, 33, 0.15);
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 12px;
@@ -1208,7 +1208,7 @@
         }
         
         .cart-item:hover {
-            border-color: rgba(0, 212, 255, 0.3);
+            border-color: rgba(126, 211, 33, 0.3);
             background: rgba(0, 0, 0, 0.35);
         }
         
@@ -1226,7 +1226,7 @@
             display: block;
             width: 24px;
             height: 24px;
-            border: 2px solid #fb7d47;
+            border: 2px solid #7ED321;
             border-radius: 4px;
             background: rgba(0, 0, 0, 0.4);
             cursor: pointer;
@@ -1332,7 +1332,7 @@
         
         .cart-footer {
             padding: 24px;
-            border-top: 2px solid rgba(0, 212, 255, 0.1);
+            border-top: 2px solid rgba(126, 211, 33, 0.1);
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -1371,7 +1371,7 @@
             color: #000000;
             margin-bottom: 60px;
             border-radius: 16px;
-            box-shadow: 0 8px 24px rgba(251, 125, 71, 0.3);
+            box-shadow: 0 8px 24px rgba(126, 211, 33, 0.3);
         }
 
         .pricing-banner span {
@@ -1386,8 +1386,8 @@
             width: 100%;
             margin-top: 20px;
             padding: 16px;
-            background: rgba(16, 185, 129, 0.1);
-            border: 2px solid rgba(16, 185, 129, 0.5);
+            background: rgba(126, 211, 33, 0.1);
+            border: 2px solid rgba(126, 211, 33, 0.5);
             border-radius: 50px;
             color: white;
             font-weight: 700;
@@ -1402,8 +1402,8 @@
         }
 
         .buy-now-btn:hover {
-            background: rgba(16, 185, 129, 0.2);
-            border-color: #10B981;
+            background: rgba(126, 211, 33, 0.2);
+            border-color: #7ED321;
             transform: scale(1.05);
         }
         
@@ -1415,7 +1415,7 @@
             width: 280px;
             height: calc(100vh - 70px);
             background: var(--bg-secondary);
-            border-right: 1px solid rgba(0, 212, 255, 0.1);
+            border-right: 1px solid rgba(126, 211, 33, 0.1);
             padding: 24px 0;
             overflow-y: auto;
             z-index: 100;
@@ -1478,12 +1478,12 @@
         }
         
         .sidebar-link:hover {
-            background: rgba(0, 212, 255, 0.05);
+            background: rgba(126, 211, 33, 0.05);
             color: var(--text-primary);
         }
         
         .sidebar-link.active {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(126, 211, 33, 0.1);
             color: var(--teal);
             border-right: 3px solid var(--teal);
         }
@@ -1496,7 +1496,7 @@
         
         .sidebar-divider {
             height: 1px;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(126, 211, 33, 0.1);
             margin: 20px 24px;
         }
         
@@ -1536,7 +1536,7 @@
             margin-bottom: 32px;
             padding: 24px;
             background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.1);
+            border: 2px solid rgba(126, 211, 33, 0.1);
             border-radius: 16px;
         }
 
@@ -1572,7 +1572,7 @@
         .filter-btn {
             padding: 12px 20px;
             background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(126, 211, 33, 0.2);
             border-radius: 12px;
             color: var(--text-secondary);
             cursor: pointer;
@@ -1588,7 +1588,7 @@
         }
 
         .filter-btn.active {
-            background: rgba(0, 212, 255, 0.15);
+            background: rgba(126, 211, 33, 0.15);
             border-color: var(--teal);
             color: var(--teal);
         }
@@ -1603,7 +1603,7 @@
         /* Purchase Cards - Smaller & Square */
         .purchase-card {
             background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.1);
+            border: 2px solid rgba(126, 211, 33, 0.1);
             border-radius: 16px;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1612,7 +1612,7 @@
         .purchase-card:hover {
             border-color: var(--teal);
             transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 20px 60px rgba(126, 211, 33, 0.3);
         }
 
         .card-media {
@@ -1642,7 +1642,7 @@
             top: 10px;
             right: 10px;
             padding: 4px 10px;
-            background: rgba(0, 212, 255, 0.9);
+            background: rgba(126, 211, 33, 0.9);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             font-size: 11px;
@@ -1705,8 +1705,8 @@
             padding: 12px 20px;
             background: rgba(10, 10, 10, 0.95);
             border-radius: 50px;
-            border: 2px solid #fb7d47;
-            color: #fb7d47;
+            border: 2px solid #7ED321;
+            color: #7ED321;
             font-weight: 700;
             font-size: 13px;
             font-family: 'Sora', sans-serif;
@@ -1730,9 +1730,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -1772,7 +1772,7 @@
         
         .btn-download:disabled:hover {
             transform: none;
-            border-color: #fb7d47;
+            border-color: #7ED321;
         }
         
         .btn-download:disabled:hover::before {
@@ -1782,10 +1782,10 @@
         .btn-view {
             width: 100%;
             padding: 10px 20px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px;
-            color: #00d4ff;
+            color: var(--text-primary);
             font-weight: 600;
             font-size: 13px;
             cursor: pointer;
@@ -1798,8 +1798,9 @@
         }
         
         .btn-view:hover {
-            background: rgba(0, 212, 255, 0.2);
-            border-color: #00d4ff;
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
         }
 
         /* Empty State */
@@ -1841,7 +1842,7 @@
 
         .empty-state a:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 212, 255, 0.4);
+            box-shadow: 0 8px 24px rgba(126, 211, 33, 0.4);
         }
         
         .loading { 
@@ -1880,7 +1881,7 @@
             right: 20px;
             width: 40px;
             height: 40px;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(126, 211, 33, 0.1);
             border: none;
             border-radius: 8px;
             color: var(--text-primary);
@@ -1893,7 +1894,7 @@
         }
 
         .mobile-menu-close:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(126, 211, 33, 0.2);
             transform: rotate(90deg);
         }
 
@@ -1924,7 +1925,7 @@
                 flex-direction: column;
                 gap: 0;
                 padding: 80px 0 20px;
-                border-left: 2px solid rgba(0, 212, 255, 0.15);
+                border-left: 2px solid rgba(126, 211, 33, 0.15);
                 transition: right 0.3s ease;
                 z-index: 9999;
                 overflow-y: auto;
@@ -1949,7 +1950,7 @@
                 display: block;
                 width: 100%;
                 padding: 20px 32px;
-                border-bottom: 2px solid rgba(0, 212, 255, 0.08);
+                border-bottom: 2px solid rgba(126, 211, 33, 0.08);
                 font-size: 16px;
                 font-weight: 600;
                 transition: all 0.2s ease;
@@ -1958,15 +1959,15 @@
             }
 
             .nav-links li a:hover {
-                background: rgba(251, 125, 71, 0.1);
+                background: rgba(126, 211, 33, 0.1);
                 padding-left: 40px;
-                color: #fb7d47;
+                color: #7ED321;
             }
 
             .nav-links li a.active {
-                background: rgba(251, 125, 71, 0.15);
-                border-left: 3px solid #fb7d47;
-                color: #fb7d47;
+                background: rgba(126, 211, 33, 0.15);
+                border-left: 3px solid #7ED321;
+                color: #7ED321;
             }
             
             /* Hide sidebar on mobile */
@@ -2034,7 +2035,7 @@
 
         .stripe-checkout-modal-content {
             background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(126, 211, 33, 0.3);
             border-radius: 20px;
             padding: 0;
             max-width: 500px;
@@ -2043,20 +2044,20 @@
             position: relative;
             z-index: 1;
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 40px rgba(126, 211, 33, 0.2);
         }
 
         .stripe-checkout-modal-header {
             background: rgba(30, 30, 30, 0.8);
             padding: 24px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            border-bottom: 1px solid rgba(126, 211, 33, 0.2);
             position: relative;
         }
 
         .stripe-checkout-modal-title {
             font-size: 20px;
             font-weight: 700;
-            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
+            background: linear-gradient(135deg, #7ED321, #7ED321);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -2072,7 +2073,7 @@
             height: 36px;
             border: none;
             background: rgba(239, 68, 68, 0.2);
-            color: #FCA5A5;
+            color: #a8e063;
             font-size: 20px;
             font-weight: bold;
             border-radius: 50%;
@@ -2118,7 +2119,7 @@
 
         .stripe-input {
             background: #2A2A2A;
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(126, 211, 33, 0.2);
             border-radius: 50px;
             padding: 16px 24px;
             transition: all 0.3s ease;
@@ -2127,8 +2128,8 @@
         .stripe-input:focus-within,
         .stripe-input.StripeElement--focus {
             border-color: var(--teal);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1),
-                        0 0 20px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 0 3px rgba(126, 211, 33, 0.1),
+                        0 0 20px rgba(126, 211, 33, 0.3);
             background: #2A2A2A;
         }
 
@@ -2137,12 +2138,12 @@
         }
 
         .stripe-input.StripeElement--complete {
-            border-color: rgba(16, 185, 129, 0.5);
+            border-color: rgba(126, 211, 33, 0.5);
         }
 
         .stripe-order-summary {
             background: #1A1A1A;
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(126, 211, 33, 0.2);
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 24px;
@@ -2177,7 +2178,7 @@
         .stripe-order-total {
             margin-top: 12px;
             padding-top: 12px;
-            border-top: 2px solid rgba(0, 212, 255, 0.3);
+            border-top: 2px solid rgba(126, 211, 33, 0.3);
         }
 
         .stripe-order-total .stripe-order-label {
@@ -2188,7 +2189,7 @@
 
         .stripe-order-total .stripe-order-value {
             font-size: 24px;
-            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
+            background: linear-gradient(135deg, #7ED321, #7ED321);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -2198,8 +2199,8 @@
         .stripe-pay-button {
             width: 100%;
             padding: 14px 24px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(126, 211, 33, 0.1);
+            border: 2px solid rgba(126, 211, 33, 0.3);
             border-radius: 50px;
             color: var(--teal);
             font-weight: 700;
@@ -2216,9 +2217,9 @@
 
         .stripe-pay-button:hover:not(:disabled) {
             transform: translateY(-2px);
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(126, 211, 33, 0.2);
             border-color: var(--teal);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            box-shadow: 0 0 20px rgba(126, 211, 33, 0.5);
         }
 
         .stripe-pay-button:disabled {
@@ -2245,7 +2246,7 @@
             border-radius: 8px;
             padding: 12px;
             margin-top: 16px;
-            color: #FCA5A5;
+            color: #a8e063;
             font-size: 14px;
             display: none;
         }
@@ -2267,7 +2268,7 @@
         .stripe-secure-icon {
             width: 16px;
             height: 16px;
-            fill: #10B981;
+            fill: #7ED321;
         }
 
         @media (max-width: 768px) {
@@ -2289,7 +2290,7 @@
         #thankYouModal .spinner {
             width: 40px;
             height: 40px;
-            border: 4px solid rgba(0, 212, 255, 0.1);
+            border: 4px solid rgba(126, 211, 33, 0.1);
             border-top-color: var(--teal);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
@@ -2323,7 +2324,7 @@
         
         .auth-modal-box {
             background: var(--bg-secondary);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(126, 211, 33, 0.3);
             border-radius: 20px;
             padding: 0;
             max-width: 480px;
@@ -2332,7 +2333,7 @@
             position: relative;
             z-index: 1;
             overflow: hidden;
-            box-shadow: 0 0 40px rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 40px rgba(126, 211, 33, 0.2);
         }
         
         @keyframes modalSlideIn {
@@ -2348,7 +2349,7 @@
             height: 44px;
             border: none;
             background: rgba(239, 68, 68, 0.2);
-            color: #FCA5A5;
+            color: #a8e063;
             font-size: 24px;
             font-weight: bold;
             border-radius: 50%;
@@ -2389,42 +2390,42 @@
                     <div class="nav-dropdown">
                         <div class="nav-dropdown-title">Browse Categories</div>
                         <a href="index.html#library" class="nav-dropdown-item">
-                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg></div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 All Animations
                                 <div class="nav-dropdown-item-label">Browse everything</div>
                             </div>
                         </a>
                         <a href="index.html#library" class="nav-dropdown-item">
-                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg></div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Combat
                                 <div class="nav-dropdown-item-label">Fighting & action</div>
                             </div>
                         </a>
                         <a href="index.html#library" class="nav-dropdown-item">
-                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="4" r="2"/><path d="M15.5 21l-3-6.5-4 3V21"/><path d="M8 14l4-3 2.5 3.5"/><path d="M12 11l-3-2.5-3 3.5"/></svg></div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="4" r="2"/><path d="M15.5 21l-3-6.5-4 3V21"/><path d="M8 14l4-3 2.5 3.5"/><path d="M12 11l-3-2.5-3 3.5"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Locomotion
                                 <div class="nav-dropdown-item-label">Walking, running & movement</div>
                             </div>
                         </a>
                         <a href="index.html#library" class="nav-dropdown-item">
-                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg></div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Dance
                                 <div class="nav-dropdown-item-label">Dance moves & routines</div>
                             </div>
                         </a>
                         <a href="index.html#library" class="nav-dropdown-item">
-                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Idle
                                 <div class="nav-dropdown-item-label">Standing & breathing</div>
                             </div>
                         </a>
                         <a href="index.html#library" class="nav-dropdown-item">
-                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Emotes
                                 <div class="nav-dropdown-item-label">Expressions & gestures</div>
@@ -2436,7 +2437,7 @@
 
             <!-- Search Bar -->
             <div class="nav-search">
-                <span class="search-icon-nav"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
+                <span class="search-icon-nav"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
                 <input 
                     type="text" 
                     class="search-input-nav" 
@@ -2509,22 +2510,22 @@
             </div>
 
             <!-- Mobile Menu -->
-            <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+            <button class="hamburger-menu" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
             
             <ul class="nav-links" id="mobileNav">
                 <button class="mobile-menu-close" onclick="toggleMobileMenu()">✕</button>
                 
                 <!-- Mobile Search -->
-                <li style="padding: 20px; border-bottom: 2px solid rgba(0, 212, 255, 0.1);">
+                <li style="padding: 20px; border-bottom: 2px solid rgba(126, 211, 33, 0.1);">
                     <div style="position: relative;" id="mobileSearchWrapper">
-                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.6;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
+                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.6;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
                         <input 
                             type="text" 
                             id="mobileSearch"
                             placeholder="Search animations..."
-                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(10, 10, 10, 0.5); backdrop-filter: blur(20px); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
+                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(10, 10, 10, 0.5); backdrop-filter: blur(20px); border: 2px solid rgba(126, 211, 33, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
                         >
-                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: rgba(10, 10, 10, 0.95); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); z-index: 10000;">
+                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: rgba(10, 10, 10, 0.95); border: 2px solid rgba(126, 211, 33, 0.2); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); z-index: 10000;">
                             <!-- Results populated here -->
                         </div>
                     </div>
@@ -2593,14 +2594,14 @@
                 <ul class="sidebar-menu">
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link active" onclick="scrollToTop(); return false;">
-                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
                             <span>My Library</span>
                             <span class="sidebar-badge" id="sidebarLibraryCount">0</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="#favorites" class="sidebar-link" onclick="scrollToFavorites(event)">
-                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
                             <span>Wishlist</span>
                         </a>
                     </li>
@@ -2614,19 +2615,19 @@
                 <ul class="sidebar-menu">
                     <li class="sidebar-item">
                         <a href="#purchaseHistory" class="sidebar-link" onclick="scrollToPurchaseHistory(event)">
-                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>
+                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></span>
                             <span>Purchase History</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="#downloads" class="sidebar-link" onclick="scrollToDownloads(event)">
-                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
+                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></span>
                             <span>Downloads</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="#settings" class="sidebar-link" onclick="scrollToSettings(event)">
-                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
+                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>
                             <span>Settings</span>
                         </a>
                     </li>
@@ -2639,13 +2640,13 @@
                 <ul class="sidebar-menu">
                     <li class="sidebar-item">
                         <a href="index.html#library" class="sidebar-link">
-                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
                             <span>Browse Store</span>
                         </a>
                     </li>
                     <li class="sidebar-item">
                         <a href="#" class="sidebar-link" onclick="logout(); return false;">
-                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
+                            <span class="sidebar-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>
                             <span>Sign Out</span>
                         </a>
                     </li>
@@ -2680,20 +2681,20 @@
         <!-- Library Search Bar -->
         <div id="librarySearchContainer" style="display: none; margin-bottom: 32px;">
             <div style="position: relative; max-width: 600px; margin: 0 auto;">
-                <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 18px; opacity: 0.6;">🔍</span>
+                <span style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-size: 18px; opacity: 0.6;">🔍</span>
                 <input 
                     type="text" 
                     id="librarySearchInput" 
                     placeholder="Search your library..."
-                    style="width: 100%; padding: 14px 40px 14px 45px; background: var(--bg-secondary); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 12px; color: var(--text-primary); font-size: 15px; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease;"
-                    onfocus="this.style.borderColor='#fb7d47'; this.style.boxShadow='0 0 0 3px rgba(251, 125, 71, 0.1)'"
-                    onblur="this.style.borderColor='rgba(0, 212, 255, 0.2)'; this.style.boxShadow='none'"
+                    style="width: 100%; padding: 14px 40px 14px 50px; background: var(--bg-secondary); border: 2px solid rgba(126, 211, 33, 0.2); border-radius: 50px; color: var(--text-primary); font-size: 15px; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease;"
+                    onfocus="this.style.borderColor='#7ED321'; this.style.boxShadow='0 0 0 3px rgba(126, 211, 33, 0.1)'"
+                    onblur="this.style.borderColor='rgba(126, 211, 33, 0.2)'; this.style.boxShadow='none'"
                     oninput="searchLibrary()"
                 >
-                <button id="librarySearchClear" onclick="clearLibrarySearch()" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); font-size: 16px; cursor: pointer; display: none; padding: 4px;">✕</button>
+                <button id="librarySearchClear" onclick="clearLibrarySearch()" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); font-size: 16px; cursor: pointer; display: none; padding: 4px;">✕</button>
                 
                 <!-- Library Search Dropdown -->
-                <div id="librarySearchDropdown" style="position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; max-height: 400px; overflow-y: auto; display: none; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 1000;"></div>
+                <div id="librarySearchDropdown" style="position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(126, 211, 33, 0.3); border-radius: 16px; max-height: 400px; overflow-y: auto; display: none; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 1000;"></div>
             </div>
         </div>
 
@@ -2710,17 +2711,17 @@
         <div id="content" class="loading">Loading your purchases...</div>
         
         <!-- Wishlist Section -->
-        <div id="favorites" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(0, 212, 255, 0.15);">
+        <div id="favorites" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(126, 211, 33, 0.15);">
             <div style="margin-bottom: 32px;">
                 <h2 style="font-size: 32px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
-                    <span style="background: linear-gradient(135deg, #fb7d47, #FF6B6B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Wishlist</span>
+                    <span style="background: linear-gradient(135deg, #7ED321, #7ED321); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Wishlist</span>
                 </h2>
                 <p style="color: var(--text-secondary); font-size: 16px; margin-bottom: 24px;">
                     Save your favorite animations for quick access
                 </p>
             </div>
             <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-                <div style="background: rgba(26, 26, 26, 0.6); border: 2px dashed rgba(0, 212, 255, 0.3); border-radius: 16px; padding: 48px 32px;">
+                <div style="background: rgba(26, 26, 26, 0.6); border: 2px dashed rgba(126, 211, 33, 0.3); border-radius: 16px; padding: 48px 32px;">
                     <div style="font-size: 48px; margin-bottom: 16px;">⭐</div>
                     <div style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">
                         Feature coming soon!<br>
@@ -2731,7 +2732,7 @@
         </div>
 
         <!-- Purchase History Section -->
-        <div id="purchaseHistory" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(0, 212, 255, 0.15);">
+        <div id="purchaseHistory" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(126, 211, 33, 0.15);">
             <div style="margin-bottom: 32px;">
                 <h2 style="font-size: 32px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
                     <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Purchase History</span>
@@ -2745,7 +2746,7 @@
         </div>
 
         <!-- Downloads Section -->
-        <div id="downloads" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(0, 212, 255, 0.15);">
+        <div id="downloads" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(126, 211, 33, 0.15);">
             <div style="margin-bottom: 32px;">
                 <h2 style="font-size: 32px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
                     <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Download History</span>
@@ -2759,7 +2760,7 @@
         </div>
 
         <!-- Settings Section -->
-        <div id="settings" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(0, 212, 255, 0.15);">
+        <div id="settings" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid rgba(126, 211, 33, 0.15);">
             <div style="margin-bottom: 32px;">
                 <h2 style="font-size: 32px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 16px;">
                     <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Settings</span>
@@ -2777,27 +2778,27 @@
                     <!-- Email Display -->
                     <div class="setting-item">
                         <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Email Address</label>
-                        <input type="email" id="userEmailSetting" readonly style="width: 100%; padding: 12px 16px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 12px; color: var(--text-muted); font-size: 15px; cursor: not-allowed;">
+                        <input type="email" id="userEmailSetting" readonly style="width: 100%; padding: 12px 16px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(126, 211, 33, 0.2); border-radius: 12px; color: var(--text-muted); font-size: 15px; cursor: not-allowed;">
                         <p style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">Email is managed by your account provider</p>
                     </div>
 
                     <!-- Display Name - Coming Soon -->
                     <div class="setting-item" style="margin-top: 24px; opacity: 0.5;">
                         <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Display Name <span style="color: var(--teal); font-size: 12px;">(Coming Soon)</span></label>
-                        <input type="text" disabled placeholder="Your display name" style="width: 100%; padding: 12px 16px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 12px; color: var(--text-muted); font-size: 15px; cursor: not-allowed;">
+                        <input type="text" disabled placeholder="Your display name" style="width: 100%; padding: 12px 16px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(126, 211, 33, 0.2); border-radius: 12px; color: var(--text-muted); font-size: 15px; cursor: not-allowed;">
                     </div>
 
                     <!-- Profile Picture - Coming Soon -->
                     <div class="setting-item" style="margin-top: 24px; opacity: 0.5;">
                         <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Profile Picture <span style="color: var(--teal); font-size: 12px;">(Coming Soon)</span></label>
-                        <div style="padding: 12px 16px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 12px; color: var(--text-muted); font-size: 15px;">
+                        <div style="padding: 12px 16px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(126, 211, 33, 0.2); border-radius: 12px; color: var(--text-muted); font-size: 15px;">
                             Upload profile picture feature coming soon
                         </div>
                     </div>
                 </div>
 
                 <!-- Password & Security -->
-                <div class="settings-section" style="margin-top: 40px; padding-top: 40px; border-top: 2px solid rgba(0, 212, 255, 0.15);">
+                <div class="settings-section" style="margin-top: 40px; padding-top: 40px; border-top: 2px solid rgba(126, 211, 33, 0.15);">
                     <h3 style="font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px;">Password & Security</h3>
                     
                     <div class="setting-item">
@@ -2810,7 +2811,7 @@
                     <!-- Email Notifications - Coming Soon -->
                     <div class="setting-item" style="margin-top: 24px; opacity: 0.5;">
                         <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 12px;">Email Notifications <span style="color: var(--teal); font-size: 12px;">(Coming Soon)</span></label>
-                        <div style="padding: 16px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 12px;">
+                        <div style="padding: 16px; background: rgba(26, 26, 26, 0.6); border: 2px solid rgba(126, 211, 33, 0.2); border-radius: 12px;">
                             <div style="color: var(--text-muted); font-size: 13px; line-height: 1.6;">
                                 • New animation releases<br>
                                 • Sales and promotions<br>
@@ -2822,12 +2823,12 @@
                 </div>
 
                 <!-- Display Preferences -->
-                <div class="settings-section" style="margin-top: 40px; padding-top: 40px; border-top: 2px solid rgba(0, 212, 255, 0.15);">
+                <div class="settings-section" style="margin-top: 40px; padding-top: 40px; border-top: 2px solid rgba(126, 211, 33, 0.15);">
                     <h3 style="font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px;">Display Preferences</h3>
                     
                     <div class="setting-item">
                         <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Animations Per Page</label>
-                        <select id="animationsPerPage" onchange="saveDisplayPreference('animationsPerPage', this.value)" style="width: 100%; padding: 12px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 12px; color: var(--text-primary); font-size: 15px; cursor: pointer;">
+                        <select id="animationsPerPage" onchange="saveDisplayPreference('animationsPerPage', this.value)" style="width: 100%; padding: 12px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(126, 211, 33, 0.2); border-radius: 12px; color: var(--text-primary); font-size: 15px; cursor: pointer;">
                             <option value="12">12 animations</option>
                             <option value="24">24 animations</option>
                             <option value="36">36 animations</option>
@@ -2837,7 +2838,7 @@
 
                     <div class="setting-item" style="margin-top: 24px;">
                         <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Default Sort Order</label>
-                        <select id="defaultSort" onchange="saveDisplayPreference('defaultSort', this.value)" style="width: 100%; padding: 12px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 12px; color: var(--text-primary); font-size: 15px; cursor: pointer;">
+                        <select id="defaultSort" onchange="saveDisplayPreference('defaultSort', this.value)" style="width: 100%; padding: 12px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(126, 211, 33, 0.2); border-radius: 12px; color: var(--text-primary); font-size: 15px; cursor: pointer;">
                             <option value="popular">Most Popular</option>
                             <option value="newest">Newest First</option>
                             <option value="price-low">Price: Low to High</option>
@@ -2847,26 +2848,26 @@
                 </div>
 
                 <!-- Data Management -->
-                <div class="settings-section" style="margin-top: 40px; padding-top: 40px; border-top: 2px solid rgba(0, 212, 255, 0.15);">
+                <div class="settings-section" style="margin-top: 40px; padding-top: 40px; border-top: 2px solid rgba(126, 211, 33, 0.15);">
                     <h3 style="font-size: 20px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px;">Data Management</h3>
                     
                     <div class="setting-item">
                         <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Export Data</label>
                         <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                            <button onclick="exportPurchaseHistory()" style="background: rgba(26, 26, 26, 0.8); color: var(--text-primary); border: 2px solid rgba(0, 212, 255, 0.3); padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;">
-                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                            <button onclick="exportPurchaseHistory()" style="background: rgba(26, 26, 26, 0.8); color: var(--text-primary); border: 2px solid rgba(126, 211, 33, 0.3); padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
                                 Export Purchase History
                             </button>
-                            <button onclick="exportDownloadHistory()" style="background: rgba(26, 26, 26, 0.8); color: var(--text-primary); border: 2px solid rgba(0, 212, 255, 0.3); padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;">
-                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                            <button onclick="exportDownloadHistory()" style="background: rgba(26, 26, 26, 0.8); color: var(--text-primary); border: 2px solid rgba(126, 211, 33, 0.3); padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                                 Export Download History
                             </button>
                         </div>
                     </div>
 
                     <div class="setting-item" style="margin-top: 32px;">
-                        <label style="display: block; font-size: 14px; font-weight: 600; color: #FF6B6B; margin-bottom: 8px;">Danger Zone</label>
-                        <button onclick="showDeleteAccountModal()" style="background: rgba(255, 107, 107, 0.1); color: #FF6B6B; border: 2px solid rgba(255, 107, 107, 0.3); padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease;">
+                        <label style="display: block; font-size: 14px; font-weight: 600; color: #7ED321; margin-bottom: 8px;">Danger Zone</label>
+                        <button onclick="showDeleteAccountModal()" style="background: rgba(255, 107, 107, 0.1); color: #7ED321; border: 2px solid rgba(255, 107, 107, 0.3); padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.3s ease;">
                             🗑️ Delete Account
                         </button>
                         <p style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">This action cannot be undone</p>
@@ -3024,7 +3025,7 @@
                             </div>
                             <div class="card-actions">
                                 <button class="btn-download" onclick="downloadAnimation('${purchase.id}', '${anim.title}')">
-                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                                     Download
                                 </button>
                                 <a href="animation-detail.html?slug=${anim.slug}" class="btn-view">
@@ -3149,20 +3150,20 @@
             const colors = {
                 success: {
                     bg: 'rgba(15, 15, 15, 0.98)',
-                    border: 'rgba(0, 212, 255, 0.5)',
+                    border: 'rgba(126, 211, 33, 0.5)',
                     text: 'var(--teal)',
-                    shadow: 'rgba(0, 212, 255, 0.3)'
+                    shadow: 'rgba(126, 211, 33, 0.3)'
                 },
                 warning: {
                     bg: 'rgba(15, 15, 15, 0.98)',
-                    border: 'rgba(251, 125, 71, 0.5)',
-                    text: '#fb7d47',
-                    shadow: 'rgba(251, 125, 71, 0.3)'
+                    border: 'rgba(126, 211, 33, 0.5)',
+                    text: '#7ED321',
+                    shadow: 'rgba(126, 211, 33, 0.3)'
                 },
                 error: {
                     bg: 'rgba(15, 15, 15, 0.98)',
                     border: 'rgba(255, 107, 107, 0.5)',
-                    text: '#FF6B6B',
+                    text: '#7ED321',
                     shadow: 'rgba(255, 107, 107, 0.3)'
                 }
             };
@@ -3193,7 +3194,7 @@
             
             if (purchases.length === 0) {
                 historyContent.innerHTML = `
-                    <div style="background: rgba(26, 26, 26, 0.6); border: 2px dashed rgba(0, 212, 255, 0.3); border-radius: 16px; padding: 48px 32px; text-align: center;">
+                    <div style="background: rgba(26, 26, 26, 0.6); border: 2px dashed rgba(126, 211, 33, 0.3); border-radius: 16px; padding: 48px 32px; text-align: center;">
                         <div style="font-size: 48px; margin-bottom: 16px;">🧾</div>
                         <div style="color: var(--text-muted); font-size: 15px;">No purchase history yet</div>
                     </div>
@@ -3202,10 +3203,10 @@
             }
 
             historyContent.innerHTML = `
-                <div style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.7), rgba(20, 20, 20, 0.8)); backdrop-filter: blur(30px); border: 2px solid rgba(0, 212, 255, 0.25); border-radius: 28px; padding: 32px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 212, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05); overflow-x: auto;">
+                <div style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.7), rgba(20, 20, 20, 0.8)); backdrop-filter: blur(30px); border: 2px solid rgba(126, 211, 33, 0.25); border-radius: 28px; padding: 32px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(126, 211, 33, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05); overflow-x: auto;">
                     <table style="width: 100%; border-collapse: collapse;">
                         <thead>
-                            <tr style="border-bottom: 2px solid rgba(0, 212, 255, 0.2);">
+                            <tr style="border-bottom: 2px solid rgba(126, 211, 33, 0.2);">
                                 <th style="text-align: left; padding: 16px; color: var(--teal); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Date</th>
                                 <th style="text-align: left; padding: 16px; color: var(--teal); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Animation</th>
                                 <th style="text-align: left; padding: 16px; color: var(--teal); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Order ID</th>
@@ -3230,7 +3231,7 @@
                                         <td style="padding: 20px 16px;">
                                             <div style="display: flex; align-items: center; gap: 12px;">
                                                 <img src="${anim.video_type === 'image/gif' ? anim.video_url : anim.thumbnail_url}" 
-                                                     style="width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(0, 212, 255, 0.2);">
+                                                     style="width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(126, 211, 33, 0.2);">
                                                 <div>
                                                     <div style="color: var(--text-primary); font-weight: 600; font-size: 14px;">${anim.title}</div>
                                                     <a href="animation-detail.html?id=${anim.id}" style="color: var(--teal); font-size: 12px; text-decoration: none;">View Details →</a>
@@ -3240,7 +3241,7 @@
                                         <td style="padding: 20px 16px; color: var(--text-muted); font-family: monospace; font-size: 13px;">#${orderId}</td>
                                         <td style="padding: 20px 16px; text-align: right; color: var(--text-primary); font-weight: 600; font-size: 15px;">$${amount.toFixed(2)}</td>
                                         <td style="padding: 20px 16px; text-align: center;">
-                                            <span style="background: rgba(16, 185, 129, 0.1); color: #10B981; padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 600; border: 1px solid rgba(16, 185, 129, 0.3);">
+                                            <span style="background: rgba(126, 211, 33, 0.1); color: #7ED321; padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 600; border: 1px solid rgba(126, 211, 33, 0.3);">
                                                 ✓ Complete
                                             </span>
                                         </td>
@@ -3297,7 +3298,7 @@
             
             if (downloads.length === 0) {
                 downloadsContent.innerHTML = `
-                    <div style="background: rgba(26, 26, 26, 0.6); border: 2px dashed rgba(0, 212, 255, 0.3); border-radius: 16px; padding: 48px 32px; text-align: center;">
+                    <div style="background: rgba(26, 26, 26, 0.6); border: 2px dashed rgba(126, 211, 33, 0.3); border-radius: 16px; padding: 48px 32px; text-align: center;">
                         <div style="font-size: 48px; margin-bottom: 16px;">📥</div>
                         <div style="color: var(--text-muted); font-size: 15px;">No downloads yet</div>
                     </div>
@@ -3306,10 +3307,10 @@
             }
 
             downloadsContent.innerHTML = `
-                <div style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.7), rgba(20, 20, 20, 0.8)); backdrop-filter: blur(30px); border: 2px solid rgba(0, 212, 255, 0.25); border-radius: 28px; padding: 32px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 212, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05); overflow-x: auto;">
+                <div style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.7), rgba(20, 20, 20, 0.8)); backdrop-filter: blur(30px); border: 2px solid rgba(126, 211, 33, 0.25); border-radius: 28px; padding: 32px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(126, 211, 33, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05); overflow-x: auto;">
                     <table style="width: 100%; border-collapse: collapse;">
                         <thead>
-                            <tr style="border-bottom: 2px solid rgba(0, 212, 255, 0.2);">
+                            <tr style="border-bottom: 2px solid rgba(126, 211, 33, 0.2);">
                                 <th style="text-align: left; padding: 16px; color: var(--teal); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Downloaded</th>
                                 <th style="text-align: left; padding: 16px; color: var(--teal); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Animation</th>
                                 <th style="text-align: center; padding: 16px; color: var(--teal); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Action</th>
@@ -3337,7 +3338,7 @@
                                         <td style="padding: 20px 16px;">
                                             <div style="display: flex; align-items: center; gap: 12px;">
                                                 <img src="${anim.video_type === 'image/gif' ? anim.video_url : anim.thumbnail_url}" 
-                                                     style="width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(0, 212, 255, 0.2);">
+                                                     style="width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid rgba(126, 211, 33, 0.2);">
                                                 <div>
                                                     <div style="color: var(--text-primary); font-weight: 600; font-size: 14px;">${anim.title}</div>
                                                     <a href="animation-detail.html?id=${anim.id}" style="color: var(--teal); font-size: 12px; text-decoration: none;">View Details →</a>
@@ -3346,8 +3347,9 @@
                                         </td>
                                         <td style="padding: 20px 16px; text-align: center;">
                                             <button onclick="downloadAnimation('${download.purchase_id}', '${anim.title}')" 
-                                                    style="background: rgba(10, 10, 10, 0.95); color: #fb7d47; border: 2px solid #fb7d47; padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;">
-                                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                                    class="btn-download"
+                                                    style="width: auto; padding: 10px 20px;">
+                                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                                                 Download Again
                                             </button>
                                         </td>
@@ -3472,23 +3474,23 @@
             const modal = document.createElement('div');
             modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85); display: flex; align-items: center; justify-content: center; z-index: 10000;';
             modal.innerHTML = `
-                <div style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.98)); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 24px; padding: 40px; max-width: 500px; width: 90%; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);">
+                <div style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.98)); border: 2px solid rgba(126, 211, 33, 0.3); border-radius: 24px; padding: 40px; max-width: 500px; width: 90%; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);">
                     <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 8px; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Change Password</h2>
                     <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">Enter your current and new password</p>
                     
                     <div style="margin-bottom: 20px;">
                         <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Current Password</label>
-                        <input type="password" id="currentPassword" placeholder="Enter current password" style="width: 100%; padding: 14px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; color: var(--text-primary); font-size: 15px;">
+                        <input type="password" id="currentPassword" placeholder="Enter current password" style="width: 100%; padding: 14px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(126, 211, 33, 0.3); border-radius: 12px; color: var(--text-primary); font-size: 15px;">
                     </div>
 
                     <div style="margin-bottom: 20px;">
                         <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">New Password</label>
-                        <input type="password" id="newPassword" placeholder="Enter new password" style="width: 100%; padding: 14px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; color: var(--text-primary); font-size: 15px;">
+                        <input type="password" id="newPassword" placeholder="Enter new password" style="width: 100%; padding: 14px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(126, 211, 33, 0.3); border-radius: 12px; color: var(--text-primary); font-size: 15px;">
                     </div>
 
                     <div style="margin-bottom: 24px;">
                         <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Confirm New Password</label>
-                        <input type="password" id="confirmPassword" placeholder="Confirm new password" style="width: 100%; padding: 14px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; color: var(--text-primary); font-size: 15px;">
+                        <input type="password" id="confirmPassword" placeholder="Confirm new password" style="width: 100%; padding: 14px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(126, 211, 33, 0.3); border-radius: 12px; color: var(--text-primary); font-size: 15px;">
                     </div>
 
                     <div style="margin-bottom: 20px; text-align: center;">
@@ -3498,7 +3500,7 @@
                     </div>
 
                     <div style="display: flex; gap: 12px; justify-content: flex-end;">
-                        <button onclick="this.closest('[style*=fixed]').remove()" style="padding: 12px 24px; background: rgba(0, 212, 255, 0.2); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 50px; color: var(--text-primary); font-weight: 600; cursor: pointer;">Cancel</button>
+                        <button onclick="this.closest('[style*=fixed]').remove()" style="padding: 12px 24px; background: rgba(126, 211, 33, 0.2); border: 2px solid rgba(126, 211, 33, 0.3); border-radius: 50px; color: var(--text-primary); font-weight: 600; cursor: pointer;">Cancel</button>
                         <button onclick="handlePasswordChange()" style="padding: 12px 24px; background: linear-gradient(135deg, var(--teal), var(--amber)); border: none; border-radius: 50px; color: white; font-weight: 600; cursor: pointer;">Change Password</button>
                     </div>
                 </div>
@@ -3565,7 +3567,7 @@
             const modal = document.createElement('div');
             modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85); display: flex; align-items: center; justify-content: center; z-index: 10000;';
             modal.innerHTML = `
-                <div style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.98)); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 24px; padding: 40px; max-width: 500px; width: 90%; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);">
+                <div style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.98)); border: 2px solid rgba(126, 211, 33, 0.3); border-radius: 24px; padding: 40px; max-width: 500px; width: 90%; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);">
                     <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 8px; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Reset Password</h2>
                     <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px; line-height: 1.6;">
                         We'll send you a password reset link to your email address. Click the link in the email to set a new password.
@@ -3573,11 +3575,11 @@
                     
                     <div style="margin-bottom: 24px;">
                         <label style="display: block; font-size: 14px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">Email Address</label>
-                        <input type="email" id="resetEmail" readonly style="width: 100%; padding: 14px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 12px; color: var(--text-muted); font-size: 15px; cursor: not-allowed;">
+                        <input type="email" id="resetEmail" readonly style="width: 100%; padding: 14px 16px; background: rgba(26, 26, 26, 0.8); border: 2px solid rgba(126, 211, 33, 0.3); border-radius: 12px; color: var(--text-muted); font-size: 15px; cursor: not-allowed;">
                     </div>
 
                     <div style="display: flex; gap: 12px; justify-content: flex-end;">
-                        <button onclick="this.closest('[style*=fixed]').remove()" style="padding: 12px 24px; background: rgba(0, 212, 255, 0.2); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 50px; color: var(--text-primary); font-weight: 600; cursor: pointer;">Cancel</button>
+                        <button onclick="this.closest('[style*=fixed]').remove()" style="padding: 12px 24px; background: rgba(126, 211, 33, 0.2); border: 2px solid rgba(126, 211, 33, 0.3); border-radius: 50px; color: var(--text-primary); font-weight: 600; cursor: pointer;">Cancel</button>
                         <button onclick="handleForgotPassword()" style="padding: 12px 24px; background: linear-gradient(135deg, var(--teal), var(--amber)); border: none; border-radius: 50px; color: white; font-weight: 600; cursor: pointer;">Send Reset Link</button>
                     </div>
                 </div>
@@ -3699,13 +3701,13 @@
             modal.style.cssText = 'position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.85); display: flex; align-items: center; justify-content: center; z-index: 10000;';
             modal.innerHTML = `
                 <div style="background: linear-gradient(145deg, rgba(26, 26, 26, 0.95), rgba(20, 20, 20, 0.98)); border: 2px solid rgba(255, 107, 107, 0.5); border-radius: 24px; padding: 40px; max-width: 500px; width: 90%; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);">
-                    <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #FF6B6B;">Delete Account</h2>
+                    <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #7ED321;">Delete Account</h2>
                     <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px; line-height: 1.6;">
                         This will permanently delete your account and all associated data including:
                         <br>• Purchase history
                         <br>• Download history
                         <br>• Saved preferences
-                        <br><br><strong style="color: #FF6B6B;">This action cannot be undone.</strong>
+                        <br><br><strong style="color: #7ED321;">This action cannot be undone.</strong>
                     </p>
                     
                     <div style="margin-bottom: 24px;">
@@ -3714,8 +3716,8 @@
                     </div>
 
                     <div style="display: flex; gap: 12px; justify-content: flex-end;">
-                        <button onclick="this.closest('[style*=fixed]').remove()" style="padding: 12px 24px; background: rgba(0, 212, 255, 0.2); border: 2px solid rgba(0, 212, 255, 0.3); border-radius: 50px; color: var(--text-primary); font-weight: 600; cursor: pointer;">Cancel</button>
-                        <button onclick="handleDeleteAccount()" style="padding: 12px 24px; background: rgba(255, 107, 107, 0.2); border: 2px solid rgba(255, 107, 107, 0.5); border-radius: 50px; color: #FF6B6B; font-weight: 600; cursor: pointer;">Delete Account</button>
+                        <button onclick="this.closest('[style*=fixed]').remove()" style="padding: 12px 24px; background: rgba(126, 211, 33, 0.2); border: 2px solid rgba(126, 211, 33, 0.3); border-radius: 50px; color: var(--text-primary); font-weight: 600; cursor: pointer;">Cancel</button>
+                        <button onclick="handleDeleteAccount()" style="padding: 12px 24px; background: rgba(255, 107, 107, 0.2); border: 2px solid rgba(255, 107, 107, 0.5); border-radius: 50px; color: #7ED321; font-weight: 600; cursor: pointer;">Delete Account</button>
                     </div>
                 </div>
             `;
@@ -3785,7 +3787,7 @@
                 cartHoverItems.style.overflowY = 'hidden';
                 cartHoverItems.innerHTML = `
                     <div class="cart-hover-empty">
-                        <div class="cart-hover-empty-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+                        <div class="cart-hover-empty-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#7ED321" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
                         <div>Your cart is empty</div>
                         <div style="font-size: 12px; margin-top: 8px; opacity: 0.7;">Any animations you add to your cart will be displayed here.</div>
                     </div>
@@ -3855,7 +3857,7 @@
             if (cartIds.length === 0) {
                 cartModalItems.innerHTML = `
                     <div class="cart-empty">
-                        <span style="font-size: 80px; margin-bottom: 20px; opacity: 0.3;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
+                        <span style="font-size: 80px; margin-bottom: 20px; opacity: 0.3;"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#7ED321" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
                         <h3 style="margin-bottom: 12px; font-size: 16px;">Your cart is empty</h3>
                         <p style="font-size: 13px; opacity: 0.7; line-height: 1.4;">Any animations you add to your cart will be displayed here.</p>
                     </div>
@@ -4068,19 +4070,19 @@
             
             const elementStyles = {
                 base: {
-                    color: '#FEFCE8',
+                    color: '#f0fdf4',
                     fontFamily: '"DM Sans", sans-serif',
                     fontSize: '16px',
                     fontWeight: '400',
                     '::placeholder': { color: '#6B7280' }
                 },
                 invalid: {
-                    color: '#FCA5A5',
-                    iconColor: '#FCA5A5'
+                    color: '#a8e063',
+                    iconColor: '#a8e063'
                 },
                 complete: {
-                    color: '#10B981',
-                    iconColor: '#10B981'
+                    color: '#7ED321',
+                    iconColor: '#7ED321'
                 }
             };
             
@@ -4089,8 +4091,8 @@
                     theme: 'night',
                     variables: {
                         colorBackground: '#2A2A2A',
-                        colorText: '#FEFCE8',
-                        colorDanger: '#FCA5A5',
+                        colorText: '#f0fdf4',
+                        colorDanger: '#a8e063',
                         fontFamily: 'DM Sans, sans-serif',
                         borderRadius: '50px'
                     }
@@ -4158,7 +4160,7 @@
                         if (animations && animations.length > 0) {
                             previewContainer.innerHTML = animations.map(anim => `
                                 <div style="text-align: center; flex-shrink: 0;">
-                                    <img src="${anim.video_url}" alt="${anim.title}" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid rgba(0, 212, 255, 0.2);">
+                                    <img src="${anim.video_url}" alt="${anim.title}" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid rgba(126, 211, 33, 0.2);">
                                     <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${anim.title}</div>
                                 </div>
                             `).join('');
@@ -4608,7 +4610,7 @@
                     const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
                     
                     html += `
-                        <div onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                        <div onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(126, 211, 33, 0.1); transition: all 0.2s;">
                             <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
@@ -4636,7 +4638,7 @@
                 suggestions.forEach(sugg => {
                     const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
                     html += `
-                        <div onclick="window.location.href='index.html#library?search=${encodeURIComponent(sugg)}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                        <div onclick="window.location.href='index.html#library?search=${encodeURIComponent(sugg)}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(126, 211, 33, 0.1); transition: all 0.2s;">
                             <div style="font-size: 18px;">🔍</div>
                             <div style="flex: 1; color: var(--text-primary);">${highlighted}</div>
                         </div>
@@ -4842,8 +4844,8 @@
             
             <div style="padding: 32px;">
                 <!-- Success Icon -->
-                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                    <svg width="30" height="30" fill="none" stroke="#10B981" stroke-width="3" viewBox="0 0 24 24">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, rgba(126, 211, 33, 0.2), rgba(126, 211, 33, 0.05)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <svg width="30" height="30" fill="none" stroke="#7ED321" stroke-width="3" viewBox="0 0 24 24">
                         <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
                 </div>
@@ -4857,13 +4859,13 @@
 
                 <!-- Loading State -->
                 <div id="thankYouLoading" style="text-align: center; padding: 20px;">
-                    <div class="spinner" style="margin: 0 auto 12px; width: 40px; height: 40px; border: 4px solid rgba(0, 212, 255, 0.1); border-top-color: var(--teal); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+                    <div class="spinner" style="margin: 0 auto 12px; width: 40px; height: 40px; border: 4px solid rgba(126, 211, 33, 0.1); border-top-color: var(--teal); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
                     <span style="color: var(--text-muted); font-size: 14px;">Preparing your download...</span>
                 </div>
 
                 <!-- Animation Preview -->
                 <div id="thankYouPreview" style="display: none; margin-bottom: 20px;">
-                    <div style="background: var(--bg-secondary); border-radius: 12px; padding: 12px; border: 2px solid rgba(0, 212, 255, 0.1);">
+                    <div style="background: var(--bg-secondary); border-radius: 12px; padding: 12px; border: 2px solid rgba(126, 211, 33, 0.1);">
                         <img id="thankYouGif" src="" alt="Animation Preview" style="width: 100%; max-width: 200px; border-radius: 8px; display: block; margin: 0 auto;">
                         <p id="thankYouAnimationName" style="text-align: center; margin-top: 8px; font-weight: 600; color: var(--text-primary); font-size: 14px;"></p>
                     </div>
@@ -4885,7 +4887,7 @@
                 </div>
 
                 <!-- Order Details -->
-                <div id="thankYouOrderDetails" style="display: none; background: rgba(26, 26, 26, 0.4); border-radius: 10px; padding: 16px; border: 2px solid rgba(0, 212, 255, 0.1);">
+                <div id="thankYouOrderDetails" style="display: none; background: rgba(26, 26, 26, 0.4); border-radius: 10px; padding: 16px; border: 2px solid rgba(126, 211, 33, 0.1);">
                     <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary);">Order Details</h3>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
                         <div style="display: flex; justify-content: space-between;">
