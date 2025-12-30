@@ -108,8 +108,8 @@
             --bg-primary: #000000;
             --bg-secondary: #0F0F0F;
             --bg-card: #1A1A1A;
-            --accent: #fb7d47;
-            --accent-secondary: #FF6B6B;
+            --accent: #7ED321;
+            --accent-secondary: #7ED321;
             --text-white: #FFFFFF;
             --text-primary: #FFFFFF;
             --text-secondary: #E7E5D3;
@@ -132,19 +132,19 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
+            background: linear-gradient(180deg, #7ED321 0%, #7ED321 100%);
             border-radius: 6px;
             border: 2px solid #1a1a1a;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #FBBF24 0%, #FF8E8E 100%);
+            background: linear-gradient(180deg, #7ED321 0%, #7ED321 100%);
         }
 
         /* Firefox Scrollbar */
         * {
             scrollbar-width: thin;
-            scrollbar-color: #fb7d47 #1a1a1a;
+            scrollbar-color: #7ED321 #1a1a1a;
         }
 
         body {
@@ -164,7 +164,7 @@
             z-index: 1000;
             background: rgba(0, 0, 0, 0.9);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 1px solid rgba(126, 211, 33, 0.1);
             padding: 16px 40px;
         }
 
@@ -185,7 +185,7 @@
         }
 
         .blog-nav-logo span {
-            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
+            background: linear-gradient(135deg, #7ED321, #7ED321);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -213,14 +213,14 @@
             left: 0;
             width: 100%;
             height: 2px;
-            background: linear-gradient(90deg, #fb7d47, #FF6B6B);
+            background: linear-gradient(90deg, #7ED321, #7ED321);
             transform: scaleX(0);
             transform-origin: left;
             transition: transform 0.3s ease;
         }
 
         .blog-nav-links a:not(.blog-nav-cta):hover {
-            color: #fb7d47;
+            color: #7ED321;
         }
 
         .blog-nav-links a:not(.blog-nav-cta):hover::after {
@@ -240,7 +240,7 @@
             border-radius: 50px;
             font-weight: 700;
             font-family: 'Sora', sans-serif;
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(126, 211, 33, 0.3);
             position: relative;
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.1),
@@ -260,9 +260,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -290,7 +290,7 @@
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.15),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 0 25px rgba(251, 125, 71, 0.4);
+                0 0 25px rgba(126, 211, 33, 0.4);
             transform: scale(1.05);
         }
 
@@ -322,13 +322,13 @@
         }
 
         .article-breadcrumb a:hover {
-            color: #fb7d47;
+            color: #7ED321;
         }
 
         .article-category {
             display: inline-block;
             background: rgba(10, 10, 10, 0.95);
-            color: #fb7d47;
+            color: #7ED321;
             font-size: 12px;
             font-weight: 700;
             padding: 6px 16px;
@@ -336,7 +336,7 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 20px;
-            border: 1px solid rgba(251, 125, 71, 0.3);
+            border: 1px solid rgba(126, 211, 33, 0.3);
         }
 
         .article-title {
@@ -421,14 +421,14 @@
         }
 
         .article-content a {
-            color: #fb7d47;
+            color: #7ED321;
             text-decoration: none;
             border-bottom: 1px solid transparent;
             transition: border-color 0.3s ease;
         }
 
         .article-content a:hover {
-            border-bottom-color: #fb7d47;
+            border-bottom-color: #7ED321;
         }
 
         /* Comparison Table */
@@ -439,18 +439,18 @@
             background: rgba(15, 15, 15, 0.6);
             border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(126, 211, 33, 0.15);
         }
 
         .comparison-table th {
-            background: rgba(251, 125, 71, 0.15);
+            background: rgba(126, 211, 33, 0.15);
             padding: 18px 20px;
             text-align: left;
             font-family: 'Sora', sans-serif;
             font-weight: 700;
             color: var(--text-white);
             font-size: 15px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 1px solid rgba(126, 211, 33, 0.15);
         }
 
         .comparison-table td {
@@ -483,11 +483,11 @@
             background: rgba(15, 15, 15, 0.6);
             border-radius: 16px;
             padding: 24px;
-            border: 1px solid rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(126, 211, 33, 0.15);
         }
 
         .pros {
-            border-left: 4px solid #22c55e;
+            border-left: 4px solid #7ED321;
         }
 
         .cons {
@@ -505,7 +505,7 @@
         }
 
         .pros h4 {
-            color: #22c55e;
+            color: #7ED321;
         }
 
         .cons h4 {
@@ -524,8 +524,8 @@
 
         /* Pro Tips */
         .pro-tip {
-            background: linear-gradient(135deg, rgba(251, 125, 71, 0.1), rgba(255, 107, 107, 0.05));
-            border: 1px solid rgba(251, 125, 71, 0.3);
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.1), rgba(126, 211, 33, 0.05));
+            border: 1px solid rgba(126, 211, 33, 0.3);
             border-radius: 12px;
             padding: 24px 28px;
             margin: 32px 0;
@@ -535,7 +535,7 @@
             font-family: 'Sora', sans-serif;
             font-size: 14px;
             font-weight: 700;
-            color: #fb7d47;
+            color: #7ED321;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 12px;
@@ -552,7 +552,7 @@
         /* CTA Block */
         .article-cta {
             background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(25, 25, 25, 0.95));
-            border: 2px solid rgba(251, 125, 71, 0.3);
+            border: 2px solid rgba(126, 211, 33, 0.3);
             border-radius: 20px;
             padding: 48px 48px 80px;
             text-align: center;
@@ -591,7 +591,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 0 2px rgba(126, 211, 33, 0.3);
             cursor: pointer;
             position: relative;
             isolation: isolate;
@@ -600,7 +600,7 @@
         .article-cta-btn svg {
             width: 18px;
             height: 18px;
-            stroke: #fb7d47;
+            stroke: #7ED321;
             fill: none;
             stroke-width: 2;
         }
@@ -616,9 +616,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -654,7 +654,7 @@
         /* Table of Contents */
         .toc {
             background: rgba(15, 15, 15, 0.6);
-            border: 1px solid rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(126, 211, 33, 0.15);
             border-radius: 16px;
             padding: 28px 32px;
             margin-bottom: 48px;
@@ -689,7 +689,7 @@
         }
 
         .toc-list a:hover {
-            color: #fb7d47;
+            color: #7ED321;
             padding-left: 8px;
         }
 
@@ -697,7 +697,7 @@
             content: '';
             width: 6px;
             height: 6px;
-            background: #fb7d47;
+            background: #7ED321;
             border-radius: 50%;
             opacity: 0.5;
         }
@@ -705,7 +705,7 @@
         /* Footer */
         .blog-footer {
             background: rgba(10, 10, 10, 0.95);
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            border-top: 1px solid rgba(126, 211, 33, 0.1);
             padding: 60px 20px;
             text-align: center;
         }
@@ -716,7 +716,7 @@
         }
 
         .blog-footer a {
-            color: #fb7d47;
+            color: #7ED321;
             text-decoration: none;
         }
 
@@ -731,7 +731,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(126, 211, 33, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -763,9 +763,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -794,7 +794,7 @@
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.15),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 0 25px rgba(251, 125, 71, 0.4);
+                0 0 25px rgba(126, 211, 33, 0.4);
         }
 
         .back-to-top:hover::before {
@@ -805,7 +805,7 @@
         .back-to-top svg {
             width: 20px;
             height: 20px;
-            stroke: #fb7d47;
+            stroke: #7ED321;
             fill: none;
             stroke-width: 2.5;
             position: relative;
@@ -879,7 +879,7 @@
             <div class="blog-nav-links">
                 <a href="index.html#library">Animations</a>
                 <a href="index.html#contact">Contact</a>
-                <a href="index.html#blog">Blog</a>
+                <a href="index.html#blog">Help</a>
                 <a href="index.html#faq">FAQ</a>
                 <a href="index.html#library" class="blog-nav-cta">Browse Library</a>
             </div>
@@ -892,7 +892,7 @@
             <nav class="article-breadcrumb" aria-label="Breadcrumb">
                 <a href="index.html">Home</a>
                 <span>/</span>
-                <a href="index.html#blog">Blog</a>
+                <a href="index.html#blog">Help</a>
                 <span>/</span>
                 <span>Mocap vs Keyframe</span>
             </nav>
