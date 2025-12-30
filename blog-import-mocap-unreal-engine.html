@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>How to Import Motion Capture Animations into Unreal Engine 5 | MocapWork</title>
+    <meta name="description" content="Complete step-by-step tutorial on importing FBX motion capture animations into Unreal Engine 5. Learn skeleton setup, retargeting basics, and get your mocap playing in under 10 minutes.">
+    <meta name="keywords" content="import mocap unreal engine 5, FBX animation UE5, motion capture tutorial, unreal engine animation import, mocap to UE5, skeleton retargeting">
+    <meta name="author" content="MocapWork">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://mocapwork.com/blog-import-mocap-unreal-engine.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://mocapwork.com/blog-import-mocap-unreal-engine.html">
+    <meta property="og:title" content="How to Import Motion Capture Animations into Unreal Engine 5">
+    <meta property="og:description" content="Complete step-by-step tutorial on importing FBX motion capture animations into Unreal Engine 5. Get your mocap playing in under 10 minutes.">
+    <meta property="og:image" content="https://mocapwork.com/blog-ue5-import-og.jpg">
+    <meta property="og:site_name" content="MocapWork">
+    <meta property="article:published_time" content="2025-12-01">
+    <meta property="article:author" content="MocapWork Team">
+    <meta property="article:section" content="Tutorials">
+    <meta property="article:tag" content="Unreal Engine">
+    <meta property="article:tag" content="Motion Capture">
+    <meta property="article:tag" content="Tutorial">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Import Motion Capture Animations into Unreal Engine 5">
+    <meta name="twitter:description" content="Complete step-by-step tutorial on importing FBX motion capture animations into Unreal Engine 5.">
+    <meta name="twitter:image" content="https://mocapwork.com/blog-ue5-import-og.jpg">
+    
+    <!-- Schema.org Article Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "How to Import Motion Capture Animations into Unreal Engine 5",
+        "description": "Complete step-by-step tutorial on importing FBX motion capture animations into Unreal Engine 5. Learn skeleton setup, retargeting basics, and get your mocap playing in under 10 minutes.",
+        "image": "https://mocapwork.com/blog-ue5-import-og.jpg",
+        "author": {
+            "@type": "Organization",
+            "name": "MocapWork",
+            "url": "https://mocapwork.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "MocapWork",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://mocapwork.com/logo.png"
+            }
+        },
+        "datePublished": "2025-12-01",
+        "dateModified": "2025-12-28",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https://mocapwork.com/blog-import-mocap-unreal-engine.html"
+        },
+        "articleSection": "Tutorials",
+        "keywords": ["Unreal Engine 5", "motion capture", "FBX import", "animation", "game development"]
+    }
+    </script>
+    
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://mocapwork.com"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://mocapwork.com/#blog"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Import Mocap to Unreal Engine 5",
+                "item": "https://mocapwork.com/blog-import-mocap-unreal-engine.html"
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0F0F0F;
+            --bg-card: #1A1A1A;
+            --accent: #fb7d47;
+            --accent-secondary: #FF6B6B;
+            --text-white: #FFFFFF;
+            --text-primary: #FFFFFF;
+            --text-secondary: #E7E5D3;
+            --text-muted: #A8A593;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+            border-radius: 6px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
+            border-radius: 6px;
+            border: 2px solid #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #FBBF24 0%, #FF8E8E 100%);
+        }
+
+        /* Firefox Scrollbar */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: #fb7d47 #1a1a1a;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .blog-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 16px 40px;
+        }
+
+        .blog-nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .blog-nav-logo {
+            font-family: 'Sora', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-white);
+            text-decoration: none;
+        }
+
+        .blog-nav-logo span {
+            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .blog-nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .blog-nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .blog-nav-links a:hover {
+            color: #fb7d47;
+        }
+
+        /* Keyframes for button liquid flow */
+        @keyframes liquidFlow {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .blog-nav-cta {
+            background: rgba(10, 10, 10, 0.95);
+            color: #ffffff !important;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease, border-color 0.2s ease;
+        }
+
+        .blog-nav-cta::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+
+        .blog-nav-cta::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50px;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: -1;
+        }
+
+        .blog-nav-cta:hover {
+            border-color: rgba(10, 10, 10, 0.95);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
+            transform: scale(1.05);
+        }
+
+        .blog-nav-cta:hover::before {
+            opacity: 1;
+            animation-play-state: running;
+        }
+
+        /* Article Header */
+        .article-header {
+            padding: 160px 20px 80px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .article-breadcrumb {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .article-breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .article-breadcrumb a:hover {
+            color: #fb7d47;
+        }
+
+        .article-category {
+            display: inline-block;
+            background: rgba(10, 10, 10, 0.95);
+            color: #fb7d47;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(251, 125, 71, 0.3);
+        }
+
+        .article-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: var(--text-white);
+        }
+
+        .article-meta {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .article-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .article-meta-item svg {
+            opacity: 0.6;
+        }
+
+        /* Article Content */
+        .article-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px 100px;
+        }
+
+        .article-content h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-white);
+            margin: 48px 0 20px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .article-content h2:first-of-type {
+            border-top: none;
+            margin-top: 0;
+        }
+
+        .article-content h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--text-white);
+            margin: 36px 0 16px;
+        }
+
+        .article-content p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 24px 0;
+            padding-left: 24px;
+        }
+
+        .article-content li {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        .article-content strong {
+            color: var(--text-white);
+            font-weight: 600;
+        }
+
+        .article-content a {
+            color: #fb7d47;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .article-content a:hover {
+            border-bottom-color: #fb7d47;
+        }
+
+        /* Code/Step Blocks */
+        .step-block {
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-left: 4px solid #fb7d47;
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 24px 0;
+        }
+
+        .step-block-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fb7d47;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-block-title .step-number {
+            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
+            color: #000;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .step-block p {
+            margin-bottom: 0;
+            font-size: 16px;
+        }
+
+        /* Pro Tips */
+        .pro-tip {
+            background: linear-gradient(135deg, rgba(251, 125, 71, 0.1), rgba(255, 107, 107, 0.05));
+            border: 1px solid rgba(251, 125, 71, 0.3);
+            border-radius: 12px;
+            padding: 24px 28px;
+            margin: 32px 0;
+        }
+
+        .pro-tip-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fb7d47;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pro-tip p {
+            margin-bottom: 0;
+            font-size: 16px;
+        }
+
+        /* CTA Block */
+        .article-cta {
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(25, 25, 25, 0.95));
+            border: 2px solid rgba(251, 125, 71, 0.3);
+            border-radius: 20px;
+            padding: 48px 48px 56px;
+            text-align: center;
+            margin: 60px 0;
+            overflow: visible;
+        }
+
+        .article-cta h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 16px;
+        }
+
+        .article-cta p {
+            color: var(--text-secondary);
+            font-size: 18px;
+            margin-bottom: 28px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .article-cta-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: transparent;
+            color: #ffffff !important;
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 16px;
+            font-family: 'Sora', sans-serif;
+            text-decoration: none;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            position: relative;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease, border-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .article-cta-btn .btn-content {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .article-cta-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: #fb7d47;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        .article-cta-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+
+        .article-cta-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50px;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: 1;
+        }
+
+        .article-cta-btn:hover {
+            border-color: rgba(10, 10, 10, 0.95);
+            transform: scale(1.05);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
+        }
+
+        .article-cta-btn:hover::before {
+            opacity: 1;
+            animation-play-state: running;
+        }
+
+        /* Table of Contents */
+        .toc {
+            background: rgba(15, 15, 15, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-bottom: 48px;
+        }
+
+        .toc-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 10px;
+        }
+
+        .toc-list a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .toc-list a:hover {
+            color: #fb7d47;
+            padding-left: 8px;
+        }
+
+        .toc-list a::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #fb7d47;
+            border-radius: 50%;
+            opacity: 0.5;
+        }
+
+        /* Footer */
+        .blog-footer {
+            background: rgba(10, 10, 10, 0.95);
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .blog-footer p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .blog-footer a {
+            color: #fb7d47;
+            text-decoration: none;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 32px;
+            right: 32px;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            color: #ffffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease, border-color 0.2s ease;
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #fb7d47 20%,
+                #fb7d47 40%,
+                #FF6B6B 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+
+        .back-to-top::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: -1;
+        }
+
+        .back-to-top:hover {
+            border-color: rgba(10, 10, 10, 0.95);
+            transform: scale(1.1);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+                0 0 25px rgba(251, 125, 71, 0.4);
+        }
+
+        .back-to-top:hover::before {
+            opacity: 1;
+            animation-play-state: running;
+        }
+
+        .back-to-top svg {
+            width: 20px;
+            height: 20px;
+            stroke: #fb7d47;
+            fill: none;
+            stroke-width: 2.5;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 44px;
+                height: 44px;
+            }
+
+            .blog-nav {
+                padding: 16px 20px;
+            }
+
+            .blog-nav-links {
+                display: none;
+            }
+
+            .article-header {
+                padding: 120px 20px 60px;
+            }
+
+            .article-title {
+                font-size: 32px;
+            }
+
+            .article-content h2 {
+                font-size: 26px;
+            }
+
+            .article-content h3 {
+                font-size: 20px;
+            }
+
+            .article-content p, .article-content li {
+                font-size: 16px;
+            }
+
+            .article-cta {
+                padding: 32px 24px;
+            }
+
+            .article-cta h3 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="blog-nav">
+        <div class="blog-nav-inner">
+            <a href="index.html" class="blog-nav-logo">Mocap<span>Work</span></a>
+            <div class="blog-nav-links">
+                <a href="index.html#library">Animations</a>
+                <a href="index.html#blog">Blog</a>
+                <a href="index.html#faq">FAQ</a>
+                <a href="index.html#library" class="blog-nav-cta">Browse Library</a>
+            </div>
+        </div>
+    </nav>
+
+    <article>
+        <!-- Article Header -->
+        <header class="article-header">
+            <nav class="article-breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Home</a>
+                <span>/</span>
+                <a href="index.html#blog">Blog</a>
+                <span>/</span>
+                <span>Import Mocap to UE5</span>
+            </nav>
+            
+            <span class="article-category">Tutorial</span>
+            
+            <h1 class="article-title">How to Import Motion Capture Animations into Unreal Engine 5</h1>
+            
+            <div class="article-meta">
+                <div class="article-meta-item">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    8 min read
+                </div>
+                <div class="article-meta-item">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="16" y1="2" x2="16" y2="6"/>
+                        <line x1="8" y1="2" x2="8" y2="6"/>
+                        <line x1="3" y1="10" x2="21" y2="10"/>
+                    </svg>
+                    December 2025
+                </div>
+                <div class="article-meta-item">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    MocapWork Team
+                </div>
+            </div>
+        </header>
+
+        <!-- Article Content -->
+        <div class="article-content">
+            <!-- Table of Contents -->
+            <nav class="toc" aria-label="Table of Contents">
+                <h2 class="toc-title">In This Guide</h2>
+                <ul class="toc-list">
+                    <li><a href="#prerequisites">Prerequisites & File Formats</a></li>
+                    <li><a href="#import-fbx">Importing Your FBX Animation</a></li>
+                    <li><a href="#skeleton-setup">Skeleton Setup & Configuration</a></li>
+                    <li><a href="#retargeting">Basic Retargeting to Your Character</a></li>
+                    <li><a href="#animation-blueprint">Using in Animation Blueprints</a></li>
+                    <li><a href="#troubleshooting">Common Issues & Fixes</a></li>
+                </ul>
+            </nav>
+
+            <p>Getting professional motion capture animations into Unreal Engine 5 doesn't have to be complicated. Whether you've purchased animations from a marketplace like <a href="index.html">MocapWork</a>, recorded your own mocap session, or downloaded free assets, this guide will walk you through the entire import process from start to finish.</p>
+
+            <p>By the end of this tutorial, you'll have your mocap animations playing on a character in UE5, ready for use in your game or cinematic project.</p>
+
+            <h2 id="prerequisites">Prerequisites & File Formats</h2>
+
+            <p>Before we begin, let's make sure you have everything you need:</p>
+
+            <ul>
+                <li><strong>Unreal Engine 5.1 or later</strong> (this guide uses UE5.3, but the process is similar across versions)</li>
+                <li><strong>FBX animation files</strong> – the industry standard format for mocap data</li>
+                <li><strong>A compatible skeleton</strong> – most marketplace animations target the UE5 Mannequin or Mixamo skeleton</li>
+            </ul>
+
+            <div class="pro-tip">
+                <div class="pro-tip-title">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    Pro Tip
+                </div>
+                <p>Check what skeleton your animation targets before purchasing. At MocapWork, all our animations are rigged to the UE5 Mannequin skeleton with Mixamo compatibility, making imports seamless.</p>
+            </div>
+
+            <h2 id="import-fbx">Importing Your FBX Animation</h2>
+
+            <p>Let's get your animation file into Unreal. This is the most straightforward part of the process.</p>
+
+            <div class="step-block">
+                <div class="step-block-title">
+                    <span class="step-number">1</span>
+                    Open the Content Browser
+                </div>
+                <p>In UE5, navigate to the folder where you want to store your animations. We recommend creating a dedicated folder like <strong>Content/Animations/Mocap</strong> to keep things organized.</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-block-title">
+                    <span class="step-number">2</span>
+                    Import the FBX File
+                </div>
+                <p>Right-click in the Content Browser and select <strong>Import to /Game/...</strong> or simply drag and drop your FBX file directly into the folder. The FBX Import Options dialog will appear.</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-block-title">
+                    <span class="step-number">3</span>
+                    Configure Import Settings
+                </div>
+                <p>This is where the magic happens. Set <strong>Skeleton</strong> to your target skeleton (usually SK_Mannequin). Under Mesh, uncheck "Import Mesh" if you only want the animation. Enable "Import Animations" and set the animation name.</p>
+            </div>
+
+            <h2 id="skeleton-setup">Skeleton Setup & Configuration</h2>
+
+            <p>The skeleton is the foundation of your animation system. For mocap to work correctly, your animation's skeleton hierarchy must match your character's skeleton—or be properly retargeted.</p>
+
+            <h3>Using the UE5 Mannequin Skeleton</h3>
+
+            <p>If your animation targets the UE5 Mannequin (which most marketplace animations do), you're in luck. The setup is minimal:</p>
+
+            <ol>
+                <li>Enable the "Third Person" template content in your project if you haven't already</li>
+                <li>Locate <strong>SK_Mannequin</strong> in the Characters/Mannequins folder</li>
+                <li>When importing, select this skeleton in the import dialog</li>
+            </ol>
+
+            <h3>Mixamo Skeleton Compatibility</h3>
+
+            <p>Many animators work with Mixamo's skeleton structure. If your animation uses Mixamo naming conventions, UE5's retargeting system can map bones automatically. Just ensure you're using the IK Retargeter for accurate motion transfer.</p>
+
+            <h2 id="retargeting">Basic Retargeting to Your Character</h2>
+
+            <p>Have a custom character that doesn't use the standard mannequin? No problem. UE5's IK Retargeting system makes it relatively painless to transfer animations between different skeletons.</p>
+
+            <div class="step-block">
+                <div class="step-block-title">
+                    <span class="step-number">1</span>
+                    Create an IK Rig for Each Skeleton
+                </div>
+                <p>Right-click your skeleton asset and select <strong>Create > IK Rig</strong>. Define the retarget root (usually the pelvis/hips) and create IK chains for the spine, arms, and legs.</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-block-title">
+                    <span class="step-number">2</span>
+                    Create an IK Retargeter
+                </div>
+                <p>In the Content Browser, right-click and select <strong>Animation > IK Retargeter</strong>. Set your source IK Rig (the mocap skeleton) and target IK Rig (your character's skeleton).</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-block-title">
+                    <span class="step-number">3</span>
+                    Map the Chains
+                </div>
+                <p>UE5 will attempt to auto-map chains based on naming. Review each chain mapping and adjust any mismatches. Pay special attention to the spine and fingers.</p>
+            </div>
+
+            <div class="step-block">
+                <div class="step-block-title">
+                    <span class="step-number">4</span>
+                    Export Retargeted Animation
+                </div>
+                <p>With the retargeter configured, right-click your source animation and select <strong>Retarget Animations</strong>. Choose your retargeter and export to create a new animation asset compatible with your character.</p>
+            </div>
+
+            <h2 id="animation-blueprint">Using in Animation Blueprints</h2>
+
+            <p>Now that your animation is imported and (optionally) retargeted, it's time to actually use it in your game.</p>
+
+            <h3>Simple Playback</h3>
+
+            <p>For cinematics or simple playback, you can directly assign the animation to a Skeletal Mesh Component or use the Play Animation node in Blueprints.</p>
+
+            <h3>Animation Blueprint Integration</h3>
+
+            <p>For games, you'll typically want to integrate mocap animations into an Animation Blueprint. Here's a basic setup:</p>
+
+            <ol>
+                <li>Open your character's Animation Blueprint</li>
+                <li>In the AnimGraph, use a <strong>State Machine</strong> to organize different animation states (idle, walk, run, etc.)</li>
+                <li>Add your mocap animation as a state or blend it with existing animations using a <strong>Blend Space</strong></li>
+                <li>Set up transitions based on gameplay variables like movement speed</li>
+            </ol>
+
+            <div class="pro-tip">
+                <div class="pro-tip-title">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    Pro Tip
+                </div>
+                <p>Use Animation Montages for one-off animations like attacks, emotes, or interactions. This keeps your state machine clean and gives you more control over blending and interruption.</p>
+            </div>
+
+            <h2 id="troubleshooting">Common Issues & Fixes</h2>
+
+            <p>Even with the best preparation, you might encounter some hiccups. Here are the most common issues and how to fix them:</p>
+
+            <h3>Animation Looks Jittery or Broken</h3>
+            <p><strong>Cause:</strong> Frame rate mismatch or keyframe interpolation issues.<br>
+            <strong>Fix:</strong> In the animation asset settings, check that the sample rate matches your source (typically 30 or 60 fps). Enable "Force Root Lock" if the character is drifting.</p>
+
+            <h3>Character Floats or Sinks into Ground</h3>
+            <p><strong>Cause:</strong> Root bone offset or retargeting height mismatch.<br>
+            <strong>Fix:</strong> Adjust the "Pelvis" bone offset in the retargeter, or enable "Reset Root Translation" if you don't need root motion.</p>
+
+            <h3>Fingers or Face Look Wrong</h3>
+            <p><strong>Cause:</strong> Incomplete bone mapping or different finger hierarchy.<br>
+            <strong>Fix:</strong> Manually map finger chains in the IK Retargeter. For facial animation, ensure your character has compatible blend shapes or bones.</p>
+
+            <h3>Animation Doesn't Loop Smoothly</h3>
+            <p><strong>Cause:</strong> Start and end poses don't match.<br>
+            <strong>Fix:</strong> Enable "Loop Animation" in the asset settings. For better results, use the curve editor to blend the last few frames back to the start pose.</p>
+
+            <!-- CTA Block -->
+            <div class="article-cta">
+                <h3>Ready to Level Up Your Game's Animations?</h3>
+                <p>Browse our library of 100+ professional motion capture animations, ready for Unreal Engine 5.</p>
+                <a href="index.html#library" class="article-cta-btn">
+                    <span class="btn-content">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="5 3 19 12 5 21 5 3"/>
+                        </svg>
+                        Explore Animations
+                    </span>
+                </a>
+            </div>
+
+            <h2>Wrapping Up</h2>
+
+            <p>Importing motion capture animations into Unreal Engine 5 is a straightforward process once you understand the workflow. Remember the key steps: import your FBX with the correct skeleton, set up retargeting if needed, and integrate into your Animation Blueprint.</p>
+
+            <p>The quality difference between keyframed and mocap animations is immediately noticeable—your characters will move with the weight, timing, and nuance that only real human motion can provide.</p>
+
+            <p>Have questions about working with mocap in UE5? Drop us a message through our <a href="index.html#contact">contact form</a>, and our team will be happy to help.</p>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="blog-footer">
+        <p>© 2025 <a href="index.html">MocapWork</a>. Professional motion capture animations for game developers and filmmakers.</p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="18 15 12 9 6 15"/>
+        </svg>
+    </button>
+
+    <script>
+        // Back to Top Button
+        const backToTopBtn = document.getElementById('backToTop');
+        const toc = document.querySelector('.toc');
+        
+        window.addEventListener('scroll', function() {
+            if (toc) {
+                const tocBottom = toc.getBoundingClientRect().bottom;
+                if (tocBottom < 0) {
+                    backToTopBtn.classList.add('visible');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                }
+            }
+        }, { passive: true });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+</body>
+</html>
