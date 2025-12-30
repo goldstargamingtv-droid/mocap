@@ -43,6 +43,32 @@
       gtag('config', 'G-3MFZSKB0V4');
     </script>
     
+    <!-- JSON-LD Structured Data for SEO (Updated dynamically via JavaScript) -->
+    <script type="application/ld+json" id="productSchema">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "Professional Motion Capture Animation",
+      "description": "Studio-quality motion capture animation for game development and film production",
+      "image": "",
+      "brand": {
+        "@type": "Brand",
+        "name": "MocapWork"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "",
+        "priceCurrency": "USD",
+        "price": "",
+        "availability": "https://schema.org/InStock",
+        "seller": {
+          "@type": "Organization",
+          "name": "MocapWork"
+        }
+      }
+    }
+    </script>
+    
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -185,7 +211,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
             transition: width 0.3s ease;
         }
 
@@ -1066,7 +1092,7 @@
         .logo-icon {
             width: 44px;
             height: 44px;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -1120,9 +1146,10 @@
         }
 
         .logo-text span {
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
@@ -1152,7 +1179,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: #fb7d47;
+            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
             transition: width 0.3s ease;
         }
 
@@ -2085,6 +2112,483 @@
             color: var(--teal);
         }
 
+        /* ═══════════════════════════════════════════════════════════════════
+           CTA COMPONENTS - Conversion Optimized
+           ═══════════════════════════════════════════════════════════════════ */
+
+        /* Trust Badges Strip */
+        .trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .trust-badge svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .trust-badge .badge-highlight {
+            color: #fb7d47;
+            font-weight: 600;
+        }
+
+        /* Sticky Purchase CTA */
+        .sticky-cta {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            border-top: 2px solid rgba(251, 125, 71, 0.3);
+            padding: 16px 24px;
+            z-index: 9998;
+            transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .sticky-cta.visible {
+            bottom: 0;
+        }
+
+        .sticky-cta-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .sticky-cta-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .sticky-cta-thumb {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid rgba(251, 125, 71, 0.3);
+            flex-shrink: 0;
+        }
+
+        .sticky-cta-details {
+            min-width: 0;
+        }
+
+        .sticky-cta-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-white);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .sticky-cta-price {
+            font-size: 20px;
+            font-weight: 800;
+            color: #fb7d47;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .sticky-cta-actions {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .sticky-cta .btn {
+            padding: 12px 24px;
+            font-size: 14px;
+        }
+
+        /* Promotional Banner */
+        .promo-banner {
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid rgba(251, 125, 71, 0.25);
+            border-radius: 20px;
+            padding: 32px;
+            margin: 40px 0;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(251, 125, 71, 0.15),
+                0 0 60px rgba(251, 125, 71, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #fb7d47, #FF6B6B, #fb7d47);
+            background-size: 200% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .promo-icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, rgba(251, 125, 71, 0.2), rgba(255, 107, 107, 0.1));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .promo-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: #fb7d47;
+        }
+
+        .promo-content {
+            flex: 1;
+        }
+
+        .promo-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 6px;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .promo-text {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .promo-text strong {
+            color: #fb7d47;
+        }
+
+        .promo-action {
+            flex-shrink: 0;
+        }
+
+        /* Value Props Section - Interactive Glow Effect */
+        .value-props {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin: 40px 0;
+        }
+
+        .value-prop-card {
+            -webkit-tap-highlight-color: transparent;
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid rgba(0, 212, 255, 0.1);
+            position: relative;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: transform 0.12s cubic-bezier(.645, .045, .355, 1), border-color 0.3s ease;
+            overflow: hidden;
+            padding: 28px 20px;
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 40px rgba(251, 125, 71, 0.05);
+        }
+
+        .value-prop-card:hover {
+            border-color: rgba(251, 125, 71, 0.6);
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(251, 125, 71, 0.2),
+                0 0 60px rgba(251, 125, 71, 0.15),
+                0 0 100px rgba(251, 125, 71, 0.1);
+        }
+
+        .value-prop-card:active {
+            transform: translateY(1px) scale(0.99);
+        }
+
+        .value-prop-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .value-prop-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, rgba(251, 125, 71, 0.15), rgba(255, 107, 107, 0.1));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .value-prop-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: #fb7d47;
+        }
+
+        .value-prop-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-white);
+            font-family: 'Sora', sans-serif;
+            position: relative;
+            z-index: 2;
+            user-select: none;
+            text-align: center;
+        }
+
+        .value-prop-text {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            position: relative;
+            z-index: 2;
+            user-select: none;
+            text-align: center;
+        }
+
+        /* Screen reader only utility */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Generic Panel Glow Effect - Simple & Performant */
+        .panel-glow {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel-glow-blob {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(251, 125, 71, 0.6) 0%, rgba(255, 107, 107, 0.3) 40%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .panel-glow:hover .panel-glow-blob {
+            opacity: 1;
+        }
+
+        .panel-glow > *:not(.panel-glow-blob) {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            background: rgba(10, 10, 10, 0.95);
+            border: 2px solid rgba(251, 125, 71, 0.2);
+            border-radius: 28px;
+            padding: 48px;
+            text-align: center;
+            margin: 48px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 4px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(251, 125, 71, 0.1),
+                0 0 80px rgba(251, 125, 71, 0.05);
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(251, 125, 71, 0.03) 0%, transparent 50%);
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .final-cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .final-cta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, rgba(251, 125, 71, 0.2), rgba(255, 107, 107, 0.1));
+            border: 1px solid rgba(251, 125, 71, 0.3);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #fb7d47;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .final-cta-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-white);
+            margin-bottom: 12px;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .final-cta-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta-price {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .final-cta-price .currency {
+            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .final-cta-price .amount {
+            color: var(--text-white);
+        }
+
+        .final-cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .final-cta-buttons .btn {
+            padding: 16px 40px;
+            font-size: 16px;
+        }
+
+        .final-cta-guarantee {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .final-cta-guarantee svg {
+            width: 18px;
+            height: 18px;
+            stroke: #10B981;
+        }
+
+        /* Social Proof Counter */
+        .social-proof {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 16px 0;
+            margin-top: 16px;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .proof-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .proof-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(251, 125, 71, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .proof-icon svg {
+            width: 16px;
+            height: 16px;
+            stroke: #fb7d47;
+        }
+
+        .proof-number {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-white);
+            font-family: 'Sora', sans-serif;
+        }
+
+        .proof-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         /* Mobile */
         @media (max-width: 768px) {
             .nav-center,
@@ -2169,6 +2673,91 @@
 
             .related-grid {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        /* CTA Mobile Responsive */
+        @media (max-width: 768px) {
+            .trust-badges {
+                justify-content: center;
+            }
+
+            .sticky-cta-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .sticky-cta-info {
+                justify-content: center;
+            }
+
+            .sticky-cta-details {
+                display: none;
+            }
+
+            .sticky-cta-actions {
+                width: 100%;
+            }
+
+            .sticky-cta-actions .btn {
+                flex: 1;
+            }
+
+            .promo-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 24px;
+            }
+
+            .promo-action {
+                width: 100%;
+            }
+
+            .promo-action .btn {
+                width: 100%;
+            }
+
+            .value-prop-card {
+                padding: 24px 16px;
+            }
+
+            .final-cta {
+                padding: 32px 20px;
+            }
+
+            .final-cta-title {
+                font-size: 24px;
+            }
+
+            .final-cta-price {
+                font-size: 36px;
+            }
+
+            .final-cta-buttons {
+                flex-direction: column;
+            }
+
+            .final-cta-buttons .btn {
+                width: 100%;
+            }
+
+            .social-proof {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .value-props {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-badges {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
             }
         }
 
@@ -2849,14 +3438,14 @@
             }
             
             .nav-links li a:hover {
-                background: rgba(0, 212, 255, 0.1);
+                background: rgba(245, 158, 11, 0.1);
                 padding-left: 40px;
-                color: var(--teal);
+                color: #F59E0B;
             }
             
             .nav-links li a.active {
-                background: rgba(0, 212, 255, 0.15);
-                border-left: 3px solid var(--teal);
+                background: rgba(245, 158, 11, 0.15);
+                border-left: 3px solid #F59E0B;
             }
         }
     </style>
@@ -3199,7 +3788,8 @@
                 </p>
 
                 <!-- Price & Purchase -->
-                <div class="price-card">
+                <div class="price-card panel-glow">
+                    <div class="panel-glow-blob"></div>
                     <div class="price-display"><span class="dollar-sign">$</span>1.00</div>
                     <div class="purchase-buttons">
                         <button class="btn btn-success" id="buyNowBtn" onclick="handleBuyNow()">
@@ -3222,11 +3812,78 @@
                     <p class="license-note">
                         Royalty-Free License • Lifetime access in your library • Unlimited commercial use
                     </p>
+
+                    <!-- Trust Badges -->
+                    <div class="trust-badges">
+                        <div class="trust-badge">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                <polyline points="9 12 11 14 15 10"/>
+                            </svg>
+                            <span>Secure <span class="badge-highlight">SSL</span> Checkout</span>
+                        </div>
+                        <div class="trust-badge">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            <span><span class="badge-highlight">Instant</span> Download</span>
+                        </div>
+                        <div class="trust-badge">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span><span class="badge-highlight">Lifetime</span> Access</span>
+                        </div>
+                    </div>
+
+                    <!-- Social Proof -->
+                    <div class="social-proof">
+                        <div class="proof-item">
+                            <div class="proof-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="proof-number">FBX</div>
+                                <div class="proof-label">Industry Standard</div>
+                            </div>
+                        </div>
+                        <div class="proof-item">
+                            <div class="proof-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="proof-number">120 FPS</div>
+                                <div class="proof-label">Smooth Motion</div>
+                            </div>
+                        </div>
+                        <div class="proof-item">
+                            <div class="proof-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="proof-number">100%</div>
+                                <div class="proof-label">Royalty Free</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- File Info -->
                 <!-- Technical Specs -->
-                <div class="file-info-card">
+                <div class="file-info-card panel-glow">
+                    <div class="panel-glow-blob"></div>
                     <h3>⚙️ Technical Specifications</h3>
                     <table class="specs-table">
                         <tr>
@@ -3235,7 +3892,7 @@
                         </tr>
                         <tr>
                             <td>Frame Rate</td>
-                            <td>30 FPS (retargetable)</td>
+                            <td>120 FPS (retargetable)</td>
                         </tr>
                         <tr>
                             <td>Animations Included</td>
@@ -3264,7 +3921,32 @@
                     </table>
                 </div>
 
-                <div class="file-info-card">
+                <!-- Promotional Banner CTA -->
+                <div class="promo-banner panel-glow">
+                    <div class="panel-glow-blob"></div>
+                    <div class="promo-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                        </svg>
+                    </div>
+                    <div class="promo-content">
+                        <div class="promo-title">Start Creating Today</div>
+                        <div class="promo-text">Get <strong>instant access</strong> to professional mocap animations. No subscriptions, no hidden fees — <strong>one-time purchase</strong>, use forever.</div>
+                    </div>
+                    <div class="promo-action">
+                        <button class="btn btn-primary" onclick="document.getElementById('buyNowBtn').click()">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                            Get It Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="file-info-card panel-glow">
+                    <div class="panel-glow-blob"></div>
                     <h3>📁 What's Included</h3>
                     <ul class="file-list">
                         <li>1 FBX animation file (Unreal/Unity ready)</li>
@@ -3277,7 +3959,8 @@
                 </div>
 
                 <!-- Compatibility -->
-                <div class="file-info-card">
+                <div class="file-info-card panel-glow">
+                    <div class="panel-glow-blob"></div>
                     <h3>🎮 Compatible With</h3>
                     <div class="compatibility-grid">
                         <div class="compat-badge">
@@ -3299,6 +3982,62 @@
                             <div class="compat-name">Blender</div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Value Propositions with Interactive Glow -->
+                <div class="value-props" id="valuePropsSection">
+                    <article class="value-prop-card panel-glow">
+                        <div class="panel-glow-blob"></div>
+                        <div class="value-prop-inner">
+                            <div class="value-prop-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                            </div>
+                            <div class="value-prop-title">Studio Quality</div>
+                            <div class="value-prop-text">Captured with professional motion capture equipment</div>
+                        </div>
+                    </article>
+                    <article class="value-prop-card panel-glow">
+                        <div class="panel-glow-blob"></div>
+                        <div class="value-prop-inner">
+                            <div class="value-prop-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                </svg>
+                            </div>
+                            <div class="value-prop-title">Commercial Rights</div>
+                            <div class="value-prop-text">Use in unlimited projects with no royalties</div>
+                        </div>
+                    </article>
+                    <article class="value-prop-card panel-glow">
+                        <div class="panel-glow-blob"></div>
+                        <div class="value-prop-inner">
+                            <div class="value-prop-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polyline points="12 6 12 12 16 14"/>
+                                </svg>
+                            </div>
+                            <div class="value-prop-title">Lifetime Access</div>
+                            <div class="value-prop-text">Download anytime from your personal library</div>
+                        </div>
+                    </article>
+                    <article class="value-prop-card panel-glow">
+                        <div class="panel-glow-blob"></div>
+                        <div class="value-prop-inner">
+                            <div class="value-prop-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <polyline points="22,6 12,13 2,6"/>
+                                </svg>
+                            </div>
+                            <div class="value-prop-title">Premium Support</div>
+                            <div class="value-prop-text">Get help with setup and integration</div>
+                        </div>
+                    </article>
                 </div>
 
                 <!-- Tags -->
@@ -3326,7 +4065,8 @@
         </div>
 
         <!-- FAQ -->
-        <div class="faq-section">
+        <div class="faq-section panel-glow">
+            <div class="panel-glow-blob"></div>
             <h2>❓ Frequently Asked Questions</h2>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(1)">
@@ -3372,6 +4112,72 @@
                     All animation purchases are final. We do not offer refunds on digital animation files. 
                     Please review the preview and technical specifications carefully before purchasing.
                 </div>
+            </div>
+        </div>
+
+        <!-- Final CTA Section -->
+        <div class="final-cta panel-glow">
+            <div class="panel-glow-blob"></div>
+            <div class="final-cta-content">
+                <div class="final-cta-badge">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+                    </svg>
+                    One-Time Purchase
+                </div>
+                <h2 class="final-cta-title">Ready to Level Up Your Project?</h2>
+                <p class="final-cta-subtitle">Join thousands of game developers and animators using MocapWork animations</p>
+                <div class="final-cta-price">
+                    <span class="currency">$</span><span class="amount" id="finalCtaPrice">1.00</span>
+                </div>
+                <div class="final-cta-buttons">
+                    <button class="btn btn-primary" onclick="document.getElementById('buyNowBtn').click()">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="9" cy="21" r="1"></circle>
+                            <circle cx="20" cy="21" r="1"></circle>
+                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                        </svg>
+                        Buy Now — Instant Download
+                    </button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('addToCartBtn').click()">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Add to Cart
+                    </button>
+                </div>
+                <div class="final-cta-guarantee">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        <polyline points="9 12 11 14 15 10"/>
+                    </svg>
+                    <span>Secure payment • Instant delivery • Lifetime access</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Purchase CTA -->
+    <div class="sticky-cta" id="stickyCta">
+        <div class="sticky-cta-inner">
+            <div class="sticky-cta-info">
+                <img src="" alt="" class="sticky-cta-thumb" id="stickyCtaThumb">
+                <div class="sticky-cta-details">
+                    <div class="sticky-cta-title" id="stickyCtaTitle">Animation Pack</div>
+                </div>
+                <div class="sticky-cta-price" id="stickyCtaPrice">$1.00</div>
+            </div>
+            <div class="sticky-cta-actions">
+                <button class="btn btn-primary" onclick="document.getElementById('buyNowBtn').click()">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    Buy Now
+                </button>
+                <button class="btn btn-secondary" onclick="document.getElementById('addToCartBtn').click()">Add to Cart</button>
             </div>
         </div>
     </div>
@@ -4575,6 +5381,11 @@
             // Store animation globally for button handlers
             currentAnimation = anim;
             
+            // Update CTA elements with animation data
+            if (typeof updateStickyCta === 'function') {
+                updateStickyCta(anim);
+            }
+            
             // Update page title
             document.title = `${anim.title} - MocapWork`;
             
@@ -4632,6 +5443,40 @@
             // Update canonical URL
             const canonical = document.getElementById('canonical-url');
             if (canonical) canonical.href = `https://mocapwork.com/animation-detail.html?slug=${anim.slug}`;
+
+            // Update JSON-LD Structured Data for SEO
+            const productSchema = document.getElementById('productSchema');
+            if (productSchema) {
+                const finalPrice = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage 
+                    ? (anim.price * (1 - anim.sale_percentage / 100)).toFixed(2)
+                    : anim.price.toFixed(2);
+                    
+                const schemaData = {
+                    "@context": "https://schema.org/",
+                    "@type": "Product",
+                    "name": anim.title,
+                    "description": anim.description || `Professional ${anim.category || 'motion capture'} animation`,
+                    "image": anim.thumbnail_url || '',
+                    "sku": anim.slug,
+                    "category": anim.category || 'Motion Capture Animation',
+                    "brand": {
+                        "@type": "Brand",
+                        "name": "MocapWork"
+                    },
+                    "offers": {
+                        "@type": "Offer",
+                        "url": `https://mocapwork.com/animation-detail.html?slug=${anim.slug}`,
+                        "priceCurrency": "USD",
+                        "price": finalPrice,
+                        "availability": "https://schema.org/InStock",
+                        "seller": {
+                            "@type": "Organization",
+                            "name": "MocapWork"
+                        }
+                    }
+                };
+                productSchema.textContent = JSON.stringify(schemaData, null, 2);
+            }
 
 
             // Breadcrumb
@@ -4746,7 +5591,7 @@
             // Technical specs
             const specsData = {
                 'File Formats': anim.file_formats || 'FBX, BVH, USD',
-                'Frame Rate': anim.frame_rate || '30 FPS (retargetable)',
+                'Frame Rate': anim.frame_rate || '120 FPS (retargetable)',
                 'Animations Included': anim.animation_count || '1',
                 'Skeleton': anim.skeleton || 'UE5 Mannequin, Mixamo compatible',
                 'Root Motion': anim.root_motion ? 'Included & removable' : 'Not included',
@@ -5503,6 +6348,76 @@
                 setTimeout(() => loadingBar.style.display = 'none', 300);
             }, 500);
         });
+        
+        // ═══════════════════════════════════════════════════════════════════
+        // CTA FUNCTIONALITY
+        // ═══════════════════════════════════════════════════════════════════
+        
+        // Panel Glow - Direct mouse tracking (simple & smooth)
+        document.querySelectorAll('.panel-glow').forEach(panel => {
+            const blob = panel.querySelector('.panel-glow-blob');
+            if (!blob) return;
+            
+            panel.addEventListener('mousemove', (e) => {
+                const rect = panel.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                blob.style.left = x + 'px';
+                blob.style.top = y + 'px';
+            }, { passive: true });
+        });
+        
+        // Sticky CTA - Show/hide based on scroll position
+        const stickyCta = document.getElementById('stickyCta');
+        const priceCard = document.querySelector('.price-card');
+        
+        if (stickyCta && priceCard) {
+            window.addEventListener('scroll', function() {
+                const priceCardRect = priceCard.getBoundingClientRect();
+                
+                // Show sticky CTA when price card is out of view
+                if (priceCardRect.bottom < 0) {
+                    stickyCta.classList.add('visible');
+                } else {
+                    stickyCta.classList.remove('visible');
+                }
+            }, { passive: true });
+        }
+        
+        // Update Sticky CTA with animation data
+        function updateStickyCta(anim) {
+            const thumb = document.getElementById('stickyCtaThumb');
+            const title = document.getElementById('stickyCtaTitle');
+            const price = document.getElementById('stickyCtaPrice');
+            const finalPrice = document.getElementById('finalCtaPrice');
+            
+            if (thumb && anim) {
+                const imageUrl = anim.video_type === 'image/gif' ? anim.video_url : anim.thumbnail_url;
+                thumb.src = imageUrl;
+                thumb.alt = anim.title;
+            }
+            
+            if (title && anim) {
+                title.textContent = anim.title;
+            }
+            
+            if (price && anim) {
+                const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
+                const displayPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
+                price.textContent = '$' + displayPrice.toFixed(2);
+            }
+            
+            if (finalPrice && anim) {
+                const isOnSale = (anim.on_sale || anim.holiday_sale) && anim.sale_percentage;
+                const displayPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
+                finalPrice.textContent = displayPrice.toFixed(2);
+            }
+        }
+        
+        // Call updateStickyCta when currentAnimation is available
+        if (currentAnimation) {
+            updateStickyCta(currentAnimation);
+        }
         
         }); // End window.addEventListener('load')
     </script>
