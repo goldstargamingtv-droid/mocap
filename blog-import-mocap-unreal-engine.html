@@ -197,15 +197,34 @@
             align-items: center;
         }
 
-        .blog-nav-links a {
+        .blog-nav-links a:not(.blog-nav-cta) {
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 4px;
         }
 
-        .blog-nav-links a:hover {
+        .blog-nav-links a:not(.blog-nav-cta)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #fb7d47, #FF6B6B);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-nav-links a:not(.blog-nav-cta):hover {
             color: #fb7d47;
+        }
+
+        .blog-nav-links a:not(.blog-nav-cta):hover::after {
+            transform: scaleX(1);
         }
 
         /* Keyframes for button liquid flow */
@@ -483,10 +502,9 @@
             background: linear-gradient(135deg, rgba(15, 15, 15, 0.95), rgba(25, 25, 25, 0.95));
             border: 2px solid rgba(251, 125, 71, 0.3);
             border-radius: 20px;
-            padding: 48px 48px 56px;
+            padding: 48px 48px 80px;
             text-align: center;
             margin: 60px 0;
-            overflow: visible;
         }
 
         .article-cta h3 {
@@ -500,54 +518,41 @@
         .article-cta p {
             color: var(--text-secondary);
             font-size: 18px;
-            margin-bottom: 28px;
+            margin-bottom: 32px;
             max-width: 500px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .article-cta-btn {
+            padding: 14px 32px;
+            background: rgba(10, 10, 10, 0.95);
+            border-radius: 50px;
+            border: none;
+            color: #ffffff !important;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 15px;
+            font-family: 'Sora', sans-serif;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background: transparent;
-            color: #ffffff !important;
-            padding: 16px 36px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 16px;
-            font-family: 'Sora', sans-serif;
-            text-decoration: none;
-            border: 2px solid rgba(0, 212, 255, 0.3);
-            position: relative;
-            box-shadow: 
-                inset 0 1px 1px rgba(255, 255, 255, 0.1),
-                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 2px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease, border-color 0.2s ease;
+            box-shadow: 0 0 0 2px rgba(0, 212, 255, 0.3);
             cursor: pointer;
-        }
-
-        .article-cta-btn .btn-content {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
             position: relative;
-            z-index: 2;
+            isolation: isolate;
         }
-
+        
         .article-cta-btn svg {
             width: 18px;
             height: 18px;
             stroke: #fb7d47;
             fill: none;
             stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            flex-shrink: 0;
         }
-
+        
         .article-cta-btn::before {
             content: '';
             position: absolute;
@@ -566,12 +571,12 @@
                 transparent 100%
             );
             background-size: 200% 100%;
-            z-index: 0;
+            z-index: -2;
             opacity: 0;
             transition: opacity 0.3s ease;
             animation: liquidFlow 4s ease-in-out infinite paused;
         }
-
+        
         .article-cta-btn::after {
             content: '';
             position: absolute;
@@ -581,18 +586,14 @@
             bottom: 0;
             border-radius: 50px;
             background: rgba(10, 10, 10, 0.95);
-            z-index: 1;
+            z-index: -1;
         }
-
+        
         .article-cta-btn:hover {
-            border-color: rgba(10, 10, 10, 0.95);
+            box-shadow: none;
             transform: scale(1.05);
-            box-shadow: 
-                inset 0 1px 1px rgba(255, 255, 255, 0.15),
-                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 0 25px rgba(251, 125, 71, 0.4);
         }
-
+        
         .article-cta-btn:hover::before {
             opacity: 1;
             animation-play-state: running;
@@ -813,6 +814,7 @@
             <a href="index.html" class="blog-nav-logo">Mocap<span>Work</span></a>
             <div class="blog-nav-links">
                 <a href="index.html#library">Animations</a>
+                <a href="index.html#contact">Contact</a>
                 <a href="index.html#blog">Blog</a>
                 <a href="index.html#faq">FAQ</a>
                 <a href="index.html#library" class="blog-nav-cta">Browse Library</a>
@@ -1041,12 +1043,10 @@
                 <h3>Ready to Level Up Your Game's Animations?</h3>
                 <p>Browse our library of 100+ professional motion capture animations, ready for Unreal Engine 5.</p>
                 <a href="index.html#library" class="article-cta-btn">
-                    <span class="btn-content">
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="5 3 19 12 5 21 5 3"/>
-                        </svg>
-                        Explore Animations
-                    </span>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"/>
+                    </svg>
+                    Explore Animations
                 </a>
             </div>
 
