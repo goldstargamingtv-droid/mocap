@@ -85,10 +85,10 @@
             --bg-primary: #000000;
             --bg-secondary: #0F0F0F;
             --bg-card: #1A1A1A;
-            --teal: #fb7d47;
+            --teal: #FFFFFF;
             --teal-dark: #D97706;
-            --amber: #FF6B6B;
-            --amber-light: #FF8E8E;
+            --amber: #7ED321;
+            --amber-light: #7ED321;
             --text-white: #FFFFFF;
             --text-primary: #FFFFFF;
             --text-secondary: #E7E5D3;
@@ -110,7 +110,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('hero-background.jpg');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('hero-background.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -124,9 +124,48 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: radial-gradient(circle at 30% 20%, rgba(0, 212, 255, 0.15), transparent 50%),
-                              radial-gradient(circle at 70% 80%, rgba(245, 158, 11, 0.15), transparent 50%);
+            background-image: radial-gradient(circle at 30% 20%, rgba(126, 211, 33, 0.15), transparent 50%),
+                              radial-gradient(circle at 70% 80%, rgba(126, 211, 33, 0.15), transparent 50%);
             pointer-events: none;
+        }
+
+        /* Floating shapes - animated gradient blobs */
+        .floating-shape {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float 8s ease-in-out infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .shape-1 {
+            top: 20%;
+            left: 15%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(126, 211, 33, 0.15), transparent);
+        }
+
+        .shape-2 {
+            bottom: 20%;
+            right: 15%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(126, 211, 33, 0.15), transparent);
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            33% {
+                transform: translate(30px, -30px);
+            }
+            66% {
+                transform: translate(-20px, 20px);
+            }
         }
 
         /* Custom Scrollbar - Grey with Orange Accent */
@@ -141,19 +180,19 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
+            background: #7ED321;
             border-radius: 6px;
             border: 2px solid #1a1a1a;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #FBBF24 0%, #FF8E8E 100%);
+            background: linear-gradient(180deg, #7ED321 0%, #7ED321 100%);
         }
 
         /* Firefox Scrollbar */
         * {
             scrollbar-width: thin;
-            scrollbar-color: #fb7d47 #1a1a1a;
+            scrollbar-color: #7ED321 #1a1a1a;
         }
 
         /* Navbar */
@@ -169,7 +208,7 @@
 
         .navbar.scrolled {
             background: rgba(10, 10, 10, 0.95);
-            border-bottom: 2px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.15);
         }
 
         .navbar-container {
@@ -211,7 +250,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            background: #7ED321;
             transition: width 0.3s ease;
         }
 
@@ -266,7 +305,7 @@
             left: 50%;
             min-width: 220px;
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 16px;
             padding: 12px;
             opacity: 0;
@@ -275,8 +314,8 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 40px rgba(251, 125, 71, 0.05);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 40px rgba(126, 211, 33, 0.05);
             z-index: 10003;
         }
         
@@ -293,7 +332,7 @@
             letter-spacing: 1px;
             color: var(--text-muted);
             padding: 8px 12px 12px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 8px;
         }
         
@@ -312,15 +351,15 @@
         }
         
         .nav-dropdown-item:hover {
-            background: rgba(245, 158, 11, 0.15);
-            color: #fb7d47;
+            background: rgba(126, 211, 33, 0.15);
+            color: #7ED321;
         }
         
         .nav-dropdown-item-icon {
             width: 32px;
             height: 32px;
             border-radius: 8px;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -329,7 +368,7 @@
         }
         
         .nav-dropdown-item:hover .nav-dropdown-item-icon {
-            background: rgba(245, 158, 11, 0.2);
+            background: rgba(126, 211, 33, 0.2);
             transform: scale(1.1);
         }
         
@@ -353,7 +392,7 @@
             width: 100%;
             padding: 10px 40px 10px 40px;
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 25px;
             color: var(--text-primary);
             font-size: 14px;
@@ -361,16 +400,16 @@
             transition: all 0.3s ease;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1);
         }
 
         .search-input-nav:focus {
             outline: none;
-            border-color: rgba(0, 212, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.4);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 20px rgba(251, 125, 71, 0.2);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 20px rgba(126, 211, 33, 0.2);
         }
 
         .search-input-nav::placeholder {
@@ -413,15 +452,15 @@
             left: 0;
             right: 0;
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             max-height: 400px;
             overflow-y: auto;
             display: none;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 40px rgba(251, 125, 71, 0.05);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 40px rgba(126, 211, 33, 0.05);
             z-index: 1000;
         }
 
@@ -459,7 +498,7 @@
         }
 
         .search-result-item:hover {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         .search-result-icon {
@@ -499,7 +538,7 @@
             padding: 8px;
             border-radius: 12px;
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -523,9 +562,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -562,7 +601,7 @@
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.15),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 0 25px rgba(251, 125, 71, 0.4);
+                0 0 25px rgba(126, 211, 33, 0.4);
         }
         
         .profile-icon:hover::before {
@@ -576,14 +615,14 @@
             right: 0;
             min-width: 220px;
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 16px;
             padding: 12px;
             display: none;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 40px rgba(251, 125, 71, 0.05);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 40px rgba(126, 211, 33, 0.05);
             z-index: 10003;
         }
         
@@ -610,7 +649,7 @@
             letter-spacing: 1px;
             color: var(--text-muted);
             padding: 8px 12px 12px;
-            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             margin-bottom: 8px;
         }
         
@@ -632,7 +671,7 @@
             width: 32px;
             height: 32px;
             border-radius: 8px;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -642,26 +681,26 @@
         .profile-dropdown-item-icon svg {
             width: 18px;
             height: 18px;
-            fill: #fb7d47;
+            fill: #7ED321;
         }
         
         .profile-dropdown-item:hover {
-            background: rgba(245, 158, 11, 0.15);
-            color: #fb7d47;
+            background: rgba(126, 211, 33, 0.15);
+            color: #7ED321;
         }
         
         .profile-dropdown-item:hover .profile-dropdown-item-icon {
-            background: rgba(245, 158, 11, 0.2);
+            background: rgba(126, 211, 33, 0.2);
             transform: scale(1.1);
         }
         
         .profile-dropdown-item.signout-item {
-            color: #FF6B6B;
+            color: #7ED321;
         }
         
         .profile-dropdown-item.signout-item:hover {
             background: rgba(239, 68, 68, 0.15);
-            color: #FF6B6B;
+            color: #7ED321;
         }
         
         .profile-dropdown-item.signout-item .profile-dropdown-item-icon {
@@ -669,7 +708,7 @@
         }
         
         .profile-dropdown-item.signout-item .profile-dropdown-item-icon svg {
-            fill: #FF6B6B;
+            fill: #7ED321;
         }
         
         .profile-dropdown-item.signout-item:hover .profile-dropdown-item-icon {
@@ -678,7 +717,7 @@
         
         .profile-dropdown-divider {
             height: 1px;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             margin: 8px 0;
         }
 
@@ -700,7 +739,7 @@
             isolation: isolate;
             background: rgba(10, 10, 10, 0.95);
             border-radius: 12px;
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.1),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.1),
@@ -718,9 +757,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -749,7 +788,7 @@
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.15),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 0 25px rgba(251, 125, 71, 0.4);
+                0 0 25px rgba(126, 211, 33, 0.4);
         }
         
         .cart-icon:hover::before {
@@ -769,10 +808,10 @@
         
         /* Animated cart gradient */
         .cart-icon .cart__gradient stop:first-child {
-            stop-color: #fb7d47;
+            stop-color: #7ED321;
         }
         .cart-icon .cart__gradient stop:last-child {
-            stop-color: #FF6B6B;
+            stop-color: #7ED321;
         }
         
         /* Default state - white, no animation */
@@ -873,7 +912,7 @@
             position: absolute !important;
             top: -4px !important;
             right: -4px !important;
-            background: linear-gradient(135deg, #F59E0B 0%, #FF6B6B 100%);
+            background: #7ED321;
             color: #000000;
             min-width: 18px;
             height: 18px;
@@ -886,14 +925,14 @@
             font-weight: 800;
             font-family: 'Sora', sans-serif;
             z-index: 10;
-            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 2px 8px rgba(126, 211, 33, 0.4);
             border: 1.5px solid rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
         }
         
         .cart-icon:hover .cart-badge {
             transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.6);
+            box-shadow: 0 4px 12px rgba(126, 211, 33, 0.6);
         }
         
         /* Hide badge when empty */
@@ -910,12 +949,12 @@
             width: 350px;
             max-height: 500px;
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 40px rgba(251, 125, 71, 0.05);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 40px rgba(126, 211, 33, 0.05);
             display: none;
             z-index: 10003;
             overflow: hidden;
@@ -924,7 +963,7 @@
 
         .cart-hover-header {
             padding: 16px 20px;
-            border-bottom: 2px solid rgba(0, 212, 255, 0.1);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
             font-weight: 700;
             font-size: 16px;
             color: var(--text-primary);
@@ -947,7 +986,7 @@
         }
 
         .cart-hover-items::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
+            background: #7ED321;
             border-radius: 3px;
         }
 
@@ -964,8 +1003,8 @@
         }
 
         .cart-hover-item:hover {
-            background: rgba(245, 158, 11, 0.15);
-            border: 2px solid rgba(245, 158, 11, 0.3);
+            background: rgba(126, 211, 33, 0.15);
+            border: 2px solid rgba(126, 211, 33, 0.3);
         }
 
         .cart-hover-item-img {
@@ -973,7 +1012,7 @@
             height: 50px;
             border-radius: 6px;
             object-fit: cover;
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
         }
 
         .cart-hover-item-info {
@@ -998,7 +1037,7 @@
         }
 
         .cart-hover-item-price .price-dollar {
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1041,7 +1080,7 @@
 
         .cart-hover-footer {
             padding: 16px 20px;
-            border-top: 2px solid rgba(0, 212, 255, 0.15);
+            border-top: 2px solid rgba(255, 255, 255, 0.15);
             background: #0f0f0f;
         }
 
@@ -1060,7 +1099,7 @@
         }
         
         .cart-hover-total .price-dollar {
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1092,7 +1131,7 @@
         .logo-icon {
             width: 44px;
             height: 44px;
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            background: #7ED321;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -1146,7 +1185,7 @@
         }
 
         .logo-text span {
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1179,7 +1218,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            background: #7ED321;
             transition: width 0.3s ease;
         }
 
@@ -1201,7 +1240,7 @@
             padding: 10px 28px;
             background: rgba(10, 10, 10, 0.95);
             border-radius: 50px;
-            border: 2px solid rgba(0, 212, 255, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             color: #ffffff !important;
             text-decoration: none;
             font-weight: 700;
@@ -1222,7 +1261,7 @@
         .btn-login svg {
             width: 16px;
             height: 16px;
-            stroke: #fb7d47;
+            stroke: #7ED321;
             fill: none;
             stroke-width: 2;
             stroke-linecap: round;
@@ -1240,9 +1279,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -1271,7 +1310,7 @@
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.15),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 0 25px rgba(251, 125, 71, 0.4);
+                0 0 25px rgba(126, 211, 33, 0.4);
         }
         
         .btn-login:hover::before {
@@ -1282,9 +1321,9 @@
         /* Admin Dashboard Button */
         .btn-admin {
             padding: 10px 20px;
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15), rgba(0, 212, 255, 0.15));
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.15), rgba(255, 255, 255, 0.15));
             border-radius: 10px;
-            border: 2px solid rgba(245, 158, 11, 0.5);
+            border: 2px solid rgba(126, 211, 33, 0.5);
             color: var(--amber) !important;
             text-decoration: none;
             font-weight: 700;
@@ -1297,16 +1336,16 @@
         }
         
         .btn-admin:hover {
-            background: linear-gradient(135deg, var(--amber), var(--teal));
+            background: #7ED321;
             color: #000 !important;
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 8px 24px rgba(126, 211, 33, 0.4);
         }
 
         .hamburger-menu {
             display: none !important;
             border: none;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1339,7 +1378,7 @@
         }
 
         .breadcrumb a:hover {
-            color: #fb7d47;
+            color: #7ED321;
         }
 
         .breadcrumb span {
@@ -1371,7 +1410,7 @@
             background: rgba(10, 10, 10, 0.95);
             border-radius: 20px;
             overflow: hidden;
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             margin-bottom: 20px;
         }
 
@@ -1397,7 +1436,7 @@
 
         .preview-thumb:hover,
         .preview-thumb.active {
-            border-color: #fb7d47;
+            border-color: #7ED321;
         }
 
         .preview-thumb img {
@@ -1419,7 +1458,7 @@
             font-family: 'Sora', sans-serif;
             margin-bottom: 12px;
             line-height: 1.2;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1439,9 +1478,9 @@
         }
 
         .badge-popular {
-            background: rgba(245, 158, 11, 0.2);
+            background: rgba(126, 211, 33, 0.2);
             color: var(--amber);
-            border: 2px solid rgba(245, 158, 11, 0.3);
+            border: 2px solid rgba(126, 211, 33, 0.3);
         }
 
         .badge-sale {
@@ -1457,9 +1496,9 @@
         }
 
         .badge-category {
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--teal);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
         }
 
         .rating-section {
@@ -1494,14 +1533,14 @@
         /* Price & Purchase */
         .price-card {
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 28px;
             padding: 32px;
             margin-bottom: 32px;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 40px rgba(251, 125, 71, 0.05);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 40px rgba(126, 211, 33, 0.05);
         }
 
         .price-display {
@@ -1513,7 +1552,7 @@
         }
 
         .price-display .dollar-sign {
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1543,7 +1582,7 @@
 
         .btn-primary {
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             color: #ffffff;
         }
         
@@ -1558,9 +1597,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -1589,7 +1628,7 @@
             box-shadow: 
                 inset 0 1px 1px rgba(255, 255, 255, 0.15),
                 inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 0 25px rgba(251, 125, 71, 0.4);
+                0 0 25px rgba(126, 211, 33, 0.4);
         }
         
         .btn-primary:hover::before {
@@ -1599,29 +1638,71 @@
 
         .btn-success {
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(16, 185, 129, 0.4);
-            color: #10B981;
+            border: 2px solid #7ED321;
+            color: #7ED321;
             font-weight: 700;
             padding: 14px 24px;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease, border-color 0.2s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
+            position: relative;
+            isolation: isolate;
+        }
+        
+        .btn-success::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50px;
+            background: linear-gradient(
+                90deg,
+                transparent 0%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
+                transparent 80%,
+                transparent 100%
+            );
+            background-size: 200% 100%;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            animation: liquidFlow 4s ease-in-out infinite paused;
+        }
+        
+        .btn-success::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50px;
+            background: rgba(10, 10, 10, 0.95);
+            z-index: -1;
         }
 
         .btn-success:hover {
-            background: rgba(16, 185, 129, 0.15);
-            border-color: #10B981;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+            border-color: rgba(10, 10, 10, 0.95);
             transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(126, 211, 33, 0.4);
+        }
+        
+        .btn-success:hover::before {
+            opacity: 1;
+            animation-play-state: running;
         }
 
         .btn-secondary {
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             color: #ffffff;
             font-weight: 600;
             padding: 14px 24px;
@@ -1649,9 +1730,9 @@
             background: linear-gradient(
                 90deg,
                 transparent 0%,
-                #fb7d47 20%,
-                #fb7d47 40%,
-                #FF6B6B 60%,
+                #7ED321 20%,
+                #7ED321 40%,
+                #7ED321 60%,
                 transparent 80%,
                 transparent 100%
             );
@@ -1677,7 +1758,7 @@
         .btn-secondary:hover {
             border-color: rgba(10, 10, 10, 0.95);
             transform: scale(1.03);
-            box-shadow: 0 0 25px rgba(251, 125, 71, 0.4);
+            box-shadow: 0 0 25px rgba(126, 211, 33, 0.4);
         }
         
         .btn-secondary:hover::before {
@@ -1689,7 +1770,7 @@
         #addToCartBtn {
             background: rgba(10, 10, 10, 0.95);
             color: #ffffff;
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
         }
         
         #addToCartBtn:hover {
@@ -1698,10 +1779,10 @@
         
         @keyframes glow {
             0%, 100% {
-                box-shadow: 0 8px 24px rgba(251, 125, 71, 0.3), 0 4px 12px rgba(245, 158, 11, 0.2);
+                box-shadow: 0 8px 24px rgba(126, 211, 33, 0.3), 0 4px 12px rgba(126, 211, 33, 0.2);
             }
             50% {
-                box-shadow: 0 8px 32px rgba(251, 125, 71, 0.5), 0 4px 16px rgba(245, 158, 11, 0.4);
+                box-shadow: 0 8px 32px rgba(126, 211, 33, 0.5), 0 4px 16px rgba(126, 211, 33, 0.4);
             }
         }
 
@@ -1709,7 +1790,7 @@
             padding: 14px 32px;
             background: rgba(10, 10, 10, 0.95);
             color: #ffffff;
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 50px;
             font-weight: 600;
             font-family: 'Sora', sans-serif;
@@ -1722,8 +1803,8 @@
         }
 
         .btn-outline:hover {
-            border-color: #fb7d47;
-            box-shadow: 0 0 20px rgba(251, 125, 71, 0.3);
+            border-color: #7ED321;
+            box-shadow: 0 0 20px rgba(126, 211, 33, 0.3);
             transform: scale(1.03);
         }
 
@@ -1751,14 +1832,14 @@
         /* File Info */
         .file-info-card {
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 28px;
             padding: 32px;
             margin-bottom: 32px;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 40px rgba(251, 125, 71, 0.05);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 40px rgba(126, 211, 33, 0.05);
         }
 
         .file-info-card h3 {
@@ -1766,7 +1847,7 @@
             font-weight: 700;
             margin-bottom: 20px;
             font-family: 'Sora', sans-serif;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1789,7 +1870,7 @@
             content: '✓';
             position: absolute;
             left: 0;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1820,7 +1901,7 @@
         }
 
         .specs-table td:first-child {
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1842,7 +1923,7 @@
 
         .compat-badge {
             background: rgba(10, 10, 10, 0.85);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 12px;
             padding: 16px;
             text-align: center;
@@ -1853,7 +1934,7 @@
 
         .compat-badge:hover {
             background: rgba(20, 15, 12, 0.9);
-            border-color: #fb7d47;
+            border-color: #7ED321;
         }
 
         .compat-icon {
@@ -1880,7 +1961,7 @@
             font-weight: 700;
             margin-bottom: 16px;
             font-family: 'Sora', sans-serif;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -1894,8 +1975,8 @@
 
         .tag {
             padding: 8px 16px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
             font-size: 13px;
             color: var(--text-secondary);
@@ -1904,21 +1985,21 @@
         }
 
         .tag:hover {
-            background: rgba(251, 125, 71, 0.2);
-            color: #fb7d47;
+            background: rgba(126, 211, 33, 0.2);
+            color: #7ED321;
         }
 
         /* Reviews */
         .reviews-section {
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
             padding: 40px;
             margin-bottom: 40px;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 40px rgba(251, 125, 71, 0.05);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 40px rgba(126, 211, 33, 0.05);
         }
 
         .reviews-section h2 {
@@ -1965,14 +2046,14 @@
         /* FAQ */
         .faq-section {
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 28px;
             padding: 40px;
             margin-bottom: 40px;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 40px rgba(251, 125, 71, 0.05);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 40px rgba(126, 211, 33, 0.05);
         }
 
         .faq-section h2 {
@@ -1980,7 +2061,7 @@
             font-weight: 700;
             margin-bottom: 32px;
             font-family: 'Sora', sans-serif;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -2034,7 +2115,7 @@
             font-weight: 700;
             margin-bottom: 32px;
             font-family: 'Sora', sans-serif;
-            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -2048,22 +2129,22 @@
 
         .related-card {
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 16px;
             overflow: hidden;
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1);
         }
 
         .related-card:hover {
             transform: translateY(-8px);
-            border-color: #fb7d47;
+            border-color: #7ED321;
             box-shadow: 
                 0 8px 32px rgba(0, 0, 0, 0.4),
-                0 0 25px rgba(251, 125, 71, 0.3);
+                0 0 25px rgba(126, 211, 33, 0.3);
         }
 
         .related-image {
@@ -2082,7 +2163,7 @@
         }
 
         .related-price {
-            color: #fb7d47;
+            color: #7ED321;
             font-weight: 700;
         }
 
@@ -2100,8 +2181,8 @@
 
         .share-btn {
             padding: 10px 20px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 8px;
             color: var(--text-secondary);
             cursor: pointer;
@@ -2110,7 +2191,7 @@
         }
 
         .share-btn:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(255, 255, 255, 0.2);
             color: var(--teal);
         }
 
@@ -2125,7 +2206,7 @@
             gap: 16px;
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .trust-badge {
@@ -2143,7 +2224,7 @@
         }
 
         .trust-badge .badge-highlight {
-            color: #fb7d47;
+            color: #7ED321;
             font-weight: 600;
         }
 
@@ -2154,7 +2235,7 @@
             left: 0;
             right: 0;
             background: rgba(10, 10, 10, 0.98);
-            border-top: 2px solid rgba(251, 125, 71, 0.3);
+            border-top: 2px solid rgba(126, 211, 33, 0.3);
             padding: 16px 24px;
             z-index: 9998;
             transition: bottom 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2187,7 +2268,7 @@
             height: 50px;
             border-radius: 8px;
             object-fit: cover;
-            border: 2px solid rgba(251, 125, 71, 0.3);
+            border: 2px solid rgba(126, 211, 33, 0.3);
             flex-shrink: 0;
         }
 
@@ -2208,7 +2289,7 @@
         .sticky-cta-price {
             font-size: 20px;
             font-weight: 800;
-            color: #fb7d47;
+            color: #7ED321;
             font-family: 'Sora', sans-serif;
         }
 
@@ -2226,7 +2307,7 @@
         /* Promotional Banner */
         .promo-banner {
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(251, 125, 71, 0.25);
+            border: 2px solid rgba(126, 211, 33, 0.25);
             border-radius: 20px;
             padding: 32px;
             margin: 40px 0;
@@ -2235,8 +2316,8 @@
             gap: 24px;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.15),
-                0 0 60px rgba(251, 125, 71, 0.08);
+                inset 0 1px 1px rgba(126, 211, 33, 0.15),
+                0 0 60px rgba(126, 211, 33, 0.08);
             position: relative;
             overflow: hidden;
         }
@@ -2248,7 +2329,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(90deg, #fb7d47, #FF6B6B, #fb7d47);
+            background: #7ED321;
             background-size: 200% 100%;
             animation: shimmer 3s ease-in-out infinite;
         }
@@ -2261,7 +2342,7 @@
         .promo-icon {
             width: 64px;
             height: 64px;
-            background: linear-gradient(135deg, rgba(251, 125, 71, 0.2), rgba(255, 107, 107, 0.1));
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.2), rgba(126, 211, 33, 0.1));
             border-radius: 16px;
             display: flex;
             align-items: center;
@@ -2272,7 +2353,7 @@
         .promo-icon svg {
             width: 32px;
             height: 32px;
-            stroke: #fb7d47;
+            stroke: #7ED321;
         }
 
         .promo-content {
@@ -2294,7 +2375,7 @@
         }
 
         .promo-text strong {
-            color: #fb7d47;
+            color: #7ED321;
         }
 
         .promo-action {
@@ -2312,7 +2393,7 @@
         .value-prop-card {
             -webkit-tap-highlight-color: transparent;
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.1);
             position: relative;
             border-radius: 16px;
             cursor: pointer;
@@ -2321,17 +2402,17 @@
             padding: 28px 20px;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 40px rgba(251, 125, 71, 0.05);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 40px rgba(126, 211, 33, 0.05);
         }
 
         .value-prop-card:hover {
-            border-color: rgba(251, 125, 71, 0.6);
+            border-color: rgba(126, 211, 33, 0.6);
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.2),
-                0 0 60px rgba(251, 125, 71, 0.15),
-                0 0 100px rgba(251, 125, 71, 0.1);
+                inset 0 1px 1px rgba(126, 211, 33, 0.2),
+                0 0 60px rgba(126, 211, 33, 0.15),
+                0 0 100px rgba(126, 211, 33, 0.1);
         }
 
         .value-prop-card:active {
@@ -2352,7 +2433,7 @@
         .value-prop-icon {
             width: 48px;
             height: 48px;
-            background: linear-gradient(135deg, rgba(251, 125, 71, 0.15), rgba(255, 107, 107, 0.1));
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.15), rgba(126, 211, 33, 0.1));
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -2364,7 +2445,7 @@
         .value-prop-icon svg {
             width: 24px;
             height: 24px;
-            stroke: #fb7d47;
+            stroke: #7ED321;
         }
 
         .value-prop-title {
@@ -2411,7 +2492,7 @@
             position: absolute;
             width: 200px;
             height: 200px;
-            background: radial-gradient(circle, rgba(251, 125, 71, 0.6) 0%, rgba(255, 107, 107, 0.3) 40%, transparent 70%);
+            background: radial-gradient(circle, rgba(126, 211, 33, 0.6) 0%, rgba(126, 211, 33, 0.3) 40%, transparent 70%);
             border-radius: 50%;
             filter: blur(40px);
             pointer-events: none;
@@ -2433,7 +2514,7 @@
         /* Final CTA Section */
         .final-cta {
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(251, 125, 71, 0.2);
+            border: 2px solid rgba(126, 211, 33, 0.2);
             border-radius: 28px;
             padding: 48px;
             text-align: center;
@@ -2442,8 +2523,8 @@
             overflow: hidden;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 80px rgba(251, 125, 71, 0.05);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 80px rgba(126, 211, 33, 0.05);
         }
 
         .final-cta::before {
@@ -2453,7 +2534,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(251, 125, 71, 0.03) 0%, transparent 50%);
+            background: radial-gradient(circle, rgba(126, 211, 33, 0.03) 0%, transparent 50%);
             animation: pulse-glow 4s ease-in-out infinite;
         }
 
@@ -2471,13 +2552,13 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: linear-gradient(135deg, rgba(251, 125, 71, 0.2), rgba(255, 107, 107, 0.1));
-            border: 1px solid rgba(251, 125, 71, 0.3);
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.2), rgba(126, 211, 33, 0.1));
+            border: 1px solid rgba(126, 211, 33, 0.3);
             padding: 8px 16px;
             border-radius: 50px;
             font-size: 13px;
             font-weight: 600;
-            color: #fb7d47;
+            color: #7ED321;
             margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -2508,7 +2589,7 @@
         }
 
         .final-cta-price .currency {
-            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -2552,7 +2633,7 @@
             gap: 24px;
             padding: 16px 0;
             margin-top: 16px;
-            border-top: 1px solid rgba(0, 212, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .proof-item {
@@ -2564,7 +2645,7 @@
         .proof-icon {
             width: 32px;
             height: 32px;
-            background: rgba(251, 125, 71, 0.1);
+            background: rgba(126, 211, 33, 0.1);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -2574,7 +2655,7 @@
         .proof-icon svg {
             width: 16px;
             height: 16px;
-            stroke: #fb7d47;
+            stroke: #7ED321;
         }
 
         .proof-number {
@@ -2614,7 +2695,7 @@
                 width: 280px;
                 height: 100vh;
                 background: rgba(10, 10, 10, 0.95);
-                border-left: 2px solid rgba(0, 212, 255, 0.15);
+                border-left: 2px solid rgba(255, 255, 255, 0.15);
                 flex-direction: column;
                 padding: 80px 24px 24px;
                 gap: 0;
@@ -2790,7 +2871,7 @@
         
         .auth-modal-box {
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 20px;
             padding: 0;
             max-width: 480px;
@@ -2801,8 +2882,8 @@
             overflow: hidden;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1),
-                0 0 40px rgba(251, 125, 71, 0.05);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1),
+                0 0 40px rgba(126, 211, 33, 0.05);
         }
         
         @keyframes modalSlideIn {
@@ -2842,7 +2923,7 @@
         
         .auth-tabs {
             display: flex;
-            border-bottom: 2px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.15);
         }
         
         .auth-tab {
@@ -2869,7 +2950,7 @@
             left: 0;
             right: 0;
             height: 2px;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
         }
         
         .auth-form {
@@ -2886,7 +2967,7 @@
             font-weight: 800;
             font-family: 'Sora', sans-serif;
             margin-bottom: 8px;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -2918,7 +2999,7 @@
             width: 100%;
             padding: 16px 24px;
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 50px;
             color: var(--text-primary);
             font-size: 15px;
@@ -2947,7 +3028,7 @@
         }
         
         .password-toggle:hover {
-            color: #fb7d47;
+            color: #7ED321;
         }
         
         .eye-icon {
@@ -2958,7 +3039,7 @@
         .form-group input:focus {
             outline: none;
             border-color: var(--teal);
-            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
         }
         
         /* Prevent autocomplete blue background */
@@ -2968,7 +3049,7 @@
         .form-group input:-webkit-autofill:active {
             -webkit-box-shadow: 0 0 0 30px rgba(10, 10, 10, 0.95) inset !important;
             -webkit-text-fill-color: var(--text-primary) !important;
-            border: 2px solid rgba(0, 212, 255, 0.15) !important;
+            border: 2px solid rgba(255, 255, 255, 0.15) !important;
             transition: background-color 5000s ease-in-out 0s;
         }
         
@@ -2991,8 +3072,8 @@
         }
         
         .auth-message.success {
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             color: var(--teal);
         }
 
@@ -3026,13 +3107,13 @@
             max-width: 90vw;
             height: 100vh;
             background: rgba(10, 10, 10, 0.95);
-            border-left: 2px solid rgba(0, 212, 255, 0.15);
+            border-left: 2px solid rgba(255, 255, 255, 0.15);
             display: flex;
             flex-direction: column;
             animation: slideIn 0.3s ease;
             box-shadow: 
                 -4px 0 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(251, 125, 71, 0.1);
+                inset 0 1px 1px rgba(126, 211, 33, 0.1);
         }
         
         @keyframes slideIn {
@@ -3042,7 +3123,7 @@
         
         .cart-header {
             padding: 24px;
-            border-bottom: 2px solid rgba(0, 212, 255, 0.15);
+            border-bottom: 2px solid rgba(255, 255, 255, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -3052,7 +3133,7 @@
             font-size: 24px;
             font-weight: 800;
             font-family: 'Sora', sans-serif;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -3061,7 +3142,7 @@
             width: 40px;
             height: 40px;
             border: none;
-            background: rgba(0, 212, 255, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text-primary);
             font-size: 24px;
             border-radius: 8px;
@@ -3070,7 +3151,7 @@
         }
         
         .cart-close:hover {
-            background: rgba(0, 212, 255, 0.2);
+            background: rgba(255, 255, 255, 0.2);
             transform: rotate(90deg);
         }
         
@@ -3082,7 +3163,7 @@
         
         .cart-item {
             background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 12px;
             padding: 16px;
             margin-bottom: 12px;
@@ -3093,7 +3174,7 @@
         }
         
         .cart-item:hover {
-            border-color: #fb7d47;
+            border-color: #7ED321;
         }
         
         .cart-item-checkbox {
@@ -3118,7 +3199,7 @@
         }
         
         .cart-item-checkbox input[type="checkbox"]:checked + label {
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
         }
         
         .cart-item-checkbox input[type="checkbox"]:checked + label::after {
@@ -3171,7 +3252,7 @@
         }
         
         .cart-item-price .price-dollar {
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -3216,7 +3297,7 @@
         
         .cart-footer {
             padding: 24px;
-            border-top: 2px solid rgba(0, 212, 255, 0.15);
+            border-top: 2px solid rgba(255, 255, 255, 0.15);
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -3234,7 +3315,7 @@
         .cart-total-price {
             font-size: 28px;
             font-weight: 900;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
+            background: #7ED321;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-family: 'Sora', sans-serif;
@@ -3284,8 +3365,8 @@
         .social-link {
             width: 44px;
             height: 44px;
-            background: rgba(0, 212, 255, 0.05);
-            border: 2px solid rgba(0, 212, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.15);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -3296,10 +3377,10 @@
         }
 
         .social-link:hover {
-            background: rgba(0, 212, 255, 0.15);
-            border-color: #fb7d47;
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #7ED321;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(251, 125, 71, 0.3);
+            box-shadow: 0 4px 12px rgba(126, 211, 33, 0.3);
         }
 
         .footer-section h4 {
@@ -3326,7 +3407,7 @@
         }
 
         .footer-links a:hover {
-            color: #fb7d47;
+            color: #7ED321;
             padding-left: 4px;
         }
 
@@ -3334,7 +3415,7 @@
             max-width: 1400px;
             margin: 0 auto;
             padding-top: 32px;
-            border-top: 2px solid rgba(0, 212, 255, 0.15);
+            border-top: 2px solid rgba(255, 255, 255, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -3360,7 +3441,7 @@
         }
 
         .legal-links a:hover {
-            color: #fb7d47;
+            color: #7ED321;
         }
 
         @media (max-width: 768px) {
@@ -3376,7 +3457,7 @@
             .hamburger-menu {
                 display: block !important;
                 border: none !important;
-                background: linear-gradient(135deg, var(--teal), var(--amber)) !important;
+                background: #7ED321 !important;
                 -webkit-background-clip: text !important;
                 -webkit-text-fill-color: transparent !important;
                 background-clip: text !important;
@@ -3409,7 +3490,7 @@
                 flex-direction: column;
                 gap: 0;
                 padding: 80px 0 20px;
-                border-left: 2px solid rgba(0, 212, 255, 0.15);
+                border-left: 2px solid rgba(255, 255, 255, 0.15);
                 transition: right 0.3s ease;
                 z-index: 9999;
                 overflow-y: auto;
@@ -3440,14 +3521,14 @@
             }
             
             .nav-links li a:hover {
-                background: rgba(245, 158, 11, 0.1);
+                background: rgba(126, 211, 33, 0.1);
                 padding-left: 40px;
-                color: #F59E0B;
+                color: #7ED321;
             }
             
             .nav-links li a.active {
-                background: rgba(245, 158, 11, 0.15);
-                border-left: 3px solid #F59E0B;
+                background: rgba(126, 211, 33, 0.15);
+                border-left: 3px solid #7ED321;
             }
         }
     </style>
@@ -3455,12 +3536,14 @@
 <body>
     <!-- Static Background -->
     <div class="page-static-bg"></div>
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
     
     <!-- Loading Progress Bar (Page Load) -->
-    <div id="loadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--amber)); z-index: 99999; transition: width 0.3s ease;"></div>
+    <div id="loadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: #7ED321; z-index: 99999; transition: width 0.3s ease;"></div>
     
     <!-- Loading Progress Bar (Auth) -->
-    <div id="authLoadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #F59E0B, #FF6B6B); z-index: 99999; transition: width 0.3s ease; display: none;"></div>
+    <div id="authLoadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #7ED321, #7ED321); z-index: 99999; transition: width 0.3s ease; display: none;"></div>
     
     <!-- Start loading bar immediately -->
     <script>
@@ -3504,42 +3587,42 @@
                     <div class="nav-dropdown">
                         <div class="nav-dropdown-title">Browse Categories</div>
                         <a href="index.html#library" class="nav-dropdown-item">
-                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg></div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 All Animations
                                 <div class="nav-dropdown-item-label">Browse everything</div>
                             </div>
                         </a>
                         <a href="index.html#library" class="nav-dropdown-item">
-                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg></div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Combat
                                 <div class="nav-dropdown-item-label">Fighting & action</div>
                             </div>
                         </a>
                         <a href="index.html#library" class="nav-dropdown-item">
-                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="4" r="2"/><path d="M15.5 21l-3-6.5-4 3V21"/><path d="M8 14l4-3 2.5 3.5"/><path d="M12 11l-3-2.5-3 3.5"/></svg></div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="4" r="2"/><path d="M15.5 21l-3-6.5-4 3V21"/><path d="M8 14l4-3 2.5 3.5"/><path d="M12 11l-3-2.5-3 3.5"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Locomotion
                                 <div class="nav-dropdown-item-label">Walking, running & movement</div>
                             </div>
                         </a>
                         <a href="index.html#library" class="nav-dropdown-item">
-                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg></div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Dance
                                 <div class="nav-dropdown-item-label">Dance moves & routines</div>
                             </div>
                         </a>
                         <a href="index.html#library" class="nav-dropdown-item">
-                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Idle
                                 <div class="nav-dropdown-item-label">Standing & breathing</div>
                             </div>
                         </a>
                         <a href="index.html#library" class="nav-dropdown-item">
-                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+                            <div class="nav-dropdown-item-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
                             <div class="nav-dropdown-item-text">
                                 Emotes
                                 <div class="nav-dropdown-item-label">Expressions & gestures</div>
@@ -3551,7 +3634,7 @@
 
             <!-- Search Bar -->
             <div class="nav-search">
-                <span class="search-icon-nav"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
+                <span class="search-icon-nav"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
                 <input 
                     type="text" 
                     class="search-input-nav" 
@@ -3694,22 +3777,22 @@
             </div>
 
             <!-- Mobile Menu -->
-            <button class="hamburger-menu" aria-label="Toggle navigation menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+            <button class="hamburger-menu" aria-label="Toggle navigation menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
             
             <ul class="nav-links">
                 <button class="mobile-menu-close" onclick="toggleMobileMenu()">✕</button>
                 
                 <!-- Mobile Search -->
-                <li style="padding: 20px; border-bottom: 2px solid rgba(0, 212, 255, 0.1);">
+                <li style="padding: 20px; border-bottom: 2px solid rgba(255, 255, 255, 0.1);">
                     <div style="position: relative;" id="mobileSearchWrapper">
-                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.6;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
+                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); opacity: 0.6;"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
                         <input 
                             type="text" 
                             id="mobileSearchInput"
                             placeholder="Search animations..."
-                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(10, 10, 10, 0.95); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
+                            style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(10, 10, 10, 0.95); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
                         >
-                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: rgba(10, 10, 10, 0.95); border: 2px solid rgba(0, 212, 255, 0.2); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); z-index: 10000;">
+                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: rgba(10, 10, 10, 0.95); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); z-index: 10000;">
                             <!-- Results populated here -->
                         </div>
                     </div>
@@ -3778,22 +3861,23 @@
 
             <!-- Right: Info -->
             <div class="info-section">
-                <!-- Header -->
-                <div class="product-header">
-                    <h1 class="product-title">Combat Sword Master Pack</h1>
-                </div>
-
-                <!-- Description -->
-                <p class="description">
-                    Professional sword combat animation pack featuring 12 high-quality mocap animations. 
-                    Perfect for action games, RPGs, and cinematic sequences. Includes attack combos, 
-                    defensive stances, and special moves. Captured with professional actors in a studio environment 
-                    for maximum realism and quality. Purchase once, use forever with unlimited commercial rights.
-                </p>
-
                 <!-- Price & Purchase -->
                 <div class="price-card panel-glow">
                     <div class="panel-glow-blob"></div>
+                    
+                    <!-- Header -->
+                    <div class="product-header" style="margin-bottom: 16px;">
+                        <h1 class="product-title" id="animationTitle">Combat Sword Master Pack</h1>
+                    </div>
+
+                    <!-- Description -->
+                    <p class="description" id="animationDescription" style="margin-bottom: 24px;">
+                        Professional sword combat animation pack featuring 12 high-quality mocap animations. 
+                        Perfect for action games, RPGs, and cinematic sequences. Includes attack combos, 
+                        defensive stances, and special moves. Captured with professional actors in a studio environment 
+                        for maximum realism and quality. Purchase once, use forever with unlimited commercial rights.
+                    </p>
+                    
                     <div class="price-display"><span class="dollar-sign">$</span>1.00</div>
                     <div class="purchase-buttons">
                         <button class="btn btn-success" id="buyNowBtn" onclick="handleBuyNow()">
@@ -3827,7 +3911,7 @@
                             <span>Secure <span class="badge-highlight">SSL</span> Checkout</span>
                         </div>
                         <div class="trust-badge">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                                 <polyline points="7 10 12 15 17 10"/>
                                 <line x1="12" y1="15" x2="12" y2="3"/>
@@ -3835,7 +3919,7 @@
                             <span><span class="badge-highlight">Instant</span> Download</span>
                         </div>
                         <div class="trust-badge">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="#00D4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="12" cy="12" r="10"/>
                                 <polyline points="12 6 12 12 16 14"/>
                             </svg>
@@ -4201,11 +4285,11 @@
             debug: false, // Set to true for verbose logging
             
             styles: {
-                brand: 'background: linear-gradient(135deg, #fb7d47, #FF6B6B); color: white; padding: 8px 16px; border-radius: 4px; font-weight: bold; font-size: 14px;',
-                info: 'color: #00d4ff; font-weight: 500;',
+                brand: 'background: #7ED321; color: white; padding: 8px 16px; border-radius: 4px; font-weight: bold; font-size: 14px;',
+                info: 'color: #FFFFFF; font-weight: 500;',
                 success: 'color: #10B981; font-weight: 500;',
-                warn: 'color: #FBBF24; font-weight: 500;',
-                error: 'color: #FF6B6B; font-weight: bold;',
+                warn: 'color: #7ED321; font-weight: 500;',
+                error: 'color: #7ED321; font-weight: bold;',
                 muted: 'color: #6B7280;'
             },
             
@@ -4295,7 +4379,7 @@
                          onerror="this.src='https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent('${item.title}')">
                     <div class="related-info">
                         <div class="related-title">${item.title}</div>
-                        <div class="related-price"><span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${item.price.toFixed(2)}</div>
+                        <div class="related-price"><span style="background: #7ED321; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${item.price.toFixed(2)}</div>
                     </div>
                 `;
                 relatedGrid.appendChild(card);
@@ -4613,7 +4697,7 @@
             const loading = document.createElement('div');
             loading.id = 'stripe-loading-overlay';
             loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:99999;';
-            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(0, 212, 255, 0.15);"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#F59E0B;">Processing Payment...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
+            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(255, 255, 255, 0.15);"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#7ED321;">Processing Payment...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
             document.body.appendChild(loading);
 
             try {
@@ -4699,7 +4783,7 @@
             const loading = document.createElement('div');
             loading.id = 'stripe-loading-overlay';
             loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:99999;';
-            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(0, 212, 255, 0.15);"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#F59E0B;">Processing Payment...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
+            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(255, 255, 255, 0.15);"><div style="font-size:24px;margin-bottom:16px;">💳</div><div style="font-size:18px;font-weight:700;color:#7ED321;">Processing Payment...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
             document.body.appendChild(loading);
 
             try {
@@ -4921,7 +5005,7 @@
             // Create loading overlay
             const loading = document.createElement('div');
             loading.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;z-index:99999;';
-            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(0, 212, 255, 0.15);"><div style="font-size:24px;margin-bottom:16px;">🛒</div><div style="font-size:18px;font-weight:700;color:#F59E0B;">Processing Cart...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
+            loading.innerHTML = '<div style="background:#1a1a1a;padding:40px;border-radius:16px;text-align:center;border:2px solid rgba(255, 255, 255, 0.15);"><div style="font-size:24px;margin-bottom:16px;">🛒</div><div style="font-size:18px;font-weight:700;color:#7ED321;">Processing Cart...</div><div style="color:#E7E5D3;margin-top:8px;">Please wait</div></div>';
             document.body.appendChild(loading);
 
             try {
@@ -5026,14 +5110,14 @@
                 },
                 warning: {
                     bg: 'rgba(10, 10, 10, 0.95)',
-                    border: 'rgba(251, 125, 71, 0.5)',
-                    text: '#fb7d47',
+                    border: 'rgba(126, 211, 33, 0.5)',
+                    text: '#7ED321',
                     icon: 'ℹ️'
                 },
                 error: {
                     bg: 'rgba(10, 10, 10, 0.95)',
-                    border: 'rgba(255, 107, 107, 0.5)',
-                    text: '#FF6B6B',
+                    border: 'rgba(126, 211, 33, 0.5)',
+                    text: '#7ED321',
                     icon: '✕'
                 }
             };
@@ -5050,7 +5134,7 @@
                 padding: 14px 24px;
                 z-index: 99999;
                 animation: slideInRight 0.3s ease;
-                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(251, 125, 71, 0.1);
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(126, 211, 33, 0.1);
                 font-family: 'DM Sans', sans-serif;
                 display: flex;
                 align-items: center;
@@ -5179,7 +5263,7 @@
                             previewContainer.style.overflowX = 'hidden';
                             previewContainer.innerHTML = `
                                 <div style="text-align: center; flex-shrink: 0;">
-                                    <img src="${animation.video_url}" alt="${animation.title}" style="width: 200px; height: auto; border-radius: 12px; border: 2px solid rgba(0, 212, 255, 0.2);">
+                                    <img src="${animation.video_url}" alt="${animation.title}" style="width: 200px; height: auto; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.2);">
                                 </div>
                             `;
                             previewDiv.style.display = 'block';
@@ -5204,7 +5288,7 @@
                         if (animations && animations.length > 0) {
                             previewContainer.innerHTML = animations.map(anim => `
                                 <div style="text-align: center; flex-shrink: 0;">
-                                    <img src="${anim.video_url}" alt="${anim.title}" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid rgba(0, 212, 255, 0.2);">
+                                    <img src="${anim.video_url}" alt="${anim.title}" style="width: 150px; height: auto; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.2);">
                                     <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${anim.title}</div>
                                 </div>
                             `).join('');
@@ -5537,10 +5621,10 @@
                     priceEl.innerHTML = `
                         <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 4px;">
                             <span style="font-size: 18px; color: var(--text-muted); text-decoration: line-through; text-decoration-color: #EF4444; font-weight: 500;">
-                                <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${anim.price.toFixed(2)}
+                                <span style="background: #7ED321; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${anim.price.toFixed(2)}
                             </span>
                             <div style="font-size: 42px; font-weight: 900; font-family: 'Sora', sans-serif;">
-                                <span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: #FFFFFF;">${salePrice.toFixed(2)}</span>
+                                <span style="background: #7ED321; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span><span style="color: #FFFFFF;">${salePrice.toFixed(2)}</span>
                             </div>
                         </div>
                     `;
@@ -5746,7 +5830,7 @@
                              onerror="this.src='https://via.placeholder.com/300x300/1A1A2E/00D4FF?text=' + encodeURIComponent('${item.title}')">
                         <div class="related-info">
                             <div class="related-title">${item.title}</div>
-                            <div class="related-price"><span style="background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${item.price.toFixed(2)}</div>
+                            <div class="related-price"><span style="background: #7ED321; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">$</span>${item.price.toFixed(2)}</div>
                         </div>
                     </div>
                 `).join('');
@@ -5893,7 +5977,7 @@
             const popularSearches = ['sword', 'fantasy sword', 'sword pack', 'walking'];
             popularSearches.forEach(term => {
                 html += `<div class="search-result-item" onclick="searchDropdownMobile.style.display='none'; toggleMobileMenu(); window.location.href='index.html#library?search=${encodeURIComponent(term)}'">`;
-                html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
+                html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#7ED321" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
                 html += `<div class="search-result-text"><strong>${term}</strong></div>`;
                 html += '</div>';
             });
@@ -5909,11 +5993,11 @@
                     const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
                     
                     html += `
-                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(255, 255, 255, 0.1); transition: all 0.2s;">
                             <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
-                                <div style="font-size: 14px; color: #fb7d47; font-weight: 600;">$${finalPrice.toFixed(2)}</div>
+                                <div style="font-size: 14px; color: #7ED321; font-weight: 600;">$${finalPrice.toFixed(2)}</div>
                             </div>
                         </div>
                     `;
@@ -5952,7 +6036,7 @@
                 suggestions.forEach(sugg => {
                     const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
                     html += `<div class="search-result-item" onclick="searchDropdownMobile.style.display='none'; toggleMobileMenu(); window.location.href='index.html#library?search=${encodeURIComponent(sugg)}'">`;
-                    html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
+                    html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#7ED321" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
                     html += `<div class="search-result-text">${highlighted}</div>`;
                     html += '</div>';
                 });
@@ -5969,11 +6053,11 @@
                     const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
                     
                     html += `
-                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(255, 255, 255, 0.1); transition: all 0.2s;">
                             <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
-                                <div style="font-size: 14px; color: #fb7d47; font-weight: 600;">$${finalPrice.toFixed(2)}</div>
+                                <div style="font-size: 14px; color: #7ED321; font-weight: 600;">$${finalPrice.toFixed(2)}</div>
                             </div>
                         </div>
                     `;
@@ -6070,7 +6154,7 @@
             const popularSearches = ['sword', 'fantasy sword', 'sword pack', 'walking'];
             popularSearches.forEach(term => {
                 html += `<div class="search-result-item" onclick="window.location.href='index.html#library?search=${encodeURIComponent(term)}'">`;
-                html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
+                html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#7ED321" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
                 html += `<div class="search-result-text"><strong>${term}</strong></div>`;
                 html += '</div>';
             });
@@ -6086,11 +6170,11 @@
                     const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
                     
                     html += `
-                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(255, 255, 255, 0.1); transition: all 0.2s;">
                             <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
-                                <div style="font-size: 14px; color: #fb7d47; font-weight: 600;">$${finalPrice.toFixed(2)}</div>
+                                <div style="font-size: 14px; color: #7ED321; font-weight: 600;">$${finalPrice.toFixed(2)}</div>
                             </div>
                         </div>
                     `;
@@ -6129,7 +6213,7 @@
                 suggestions.forEach(sugg => {
                     const highlighted = sugg.replace(new RegExp(query, 'gi'), match => `<strong>${match}</strong>`);
                     html += `<div class="search-result-item" onclick="window.location.href='index.html#library?search=${encodeURIComponent(sugg)}'">`;
-                    html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fb7d47" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
+                    html += '<div class="search-result-icon"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#7ED321" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>';
                     html += `<div class="search-result-text">${highlighted}</div>`;
                     html += '</div>';
                 });
@@ -6146,11 +6230,11 @@
                     const finalPrice = isOnSale ? anim.price * (1 - anim.sale_percentage / 100) : anim.price;
                     
                     html += `
-                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(0, 212, 255, 0.1); transition: all 0.2s;">
+                        <div class="search-result-item" onclick="window.location.href='animation-detail.html?slug=${anim.slug}'" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; cursor: pointer; border-bottom: 2px solid rgba(255, 255, 255, 0.1); transition: all 0.2s;">
                             <img src="${imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 6px;">
                             <div style="flex: 1;">
                                 <div style="font-weight: 600; color: var(--text-primary); margin-bottom: 4px;">${anim.title}</div>
-                                <div style="font-size: 14px; color: #fb7d47; font-weight: 600;">$${finalPrice.toFixed(2)}</div>
+                                <div style="font-size: 14px; color: #7ED321; font-weight: 600;">$${finalPrice.toFixed(2)}</div>
                             </div>
                         </div>
                     `;
@@ -6279,14 +6363,14 @@
                 },
                 warning: {
                     bg: 'rgba(10, 10, 10, 0.95)',
-                    border: 'rgba(251, 125, 71, 0.5)',
-                    text: '#fb7d47',
+                    border: 'rgba(126, 211, 33, 0.5)',
+                    text: '#7ED321',
                     icon: 'ℹ️'
                 },
                 error: {
                     bg: 'rgba(10, 10, 10, 0.95)',
-                    border: 'rgba(255, 107, 107, 0.5)',
-                    text: '#FF6B6B',
+                    border: 'rgba(126, 211, 33, 0.5)',
+                    text: '#7ED321',
                     icon: '✕'
                 }
             };
@@ -6303,7 +6387,7 @@
                 padding: 14px 24px;
                 z-index: 99999;
                 animation: slideInRight 0.3s ease;
-                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(251, 125, 71, 0.1);
+                box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(126, 211, 33, 0.1);
                 font-family: 'DM Sans', sans-serif;
                 display: flex;
                 align-items: center;
@@ -6346,7 +6430,7 @@
             console.error('Error loading page:', error);
             // On error, complete the bar in red
             loadingBar.style.width = '100%';
-            loadingBar.style.background = 'linear-gradient(90deg, #ef4444, #f59e0b)';
+            loadingBar.style.background = 'linear-gradient(90deg, #ef4444, #7ED321)';
             setTimeout(() => {
                 loadingBar.style.opacity = '0';
                 setTimeout(() => loadingBar.style.display = 'none', 300);
@@ -6433,7 +6517,7 @@
             <button class="auth-close" onclick="closeShareModal()" style="display: flex;">✕</button>
             
             <div style="padding: 40px;">
-                <h2 style="font-size: 24px; font-weight: 800; font-family: 'Sora', sans-serif; margin-bottom: 8px; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                <h2 style="font-size: 24px; font-weight: 800; font-family: 'Sora', sans-serif; margin-bottom: 8px; background: #7ED321; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                     Share Animation
                 </h2>
                 <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px;">
@@ -6457,7 +6541,7 @@
                         <span style="font-size: 20px;">🤖</span> Share on Reddit
                     </button>
                     
-                    <button onclick="copyLinkToClipboard()" style="width: 100%; padding: 14px; background: rgba(0, 212, 255, 0.1); border: 2px solid rgba(0, 212, 255, 0.15); border-radius: 12px; color: var(--teal); font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Sora', sans-serif;">
+                    <button onclick="copyLinkToClipboard()" style="width: 100%; padding: 14px; background: rgba(255, 255, 255, 0.1); border: 2px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: var(--teal); font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; font-family: 'Sora', sans-serif;">
                         <span style="font-size: 20px;">🔗</span> Copy Link
                     </button>
                 </div>
@@ -6595,10 +6679,10 @@
                     Elevate your projects with studio-quality mocap data.
                 </p>
                 <div class="social-links">
-                    <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="18" height="18" fill="#fb7d47"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-                    <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fb7d47"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
-                    <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#fb7d47" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-                    <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="20" height="20" fill="#fb7d47"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+                    <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="18" height="18" fill="#7ED321"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="20" height="20" fill="#7ED321"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                    <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                    <a href="#" class="social-link"><svg viewBox="0 0 24 24" width="20" height="20" fill="#7ED321"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
                 </div>
             </div>
 
@@ -6647,7 +6731,7 @@
                     </svg>
                 </div>
 
-                <h2 style="font-size: 28px; font-weight: 800; font-family: 'Sora', sans-serif; margin-bottom: 6px; text-align: center; background: linear-gradient(135deg, var(--teal), var(--amber)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                <h2 style="font-size: 28px; font-weight: 800; font-family: 'Sora', sans-serif; margin-bottom: 6px; text-align: center; background: #7ED321; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                     Payment Successful!
                 </h2>
                 <p style="color: var(--text-secondary); margin-bottom: 24px; font-size: 14px; text-align: center;">
@@ -6662,7 +6746,7 @@
 
                 <!-- Animation Preview -->
                 <div id="thankYouPreview" style="display: none; margin-bottom: 20px;">
-                    <div style="background: rgba(10, 10, 10, 0.95); border-radius: 12px; padding: 12px; border: 2px solid rgba(0, 212, 255, 0.1);">
+                    <div style="background: rgba(10, 10, 10, 0.95); border-radius: 12px; padding: 12px; border: 2px solid rgba(255, 255, 255, 0.1);">
                         <img id="thankYouGif" src="" alt="Animation Preview" style="width: 100%; max-width: 200px; border-radius: 8px; display: block; margin: 0 auto;">
                         <p id="thankYouAnimationName" style="text-align: center; margin-top: 8px; font-weight: 600; color: var(--text-primary); font-size: 14px;"></p>
                     </div>
@@ -6684,7 +6768,7 @@
                 </div>
 
                 <!-- Order Details -->
-                <div id="thankYouOrderDetails" style="display: none; background: rgba(10, 10, 10, 0.95); border-radius: 10px; padding: 16px; border: 2px solid rgba(0, 212, 255, 0.1);">
+                <div id="thankYouOrderDetails" style="display: none; background: rgba(10, 10, 10, 0.95); border-radius: 10px; padding: 16px; border: 2px solid rgba(255, 255, 255, 0.1);">
                     <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary);">Order Details</h3>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
                         <div style="display: flex; justify-content: space-between;">
@@ -6719,7 +6803,7 @@
     #thankYouModal .spinner {
         width: 40px;
         height: 40px;
-        border: 4px solid rgba(0, 212, 255, 0.1);
+        border: 4px solid rgba(255, 255, 255, 0.1);
         border-top-color: var(--teal);
         border-radius: 50%;
         animation: thankYouSpin 0.8s linear infinite;
@@ -6757,7 +6841,7 @@
 
     .stripe-checkout-modal-content {
         background: rgba(10, 10, 10, 0.95);
-        border: 2px solid rgba(0, 212, 255, 0.15);
+        border: 2px solid rgba(255, 255, 255, 0.15);
         border-radius: 20px;
         padding: 0;
         max-width: 500px;
@@ -6768,21 +6852,21 @@
         overflow: hidden;
         box-shadow: 
             0 4px 24px rgba(0, 0, 0, 0.4),
-            inset 0 1px 1px rgba(251, 125, 71, 0.1),
-            0 0 40px rgba(251, 125, 71, 0.05);
+            inset 0 1px 1px rgba(126, 211, 33, 0.1),
+            0 0 40px rgba(126, 211, 33, 0.05);
     }
 
     .stripe-checkout-modal-header {
         background: rgba(0, 0, 0, 0.2);
         padding: 24px;
-        border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         position: relative;
     }
 
     .stripe-checkout-modal-title {
         font-size: 20px;
         font-weight: 700;
-        background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+        background: #7ED321;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -6844,7 +6928,7 @@
 
     .stripe-input {
         background: #2A2A2A;
-        border: 2px solid rgba(0, 212, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.2);
         border-radius: 50px;
         padding: 16px 24px;
         transition: all 0.3s ease;
@@ -6853,8 +6937,8 @@
     .stripe-input:focus-within,
     .stripe-input.StripeElement--focus {
         border-color: var(--teal);
-        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1),
-                    0 0 20px rgba(0, 212, 255, 0.15);
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1),
+                    0 0 20px rgba(255, 255, 255, 0.15);
         background: #2A2A2A;
     }
 
@@ -6868,7 +6952,7 @@
 
     .stripe-order-summary {
         background: #1A1A1A;
-        border: 2px solid rgba(0, 212, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.2);
         border-radius: 20px;
         padding: 20px;
         margin-bottom: 24px;
@@ -6903,7 +6987,7 @@
     .stripe-order-total {
         margin-top: 12px;
         padding-top: 12px;
-        border-top: 2px solid rgba(0, 212, 255, 0.15);
+        border-top: 2px solid rgba(255, 255, 255, 0.15);
     }
 
     .stripe-order-total .stripe-order-label {
@@ -6914,7 +6998,7 @@
 
     .stripe-order-total .stripe-order-value {
         font-size: 24px;
-        background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+        background: #7ED321;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -6925,7 +7009,7 @@
         width: 100%;
         padding: 14px 24px;
         background: rgba(10, 10, 10, 0.95);
-        border: 2px solid rgba(0, 212, 255, 0.15);
+        border: 2px solid rgba(255, 255, 255, 0.15);
         border-radius: 50px;
         color: #ffffff;
         font-weight: 700;
@@ -6955,9 +7039,9 @@
         background: linear-gradient(
             90deg,
             transparent 0%,
-            #fb7d47 20%,
-            #fb7d47 40%,
-            #FF6B6B 60%,
+            #7ED321 20%,
+            #7ED321 40%,
+            #7ED321 60%,
             transparent 80%,
             transparent 100%
         );
@@ -6986,7 +7070,7 @@
         box-shadow: 
             inset 0 1px 1px rgba(255, 255, 255, 0.15),
             inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-            0 0 25px rgba(251, 125, 71, 0.4);
+            0 0 25px rgba(126, 211, 33, 0.4);
     }
     
     .stripe-pay-button:hover:not(:disabled)::before {
@@ -7003,7 +7087,7 @@
         width: 20px;
         height: 20px;
         border: 3px solid rgba(255, 255, 255, 0.3);
-        border-top-color: #fb7d47;
+        border-top-color: #7ED321;
         border-radius: 50%;
         animation: spinButton 0.8s linear infinite;
     }
