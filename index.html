@@ -121,7 +121,7 @@
             --bg-primary: #000000;
             --bg-secondary: #0F0F0F;
             --bg-card: #1A1A1A;
-            --teal: #F59E0B;
+            --teal: #fb7d47;
             --teal-dark: #D97706;
             --amber: #FF6B6B;
             --amber-light: #FF8E8E;
@@ -184,7 +184,7 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
+            background: linear-gradient(180deg, #fb7d47 0%, #FF6B6B 100%);
             border-radius: 6px;
             border: 2px solid #1a1a1a;
         }
@@ -1191,7 +1191,7 @@
             position: absolute !important;
             top: -4px !important;
             right: -4px !important;
-            background: linear-gradient(135deg, #F59E0B 0%, #FF6B6B 100%);
+            background: linear-gradient(135deg, #fb7d47 0%, #FF6B6B 100%);
             color: #000000;
             min-width: 18px;
             height: 18px;
@@ -1265,7 +1265,7 @@
         }
 
         .cart-hover-items::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
+            background: linear-gradient(180deg, #fb7d47 0%, #FF6B6B 100%);
             border-radius: 3px;
         }
 
@@ -2043,7 +2043,7 @@
 
         /* Hero subtitle color styles */
         .hero-subtitle-buy-gradient {
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -2977,7 +2977,7 @@
         }
 
         .custom-dropdown-menu::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #F59E0B 0%, #FF6B6B 100%);
+            background: linear-gradient(180deg, #fb7d47 0%, #FF6B6B 100%);
             border-radius: 3px;
         }
 
@@ -3494,7 +3494,7 @@
         }
 
         .animation-card:hover .card-title {
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -3549,7 +3549,7 @@
         }
 
         .card-price-dollar {
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -4376,7 +4376,7 @@
         }
         
         .form-group select option:checked {
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
             color: #000000;
             font-weight: 700;
         }
@@ -4504,10 +4504,11 @@
         }
         
         .rewards-banner-badge {
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
-            color: #000;
+            background: rgba(10, 10, 10, 0.95);
+            color: #fb7d47;
             padding: 8px 20px;
             border-radius: 50px;
+            border: 2px solid #fb7d47;
             font-weight: 700;
             font-size: 13px;
             text-transform: uppercase;
@@ -4518,7 +4519,7 @@
 
         /* Promo Strip Banner */
         .promo-strip {
-            background: linear-gradient(90deg, #F59E0B, #FF6B6B, #fb7d47);
+            background: linear-gradient(90deg, #fb7d47, #FF6B6B, #fb7d47);
             background-size: 200% 100%;
             animation: gradientMove 3s ease infinite;
             padding: 12px 20px;
@@ -4760,7 +4761,7 @@
             font-family: 'Sora', sans-serif;
             font-size: 48px;
             font-weight: 800;
-            background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+            background: linear-gradient(135deg, #fb7d47, #FF6B6B);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -6554,7 +6555,7 @@
     <div id="loadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--amber)); z-index: 99999; transition: width 0.3s ease;"></div>
     
     <!-- Loading Progress Bar for Auth -->
-    <div id="authLoadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #F59E0B, #FF6B6B); z-index: 99999; transition: width 0.3s ease; display: none;"></div>
+    <div id="authLoadingBar" style="position: fixed; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #fb7d47, #FF6B6B); z-index: 99999; transition: width 0.3s ease; display: none;"></div>
 
     <!-- 3D Viewer Modal -->
     <div class="viewer-modal-overlay" id="viewer3dModal">
@@ -7116,7 +7117,8 @@
                 </div>
             </div>
 
-            <div class="hero-badge">
+            <div class="hero-badge panel-glow">
+                <div class="panel-glow-blob"></div>
                 <div class="badge-dot"><svg viewBox="0 0 24 24"><path d="M12 0l2.5 7.5L22 10l-7.5 2.5L12 20l-2.5-7.5L2 10l7.5-2.5z"/></svg></div>
                 Premium Motion Capture Library
             </div>
@@ -7128,7 +7130,8 @@
             </h1>
             
             <!-- Trust Badge -->
-            <div class="trust-badge" style="pointer-events: none;">
+            <div class="trust-badge panel-glow">
+                <div class="panel-glow-blob"></div>
                 <svg viewBox="0 0 24 24" fill="none" style="width: 16px; height: 16px; margin-right: 6px;">
                     <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
                 </svg>
@@ -7949,29 +7952,33 @@
                 Trusted by game developers, filmmakers, and 3D artists worldwide
             </p>
             
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-top: 50px;">
-                <div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; margin-top: 50px;">
+                <div class="panel-glow" style="background: rgba(0, 0, 0, 0.3); border: 2px solid rgba(0, 212, 255, 0.15); border-radius: 16px; padding: 32px;">
+                    <div class="panel-glow-blob"></div>
                     <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                     <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Studio Quality Mocap</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
                         Professional motion capture recorded with industry-leading mocap technology
                     </p>
                 </div>
-                <div>
+                <div class="panel-glow" style="background: rgba(0, 0, 0, 0.3); border: 2px solid rgba(0, 212, 255, 0.15); border-radius: 16px; padding: 32px;">
+                    <div class="panel-glow-blob"></div>
                     <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                     <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Game Engine Ready</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
                         Optimized for Unreal Engine, Unity, and all major game development platforms
                     </p>
                 </div>
-                <div>
+                <div class="panel-glow" style="background: rgba(0, 0, 0, 0.3); border: 2px solid rgba(0, 212, 255, 0.15); border-radius: 16px; padding: 32px;">
+                    <div class="panel-glow-blob"></div>
                     <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                     <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Royalty-Free License</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
                         Use mocap animations in unlimited commercial projects with no extra fees
                     </p>
                 </div>
-                <div>
+                <div class="panel-glow" style="background: rgba(0, 0, 0, 0.3); border: 2px solid rgba(0, 212, 255, 0.15); border-radius: 16px; padding: 32px;">
+                    <div class="panel-glow-blob"></div>
                     <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#fb7d47" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
                     <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 12px;">Instant Download</h3>
                     <p style="color: var(--text-secondary); line-height: 1.7;">
@@ -10373,7 +10380,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             // On error, complete in red
             if (loadingBar) {
                 loadingBar.style.width = '100%';
-                loadingBar.style.background = 'linear-gradient(90deg, #ef4444, #F59E0B)';
+                loadingBar.style.background = 'linear-gradient(90deg, #ef4444, #fb7d47)';
                 setTimeout(() => {
                     loadingBar.style.opacity = '0';
                     setTimeout(() => loadingBar.style.display = 'none', 300);
@@ -11237,7 +11244,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
     .stripe-checkout-modal-title {
         font-size: 20px;
         font-weight: 700;
-        background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+        background: linear-gradient(135deg, #fb7d47, #FF6B6B);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -11371,7 +11378,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
 
     .stripe-order-total .stripe-order-value {
         font-size: 24px;
-        background: linear-gradient(135deg, #F59E0B, #FF6B6B);
+        background: linear-gradient(135deg, #fb7d47, #FF6B6B);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
