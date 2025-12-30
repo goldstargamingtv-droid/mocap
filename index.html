@@ -15,12 +15,12 @@
     <meta name="version" content="2024-12-23-v12">
     
     <!-- SEO Meta Tags -->
-    <title>MocapWork - Premium Motion Capture Animations for Unreal, Unity & Blender</title>
+    <title>MocapWork - Premium Motion Capture Animations | Free Online 3D Viewer for FBX & GLB</title>
     
     <!-- Primary Meta Tags -->
-    <meta name="title" content="MocapWork - Premium Motion Capture Animations for Games & Film">
-    <meta name="description" content="Buy professional motion capture animations for Unreal Engine, Unity & Blender. 100+ studio-quality mocap animations with royalty-free licenses. Instant download for game development, film & virtual production.">
-    <meta name="keywords" content="motion capture animations, buy mocap, unreal engine mocap, unity animations, blender mocap, professional mocap, game animations, character animations, fbx animations, royalty free mocap, instant download mocap, 3d animation assets">
+    <meta name="title" content="MocapWork - Premium Motion Capture Animations | Free 3D Animation Viewer">
+    <meta name="description" content="Buy professional motion capture animations for Unreal Engine, Unity & Blender. FREE online 3D viewer for FBX & GLB files - no software needed! 100+ studio-quality mocap animations with royalty-free licenses.">
+    <meta name="keywords" content="motion capture animations, buy mocap, unreal engine mocap, unity animations, blender mocap, professional mocap, game animations, character animations, fbx animations, royalty free mocap, instant download mocap, 3d animation assets, free 3d viewer, fbx viewer online, glb viewer, 3d model viewer free, animation preview tool">
     <meta name="robots" content="index, follow">
     <meta name="language" content="English">
     <meta name="author" content="MocapWork">
@@ -29,20 +29,20 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://mocapwork.com/">
     <meta property="og:site_name" content="MocapWork">
-    <meta property="og:title" content="MocapWork - 100+ Premium Motion Capture Animations">
-    <meta property="og:description" content="Studio-quality motion capture animations for Unreal Engine, Unity & Blender. Royalty-free licenses, instant downloads. Perfect for games, films & virtual production.">
+    <meta property="og:title" content="MocapWork - Premium Mocap Animations + FREE 3D Viewer">
+    <meta property="og:description" content="Studio-quality motion capture animations for Unreal Engine, Unity & Blender. Plus FREE online 3D viewer for FBX & GLB files - preview animations without any software!">
     <meta property="og:image" content="https://mocapwork.com/og-image.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="MocapWork - Premium Motion Capture Animation Marketplace">
+    <meta property="og:image:alt" content="MocapWork - Premium Motion Capture Animation Marketplace with Free 3D Viewer">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://mocapwork.com/">
-    <meta property="twitter:title" content="MocapWork - Premium Motion Capture Animations">
-    <meta property="twitter:description" content="100+ professional mocap animations for Unreal, Unity & Blender. Studio-quality, royalty-free, instant download. Elevate your game dev & film projects.">
+    <meta property="twitter:title" content="MocapWork - Mocap Animations + FREE 3D Viewer">
+    <meta property="twitter:description" content="100+ professional mocap animations + FREE online 3D viewer for FBX & GLB files. Preview animations instantly in your browser - no software needed!">
     <meta property="twitter:image" content="https://mocapwork.com/og-image.jpg">
-    <meta property="twitter:image:alt" content="MocapWork Motion Capture Animation Library">
+    <meta property="twitter:image:alt" content="MocapWork Motion Capture Animation Library with Free 3D Viewer">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://mocapwork.com/">
@@ -2210,6 +2210,7 @@
             justify-content: center;
             flex-wrap: wrap;
             margin-bottom: 10px;
+            padding-left: 50px;
         }
 
         .btn-primary-cta {
@@ -4997,14 +4998,14 @@
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: 2fr 1fr 1fr 1fr;
             gap: 48px;
             max-width: 1400px;
             margin: 0 auto 48px;
         }
 
         .footer-brand {
-            grid-column: span 2;
+            /* No span needed with explicit columns */
         }
 
         .footer-logo {
@@ -5394,6 +5395,11 @@
             .footer-brand {
                 grid-column: span 1;
             }
+            
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
 
             .footer-bottom {
                 flex-direction: column;
@@ -5460,6 +5466,11 @@
         }
 
         @media (max-width: 480px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
             .filters-grid {
                 grid-template-columns: 1fr;
             }
@@ -6614,6 +6625,11 @@
         }
 
         @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+            
             .blog-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -6642,7 +6658,7 @@
       "@type": "WebSite",
       "name": "MocapWork",
       "url": "https://goldstargamingtv-droid.github.io/mocap/",
-      "description": "Professional motion capture animation marketplace for game developers, filmmakers, and 3D artists",
+      "description": "Professional motion capture animation marketplace with free online 3D viewer for FBX and GLB files. For game developers, filmmakers, and 3D artists.",
       "potentialAction": {
         "@type": "SearchAction",
         "target": "https://goldstargamingtv-droid.github.io/mocap/?search={search_term_string}",
@@ -6656,7 +6672,7 @@
       "@context": "https://schema.org",
       "@type": "Store",
       "name": "MocapWork",
-      "description": "Buy professional motion capture animations for Unreal Engine, Unity, Blender, and more",
+      "description": "Buy professional motion capture animations for Unreal Engine, Unity, Blender, and more. Includes free online 3D viewer for FBX & GLB files.",
       "url": "https://goldstargamingtv-droid.github.io/mocap/",
       "priceRange": "Starting at $1",
       "paymentAccepted": "Credit Card, Stripe",
@@ -6664,6 +6680,23 @@
         "@type": "PostalAddress",
         "addressCountry": "US"
       }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "MocapWork Free 3D Viewer",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Free online 3D model and animation viewer. Preview FBX and GLB files instantly in your browser without installing software. No account required.",
+      "url": "https://goldstargamingtv-droid.github.io/mocap/viewer.html"
     }
     </script>
     
@@ -6797,6 +6830,7 @@
 
             <!-- Nav Links (right of search) -->
             <div class="nav-links-right">
+                <a href="viewer.html" class="nav-link" style="color: #7ED321;">3D Viewer</a>
                 <a href="dashboard.html" onclick="handleDashboardClick(event); return false;" class="nav-link">My Library</a>
                 <a href="#contact" class="nav-link">Contact</a>
                 <a href="#blog" class="nav-link">Blog</a>
@@ -6945,6 +6979,7 @@
                 </li>
                 
                 <li><a href="#library" onclick="toggleMobileMenu()">Animations</a></li>
+                <li><a href="viewer.html" onclick="toggleMobileMenu()" style="color: #7ED321;">Free 3D Viewer</a></li>
                 <li><a href="dashboard.html" onclick="handleDashboardClick(event); toggleMobileMenu()">My Library</a></li>
                 <li><a href="#contact" onclick="toggleMobileMenu()">Contact</a></li>
                 <li><a href="#blog" onclick="toggleMobileMenu()">Blog</a></li>
@@ -7332,6 +7367,14 @@
                     </svg>
                     Browse Library
                 </a>
+                <a href="viewer.html" class="btn-cta">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                    </svg>
+                    Free 3D Viewer
+                </a>
                 <a href="#" onclick="showAuthModal('signup'); return false;" class="btn-cta">
                     <svg viewBox="0 0 24 24">
                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -7614,6 +7657,7 @@
     <!-- Social Proof Ticker - Full Width -->
     <div class="social-proof-ticker" style="margin-top: 20px;">
         <div class="ticker-track">
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Free 3D Viewer</strong> for FBX & GLB</div>
             <div class="ticker-item"><span class="ticker-dot"></span> <strong>Instant download</strong> after purchase</div>
             <div class="ticker-item"><span class="ticker-dot"></span> <strong>Royalty-free</strong> forever license</div>
             <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unreal Engine</strong></div>
@@ -7622,6 +7666,7 @@
             <div class="ticker-item"><span class="ticker-dot"></span> <strong>No subscription</strong> required</div>
             <div class="ticker-item"><span class="ticker-dot"></span> <strong>FBX format</strong> included</div>
             <div class="ticker-item"><span class="ticker-dot"></span> <strong>Lifetime access</strong> to purchases</div>
+            <div class="ticker-item"><span class="ticker-dot"></span> <strong>Free 3D Viewer</strong> for FBX & GLB</div>
             <div class="ticker-item"><span class="ticker-dot"></span> <strong>Instant download</strong> after purchase</div>
             <div class="ticker-item"><span class="ticker-dot"></span> <strong>Royalty-free</strong> forever license</div>
             <div class="ticker-item"><span class="ticker-dot"></span> Works with <strong>Unreal Engine</strong></div>
@@ -7673,6 +7718,18 @@
             </div>
             
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px;">
+                <div class="feature-card panel-glow">
+                    <div class="panel-glow-blob"></div>
+                    <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg></div>
+                    <div style="display: inline-block; background: rgba(126, 211, 33, 0.15); color: #7ED321; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Free Tool</div>
+                    <h3 style="font-size: 22px; font-weight: 700; font-family: 'Sora', sans-serif; margin-bottom: 12px;">Free Online 3D Viewer</h3>
+                    <p style="color: var(--text-secondary); line-height: 1.7;">
+                        Preview FBX & GLB files instantly in your browser - no software required! 
+                        Drag and drop your own 3D models and animations to view them without opening Adobe, Blender, or any other app.
+                    </p>
+                    <a href="viewer.html" style="display: inline-block; margin-top: 16px; color: #7ED321; font-weight: 600; font-size: 14px; text-decoration: none;">Open 3D Viewer →</a>
+                </div>
+                
                 <div class="feature-card panel-glow">
                     <div class="panel-glow-blob"></div>
                     <div style="margin-bottom: 16px;"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg></div>
@@ -8013,6 +8070,23 @@
                 <div class="faq-item panel-glow" onclick="toggleFaq(this)">
                     <div class="panel-glow-blob"></div>
                     <div class="faq-question">
+                        <h3>What is the free 3D viewer and how do I use it?</h3>
+                        <div class="faq-arrow">
+                            <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our free online 3D viewer lets you preview FBX and GLB files directly in your browser—no software installation required! 
+                        Simply drag and drop your 3D models or animations into the viewer to see them instantly. It's perfect for quickly checking animation files 
+                        without opening Blender, Maya, or Adobe software. You can also preview any animation from our marketplace before purchasing. 
+                        <a href="viewer.html" style="color: #7ED321; font-weight: 600;">Try the free 3D viewer now →</a></p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 9 -->
+                <div class="faq-item panel-glow" onclick="toggleFaq(this)">
+                    <div class="panel-glow-blob"></div>
+                    <div class="faq-question">
                         <h3>Can I request custom motion capture animations?</h3>
                         <div class="faq-arrow">
                             <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -8044,6 +8118,14 @@
                     <path d="M22 4L12 14.01l-3-3"/>
                 </svg>
                 Start Browsing Now
+            </a>
+            <a href="viewer.html" class="btn-cta">
+                <svg viewBox="0 0 24 24">
+                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                    <line x1="12" y1="22.08" x2="12" y2="12"/>
+                </svg>
+                Free 3D Viewer
             </a>
             <a href="#" onclick="showAuthModal('signup'); return false;" class="btn-cta">
                 <svg viewBox="0 0 24 24">
@@ -8134,9 +8216,20 @@
                 <h4>Product</h4>
                 <ul class="footer-links">
                     <li><a href="#library">Browse Library</a></li>
+                    <li><a href="viewer.html">Free 3D Viewer</a></li>
                     <li><a href="#blog">Blog</a></li>
                     <li><a href="#pricing">Pricing Plans</a></li>
                     <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Free Tools</h4>
+                <ul class="footer-links">
+                    <li><a href="viewer.html">3D Model Viewer</a></li>
+                    <li><a href="viewer.html">FBX Viewer Online</a></li>
+                    <li><a href="viewer.html">GLB Viewer Online</a></li>
+                    <li><a href="viewer.html">Animation Preview</a></li>
                 </ul>
             </div>
 
