@@ -2102,15 +2102,9 @@
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px;
             gap: 12px;
-            transition: all 0.3s ease;
             position: relative;
             backdrop-filter: blur(10px);
-        }
-        
-        .hero-step:hover {
-            border-color: #7ED321;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(126, 211, 33, 0.2);
+            overflow: hidden;
         }
         
         .hero-step-icon {
@@ -2122,12 +2116,8 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            transition: all 0.3s ease;
-        }
-        
-        .hero-step:hover .hero-step-icon {
-            background: rgba(126, 211, 33, 0.2);
-            transform: scale(1.05);
+            position: relative;
+            z-index: 1;
         }
         
         .hero-step-icon svg {
@@ -2139,6 +2129,8 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            position: relative;
+            z-index: 1;
         }
         
         .hero-step-number {
@@ -2386,6 +2378,8 @@
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(126, 211, 33, 0.1));
             border-radius: 12px;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
         
         .carousel-play-icon {
@@ -2605,14 +2599,33 @@
             justify-content: center;
             align-items: center;
             margin: 6px 0;
-            opacity: 0.8;
+            transform: translateY(-5px);
         }
 
         .platform-logo {
             height: 40px;
             width: auto;
-            opacity: 0.8;
-            transition: all 0.3s ease;
+            opacity: 1;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            filter: brightness(1) drop-shadow(0 0 0 transparent);
+            cursor: pointer;
+        }
+        
+        .platform-logo:nth-child(1) {
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+        
+        .platform-logo:nth-child(2) {
+            animation: logoFloat 3s ease-in-out infinite 0.5s;
+        }
+        
+        .platform-logo:nth-child(3) {
+            animation: logoFloat 3s ease-in-out infinite 1s;
+        }
+        
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
         }
 
         .platform-logo:first-child {
@@ -2620,8 +2633,13 @@
         }
 
         .platform-logo:hover {
-            opacity: 1;
-            transform: translateY(-4px);
+            animation: none;
+            transform: translateY(-6px) scale(1.1);
+            filter: brightness(1.2) drop-shadow(0 0 20px rgba(126, 211, 33, 0.8)) drop-shadow(0 0 40px rgba(126, 211, 33, 0.4));
+        }
+        
+        .platform-logo:active {
+            transform: translateY(-2px) scale(1.05);
         }
 
         .scroll-indicator {
@@ -3090,7 +3108,7 @@
             background: rgba(10, 10, 10, 0.8);
             border-radius: 50px;
             transition: all 0.3s ease;
-            border: 2px solid rgba(10, 10, 10, 0.8);
+            border: 2px solid rgba(126, 211, 33, 0.4);
         }
 
         .ai-toggle-slider::before {
@@ -3999,6 +4017,8 @@
             background: rgba(255, 255, 255, 0.05);
             border-color: rgba(255, 255, 255, 0.2);
             color: var(--text-primary);
+            padding: 10px 12px;
+            font-size: 11px;
         }
         
         .card-btn-details:hover {
@@ -4029,6 +4049,32 @@
             fill: none;
         }
         
+        /* 3D Button overlay on thumbnail */
+        .card-btn-3d-overlay {
+            position: absolute;
+            bottom: 11px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            padding: 8px 12px;
+            font-size: 11px;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(126, 211, 33, 0.5);
+            backdrop-filter: blur(8px);
+        }
+        
+        .card-btn-3d-overlay:hover {
+            background: rgba(126, 211, 33, 0.3);
+            border-color: #7ED321;
+            box-shadow: 0 0 15px rgba(126, 211, 33, 0.5);
+        }
+        
+        /* Full-width Buy Now button */
+        .card-btn-buy-full {
+            width: 100%;
+            justify-content: center;
+        }
+        
         /* Bottom row buttons - larger */
         .card-btn-buy {
             background: rgba(126, 211, 33, 0.12);
@@ -4057,8 +4103,8 @@
             border-color: rgba(255, 255, 255, 0.3);
             color: #7ED321;
             font-weight: 700;
-            padding: 14px 14px;
-            font-size: 12px;
+            padding: 10px 12px;
+            font-size: 11px;
         }
         
         .card-btn-cart svg {
@@ -7297,7 +7343,8 @@
             
             <!-- 3-Step Process -->
             <div class="hero-steps">
-                <div class="hero-step">
+                <div class="hero-step panel-glow">
+                    <div class="panel-glow-blob"></div>
                     <div class="hero-step-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="11" cy="11" r="8"/>
@@ -7315,7 +7362,8 @@
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
                 </div>
-                <div class="hero-step">
+                <div class="hero-step panel-glow">
+                    <div class="panel-glow-blob"></div>
                     <div class="hero-step-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
@@ -7333,7 +7381,8 @@
                         <path d="M5 12h14M12 5l7 7-7 7"/>
                     </svg>
                 </div>
-                <div class="hero-step">
+                <div class="hero-step panel-glow">
+                    <div class="panel-glow-blob"></div>
                     <div class="hero-step-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -8982,6 +9031,14 @@
                     <!-- Thumbnail/GIF/Video Container -->
                     <div class="card-thumbnail">
                         ${mediaElement}
+                        <button class="card-btn card-btn-3d card-btn-3d-overlay" onclick="event.preventDefault(); event.stopPropagation(); open3DViewer('${anim.glbFile || ''}', '${anim.title}')">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                                <path d="M2 17l10 5 10-5"></path>
+                                <path d="M2 12l10 5 10-5"></path>
+                            </svg>
+                            3D Viewer
+                        </button>
                     </div>
 
                     <!-- Details Panel - Slides up on hover -->
@@ -9041,31 +9098,15 @@
                             <!-- Action Buttons -->
                             <div class="card-actions">
                                 <div class="card-actions-row">
-                                    <a href="animation-detail.html?slug=${anim.slug}" class="card-btn card-btn-details" onclick="event.stopPropagation();">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                                        </svg>
-                                        Details
-                                    </a>
-                                    <button class="card-btn card-btn-3d" onclick="event.preventDefault(); event.stopPropagation(); open3DViewer('${anim.glbFile || ''}', '${anim.title}')">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-                                            <path d="M2 17l10 5 10-5"></path>
-                                            <path d="M2 12l10 5 10-5"></path>
-                                        </svg>
-                                        3D
-                                    </button>
-                                </div>
-                                <div class="card-actions-row">
-                                    <button class="card-btn card-btn-buy" onclick="event.stopPropagation(); handleBuyNow('${anim.id}', '${anim.title}', ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? (anim.price * (1 - anim.salePercentage / 100)).toFixed(2) : anim.price})">
+                                    <button class="card-btn card-btn-buy card-btn-buy-full" onclick="event.stopPropagation(); handleBuyNow('${anim.id}', '${anim.title}', ${(anim.onSale || anim.holidaySale) && anim.salePercentage ? (anim.price * (1 - anim.salePercentage / 100)).toFixed(2) : anim.price})">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
                                             <line x1="1" y1="10" x2="23" y2="10"></line>
                                         </svg>
                                         Buy Now
                                     </button>
+                                </div>
+                                <div class="card-actions-row">
                                     <button class="card-btn card-btn-cart" onclick="event.stopPropagation(); handleAddToCart('${anim.id}')">
                                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                             <circle cx="9" cy="21" r="1"></circle>
@@ -9074,6 +9115,14 @@
                                         </svg>
                                         Add to Cart
                                     </button>
+                                    <a href="animation-detail.html?slug=${anim.slug}" class="card-btn card-btn-details" onclick="event.stopPropagation();">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                        </svg>
+                                        Details
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -11883,11 +11932,15 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                     
                     if (placeholder) {
                         if (data.image_url) {
+                            // Load GIF directly - autoplay without hover
                             placeholder.innerHTML = `
                                 <div class="carousel-gif-placeholder" data-gif="${data.image_url}">
-                                    <div class="carousel-play-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="#7ED321" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-                                    <div class="carousel-placeholder-text">${data.title}</div>
-                                    <div class="carousel-placeholder-subtext">Hover to preview</div>
+                                    <img src="${data.image_url}" 
+                                         alt="${data.title}" 
+                                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+                                    <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); border-radius: 0 0 12px 12px;">
+                                        <div class="carousel-placeholder-text">${data.title}</div>
+                                    </div>
                                 </div>
                             `;
                         } else {
@@ -11898,29 +11951,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
                             `;
                         }
                     }
-                    
-                    // GIF hover handlers
-                    item.addEventListener('mouseenter', () => {
-                        const gifPlaceholder = item.querySelector('.carousel-gif-placeholder');
-                        if (gifPlaceholder && data.image_url) {
-                            gifPlaceholder.innerHTML = `
-                                <img src="${data.image_url}" 
-                                     alt="${data.title}" 
-                                     style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                            `;
-                        }
-                    });
-                    
-                    item.addEventListener('mouseleave', () => {
-                        const gifPlaceholder = item.querySelector('.carousel-gif-placeholder');
-                        if (gifPlaceholder && gifPlaceholder.querySelector('img')) {
-                            gifPlaceholder.innerHTML = `
-                                <div class="carousel-play-icon"><svg viewBox="0 0 24 24" width="24" height="24" fill="#7ED321" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-                                <div class="carousel-placeholder-text">${data.title}</div>
-                                <div class="carousel-placeholder-subtext">Hover to preview</div>
-                            `;
-                        }
-                    });
                     
                     const overlayText = item.querySelector('.carousel-overlay-text');
                     if (overlayText) {
