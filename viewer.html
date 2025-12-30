@@ -1,4 +1,4 @@
-=<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -2439,12 +2439,12 @@
             try {
                 const { data, error } = await supabaseClient
                     .from('animations')
-                    .select('id, title, category, style, price, gifThumbnail, glbFile')
-                    .not('glbFile', 'is', null)
+                    .select('id, title, category, style, price, thumbnail_url, video_url, glb_url')
                     .order('title');
                 
                 if (error) throw error;
                 allAnimations = data || [];
+                console.log('Fetched animations:', allAnimations);
                 renderAnimations(allAnimations);
             } catch (err) {
                 console.error('Error fetching animations:', err);
@@ -2471,12 +2471,12 @@
             Object.keys(grouped).sort().forEach(category => {
                 html += `<div class="search-category">${category}</div>`;
                 grouped[category].forEach(anim => {
-                    const thumb = anim.gifThumbnail 
-                        ? `<img src="${anim.gifThumbnail}" alt="${anim.title}" loading="lazy">`
+                    const thumb = anim.thumbnail_url || anim.video_url
+                        ? `<img src="${anim.thumbnail_url || anim.video_url}" alt="${anim.title}" loading="lazy">`
                         : `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>`;
                     
                     html += `
-                        <div class="search-result-item" data-id="${anim.id}" data-glb="${anim.glbFile || ''}" data-title="${anim.title}" data-price="${anim.price || 0}">
+                        <div class="search-result-item" data-id="${anim.id}" data-glb="${anim.glb_url || ''}" data-title="${anim.title}" data-price="${anim.price || 0}">
                             <div class="search-result-thumb">${thumb}</div>
                             <div class="search-result-info">
                                 <div class="search-result-title">${anim.title}</div>
@@ -2666,13 +2666,13 @@
                     price: parseFloat(animPriceParam) || 0
                 });
             } else {
-                // Try to find animation in database by glbFile URL
+                // Try to find animation in database by glb_url URL
                 (async () => {
                     try {
                         const { data } = await supabaseClient
                             .from('animations')
                             .select('id, title, price')
-                            .eq('glbFile', modelParam)
+                            .eq('glb_url', modelParam)
                             .single();
                         
                         if (data) {
