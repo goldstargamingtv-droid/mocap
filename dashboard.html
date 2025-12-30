@@ -65,7 +65,7 @@
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, #7ED321 0%, #7ED321 100%);
+            background: linear-gradient(180deg, #FBBF24 0%, #FF8E8E 100%);
         }
 
         /* Firefox Scrollbar */
@@ -140,21 +140,81 @@
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, var(--teal), var(--amber));
-            transition: width 0.3s ease;
+            bottom: -13px;
+            left: -8px;
+            width: calc(100% + 16px);
+            height: 30px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 14' preserveAspectRatio='none'%3E%3Cpath d='M0,7 L8,7 L10,7 L12,5 L14,7 L16,0 L18,14 L20,7 L24,7 L26,5 L28,7 L50,7 L52,7 L54,5 L56,7 L58,0 L60,14 L62,7 L66,7 L68,5 L70,7 L100,7' fill='none' stroke='%237ED321' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center top 8px;
+            background-size: calc(100% - 16px) 14px;
+            clip-path: inset(0 0 0 100%);
+            animation: heartbeatUndraw 0.4s ease-in forwards;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            opacity: 1;
+            animation: heartbeatDraw 0.6s ease-out forwards, heartbeatPulse 1.5s ease-in-out 0.6s infinite;
+        }
+        
+        @keyframes heartbeatUndraw {
+            0% {
+                clip-path: inset(0 0% 0 0);
+                opacity: 1;
+            }
+            100% {
+                clip-path: inset(0 0 0 100%);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes heartbeatDraw {
+            0% {
+                clip-path: inset(0 100% 0 0);
+            }
+            100% {
+                clip-path: inset(0 0% 0 0);
+            }
+        }
+        
+        @keyframes heartbeatPulse {
+            0%, 100% {
+                filter: drop-shadow(0 0 2px rgba(126, 211, 33, 0.5));
+                opacity: 1;
+            }
+            50% {
+                filter: drop-shadow(0 0 6px rgba(126, 211, 33, 0.9));
+                opacity: 0.85;
+            }
         }
 
         .nav-link:hover {
             color: var(--text-white);
         }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
+        
+        /* Nav Link with Badge */
+        .nav-link-with-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .nav-badge {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.2), rgba(126, 211, 33, 0.1));
+            border: 1px solid rgba(126, 211, 33, 0.4);
+            color: #7ED321;
+            line-height: 1;
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
         /* Animations Dropdown */
@@ -423,7 +483,7 @@
         /* Navbar Search */
         .search-input-nav {
             width: 100%;
-            padding: 10px 40px 10px 40px;
+            padding: 10px 100px 10px 40px;
             background: rgba(10, 10, 10, 0.5);
             backdrop-filter: blur(20px);
             border: 2px solid rgba(126, 211, 33, 0.2);
@@ -457,7 +517,7 @@
 
         .search-clear-nav {
             position: absolute;
-            right: 12px;
+            right: 90px;
             top: 50%;
             transform: translateY(-50%);
             background: none;
@@ -467,6 +527,39 @@
             cursor: pointer;
             display: none;
             padding: 4px;
+        }
+        
+        .search-btn-nav {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .search-btn-nav:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .search-btn-nav:active {
+            transform: translateY(-50%) scale(0.97);
+        }
+        
+        .search-btn-nav svg {
+            flex-shrink: 0;
         }
 
         .search-dropdown-nav {
@@ -1386,8 +1479,8 @@
             width: 100%;
             margin-top: 20px;
             padding: 16px;
-            background: rgba(126, 211, 33, 0.1);
-            border: 2px solid rgba(126, 211, 33, 0.5);
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px solid rgba(16, 185, 129, 0.5);
             border-radius: 50px;
             color: white;
             font-weight: 700;
@@ -1402,8 +1495,8 @@
         }
 
         .buy-now-btn:hover {
-            background: rgba(126, 211, 33, 0.2);
-            border-color: #7ED321;
+            background: rgba(16, 185, 129, 0.2);
+            border-color: #10B981;
             transform: scale(1.05);
         }
         
@@ -1782,10 +1875,10 @@
         .btn-view {
             width: 100%;
             padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(126, 211, 33, 0.1);
+            border: 2px solid rgba(126, 211, 33, 0.3);
             border-radius: 50px;
-            color: var(--text-primary);
+            color: #7ED321;
             font-weight: 600;
             font-size: 13px;
             cursor: pointer;
@@ -1798,9 +1891,8 @@
         }
         
         .btn-view:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.4);
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+            background: rgba(126, 211, 33, 0.2);
+            border-color: #7ED321;
         }
 
         /* Empty State */
@@ -2073,7 +2165,7 @@
             height: 36px;
             border: none;
             background: rgba(239, 68, 68, 0.2);
-            color: #a8e063;
+            color: #FCA5A5;
             font-size: 20px;
             font-weight: bold;
             border-radius: 50%;
@@ -2138,7 +2230,7 @@
         }
 
         .stripe-input.StripeElement--complete {
-            border-color: rgba(126, 211, 33, 0.5);
+            border-color: rgba(16, 185, 129, 0.5);
         }
 
         .stripe-order-summary {
@@ -2246,7 +2338,7 @@
             border-radius: 8px;
             padding: 12px;
             margin-top: 16px;
-            color: #a8e063;
+            color: #FCA5A5;
             font-size: 14px;
             display: none;
         }
@@ -2268,7 +2360,7 @@
         .stripe-secure-icon {
             width: 16px;
             height: 16px;
-            fill: #7ED321;
+            fill: #10B981;
         }
 
         @media (max-width: 768px) {
@@ -2349,7 +2441,7 @@
             height: 44px;
             border: none;
             background: rgba(239, 68, 68, 0.2);
-            color: #a8e063;
+            color: #FCA5A5;
             font-size: 24px;
             font-weight: bold;
             border-radius: 50%;
@@ -2446,12 +2538,17 @@
                     autocomplete="off"
                 >
                 <button class="search-clear-nav" id="searchClearNav">✕</button>
+                <button class="search-btn-nav" id="searchBtnNav" onclick="triggerNavSearch()">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    Search
+                </button>
                 
                 <div class="search-dropdown-nav" id="searchDropdownNav"></div>
             </div>
 
             <!-- Nav Links (right of search) -->
             <div class="nav-links-right">
+                <a href="viewer.html" class="nav-link nav-link-with-badge" style="color: #7ED321;">3D Viewer <span class="nav-badge">Tool</span></a>
                 <a href="dashboard.html" class="nav-link active">My Library</a>
                 <a href="index.html#contact" class="nav-link">Contact</a>
                 <a href="index.html#blog" class="nav-link">Blog</a>
@@ -2532,6 +2629,7 @@
                 </li>
                 
                 <li><a href="index.html#library" onclick="toggleMobileMenu()">Animations</a></li>
+                <li><a href="viewer.html" onclick="toggleMobileMenu()" style="color: #7ED321; display: inline-flex; align-items: center; gap: 8px;">3D Viewer <span class="nav-badge">Tool</span></a></li>
                 <li><a href="dashboard.html" class="active" onclick="toggleMobileMenu()">My Library</a></li>
                 <li><a href="index.html#contact" onclick="toggleMobileMenu()">Contact</a></li>
                 <li><a href="index.html#blog" onclick="toggleMobileMenu()">Blog</a></li>
@@ -2681,20 +2779,20 @@
         <!-- Library Search Bar -->
         <div id="librarySearchContainer" style="display: none; margin-bottom: 32px;">
             <div style="position: relative; max-width: 600px; margin: 0 auto;">
-                <span style="position: absolute; left: 18px; top: 50%; transform: translateY(-50%); font-size: 18px; opacity: 0.6;">🔍</span>
+                <span style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); font-size: 18px; opacity: 0.6;">🔍</span>
                 <input 
                     type="text" 
                     id="librarySearchInput" 
                     placeholder="Search your library..."
-                    style="width: 100%; padding: 14px 40px 14px 50px; background: var(--bg-secondary); border: 2px solid rgba(126, 211, 33, 0.2); border-radius: 50px; color: var(--text-primary); font-size: 15px; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease;"
+                    style="width: 100%; padding: 14px 40px 14px 45px; background: var(--bg-secondary); border: 2px solid rgba(126, 211, 33, 0.2); border-radius: 12px; color: var(--text-primary); font-size: 15px; font-family: 'DM Sans', sans-serif; transition: all 0.3s ease;"
                     onfocus="this.style.borderColor='#7ED321'; this.style.boxShadow='0 0 0 3px rgba(126, 211, 33, 0.1)'"
                     onblur="this.style.borderColor='rgba(126, 211, 33, 0.2)'; this.style.boxShadow='none'"
                     oninput="searchLibrary()"
                 >
-                <button id="librarySearchClear" onclick="clearLibrarySearch()" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); font-size: 16px; cursor: pointer; display: none; padding: 4px;">✕</button>
+                <button id="librarySearchClear" onclick="clearLibrarySearch()" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--text-secondary); font-size: 16px; cursor: pointer; display: none; padding: 4px;">✕</button>
                 
                 <!-- Library Search Dropdown -->
-                <div id="librarySearchDropdown" style="position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(126, 211, 33, 0.3); border-radius: 16px; max-height: 400px; overflow-y: auto; display: none; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 1000;"></div>
+                <div id="librarySearchDropdown" style="position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: var(--bg-secondary); border: 2px solid rgba(126, 211, 33, 0.3); border-radius: 12px; max-height: 400px; overflow-y: auto; display: none; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 1000;"></div>
             </div>
         </div>
 
@@ -3241,7 +3339,7 @@
                                         <td style="padding: 20px 16px; color: var(--text-muted); font-family: monospace; font-size: 13px;">#${orderId}</td>
                                         <td style="padding: 20px 16px; text-align: right; color: var(--text-primary); font-weight: 600; font-size: 15px;">$${amount.toFixed(2)}</td>
                                         <td style="padding: 20px 16px; text-align: center;">
-                                            <span style="background: rgba(126, 211, 33, 0.1); color: #7ED321; padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 600; border: 1px solid rgba(126, 211, 33, 0.3);">
+                                            <span style="background: rgba(16, 185, 129, 0.1); color: #10B981; padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 600; border: 1px solid rgba(16, 185, 129, 0.3);">
                                                 ✓ Complete
                                             </span>
                                         </td>
@@ -3347,9 +3445,8 @@
                                         </td>
                                         <td style="padding: 20px 16px; text-align: center;">
                                             <button onclick="downloadAnimation('${download.purchase_id}', '${anim.title}')" 
-                                                    class="btn-download"
-                                                    style="width: auto; padding: 10px 20px;">
-                                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                                    style="background: rgba(10, 10, 10, 0.95); color: #7ED321; border: 2px solid #7ED321; padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px;">
+                                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                                                 Download Again
                                             </button>
                                         </td>
@@ -4070,19 +4167,19 @@
             
             const elementStyles = {
                 base: {
-                    color: '#f0fdf4',
+                    color: '#FEFCE8',
                     fontFamily: '"DM Sans", sans-serif',
                     fontSize: '16px',
                     fontWeight: '400',
                     '::placeholder': { color: '#6B7280' }
                 },
                 invalid: {
-                    color: '#a8e063',
-                    iconColor: '#a8e063'
+                    color: '#FCA5A5',
+                    iconColor: '#FCA5A5'
                 },
                 complete: {
-                    color: '#7ED321',
-                    iconColor: '#7ED321'
+                    color: '#10B981',
+                    iconColor: '#10B981'
                 }
             };
             
@@ -4091,8 +4188,8 @@
                     theme: 'night',
                     variables: {
                         colorBackground: '#2A2A2A',
-                        colorText: '#f0fdf4',
-                        colorDanger: '#a8e063',
+                        colorText: '#FEFCE8',
+                        colorDanger: '#FCA5A5',
                         fontFamily: 'DM Sans, sans-serif',
                         borderRadius: '50px'
                     }
@@ -4444,6 +4541,15 @@
             searchInputNav.value = searchTerm;
             searchDropdownNav.classList.remove('active');
             window.location.href = `index.html#library?search=${encodeURIComponent(searchTerm)}`;
+        };
+        
+        window.triggerNavSearch = function() {
+            const query = searchInputNav.value.trim();
+            if (query) {
+                window.location.href = `index.html#library?search=${encodeURIComponent(query)}`;
+            } else {
+                searchInputNav.focus();
+            }
         };
 
         searchClearNav.addEventListener('click', () => {
@@ -4844,8 +4950,8 @@
             
             <div style="padding: 32px;">
                 <!-- Success Icon -->
-                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, rgba(126, 211, 33, 0.2), rgba(126, 211, 33, 0.05)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
-                    <svg width="30" height="30" fill="none" stroke="#7ED321" stroke-width="3" viewBox="0 0 24 24">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.05)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                    <svg width="30" height="30" fill="none" stroke="#10B981" stroke-width="3" viewBox="0 0 24 24">
                         <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
                 </div>
