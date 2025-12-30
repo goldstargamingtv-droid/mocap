@@ -246,21 +246,81 @@
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #7ED321;
-            transition: width 0.3s ease;
+            bottom: -13px;
+            left: -8px;
+            width: calc(100% + 16px);
+            height: 30px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 14' preserveAspectRatio='none'%3E%3Cpath d='M0,7 L8,7 L10,7 L12,5 L14,7 L16,0 L18,14 L20,7 L24,7 L26,5 L28,7 L50,7 L52,7 L54,5 L56,7 L58,0 L60,14 L62,7 L66,7 L68,5 L70,7 L100,7' fill='none' stroke='%237ED321' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center top 8px;
+            background-size: calc(100% - 16px) 14px;
+            clip-path: inset(0 0 0 100%);
+            animation: heartbeatUndraw 0.4s ease-in forwards;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            opacity: 1;
+            animation: heartbeatDraw 0.6s ease-out forwards, heartbeatPulse 1.5s ease-in-out 0.6s infinite;
+        }
+        
+        @keyframes heartbeatUndraw {
+            0% {
+                clip-path: inset(0 0% 0 0);
+                opacity: 1;
+            }
+            100% {
+                clip-path: inset(0 0 0 100%);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes heartbeatDraw {
+            0% {
+                clip-path: inset(0 100% 0 0);
+            }
+            100% {
+                clip-path: inset(0 0% 0 0);
+            }
+        }
+        
+        @keyframes heartbeatPulse {
+            0%, 100% {
+                filter: drop-shadow(0 0 2px rgba(126, 211, 33, 0.5));
+                opacity: 1;
+            }
+            50% {
+                filter: drop-shadow(0 0 6px rgba(126, 211, 33, 0.9));
+                opacity: 0.85;
+            }
         }
 
         .nav-link:hover {
             color: var(--text-white);
         }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
+        
+        /* Nav Link with Badge */
+        .nav-link-with-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .nav-badge {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 2px 6px;
+            border-radius: 4px;
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.2), rgba(126, 211, 33, 0.1));
+            border: 1px solid rgba(126, 211, 33, 0.4);
+            color: #7ED321;
+            line-height: 1;
+            animation: badgePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
         /* Nav Links Layout */
@@ -390,7 +450,7 @@
 
         .search-input-nav {
             width: 100%;
-            padding: 10px 40px 10px 40px;
+            padding: 10px 100px 10px 40px;
             background: rgba(10, 10, 10, 0.5);
             backdrop-filter: blur(20px);
             border: 2px solid rgba(126, 211, 33, 0.2);
@@ -423,7 +483,7 @@
 
         .search-clear-nav {
             position: absolute;
-            right: 12px;
+            right: 90px;
             top: 50%;
             transform: translateY(-50%);
             background: none;
@@ -440,6 +500,39 @@
         .search-clear-nav:hover {
             color: var(--text-primary);
             background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-btn-nav {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .search-btn-nav:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .search-btn-nav:active {
+            transform: translateY(-50%) scale(0.97);
+        }
+        
+        .search-btn-nav svg {
+            flex-shrink: 0;
         }
 
         .search-dropdown-nav {
@@ -3640,6 +3733,10 @@
                     autocomplete="off"
                 >
                 <button class="search-clear-nav" id="searchClearNav" onclick="clearSearchNav()">✕</button>
+                <button class="search-btn-nav" id="searchBtnNav" onclick="triggerNavSearch()">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                    Search
+                </button>
                 
                 <div class="search-dropdown-nav" id="searchDropdownNav">
                     <!-- Results populated here -->
@@ -3648,6 +3745,7 @@
 
             <!-- Nav Links (right of search) -->
             <div class="nav-links-right">
+                <a href="viewer.html" class="nav-link nav-link-with-badge" style="color: #7ED321;">3D Viewer <span class="nav-badge">Tool</span></a>
                 <a href="dashboard.html" onclick="handleDashboardClick(event); return false;" class="nav-link">My Library</a>
                 <a href="index.html#contact" class="nav-link">Contact</a>
                 <a href="index.html#blog" class="nav-link">Blog</a>
@@ -3796,6 +3894,7 @@
                 </li>
                 
                 <li><a href="index.html#library" onclick="toggleMobileMenu()">Animations</a></li>
+                <li><a href="viewer.html" onclick="toggleMobileMenu()" style="color: #7ED321; display: inline-flex; align-items: center; gap: 8px;">3D Viewer <span class="nav-badge">Tool</span></a></li>
                 <li><a href="dashboard.html" onclick="handleDashboardClick(event); toggleMobileMenu()">My Library</a></li>
                 <li><a href="index.html#contact" onclick="toggleMobileMenu()">Contact</a></li>
                 <li><a href="index.html#blog" onclick="toggleMobileMenu()">Blog</a></li>
@@ -6078,6 +6177,17 @@
             if (searchClear) searchClear.style.display = 'none';
             if (searchDropdown) searchDropdown.classList.remove('active');
         }
+        
+        // Trigger search from button
+        window.triggerNavSearch = function() {
+            const searchInput = document.getElementById('searchInputNav');
+            const query = searchInput ? searchInput.value.trim() : '';
+            if (query) {
+                window.location.href = `index.html#library?search=${encodeURIComponent(query)}`;
+            } else if (searchInput) {
+                searchInput.focus();
+            }
+        };
 
         // Navbar search with dynamic dropdown
         let searchTimeout;
