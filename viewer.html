@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+=<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1968,7 +1968,20 @@
                     mixer = new THREE.AnimationMixer(currentModel);
                     buildAnimationUI();
 
-                    if (animations.length > 0) playAnimation(0);
+                    if (animations.length > 0) {
+                        playAnimation(0);
+                    } else {
+                        // For models without animations, recalculate floor position
+                        setTimeout(() => {
+                            if (currentModel) {
+                                currentModel.position.y = 0;
+                                const animBox = new THREE.Box3().setFromObject(currentModel);
+                                if (isFinite(animBox.min.y)) {
+                                    currentModel.position.y = -animBox.min.y;
+                                }
+                            }
+                        }, 50);
+                    }
 
                     modelNameEl.textContent = fileName;
                     loadingScreen.classList.add('hidden');
@@ -2015,6 +2028,23 @@
             currentAction.clampWhenFinished = !isLooping;
             isPlaying = true;
             playBtn.textContent = '⏸';
+
+            // Fix floor positioning using skeleton helper
+            setTimeout(() => {
+                if (currentModel && skeletonHelper) {
+                    currentModel.position.y = 0;
+                    currentModel.updateMatrixWorld(true);
+                    skeletonHelper.updateMatrixWorld(true);
+                    
+                    // Get lowest point from skeleton helper geometry
+                    const box = new THREE.Box3().setFromObject(skeletonHelper);
+                    
+                    if (isFinite(box.min.y)) {
+                        // Subtract offset for foot mesh below ankle bone
+                        currentModel.position.y = -box.min.y - 0.20;
+                    }
+                }
+            }, 200);
 
             const buttons = animationList.querySelectorAll('.animation-btn');
             buttons.forEach((btn, i) => btn.classList.toggle('active', i === index));
