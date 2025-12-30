@@ -9031,7 +9031,7 @@
                     <!-- Thumbnail/GIF/Video Container -->
                     <div class="card-thumbnail">
                         ${mediaElement}
-                        <button class="card-btn card-btn-3d card-btn-3d-overlay" onclick="event.preventDefault(); event.stopPropagation(); open3DViewer('${anim.glbFile || ''}', '${anim.title}')">
+                        <button class="card-btn card-btn-3d card-btn-3d-overlay" onclick="event.preventDefault(); event.stopPropagation(); open3DViewer('${anim.glbFile || ''}', '${anim.title}', '${anim.id}', ${anim.price || 0})">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
                                 <path d="M2 17l10 5 10-5"></path>
@@ -11347,14 +11347,23 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         // ==========================================
         // 3D VIEWER MODAL FUNCTIONS
         // ==========================================
-        function open3DViewer(glbFile, title) {
+        function open3DViewer(glbFile, title, id, price) {
             const modal = document.getElementById('viewer3dModal');
             const iframe = document.getElementById('viewer3dFrame');
             
-            // Use the viewer page with optional glb parameter
+            // Use the viewer page with optional parameters
             let viewerUrl = 'viewer.html';
+            const params = new URLSearchParams();
+            
             if (glbFile && glbFile !== 'undefined' && glbFile !== '') {
-                viewerUrl += '?model=' + encodeURIComponent(glbFile);
+                params.append('model', glbFile);
+            }
+            if (title) params.append('title', title);
+            if (id) params.append('id', id);
+            if (price !== undefined) params.append('price', price);
+            
+            if (params.toString()) {
+                viewerUrl += '?' + params.toString();
             }
             
             iframe.src = viewerUrl;
