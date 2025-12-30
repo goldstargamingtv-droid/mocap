@@ -769,7 +769,7 @@
             top: calc(100% + 8px);
             left: 0;
             right: 0;
-            background: rgba(10, 10, 10, 0.95);
+            background: rgb(10, 10, 10);
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             max-height: 400px;
@@ -779,7 +779,7 @@
                 0 4px 24px rgba(0, 0, 0, 0.4),
                 inset 0 1px 1px rgba(126, 211, 33, 0.1),
                 0 0 40px rgba(126, 211, 33, 0.05);
-            z-index: 1000;
+            z-index: 99999;
         }
 
         .search-dropdown-nav.active {
@@ -791,7 +791,7 @@
             top: calc(100% + 8px);
             left: 0;
             right: 0;
-            background: rgba(10, 10, 10, 0.95);
+            background: rgb(10, 10, 10);
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 12px;
             max-height: 400px;
@@ -800,7 +800,24 @@
                 0 4px 24px rgba(0, 0, 0, 0.4),
                 inset 0 1px 1px rgba(126, 211, 33, 0.1),
                 0 0 40px rgba(126, 211, 33, 0.05);
-            z-index: 10000;
+            z-index: 99999;
+        }
+        
+        /* Make search-box sit above everything when dropdown is visible */
+        .search-box.dropdown-open {
+            z-index: 99999 !important;
+        }
+        
+        /* When search dropdown is open, bring filters-card to top */
+        .filters-card.search-open {
+            z-index: 9999 !important;
+            position: relative;
+        }
+        
+        /* When any filter dropdown is open, bring filters-card to top */
+        .filters-card:has(.custom-dropdown-menu.active) {
+            z-index: 9999 !important;
+            position: relative;
         }
         
         /* Profile Icon */
@@ -2204,21 +2221,6 @@
             overflow: hidden;
         }
 
-        .button-shine {
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            animation: shine 3s infinite;
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            50%, 100% { left: 100%; }
-        }
-
         .trust-badge {
             display: inline-flex;
             align-items: center;
@@ -2749,7 +2751,6 @@
             border-radius: 28px;
             padding: 32px 40px;
             margin: 0 0 32px 0;
-            z-index: 200;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
                 inset 0 1px 1px rgba(126, 211, 33, 0.1),
@@ -2775,7 +2776,6 @@
         .search-box {
             position: relative;
             margin-bottom: 24px;
-            z-index: 10001;
         }
 
         .search-icon {
@@ -2791,7 +2791,7 @@
 
         .search-input {
             width: 100%;
-            background: rgba(10, 10, 10, 0.8);
+            background: #0a0a0a;
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px;
             padding: 24px 32px 24px 68px;
@@ -2805,6 +2805,8 @@
                 inset 0 1px 1px rgba(126, 211, 33, 0.1),
                 0 0 40px rgba(126, 211, 33, 0.05);
             font-weight: 500;
+            position: relative;
+            z-index: 1;
         }
 
         .search-input::placeholder {
@@ -2814,6 +2816,7 @@
 
         .search-input:focus {
             border-color: rgba(255, 255, 255, 0.4);
+            background: #0a0a0a;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
                 inset 0 1px 1px rgba(126, 211, 33, 0.1),
@@ -2855,10 +2858,18 @@
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 20px;
             margin-bottom: 20px;
+            position: relative;
+            z-index: 10;
         }
 
         .filter-group {
             position: relative;
+            z-index: 2;
+        }
+        
+        /* When dropdown is open, bring filter-group to top */
+        .filter-group:has(.custom-dropdown-menu.active) {
+            z-index: 99999 !important;
         }
 
         .filter-group label {
@@ -2875,7 +2886,7 @@
         /* Custom Dropdown Button */
         .custom-dropdown-btn {
             width: 100%;
-            background: rgba(10, 10, 10, 0.8);
+            background: #0a0a0a;
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px;
             padding: 16px 20px;
@@ -2936,34 +2947,19 @@
             top: calc(100% + 8px);
             left: 0;
             right: 0;
-            background: rgba(10, 10, 10, 0.95);
+            background: #000000 !important;
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 16px;
             padding: 12px;
-            z-index: 10000;
-            box-shadow: 
-                0 4px 24px rgba(0, 0, 0, 0.4),
-                inset 0 1px 1px rgba(126, 211, 33, 0.1),
-                0 0 40px rgba(126, 211, 33, 0.05);
+            z-index: 99999 !important;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
             max-height: 320px;
             overflow-y: auto;
             display: none;
-            animation: dropdownSlideIn 0.3s ease;
         }
 
         .custom-dropdown-menu.active {
             display: block;
-        }
-
-        @keyframes dropdownSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* Scrollbar for dropdown */
@@ -2986,7 +2982,7 @@
             padding: 10px 20px;
             border-radius: 50px;
             border: 2px solid rgba(126, 211, 33, 0.3);
-            background: transparent;
+            background: #000000;
             color: var(--text-primary);
             font-size: 14px;
             font-weight: 600;
@@ -3009,7 +3005,7 @@
             transform: translateX(4px);
             box-shadow: 0 0 20px rgba(126, 211, 33, 0.3),
                         0 4px 12px rgba(0, 0, 0, 0.2);
-            background: rgba(126, 211, 33, 0.1);
+            background: #1a1a1a;
         }
 
         .dropdown-pill-option.selected {
@@ -3042,6 +3038,8 @@
             font-weight: 600;
             text-align: center;
             animation: fadeIn 0.3s ease;
+            position: relative;
+            z-index: 0;
         }
 
         .results-count strong {
@@ -3072,6 +3070,8 @@
             margin-top: 12px;
             padding-top: 12px;
             border-top: 2px solid rgba(100, 116, 139, 0.15);
+            position: relative;
+            z-index: 0;
         }
 
         .ai-toggle-label {
@@ -3382,6 +3382,8 @@
             justify-content: center;
             gap: 28px;
             align-items: start;
+            position: relative;
+            z-index: 1;
         }
 
         /* ============================================
@@ -3490,14 +3492,11 @@
             font-family: 'Sora', sans-serif;
             line-height: 1.3;
             flex: 1;
-            transition: all 0.3s ease;
+            transition: color 0.3s ease;
         }
 
         .animation-card:hover .card-title {
-            background: #7ED321;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #7ED321;
         }
 
         .card-fav-btn {
@@ -4211,6 +4210,10 @@
             position: relative;
             z-index: 1;
         }
+        
+        .custom-request-section:has(.custom-dropdown-btn.active) {
+            z-index: 9998;
+        }
 
         .request-container {
             max-width: 900px;
@@ -4241,7 +4244,7 @@
                 0 0 40px rgba(126, 211, 33, 0.05);
         }
 
-        .request-form.panel-glow > *:not(.panel-glow-blob) {
+        .request-form.panel-glow > *:not(.panel-glow-blob):not(.glow-clip) {
             position: relative;
             z-index: 1;
         }
@@ -4263,14 +4266,20 @@
 
         .form-group .filter-group {
             position: relative;
+            z-index: 1;
         }
         
         .form-group:has(.custom-dropdown-btn.active) {
             z-index: 10000;
         }
+        
+        .form-group .filter-group:has(.custom-dropdown-btn.active) {
+            z-index: 10001;
+        }
 
         .form-group .custom-dropdown-menu {
-            z-index: 10001;
+            z-index: 9999999 !important;
+            background: #000000 !important;
         }
         
         .form-group .custom-dropdown-menu.active {
@@ -4296,7 +4305,7 @@
         .form-group input[type="text"],
         .form-group input[type="email"] {
             width: 100%;
-            background: rgba(10, 10, 10, 0.85);
+            background: #0a0a0a;
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px !important;
             padding: 16px 24px;
@@ -4316,7 +4325,7 @@
         .form-group input[type="email"]:focus {
             outline: none;
             border-color: rgba(255, 255, 255, 0.4);
-            background: rgba(10, 10, 10, 0.85);
+            background: #0a0a0a;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
                 inset 0 1px 1px rgba(126, 211, 33, 0.1),
@@ -4325,12 +4334,12 @@
 
         .form-group input[type="text"]:hover,
         .form-group input[type="email"]:hover {
-            background: rgba(10, 10, 10, 0.85);
+            background: #0a0a0a;
         }
 
         .form-group select {
             width: 100%;
-            background: rgba(10, 10, 10, 0.85);
+            background: #0a0a0a;
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 50px !important;
             padding: 16px 24px;
@@ -4357,7 +4366,7 @@
 
         .form-group textarea {
             width: 100%;
-            background: rgba(10, 10, 10, 0.85);
+            background: #0a0a0a;
             border: 2px solid rgba(255, 255, 255, 0.2);
             border-radius: 16px !important;
             padding: 16px 24px;
@@ -4366,7 +4375,7 @@
             font-family: 'DM Sans', sans-serif;
             transition: all 0.3s ease;
             position: relative;
-            z-index: 1;
+            z-index: 2;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
                 inset 0 1px 1px rgba(126, 211, 33, 0.1),
@@ -4405,7 +4414,7 @@
         .form-group textarea:focus {
             outline: none;
             border-color: rgba(255, 255, 255, 0.4);
-            background: rgba(10, 10, 10, 0.85);
+            background: #0a0a0a;
             box-shadow: 
                 0 4px 24px rgba(0, 0, 0, 0.4),
                 inset 0 1px 1px rgba(126, 211, 33, 0.1),
@@ -4413,7 +4422,7 @@
         }
 
         .form-group textarea:hover {
-            background: rgba(10, 10, 10, 0.85);
+            background: #0a0a0a;
         }
 
         .form-group select:hover {
@@ -4480,14 +4489,7 @@
         }
         
         .rewards-banner::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(126, 211, 33, 0.1), transparent);
-            animation: shine 4s infinite;
+            display: none;
         }
         
         .rewards-banner-content {
@@ -6391,9 +6393,73 @@
             overflow: hidden;
         }
 
-        /* Allow dropdowns to overflow in filters-card */
+        /* Filters card - allow overflow for search dropdown */
         .filters-card.panel-glow {
             overflow: visible;
+        }
+        
+        /* Glow overflow container */
+        .glow-clip {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            border-radius: inherit;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        /* Filter dropdown menus - high z-index to appear on top */
+        .filters-card .custom-dropdown-menu {
+            z-index: 9999999 !important;
+            background: #000000 !important;
+        }
+        
+        /* Ensure ALL filter dropdowns have solid background */
+        [data-dropdown-menu="category"],
+        [data-dropdown-menu="gender"],
+        [data-dropdown-menu="style"],
+        [data-dropdown-menu="sort"],
+        [data-dropdown-menu="projectType"],
+        [data-dropdown-menu="budget"] {
+            background: #000000 !important;
+        }
+        
+        /* Request form - allow dropdowns to overflow */
+        .request-form.panel-glow {
+            overflow: visible;
+        }
+        
+        /* Bring request-form to top when dropdown is active */
+        .request-form:has(.custom-dropdown-btn.active) {
+            z-index: 9999 !important;
+        }
+        
+        /* Bring request-form filter-group to top when dropdown is active */
+        .request-form .filter-group:has(.custom-dropdown-menu.active),
+        .request-form .form-group:has(.custom-dropdown-btn.active) {
+            z-index: 9999999 !important;
+        }
+        
+        /* When dropdown is active, add class to filters-card via JS */
+        .filters-card.dropdown-open .results-count,
+        .filters-card.dropdown-open .ai-suggestions-toggle-container {
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        /* Force results and AI toggle below dropdowns */
+        .filters-card:has(.custom-dropdown-menu.active) .results-count,
+        .filters-card:has(.custom-dropdown-menu.active) .ai-suggestions-toggle-container {
+            z-index: 0 !important;
+            position: relative;
+        }
+        
+        /* Ensure filters-grid is above other content when dropdown is open */
+        .filters-card:has(.custom-dropdown-menu.active) .filters-grid {
+            z-index: 9999 !important;
         }
 
         .panel-glow-blob {
@@ -6414,7 +6480,7 @@
             opacity: 1;
         }
 
-        .panel-glow > *:not(.panel-glow-blob) {
+        .panel-glow > *:not(.panel-glow-blob):not(.glow-clip) {
             position: relative;
             z-index: 1;
         }
@@ -6876,7 +6942,7 @@
                             placeholder="Search animations..."
                             style="width: 100%; padding: 10px 10px 10px 40px; background: rgba(10, 10, 10, 0.5); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 20px; color: white; font-family: 'DM Sans', sans-serif; font-size: 14px;"
                         >
-                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: rgba(10, 10, 10, 0.5); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); z-index: 10000;">
+                        <div class="search-dropdown-mobile" id="searchDropdownMobile" style="display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0; background: rgb(10, 10, 10); border: 2px solid rgba(255, 255, 255, 0.2); border-radius: 12px; max-height: 300px; overflow-y: auto; box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); z-index: 10000;">
                             <!-- Results populated here -->
                         </div>
                     </div>
@@ -7357,7 +7423,7 @@
 
             <!-- Ultra-Premium Filters Card -->
             <div class="filters-card panel-glow">
-                <div class="panel-glow-blob"></div>
+                <div class="glow-clip"><div class="panel-glow-blob"></div></div>
                 <!-- Luxe Search Bar -->
                 <div class="search-box">
                     <span class="search-icon"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
@@ -7379,7 +7445,7 @@
                                 <path d="M6 9L1 4h10z" fill="#FFFFFF"/>
                             </svg>
                         </button>
-                        <div class="custom-dropdown-menu" data-dropdown-menu="category">
+                        <div class="custom-dropdown-menu" data-dropdown-menu="category" style="background: #000000 !important;">
                             <button class="dropdown-pill-option selected" data-value="All">All Categories</button>
                             <button class="dropdown-pill-option" data-value="Combat">Combat</button>
                             <button class="dropdown-pill-option" data-value="Locomotion">Locomotion</button>
@@ -7406,7 +7472,7 @@
                                 <path d="M6 9L1 4h10z" fill="#FFFFFF"/>
                             </svg>
                         </button>
-                        <div class="custom-dropdown-menu" data-dropdown-menu="gender">
+                        <div class="custom-dropdown-menu" data-dropdown-menu="gender" style="background: #000000 !important;">
                             <button class="dropdown-pill-option selected" data-value="All">All</button>
                             <button class="dropdown-pill-option" data-value="Male">Male</button>
                             <button class="dropdown-pill-option" data-value="Female">Female</button>
@@ -7429,7 +7495,7 @@
                                 <path d="M6 9L1 4h10z" fill="#FFFFFF"/>
                             </svg>
                         </button>
-                        <div class="custom-dropdown-menu" data-dropdown-menu="style">
+                        <div class="custom-dropdown-menu" data-dropdown-menu="style" style="background: #000000 !important;">
                             <button class="dropdown-pill-option selected" data-value="All">All Styles</button>
                             <button class="dropdown-pill-option" data-value="Realistic">Realistic</button>
                             <button class="dropdown-pill-option" data-value="Stylized">Stylized</button>
@@ -7450,7 +7516,7 @@
                                 <path d="M6 9L1 4h10z" fill="#FFFFFF"/>
                             </svg>
                         </button>
-                        <div class="custom-dropdown-menu" data-dropdown-menu="sort">
+                        <div class="custom-dropdown-menu" data-dropdown-menu="sort" style="background: #000000 !important;">
                             <button class="dropdown-pill-option selected" data-value="popular">Most Popular</button>
                             <button class="dropdown-pill-option" data-value="newest">Newest First</button>
                             <button class="dropdown-pill-option" data-value="price-low">Price: Low to High</button>
@@ -7656,7 +7722,7 @@
                 </div>
                 
                 <form class="request-form panel-glow" id="customRequestForm">
-                    <div class="panel-glow-blob"></div>
+                    <div class="glow-clip"><div class="panel-glow-blob"></div></div>
                     <div class="form-grid">
                         <div class="form-group">
                             <label>Your Name</label>
@@ -9024,7 +9090,23 @@
         // Library search with dropdown
         const searchInputLibrary = document.getElementById('searchInput');
         const searchDropdownLibrary = document.getElementById('searchDropdownLibrary');
+        const searchBoxEl = searchInputLibrary ? searchInputLibrary.closest('.search-box') : null;
+        const filtersCardEl = searchInputLibrary ? searchInputLibrary.closest('.filters-card') : null;
         let librarySearchTimeout;
+        
+        // Helper to show dropdown with proper z-index
+        function showLibraryDropdown() {
+            if (searchBoxEl) searchBoxEl.classList.add('dropdown-open');
+            if (filtersCardEl) filtersCardEl.classList.add('search-open');
+            searchDropdownLibrary.style.display = 'block';
+        }
+        
+        // Helper to hide dropdown instantly
+        function hideLibraryDropdown() {
+            searchDropdownLibrary.style.display = 'none';
+            if (searchBoxEl) searchBoxEl.classList.remove('dropdown-open');
+            if (filtersCardEl) filtersCardEl.classList.remove('search-open');
+        }
 
         // Show popular animations on focus
         searchInputLibrary.addEventListener('focus', function() {
@@ -9058,7 +9140,7 @@
         searchInputLibrary.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                searchDropdownLibrary.style.display = 'none';
+                hideLibraryDropdown();
                 filterAnimations();
                 // Scroll to above animation grid
                 const animationGrid = document.getElementById('animationGrid');
@@ -9105,7 +9187,7 @@
             }
             
             searchDropdownLibrary.innerHTML = html;
-            searchDropdownLibrary.style.display = 'block';
+            showLibraryDropdown();
         }
 
         function performLibrarySearch(query) {
@@ -9159,20 +9241,20 @@
             }
             
             searchDropdownLibrary.innerHTML = html;
-            searchDropdownLibrary.style.display = 'block';
+            showLibraryDropdown();
         }
 
         window.applyLibrarySearch = function(searchTerm) {
             searchInputLibrary.value = searchTerm;
             filterAnimations();
-            searchDropdownLibrary.style.display = 'none';
+            hideLibraryDropdown();
         }
 
         // Close library dropdown when clicking outside
         document.addEventListener('click', function(e) {
-            if (!e.target.closest('.search-box')) {
+            if (!e.target.closest('.search-box') && !e.target.closest('.search-dropdown-library')) {
                 if (searchDropdownLibrary) {
-                    searchDropdownLibrary.style.display = 'none';
+                    hideLibraryDropdown();
                 }
             }
         });
@@ -9202,6 +9284,7 @@
                     e.stopPropagation();
                     const dropdownName = this.dataset.dropdown;
                     const menu = document.querySelector(`[data-dropdown-menu="${dropdownName}"]`);
+                    const filtersCard = document.querySelector('.filters-card');
                     
                     // Close all other dropdowns
                     dropdownBtns.forEach(b => {
@@ -9214,6 +9297,16 @@
                     // Toggle current dropdown
                     this.classList.toggle('active');
                     menu.classList.toggle('active');
+                    
+                    // Toggle dropdown-open class on filters-card
+                    const anyOpen = document.querySelector('.custom-dropdown-menu.active');
+                    if (filtersCard) {
+                        if (anyOpen) {
+                            filtersCard.classList.add('dropdown-open');
+                        } else {
+                            filtersCard.classList.remove('dropdown-open');
+                        }
+                    }
                 });
             });
 
@@ -9254,6 +9347,8 @@
                     // Close dropdown
                     btn.classList.remove('active');
                     menu.classList.remove('active');
+                    const filtersCard = document.querySelector('.filters-card');
+                    if (filtersCard) filtersCard.classList.remove('dropdown-open');
                 });
             });
 
@@ -9262,6 +9357,8 @@
                 if (!e.target.closest('.filter-group')) {
                     dropdownBtns.forEach(btn => btn.classList.remove('active'));
                     dropdownMenus.forEach(menu => menu.classList.remove('active'));
+                    const filtersCard = document.querySelector('.filters-card');
+                    if (filtersCard) filtersCard.classList.remove('dropdown-open');
                 }
             });
         }
