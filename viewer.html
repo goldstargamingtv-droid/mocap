@@ -2101,9 +2101,9 @@
             <div class="retarget-step-num">2</div>
             <div class="retarget-step-content">
                 <div class="retarget-step-title">Upload Your Character</div>
-                <div class="retarget-step-desc">GLB/GLTF with a humanoid skeleton</div>
+                <div class="retarget-step-desc">GLB, GLTF, or FBX with skeleton</div>
                 
-                <input type="file" id="character-file-input" accept=".glb,.gltf" style="display:none">
+                <input type="file" id="character-file-input" accept=".glb,.gltf,.fbx" style="display:none">
                 
                 <div class="retarget-upload-area" id="retarget-upload-area">
                     <button class="retarget-upload-btn" id="upload-character-btn">
@@ -2136,6 +2136,8 @@
                     <option value="mixamo">Mixamo</option>
                     <option value="ue5">UE5 Mannequin</option>
                     <option value="humanik">HumanIK</option>
+                    <option value="daz">Daz3D / Genesis</option>
+                    <option value="rigify">Blender Rigify</option>
                 </select>
             </div>
         </div>
@@ -2225,6 +2227,7 @@
         import * as THREE from 'https://esm.sh/three@0.160.0';
         import { OrbitControls } from 'https://esm.sh/three@0.160.0/examples/jsm/controls/OrbitControls.js';
         import { GLTFLoader } from 'https://esm.sh/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+        import { FBXLoader } from 'https://esm.sh/three@0.160.0/examples/jsm/loaders/FBXLoader.js';
         import { EffectComposer } from 'https://esm.sh/three@0.160.0/examples/jsm/postprocessing/EffectComposer.js';
         import { RenderPass } from 'https://esm.sh/three@0.160.0/examples/jsm/postprocessing/RenderPass.js';
         import { UnrealBloomPass } from 'https://esm.sh/three@0.160.0/examples/jsm/postprocessing/UnrealBloomPass.js';
@@ -3123,6 +3126,56 @@
                 'RightLeg': 'RightLeg',
                 'RightFoot': 'RightFoot',
                 'RightToeBase': 'RightToeBase'
+            },
+            daz: {
+                // Daz3D Genesis 8 bone names
+                'Hips': 'hip',
+                'Spine': 'abdomenLower',
+                'Spine1': 'abdomenUpper',
+                'Spine2': 'chestLower',
+                'Neck': 'neckLower',
+                'Head': 'head',
+                'LeftShoulder': 'lCollar',
+                'LeftArm': 'lShldrBend',
+                'LeftForeArm': 'lForearmBend',
+                'LeftHand': 'lHand',
+                'RightShoulder': 'rCollar',
+                'RightArm': 'rShldrBend',
+                'RightForeArm': 'rForearmBend',
+                'RightHand': 'rHand',
+                'LeftUpLeg': 'lThighBend',
+                'LeftLeg': 'lShin',
+                'LeftFoot': 'lFoot',
+                'LeftToeBase': 'lToe',
+                'RightUpLeg': 'rThighBend',
+                'RightLeg': 'rShin',
+                'RightFoot': 'rFoot',
+                'RightToeBase': 'rToe'
+            },
+            rigify: {
+                // Blender Rigify bone names
+                'Hips': 'spine',
+                'Spine': 'spine.001',
+                'Spine1': 'spine.002',
+                'Spine2': 'spine.003',
+                'Neck': 'spine.004',
+                'Head': 'spine.006',
+                'LeftShoulder': 'shoulder.L',
+                'LeftArm': 'upper_arm.L',
+                'LeftForeArm': 'forearm.L',
+                'LeftHand': 'hand.L',
+                'RightShoulder': 'shoulder.R',
+                'RightArm': 'upper_arm.R',
+                'RightForeArm': 'forearm.R',
+                'RightHand': 'hand.R',
+                'LeftUpLeg': 'thigh.L',
+                'LeftLeg': 'shin.L',
+                'LeftFoot': 'foot.L',
+                'LeftToeBase': 'toe.L',
+                'RightUpLeg': 'thigh.R',
+                'RightLeg': 'shin.R',
+                'RightFoot': 'foot.R',
+                'RightToeBase': 'toe.R'
             }
         };
         
@@ -3184,14 +3237,19 @@
         async function loadUserCharacter(file) {
             const fileName = file.name;
             const url = URL.createObjectURL(file);
+            const extension = fileName.split('.').pop().toLowerCase();
             
-            logDebug(`Loading character: ${fileName}`);
+            logDebug(`Loading character: ${fileName} (${extension})`);
             showToast('Loading character...');
             
-            const loader = new GLTFLoader();
+            // Choose loader based on file type
+            const isFBX = extension === 'fbx';
+            const loader = isFBX ? new FBXLoader() : new GLTFLoader();
             
-            loader.load(url, (gltf) => {
-                logDebug('GLTF loaded successfully');
+            logDebug(`Using ${isFBX ? 'FBX' : 'GLTF'} loader`);
+            
+            loader.load(url, (result) => {
+                logDebug(`${isFBX ? 'FBX' : 'GLTF'} loaded successfully`);
                 
                 // Remove previous user character if exists
                 if (userCharacter) {
@@ -3199,7 +3257,8 @@
                     logDebug('Removed previous character');
                 }
                 
-                userCharacter = gltf.scene;
+                // FBX returns scene directly, GLTF wraps it
+                userCharacter = isFBX ? result : result.scene;
                 
                 // Log scene contents
                 let meshCount = 0;
@@ -3215,6 +3274,11 @@
                 });
                 logDebug(`Found ${meshCount} meshes, ${boneCount} bones`);
                 
+                if (boneCount === 0) {
+                    logDebug('WARNING: No bones found! This model has no skeleton.');
+                    showToast('Warning: No skeleton found in model');
+                }
+                
                 // Scale and position to match
                 const box = new THREE.Box3().setFromObject(userCharacter);
                 const size = box.getSize(new THREE.Vector3());
@@ -3222,21 +3286,36 @@
                 
                 logDebug(`Character size: ${size.x.toFixed(2)} x ${size.y.toFixed(2)} x ${size.z.toFixed(2)}`);
                 
+                // FBX files often have different scale (cm vs m)
+                if (isFBX && size.y > 100) {
+                    userCharacter.scale.setScalar(0.01);
+                    logDebug('FBX appears to be in centimeters, scaled down by 0.01');
+                    box.setFromObject(userCharacter);
+                }
+                
                 // Match height with current model
                 if (currentModel) {
                     const sourceBox = new THREE.Box3().setFromObject(currentModel);
                     const sourceSize = sourceBox.getSize(new THREE.Vector3());
-                    const scale = sourceSize.y / size.y;
-                    userCharacter.scale.setScalar(scale);
+                    const currentSize = box.getSize(new THREE.Vector3());
+                    const scale = sourceSize.y / currentSize.y;
+                    userCharacter.scale.multiplyScalar(scale);
                     logDebug(`Scaled by ${scale.toFixed(2)} to match source`);
                 }
                 
+                // Update matrices before recalculating bounds
+                userCharacter.updateMatrixWorld(true);
+                
                 // Recalculate bounds after scaling
                 box.setFromObject(userCharacter);
+                const finalSize = box.getSize(new THREE.Vector3());
+                logDebug(`Final size: ${finalSize.x.toFixed(2)} x ${finalSize.y.toFixed(2)} x ${finalSize.z.toFixed(2)}`);
+                logDebug(`Box min.y: ${box.min.y.toFixed(3)}, max.y: ${box.max.y.toFixed(3)}`);
                 
                 userCharacter.position.x = 0;
                 userCharacter.position.z = 0;
-                userCharacter.position.y = -box.min.y;
+                userCharacter.position.y = -box.min.y + 0.02; // Small offset above ground
+                logDebug(`Position Y set to: ${userCharacter.position.y.toFixed(3)}`);
                 
                 // Build bone map for user character
                 buildTargetBoneMap(userCharacter);
@@ -3262,12 +3341,14 @@
                 URL.revokeObjectURL(url);
             }, 
             (progress) => {
-                const percent = (progress.loaded / progress.total * 100).toFixed(0);
-                logDebug(`Loading: ${percent}%`);
+                if (progress.total > 0) {
+                    const percent = (progress.loaded / progress.total * 100).toFixed(0);
+                    logDebug(`Loading: ${percent}%`);
+                }
             },
             (error) => {
                 console.error('Error loading character:', error);
-                logDebug(`ERROR: ${error.message}`);
+                logDebug(`ERROR: ${error.message || error}`);
                 showToast('Error loading character');
                 URL.revokeObjectURL(url);
             });
@@ -3366,10 +3447,14 @@
             
             logDebug(`Animation: ${currentClip.name}, ${currentClip.tracks.length} tracks, ${currentClip.duration.toFixed(2)}s`);
             
+            // Root bone names (position tracks only apply to these)
+            const rootBoneNames = ['hips', 'pelvis', 'root', 'hip', 'spine'];
+            
             // Create retargeted animation clip
             const retargetedTracks = [];
             const mappedBones = [];
             const unmappedBones = [];
+            const skippedTracks = [];
             
             currentClip.tracks.forEach(track => {
                 // Parse track name (e.g., "Hips.position" or "mixamorigHips.quaternion")
@@ -3379,6 +3464,21 @@
                 
                 // Find normalized source bone name
                 const normalizedSource = normalizeBoneName(boneName);
+                
+                // Check if this is a root bone for position tracks
+                const isRootBone = rootBoneNames.some(r => normalizedSource.toLowerCase().includes(r));
+                
+                // IMPORTANT: Only apply position tracks to root bone, rotation to all
+                if (property === 'position' && !isRootBone) {
+                    skippedTracks.push(`${boneName}.position`);
+                    return; // Skip position tracks for non-root bones
+                }
+                
+                // Skip scale tracks entirely (they cause distortion)
+                if (property === 'scale') {
+                    skippedTracks.push(`${boneName}.scale`);
+                    return;
+                }
                 
                 // Find target bone name from mapping
                 let targetBoneName = null;
@@ -3447,6 +3547,7 @@
             });
             
             logDebug(`Mapped ${mappedBones.length} bones: ${mappedBones.slice(0, 5).join(', ')}...`);
+            logDebug(`Skipped ${skippedTracks.length} non-root position/scale tracks`);
             if (unmappedBones.length > 0) {
                 logDebug(`Unmapped ${unmappedBones.length}: ${unmappedBones.slice(0, 5).join(', ')}...`);
             }
@@ -3470,6 +3571,18 @@
                     action.timeScale = playbackSpeed;
                     
                     logDebug(`Playing ${retargetedTracks.length} retargeted tracks`);
+                    
+                    // Reposition after animation starts
+                    setTimeout(() => {
+                        if (userCharacter) {
+                            userCharacter.updateMatrixWorld(true);
+                            const box = new THREE.Box3().setFromObject(userCharacter);
+                            if (isFinite(box.min.y)) {
+                                userCharacter.position.y = -box.min.y + 0.02;
+                                logDebug(`Repositioned Y to: ${userCharacter.position.y.toFixed(3)}`);
+                            }
+                        }
+                    }, 100);
                 }
                 
                 showToast(`Retargeted ${mappedBones.length} bones`);
@@ -3484,6 +3597,7 @@
             const lowerNames = boneNames.map(n => n.toLowerCase());
             
             logDebug(`Auto-detecting from ${boneNames.length} bones...`);
+            logDebug(`Sample bones: ${boneNames.slice(0, 8).join(', ')}`);
             
             // Check for Mixamo
             if (lowerNames.some(n => n.includes('mixamorig'))) {
@@ -3491,10 +3605,22 @@
                 return boneMappings.mixamo;
             }
             
-            // Check for UE5
-            if (lowerNames.some(n => n.includes('pelvis')) && lowerNames.some(n => n.includes('_l'))) {
+            // Check for UE5 Mannequin
+            if (lowerNames.some(n => n.includes('pelvis')) && lowerNames.some(n => n.includes('_l') || n.includes('_r'))) {
                 logDebug('Auto-detected: UE5 Mannequin');
                 return boneMappings.ue5;
+            }
+            
+            // Check for Daz3D Genesis
+            if (lowerNames.some(n => n.includes('lshldr') || n.includes('rshldr') || n.includes('abdomen'))) {
+                logDebug('Auto-detected: Daz3D Genesis');
+                return boneMappings.daz;
+            }
+            
+            // Check for Blender Rigify
+            if (lowerNames.some(n => n.includes('spine.') || n.includes('upper_arm.') || n.includes('.l') || n.includes('.r'))) {
+                logDebug('Auto-detected: Blender Rigify');
+                return boneMappings.rigify;
             }
             
             // Default to HumanIK-style names
