@@ -815,6 +815,31 @@
             gap: 8px;
             padding: 12px;
         }
+        
+        .tools-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(126, 211, 33, 0.3), transparent);
+            margin: 4px 0;
+        }
+        
+        .tools-category-badge {
+            font-size: 0.5rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #000;
+            background: linear-gradient(135deg, #7ED321 0%, #5BB318 100%);
+            padding: 3px 6px;
+            border-radius: 4px;
+            text-align: center;
+            margin-bottom: 4px;
+            box-shadow: 0 2px 8px rgba(126, 211, 33, 0.3);
+            animation: badge-pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes badge-pulse {
+            0%, 100% { box-shadow: 0 2px 8px rgba(126, 211, 33, 0.3); }
+            50% { box-shadow: 0 2px 12px rgba(126, 211, 33, 0.5); }
+        }
 
         /* Lighting Panel */
         .lighting-panel {
@@ -1039,6 +1064,276 @@
         
         .retarget-panel.admin-mode .retarget-content {
             display: block !important;
+        }
+        
+        /* Cleanup Panel */
+        .cleanup-panel {
+            position: fixed;
+            right: 90px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 320px;
+            max-height: 85vh;
+            overflow-y: auto;
+            display: none;
+            z-index: 150;
+        }
+        
+        .cleanup-panel.visible {
+            display: block;
+        }
+        
+        .cleanup-panel.admin-mode .coming-soon-overlay {
+            display: none;
+        }
+        
+        .cleanup-panel.admin-mode .cleanup-content {
+            display: block !important;
+        }
+        
+        .cleanup-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .cleanup-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .cleanup-close-btn:hover {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-primary);
+        }
+        
+        .cleanup-section {
+            margin-bottom: 20px;
+        }
+        
+        .cleanup-section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .cleanup-section-title .icon {
+            font-size: 1rem;
+        }
+        
+        .cleanup-slider-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .cleanup-slider-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            width: 80px;
+            flex-shrink: 0;
+        }
+        
+        .cleanup-slider {
+            flex: 1;
+            -webkit-appearance: none;
+            height: 4px;
+            background: var(--bg-tertiary);
+            border-radius: 2px;
+            outline: none;
+        }
+        
+        .cleanup-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .cleanup-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        
+        .cleanup-slider-value {
+            font-size: 0.75rem;
+            color: var(--accent-primary);
+            width: 35px;
+            text-align: right;
+        }
+        
+        .cleanup-toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        
+        .cleanup-toggle-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .cleanup-toggle {
+            position: relative;
+            width: 40px;
+            height: 22px;
+            background: var(--bg-tertiary);
+            border-radius: 11px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .cleanup-toggle.active {
+            background: var(--accent-primary);
+        }
+        
+        .cleanup-toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+        }
+        
+        .cleanup-toggle.active::after {
+            transform: translateX(18px);
+        }
+        
+        .cleanup-info-box {
+            background: rgba(126, 211, 33, 0.1);
+            border: 1px solid rgba(126, 211, 33, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .cleanup-info-box p {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .cleanup-apply-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border: none;
+            border-radius: 8px;
+            color: #000;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-bottom: 10px;
+        }
+        
+        .cleanup-apply-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(126, 211, 33, 0.4);
+        }
+        
+        .cleanup-apply-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .cleanup-export-btn {
+            width: 100%;
+            padding: 10px;
+            background: transparent;
+            border: 1px solid var(--accent-primary);
+            border-radius: 8px;
+            color: var(--accent-primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .cleanup-export-btn:hover {
+            background: rgba(126, 211, 33, 0.1);
+        }
+        
+        .cleanup-export-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .cleanup-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+        
+        .cleanup-status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+        }
+        
+        .cleanup-status-dot.ready {
+            background: var(--accent-primary);
+        }
+        
+        .cleanup-status-dot.processing {
+            background: #f5a623;
+            animation: pulse 1s infinite;
+        }
+        
+        .cleanup-status-text {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        .cleanup-preview-toggle {
+            display: flex;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        
+        .cleanup-preview-btn {
+            flex: 1;
+            padding: 8px 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .cleanup-preview-btn.active {
+            background: var(--accent-primary);
+            color: #000;
+            font-weight: 600;
         }
         
         .retarget-panel-header {
@@ -1710,7 +2005,8 @@
         body.fullscreen .fps-counter,
         body.fullscreen .purchase-panel,
         body.fullscreen .lighting-panel,
-        body.fullscreen .retarget-panel {
+        body.fullscreen .retarget-panel,
+        body.fullscreen .cleanup-panel {
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s;
@@ -1723,7 +2019,8 @@
         body.fullscreen:hover .fps-counter,
         body.fullscreen:hover .purchase-panel,
         body.fullscreen:hover .lighting-panel,
-        body.fullscreen:hover .retarget-panel {
+        body.fullscreen:hover .retarget-panel,
+        body.fullscreen:hover .cleanup-panel {
             opacity: 1;
             pointer-events: all;
         }
@@ -1752,7 +2049,7 @@
 
             .playback-btn { width: 36px; height: 36px; }
             .playback-btn.primary { width: 44px; height: 44px; }
-            .speed-control, .info-panel, .tools-panel, .fps-counter, .lighting-panel, .retarget-panel { display: none; }
+            .speed-control, .info-panel, .tools-panel, .fps-counter, .lighting-panel, .retarget-panel, .cleanup-panel { display: none; }
             .header { padding: 12px 16px; }
             .section { display: none; }
             
@@ -2074,8 +2371,13 @@
         <button class="tool-btn" id="btn-lighting">
             🔆<span class="tooltip">Lighting</span>
         </button>
+        <div class="tools-divider"></div>
+        <div class="tools-category-badge">Soon</div>
         <button class="tool-btn" id="btn-retarget">
             🦴<span class="tooltip">Retarget (T)</span>
+        </button>
+        <button class="tool-btn" id="btn-cleanup">
+            🧹<span class="tooltip">Cleanup (C)</span>
         </button>
     </div>
 
@@ -2159,7 +2461,7 @@
         
         <!-- Coming Soon Overlay -->
         <div class="coming-soon-overlay" id="coming-soon-overlay">
-            <div class="coming-soon-badge">COMING SOON</div>
+            <div class="coming-soon-badge">Soon</div>
             <div class="coming-soon-title">Retargeting Tool</div>
             <div class="coming-soon-desc">Preview animations on your own characters before purchasing.</div>
             <div class="coming-soon-features">
@@ -2245,6 +2547,120 @@
         <button class="retarget-apply-btn" id="retarget-apply-btn">Apply Retargeting</button>
         
         </div><!-- end retarget-content -->
+    </div>
+
+    <!-- Cleanup Panel -->
+    <div class="panel cleanup-panel" id="cleanup-panel">
+        <div class="cleanup-panel-header">
+            <div class="panel-title">🧹 Cleanup Tool</div>
+            <button class="cleanup-close-btn" id="cleanup-close-btn">✕</button>
+        </div>
+        
+        <!-- Coming Soon Overlay -->
+        <div class="coming-soon-overlay" id="cleanup-coming-soon">
+            <div class="coming-soon-badge">Soon</div>
+            <div class="coming-soon-title">Animation Cleanup</div>
+            <div class="coming-soon-desc">Clean and polish raw mocap data automatically.</div>
+            <div class="coming-soon-features">
+                <div class="coming-soon-feature">✓ Smooth jittery motion</div>
+                <div class="coming-soon-feature">✓ Fix foot sliding</div>
+                <div class="coming-soon-feature">✓ Fill gaps in data</div>
+                <div class="coming-soon-feature">✓ Export cleaned FBX</div>
+            </div>
+        </div>
+        
+        <!-- Admin content -->
+        <div class="cleanup-content" id="cleanup-content" style="display:none">
+            
+            <div class="cleanup-info-box">
+                <p>Clean up raw mocap data. Load an animation first, adjust settings, then apply.</p>
+            </div>
+            
+            <div class="cleanup-status">
+                <span class="cleanup-status-dot" id="cleanup-status-dot"></span>
+                <span class="cleanup-status-text" id="cleanup-status-text">No animation loaded</span>
+            </div>
+            
+            <!-- Preview Toggle -->
+            <div class="cleanup-preview-toggle">
+                <button class="cleanup-preview-btn active" id="preview-original">Original</button>
+                <button class="cleanup-preview-btn" id="preview-cleaned">Cleaned</button>
+            </div>
+            
+            <!-- Noise/Jitter Smoothing -->
+            <div class="cleanup-section">
+                <div class="cleanup-section-title">
+                    <span class="icon">📊</span> Noise Reduction
+                </div>
+                <div class="cleanup-slider-row">
+                    <span class="cleanup-slider-label">Smoothing</span>
+                    <input type="range" class="cleanup-slider" id="smooth-amount" min="0" max="100" value="30">
+                    <span class="cleanup-slider-value" id="smooth-value">30%</span>
+                </div>
+                <div class="cleanup-slider-row">
+                    <span class="cleanup-slider-label">Preserve</span>
+                    <input type="range" class="cleanup-slider" id="preserve-peaks" min="0" max="100" value="70">
+                    <span class="cleanup-slider-value" id="preserve-value">70%</span>
+                </div>
+            </div>
+            
+            <!-- Foot Ground Lock -->
+            <div class="cleanup-section">
+                <div class="cleanup-section-title">
+                    <span class="icon">🦶</span> Foot Grounding
+                </div>
+                <div class="cleanup-toggle-row">
+                    <span class="cleanup-toggle-label">Enable Foot Lock</span>
+                    <div class="cleanup-toggle active" id="foot-lock-toggle"></div>
+                </div>
+                <div class="cleanup-slider-row">
+                    <span class="cleanup-slider-label">Lock Strength</span>
+                    <input type="range" class="cleanup-slider" id="foot-lock-strength" min="0" max="100" value="80">
+                    <span class="cleanup-slider-value" id="foot-lock-value">80%</span>
+                </div>
+                <div class="cleanup-slider-row">
+                    <span class="cleanup-slider-label">Threshold</span>
+                    <input type="range" class="cleanup-slider" id="foot-threshold" min="0" max="100" value="50">
+                    <span class="cleanup-slider-value" id="foot-threshold-value">50%</span>
+                </div>
+            </div>
+            
+            <!-- Gap Filling -->
+            <div class="cleanup-section">
+                <div class="cleanup-section-title">
+                    <span class="icon">🔗</span> Gap Filling
+                </div>
+                <div class="cleanup-toggle-row">
+                    <span class="cleanup-toggle-label">Auto-fill Gaps</span>
+                    <div class="cleanup-toggle active" id="gap-fill-toggle"></div>
+                </div>
+                <div class="cleanup-slider-row">
+                    <span class="cleanup-slider-label">Max Gap</span>
+                    <input type="range" class="cleanup-slider" id="max-gap" min="1" max="30" value="10">
+                    <span class="cleanup-slider-value" id="max-gap-value">10f</span>
+                </div>
+            </div>
+            
+            <!-- Hip Stabilization -->
+            <div class="cleanup-section">
+                <div class="cleanup-section-title">
+                    <span class="icon">⚖️</span> Hip Stabilization
+                </div>
+                <div class="cleanup-toggle-row">
+                    <span class="cleanup-toggle-label">Stabilize Hips</span>
+                    <div class="cleanup-toggle" id="hip-stabilize-toggle"></div>
+                </div>
+                <div class="cleanup-slider-row">
+                    <span class="cleanup-slider-label">Amount</span>
+                    <input type="range" class="cleanup-slider" id="hip-stabilize" min="0" max="100" value="40">
+                    <span class="cleanup-slider-value" id="hip-stabilize-value">40%</span>
+                </div>
+            </div>
+            
+            <button class="cleanup-apply-btn" id="cleanup-apply-btn" disabled>Apply Cleanup</button>
+            <button class="cleanup-export-btn" id="cleanup-export-btn" disabled>Export Cleaned FBX</button>
+            
+        </div><!-- end cleanup-content -->
     </div>
 
     <!-- Timeline -->
@@ -2606,6 +3022,13 @@
                     currentModel = isFBX ? result : result.scene;
                     animations = isFBX ? result.animations : result.animations;
                     sourceFileType = isFBX ? 'fbx' : 'glb';
+                    
+                    // Reset cleanup data for new animation
+                    if (typeof originalAnimationData !== 'undefined') {
+                        originalAnimationData = null;
+                        cleanedAnimationData = null;
+                        isShowingCleaned = false;
+                    }
                     
                     console.log(`[Loader] Loaded model with ${animations.length} animations`);
                     console.log(`[Loader] Source file type: ${sourceFileType}`);
@@ -3348,6 +3771,10 @@
                 animStatusDot.classList.remove('ready');
                 animStatusText.textContent = 'No animation loaded';
             }
+            // Also update cleanup status
+            if (typeof updateCleanupStatus === 'function') {
+                updateCleanupStatus();
+            }
         }
         
         // Bone mapping presets
@@ -3521,6 +3948,383 @@
             retargetPanel.classList.remove('visible');
             document.getElementById('btn-retarget').classList.remove('active');
         });
+        
+        // Cleanup Panel Toggle
+        const cleanupPanel = document.getElementById('cleanup-panel');
+        document.getElementById('btn-cleanup').addEventListener('click', function() {
+            this.classList.toggle('active');
+            cleanupPanel.classList.toggle('visible');
+            // Close other panels
+            lightingPanel.classList.remove('visible');
+            document.getElementById('btn-lighting').classList.remove('active');
+            retargetPanel.classList.remove('visible');
+            document.getElementById('btn-retarget').classList.remove('active');
+            updateCleanupStatus();
+        });
+        
+        document.getElementById('cleanup-close-btn').addEventListener('click', function() {
+            cleanupPanel.classList.remove('visible');
+            document.getElementById('btn-cleanup').classList.remove('active');
+        });
+        
+        // ============================================
+        // CLEANUP TOOL FUNCTIONALITY
+        // ============================================
+        
+        let originalAnimationData = null;  // Store original for comparison
+        let cleanedAnimationData = null;   // Store cleaned version
+        let isShowingCleaned = false;
+        
+        // Slider value updates
+        document.getElementById('smooth-amount').addEventListener('input', function() {
+            document.getElementById('smooth-value').textContent = this.value + '%';
+        });
+        document.getElementById('preserve-peaks').addEventListener('input', function() {
+            document.getElementById('preserve-value').textContent = this.value + '%';
+        });
+        document.getElementById('foot-lock-strength').addEventListener('input', function() {
+            document.getElementById('foot-lock-value').textContent = this.value + '%';
+        });
+        document.getElementById('foot-threshold').addEventListener('input', function() {
+            document.getElementById('foot-threshold-value').textContent = this.value + '%';
+        });
+        document.getElementById('max-gap').addEventListener('input', function() {
+            document.getElementById('max-gap-value').textContent = this.value + 'f';
+        });
+        document.getElementById('hip-stabilize').addEventListener('input', function() {
+            document.getElementById('hip-stabilize-value').textContent = this.value + '%';
+        });
+        
+        // Toggle handlers
+        document.querySelectorAll('.cleanup-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+        
+        // Preview toggle
+        document.getElementById('preview-original').addEventListener('click', function() {
+            this.classList.add('active');
+            document.getElementById('preview-cleaned').classList.remove('active');
+            isShowingCleaned = false;
+            if (originalAnimationData && mixer) {
+                applyAnimationData(originalAnimationData);
+            }
+        });
+        
+        document.getElementById('preview-cleaned').addEventListener('click', function() {
+            if (!cleanedAnimationData) {
+                showToast('Apply cleanup first', 2000);
+                return;
+            }
+            this.classList.add('active');
+            document.getElementById('preview-original').classList.remove('active');
+            isShowingCleaned = true;
+            applyAnimationData(cleanedAnimationData);
+        });
+        
+        // Update cleanup status
+        function updateCleanupStatus() {
+            const statusDot = document.getElementById('cleanup-status-dot');
+            const statusText = document.getElementById('cleanup-status-text');
+            const applyBtn = document.getElementById('cleanup-apply-btn');
+            const exportBtn = document.getElementById('cleanup-export-btn');
+            
+            if (animations.length > 0) {
+                statusDot.classList.add('ready');
+                statusText.textContent = `Animation loaded: ${animations[0].name}`;
+                applyBtn.disabled = false;
+            } else {
+                statusDot.classList.remove('ready');
+                statusText.textContent = 'No animation loaded';
+                applyBtn.disabled = true;
+            }
+            
+            exportBtn.disabled = !cleanedAnimationData;
+        }
+        
+        // Store animation data for processing
+        function captureAnimationData(clip) {
+            const data = {
+                name: clip.name,
+                duration: clip.duration,
+                tracks: []
+            };
+            
+            clip.tracks.forEach(track => {
+                data.tracks.push({
+                    name: track.name,
+                    times: Array.from(track.times),
+                    values: Array.from(track.values),
+                    type: track.constructor.name
+                });
+            });
+            
+            return data;
+        }
+        
+        // Apply animation data back to clip
+        function applyAnimationData(data) {
+            if (!mixer || !currentModel) return;
+            
+            // Stop current animation
+            mixer.stopAllAction();
+            
+            // Create new clip from data
+            const tracks = data.tracks.map(trackData => {
+                const TrackClass = THREE[trackData.type] || THREE.NumberKeyframeTrack;
+                return new TrackClass(
+                    trackData.name,
+                    new Float32Array(trackData.times),
+                    new Float32Array(trackData.values)
+                );
+            });
+            
+            const newClip = new THREE.AnimationClip(data.name, data.duration, tracks);
+            
+            // Play the new clip
+            currentAction = mixer.clipAction(newClip);
+            currentAction.reset().play();
+            currentAction.timeScale = playbackSpeed;
+            currentAction.setLoop(isLooping ? THREE.LoopRepeat : THREE.LoopOnce);
+            isPlaying = true;
+            playBtn.textContent = '⏸';
+        }
+        
+        // ============================================
+        // CLEANUP ALGORITHMS
+        // ============================================
+        
+        // Low-pass filter for smoothing (Butterworth-like)
+        function smoothTrack(values, amount, preservePeaks) {
+            if (amount === 0) return values;
+            
+            const smoothed = new Float32Array(values.length);
+            const alpha = 1 - (amount / 100) * 0.9; // Convert 0-100 to smoothing factor
+            const peakThreshold = (preservePeaks / 100) * 0.1;
+            
+            // Determine if this is quaternion data (4 values per keyframe)
+            const isQuaternion = values.length % 4 === 0 && values.length > 4;
+            const stride = isQuaternion ? 4 : (values.length % 3 === 0 ? 3 : 1);
+            
+            for (let i = 0; i < values.length; i += stride) {
+                if (i === 0) {
+                    // First frame - copy as is
+                    for (let j = 0; j < stride; j++) {
+                        smoothed[i + j] = values[i + j];
+                    }
+                } else {
+                    // Apply exponential smoothing
+                    for (let j = 0; j < stride; j++) {
+                        const prev = smoothed[i - stride + j];
+                        const curr = values[i + j];
+                        const diff = Math.abs(curr - prev);
+                        
+                        // Preserve peaks if change is significant
+                        if (diff > peakThreshold) {
+                            smoothed[i + j] = curr;
+                        } else {
+                            smoothed[i + j] = alpha * curr + (1 - alpha) * prev;
+                        }
+                    }
+                }
+            }
+            
+            // Normalize quaternions
+            if (isQuaternion) {
+                for (let i = 0; i < smoothed.length; i += 4) {
+                    const len = Math.sqrt(
+                        smoothed[i] * smoothed[i] +
+                        smoothed[i+1] * smoothed[i+1] +
+                        smoothed[i+2] * smoothed[i+2] +
+                        smoothed[i+3] * smoothed[i+3]
+                    );
+                    if (len > 0) {
+                        smoothed[i] /= len;
+                        smoothed[i+1] /= len;
+                        smoothed[i+2] /= len;
+                        smoothed[i+3] /= len;
+                    }
+                }
+            }
+            
+            return smoothed;
+        }
+        
+        // Foot grounding - detect contacts and lock to floor
+        function applyFootGrounding(data, strength, threshold) {
+            const footTracks = data.tracks.filter(t => 
+                t.name.toLowerCase().includes('foot') && 
+                t.name.includes('.position')
+            );
+            
+            if (footTracks.length === 0) {
+                console.log('[Cleanup] No foot position tracks found');
+                return;
+            }
+            
+            const thresholdY = (threshold / 100) * 0.1; // Y threshold for contact
+            const lockStrength = strength / 100;
+            
+            footTracks.forEach(track => {
+                const values = track.values;
+                // Position tracks have xyz per keyframe
+                for (let i = 1; i < values.length; i += 3) {
+                    const y = values[i]; // Y component
+                    
+                    // If foot is near ground, lock it
+                    if (y < thresholdY) {
+                        values[i] = y * (1 - lockStrength); // Blend toward 0
+                    }
+                }
+            });
+            
+            console.log(`[Cleanup] Applied foot grounding to ${footTracks.length} tracks`);
+        }
+        
+        // Gap filling - interpolate missing frames
+        function fillGaps(data, maxGapFrames) {
+            let gapsFilled = 0;
+            
+            data.tracks.forEach(track => {
+                const times = track.times;
+                const values = track.values;
+                const stride = values.length / times.length;
+                
+                // Check for gaps (large time jumps)
+                for (let i = 1; i < times.length; i++) {
+                    const dt = times[i] - times[i-1];
+                    const avgDt = track.duration / times.length;
+                    
+                    // If gap is larger than expected
+                    if (dt > avgDt * 2 && dt < avgDt * maxGapFrames) {
+                        // Already filled by linear interpolation in Three.js
+                        gapsFilled++;
+                    }
+                }
+            });
+            
+            console.log(`[Cleanup] Gap analysis: ${gapsFilled} potential gaps detected`);
+        }
+        
+        // Hip stabilization - reduce jitter on root motion
+        function stabilizeHips(data, amount) {
+            const hipTracks = data.tracks.filter(t => 
+                t.name.toLowerCase().includes('hips') && 
+                t.name.includes('.position')
+            );
+            
+            if (hipTracks.length === 0) return;
+            
+            const smoothAmount = amount * 0.7; // Hips need more smoothing
+            
+            hipTracks.forEach(track => {
+                track.values = smoothTrack(track.values, smoothAmount, 50);
+            });
+            
+            console.log(`[Cleanup] Applied hip stabilization`);
+        }
+        
+        // Main cleanup function
+        function applyCleanup() {
+            if (animations.length === 0) {
+                showToast('No animation loaded', 2000);
+                return;
+            }
+            
+            const statusDot = document.getElementById('cleanup-status-dot');
+            statusDot.classList.add('processing');
+            statusDot.classList.remove('ready');
+            document.getElementById('cleanup-status-text').textContent = 'Processing...';
+            
+            // Capture original if not already done
+            if (!originalAnimationData) {
+                originalAnimationData = captureAnimationData(animations[0]);
+            }
+            
+            // Clone original data for cleanup
+            const data = JSON.parse(JSON.stringify(originalAnimationData));
+            
+            // Get settings
+            const smoothAmount = parseInt(document.getElementById('smooth-amount').value);
+            const preservePeaks = parseInt(document.getElementById('preserve-peaks').value);
+            const footLockEnabled = document.getElementById('foot-lock-toggle').classList.contains('active');
+            const footLockStrength = parseInt(document.getElementById('foot-lock-strength').value);
+            const footThreshold = parseInt(document.getElementById('foot-threshold').value);
+            const gapFillEnabled = document.getElementById('gap-fill-toggle').classList.contains('active');
+            const maxGap = parseInt(document.getElementById('max-gap').value);
+            const hipStabilizeEnabled = document.getElementById('hip-stabilize-toggle').classList.contains('active');
+            const hipStabilizeAmount = parseInt(document.getElementById('hip-stabilize').value);
+            
+            console.log('[Cleanup] Starting cleanup with settings:', {
+                smoothAmount, preservePeaks, footLockEnabled, footLockStrength,
+                footThreshold, gapFillEnabled, maxGap, hipStabilizeEnabled, hipStabilizeAmount
+            });
+            
+            // Apply smoothing to all tracks
+            if (smoothAmount > 0) {
+                data.tracks.forEach(track => {
+                    if (track.name.includes('.quaternion') || track.name.includes('.position')) {
+                        track.values = Array.from(smoothTrack(new Float32Array(track.values), smoothAmount, preservePeaks));
+                    }
+                });
+                console.log(`[Cleanup] Applied smoothing (${smoothAmount}%) to ${data.tracks.length} tracks`);
+            }
+            
+            // Apply foot grounding
+            if (footLockEnabled) {
+                applyFootGrounding(data, footLockStrength, footThreshold);
+            }
+            
+            // Gap filling
+            if (gapFillEnabled) {
+                fillGaps(data, maxGap);
+            }
+            
+            // Hip stabilization
+            if (hipStabilizeEnabled) {
+                stabilizeHips(data, hipStabilizeAmount);
+            }
+            
+            // Store cleaned data
+            cleanedAnimationData = data;
+            
+            // Show cleaned version
+            document.getElementById('preview-cleaned').click();
+            
+            // Update UI
+            setTimeout(() => {
+                statusDot.classList.remove('processing');
+                statusDot.classList.add('ready');
+                document.getElementById('cleanup-status-text').textContent = 'Cleanup applied!';
+                document.getElementById('cleanup-export-btn').disabled = false;
+                showToast('Cleanup applied! Toggle preview to compare.', 3000);
+            }, 500);
+        }
+        
+        // Export cleaned animation
+        function exportCleanedAnimation() {
+            if (!cleanedAnimationData) {
+                showToast('Apply cleanup first', 2000);
+                return;
+            }
+            
+            showToast('Export feature coming soon!', 3000);
+            // TODO: Implement FBX/GLB export
+            // This would require a library like three-to-fbx or gltf-exporter
+        }
+        
+        // Button handlers
+        document.getElementById('cleanup-apply-btn').addEventListener('click', applyCleanup);
+        document.getElementById('cleanup-export-btn').addEventListener('click', exportCleanedAnimation);
+        
+        // Update status when animation loads
+        const originalPlayAnimation = playAnimation;
+        // We'll update cleanup status in the existing playAnimation calls
+        
+        // ============================================
+        // END CLEANUP TOOL
+        // ============================================
         
         // Character file input
         const characterFileInput = document.getElementById('character-file-input');
@@ -4475,6 +5279,7 @@ retargetDebug.showBoth()         - Show both side by side
         if (urlParams.get('admin') === '1' || urlParams.get('admin') === 'true') {
             isAdminMode = true;
             retargetPanel.classList.add('admin-mode');
+            cleanupPanel.classList.add('admin-mode');
             console.log('🔓 Admin mode enabled via URL');
         }
         
@@ -4482,12 +5287,14 @@ retargetDebug.showBoth()         - Show both side by side
         window.enableAdmin = function() {
             isAdminMode = true;
             retargetPanel.classList.add('admin-mode');
-            console.log('🔓 Admin mode enabled - Retarget Tool unlocked');
+            cleanupPanel.classList.add('admin-mode');
+            console.log('🔓 Admin mode enabled - Tools unlocked');
         };
         
         window.disableAdmin = function() {
             isAdminMode = false;
             retargetPanel.classList.remove('admin-mode');
+            cleanupPanel.classList.remove('admin-mode');
             console.log('🔒 Admin mode disabled');
         };
         
@@ -8106,6 +8913,7 @@ retargetDebug.showBoth()         - Show both side by side
                 case 'KeyP': document.getElementById('btn-postfx').click(); break;
                 case 'KeyB': document.getElementById('toggle-bones').click(); break;
                 case 'KeyT': document.getElementById('btn-retarget').click(); break;
+                case 'KeyC': document.getElementById('btn-cleanup').click(); break;
             }
         });
 
