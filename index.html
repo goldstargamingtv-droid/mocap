@@ -2125,6 +2125,36 @@
             font-family: 'Sora', sans-serif;
             color: #000000;
         }
+        
+        .hero-tagline {
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            line-height: 1.5;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: taglineFadeIn 1s ease-out 0.3s forwards;
+        }
+        
+        .hero-tagline .highlight {
+            color: #7ED321;
+            font-weight: 600;
+        }
+        
+        @keyframes taglineFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .hero-subtitle {
             font-size: clamp(0.9rem, 2vw, 1.1rem);
@@ -2290,6 +2320,26 @@
             padding-left: 50px;
         }
         
+        .hero-buttons .btn-cta {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        
+        .hero-buttons .btn-cta::after {
+            background: rgba(255, 255, 255, 0.06);
+        }
+        
+        .hero-buttons .btn-cta:hover {
+            background: rgba(10, 10, 10, 0.95);
+            border-color: rgba(10, 10, 10, 0.95);
+        }
+        
+        .hero-buttons .btn-cta:hover::after {
+            background: rgba(10, 10, 10, 0.95);
+        }
+        
         .hero-buttons .btn-primary {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
@@ -2369,316 +2419,8 @@
             }
         }
 
-        /* ============================================
-           NEW 3D ROTATING CAROUSEL
-           ============================================ */
-        .hero-preview-carousel {
-            display: none !important;
-            margin-bottom: 8px;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            opacity: 0;
-            transition: opacity 0.5s ease-in-out;
-            overflow: visible;
-        }
-
-        .hero-preview-carousel.loaded {
-            opacity: 1;
-        }
-
-        .carousel-container {
-            position: relative;
-            width: 320px;
-            height: 200px;
-            perspective: 1000px;
-            transform-origin: center;
-            transform-style: flat; /* Don't let 3D affect siblings */
-        }
-
-        .carousel-track {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-origin: center;
-            transform-style: preserve-3d;
-            transform: translateZ(-200px) rotateY(0);
-            animation: carouselRotate 84s linear infinite;
-        }
-
-        .carousel-track.paused {
-            animation-play-state: paused;
-        }
-
-        .carousel-item {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 180px;
-            height: 200px;
-            margin: auto;
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            transform-origin: center;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .carousel-item:hover {
-            border-color: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 15px 40px rgba(126, 211, 33, 0.2);
-        }
-
-        /* Position each card around the 3D circle - 7 items = 360/7 ≈ 51.43deg apart */
-        .carousel-item:nth-child(1) { transform: rotateY(0deg) translateZ(280px); }
-        .carousel-item:nth-child(2) { transform: rotateY(51.43deg) translateZ(280px); }
-        .carousel-item:nth-child(3) { transform: rotateY(102.86deg) translateZ(280px); }
-        .carousel-item:nth-child(4) { transform: rotateY(154.29deg) translateZ(280px); }
-        .carousel-item:nth-child(5) { transform: rotateY(205.71deg) translateZ(280px); }
-        .carousel-item:nth-child(6) { transform: rotateY(257.14deg) translateZ(280px); }
-        .carousel-item:nth-child(7) { transform: rotateY(308.57deg) translateZ(280px); }
-
-        /* Carousel rotation animation - 7 items, 12s each = 84s total, continuous rotation */
-        @keyframes carouselRotate {
-            0%      { transform: translateZ(-280px) rotateY(0deg); }
-            100%    { transform: translateZ(-280px) rotateY(-360deg); }
-        }
-
-        .carousel-item-content {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-        }
-
-        .carousel-placeholder {
-            text-align: center;
-            padding: 20px 15px;
-        }
-
-        .carousel-placeholder-icon {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-
-        .carousel-placeholder-text {
-            font-size: 14px;
-            font-weight: 700;
-            color: #7ED321;
-            margin-bottom: 4px;
-        }
-
-        .carousel-placeholder-subtext {
-            font-size: 11px;
-            color: var(--text-muted);
-        }
-        
-        .carousel-gif-placeholder {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(126, 211, 33, 0.1));
-            border-radius: 12px;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .carousel-play-icon {
-            font-size: 48px;
-            color: #7ED321;
-            margin-bottom: 12px;
-            filter: drop-shadow(0 0 10px rgba(126, 211, 33, 0.5));
-        }
-
-        /* Carousel Overlay Label */
-        .carousel-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
-            padding: 12px;
-            text-align: center;
-        }
-
-        .carousel-overlay-text {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--text-primary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Carousel Wrapper with Arrows */
-        .carousel-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 100px;
-            position: relative;
-            transform-style: flat;
-        }
-
-        /* Arrow Buttons */
-        .carousel-arrow {
-            width: 48px;
-            height: 48px;
-            min-width: 48px;
-            border-radius: 50%;
-            background: rgba(10, 10, 10, 0.95);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: #7ED321;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease, border-color 0.2s ease;
-            flex-shrink: 0;
-            z-index: 100;
-            position: relative;
-            box-shadow: 
-                inset 0 1px 1px rgba(255, 255, 255, 0.1),
-                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .carousel-arrow::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border-radius: 50%;
-            background: linear-gradient(
-                90deg,
-                transparent 0%,
-                #7ED321 20%,
-                #7ED321 40%,
-                #7ED321 60%,
-                transparent 80%,
-                transparent 100%
-            );
-            background-size: 200% 100%;
-            z-index: -2;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            animation: liquidFlow 4s ease-in-out infinite paused;
-        }
-        
-        .carousel-arrow::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 50%;
-            background: rgba(10, 10, 10, 0.95);
-            z-index: -1;
-        }
-
-        .carousel-arrow:hover {
-            border-color: rgba(10, 10, 10, 0.95);
-            transform: scale(1.05);
-            box-shadow: 
-                inset 0 1px 1px rgba(255, 255, 255, 0.15),
-                inset 0 -1px 1px rgba(0, 0, 0, 0.1),
-                0 0 25px rgba(126, 211, 33, 0.4);
-        }
-        
-        .carousel-arrow:hover::before {
-            opacity: 1;
-            animation-play-state: running;
-        }
-
-        .carousel-arrow svg {
-            width: 22px;
-            height: 22px;
-            stroke: #7ED321;
-            position: relative;
-            z-index: 1;
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
-            .carousel-wrapper {
-                gap: 40px;
-            }
-
-            .carousel-arrow {
-                width: 40px;
-                height: 40px;
-                min-width: 40px;
-            }
-
-            .carousel-arrow svg {
-                width: 18px;
-                height: 18px;
-            }
-
-            .carousel-container {
-                width: 200px;
-                height: 140px;
-                perspective: 600px;
-            }
-
-            .carousel-track {
-                transform: translateZ(-140px) rotateY(0);
-            }
-
-            .carousel-item {
-                width: 120px;
-                height: 140px;
-            }
-
-            .carousel-item:nth-child(1) { transform: rotateY(0deg) translateZ(180px); }
-            .carousel-item:nth-child(2) { transform: rotateY(51.43deg) translateZ(180px); }
-            .carousel-item:nth-child(3) { transform: rotateY(102.86deg) translateZ(180px); }
-            .carousel-item:nth-child(4) { transform: rotateY(154.29deg) translateZ(180px); }
-            .carousel-item:nth-child(5) { transform: rotateY(205.71deg) translateZ(180px); }
-            .carousel-item:nth-child(6) { transform: rotateY(257.14deg) translateZ(180px); }
-            .carousel-item:nth-child(7) { transform: rotateY(308.57deg) translateZ(180px); }
-
-            @keyframes carouselRotate {
-                0%, 10%      { transform: translateZ(-180px) rotateY(0deg); }
-                14.28%, 24.28%  { transform: translateZ(-180px) rotateY(-51.43deg); }
-                28.57%, 38.57%  { transform: translateZ(-180px) rotateY(-102.86deg); }
-                42.86%, 52.86%  { transform: translateZ(-180px) rotateY(-154.29deg); }
-                57.14%, 67.14%  { transform: translateZ(-180px) rotateY(-205.71deg); }
-                71.43%, 81.43%  { transform: translateZ(-180px) rotateY(-257.14deg); }
-                85.71%, 95.71%  { transform: translateZ(-180px) rotateY(-308.57deg); }
-                100%         { transform: translateZ(-180px) rotateY(-360deg); }
-            }
-
-            .carousel-placeholder-icon {
-                font-size: 24px;
-            }
-
-            .carousel-placeholder-text {
-                font-size: 11px;
-            }
-
-            .carousel-placeholder-subtext {
-                font-size: 9px;
-            }
-
-            .carousel-overlay-text {
-                font-size: 8px;
-            }
             
             /* Mobile Touch Optimizations */
             .hero-buttons {
@@ -2743,7 +2485,7 @@
         }
 
         .platform-logo:first-child {
-            height: 60px;
+            height: 40px;
         }
 
         .platform-logo:hover {
@@ -7341,127 +7083,6 @@
         <div id="hero3DViewer"></div>
 
         <div class="hero-content">
-            <!-- Hero Preview Carousel - 3D Rotating -->
-            <div class="hero-preview-carousel">
-                <div class="carousel-wrapper">
-                    <!-- Left Arrow -->
-                    <button class="carousel-arrow carousel-arrow-left" id="carouselPrev">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="15,18 9,12 15,6"></polyline>
-                        </svg>
-                    </button>
-
-                    <div class="carousel-container">
-                        <div class="carousel-track" id="carouselTrack">
-                            <!-- Item 1 -->
-                            <div class="carousel-item" data-index="0">
-                                <div class="carousel-item-content">
-                                    <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="4" r="2"/><path d="M15.5 21l-3-6.5-4 3V21"/><path d="M8 14l4-3 2.5 3.5"/><path d="M12 11l-3-2.5-3 3.5"/></svg></div>
-                                        <div class="carousel-placeholder-text">Running Pack</div>
-                                        <div class="carousel-placeholder-subtext">12 animations</div>
-                                    </div>
-                                </div>
-                                <div class="carousel-overlay">
-                                    <div class="carousel-overlay-text">Motion Capture</div>
-                                </div>
-                            </div>
-
-                            <!-- Item 2 -->
-                            <div class="carousel-item" data-index="1">
-                                <div class="carousel-item-content">
-                                    <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg></div>
-                                        <div class="carousel-placeholder-text">Combat Pack</div>
-                                        <div class="carousel-placeholder-subtext">24 animations</div>
-                                    </div>
-                                </div>
-                                <div class="carousel-overlay">
-                                    <div class="carousel-overlay-text">Motion Capture</div>
-                                </div>
-                            </div>
-
-                            <!-- Item 3 -->
-                            <div class="carousel-item" data-index="2">
-                                <div class="carousel-item-content">
-                                    <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M4 17l4-4 4 4 4-4 4 4"/><path d="M12 11v4"/></svg></div>
-                                        <div class="carousel-placeholder-text">Acrobatic Pack</div>
-                                        <div class="carousel-placeholder-subtext">18 animations</div>
-                                    </div>
-                                </div>
-                                <div class="carousel-overlay">
-                                    <div class="carousel-overlay-text">Motion Capture</div>
-                                </div>
-                            </div>
-
-                            <!-- Item 4 -->
-                            <div class="carousel-item" data-index="3">
-                                <div class="carousel-item-content">
-                                    <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M2 12h20"/><circle cx="12" cy="12" r="4"/><path d="M4.93 4.93l4.24 4.24"/><path d="M14.83 14.83l4.24 4.24"/></svg></div>
-                                        <div class="carousel-placeholder-text">Climbing Pack</div>
-                                        <div class="carousel-placeholder-subtext">16 animations</div>
-                                    </div>
-                                </div>
-                                <div class="carousel-overlay">
-                                    <div class="carousel-overlay-text">Motion Capture</div>
-                                </div>
-                            </div>
-
-                            <!-- Item 5 -->
-                            <div class="carousel-item" data-index="4">
-                                <div class="carousel-item-content">
-                                    <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></div>
-                                        <div class="carousel-placeholder-text">Sports Pack</div>
-                                        <div class="carousel-placeholder-subtext">20 animations</div>
-                                    </div>
-                                </div>
-                                <div class="carousel-overlay">
-                                    <div class="carousel-overlay-text">Motion Capture</div>
-                                </div>
-                            </div>
-
-                            <!-- Item 6 -->
-                            <div class="carousel-item" data-index="5">
-                                <div class="carousel-item-content">
-                                    <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg></div>
-                                        <div class="carousel-placeholder-text">Dance Pack</div>
-                                        <div class="carousel-placeholder-subtext">15 animations</div>
-                                    </div>
-                                </div>
-                                <div class="carousel-overlay">
-                                    <div class="carousel-overlay-text">Motion Capture</div>
-                                </div>
-                            </div>
-
-                            <!-- Item 7 -->
-                            <div class="carousel-item" data-index="6">
-                                <div class="carousel-item-content">
-                                    <div class="carousel-placeholder">
-                                        <div class="carousel-placeholder-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-                                        <div class="carousel-placeholder-text">Idle Pack</div>
-                                        <div class="carousel-placeholder-subtext">10 animations</div>
-                                    </div>
-                                </div>
-                                <div class="carousel-overlay">
-                                    <div class="carousel-overlay-text">Motion Capture</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right Arrow -->
-                    <button class="carousel-arrow carousel-arrow-right" id="carouselNext">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="9,18 15,12 9,6"></polyline>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
             <div class="hero-badge panel-glow">
                 <div class="panel-glow-blob"></div>
                 <div class="badge-dot"><svg viewBox="0 0 24 24"><path d="M12 0l2.5 7.5L22 10l-7.5 2.5L12 20l-2.5-7.5L2 10l7.5-2.5z"/></svg></div>
@@ -7473,6 +7094,11 @@
                 <span style="color: var(--text-white);">Premium</span> <span class="gradient-text animated-gradient">Motion</span><br>
                 <span class="gradient-text animated-gradient">Capture</span> <span style="color: var(--text-white);">for Games &amp; Film</span>
             </h1>
+            
+            <p class="hero-tagline">
+                <span class="highlight">Studio-quality</span> mocap animations for <span class="highlight">all major 3D platforms</span><br>
+                Instant download, <span class="highlight">royalty-free</span>
+            </p>
             
             <!-- Trust Badge -->
             <div class="trust-badge panel-glow">
@@ -8543,7 +8169,7 @@
             const SUPABASE_URL = 'https://ekzablbemeponkrcitco.supabase.co';
             const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVremFibGJlbWVwb25rcmNpdGNvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5NTkzNDQsImV4cCI6MjA4MTUzNTM0NH0.bhr5lIwDUA3prPuCN7mBj5Bn8lJhalPFu5MMS5I1g2I';
             
-            // Initialize Supabase client - make it global so carousel can access it
+            // Initialize Supabase client - make it global for all scripts
             // Realtime disabled to prevent unnecessary WebSocket connections
             window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
                 realtime: {
@@ -12037,254 +11663,6 @@ Focus on diversity while matching user preferences. Prioritize animations the us
     </div>
 
     <!-- Floating Particles Script - REMOVED for liquid metal effect -->
-
-    <!-- Carousel Script - 3D Rotating -->
-    <script>
-        // Carousel state
-        let currentIndex = 0;
-        let carouselInterval = null;
-        let totalRotation = 0; // Track cumulative rotation for continuous spinning
-        const TOTAL_ITEMS = 7;
-        const ROTATION_PER_ITEM = 360 / TOTAL_ITEMS; // 51.43 degrees
-        const AUTO_ROTATE_DELAY = 12000; // 12 seconds between rotations
-        
-        // Carousel data (7 items) - will be loaded from database or use defaults
-        let carouselData = [
-            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="17" cy="4" r="2"/><path d="M15.5 21l-3-6.5-4 3V21"/><path d="M8 14l4-3 2.5 3.5"/><path d="M12 11l-3-2.5-3 3.5"/></svg>', title: 'Running Pack', subtitle: '12 animations', label: 'Motion Capture', image_url: null, link_url: '' },
-            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>', title: 'Combat Pack', subtitle: '24 animations', label: 'Motion Capture', image_url: null, link_url: '' },
-            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M4 17l4-4 4 4 4-4 4 4"/><path d="M12 11v4"/></svg>', title: 'Acrobatic Pack', subtitle: '18 animations', label: 'Motion Capture', image_url: null, link_url: '' },
-            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="M2 12h20"/><circle cx="12" cy="12" r="4"/><path d="M4.93 4.93l4.24 4.24"/><path d="M14.83 14.83l4.24 4.24"/></svg>', title: 'Climbing Pack', subtitle: '16 animations', label: 'Motion Capture', image_url: null, link_url: '' },
-            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>', title: 'Sports Pack', subtitle: '20 animations', label: 'Motion Capture', image_url: null, link_url: '' },
-            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/><path d="M8 17V5l12-2v12"/></svg>', title: 'Dance Pack', subtitle: '15 animations', label: 'Motion Capture', image_url: null, link_url: '' },
-            { icon: '<svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="#7ED321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>', title: 'Idle Pack', subtitle: '10 animations', label: 'Motion Capture', image_url: null, link_url: '' }
-        ];
-
-        // Load carousel data from database
-        async function loadCarouselData() {
-            if (!window.supabaseClient) {
-                return;
-            }
-            
-            try {
-                const { data, error } = await window.supabaseClient
-                    .from('carousel_items')
-                    .select('*')
-                    .order('position', { ascending: true });
-
-                if (!error && data && data.length > 0) {
-                    carouselData = data.map(item => ({
-                        icon: item.icon,
-                        title: item.title,
-                        subtitle: item.subtitle,
-                        label: 'Motion Capture',
-                        image_url: item.image_url,
-                        link_url: item.link_url
-                    }));
-                    
-                    updateCarouselContent();
-                }
-            } catch (error) {
-                console.error('[Carousel] Error loading:', error);
-            }
-        }
-
-        // Update carousel content in DOM
-        function updateCarouselContent() {
-            const items = document.querySelectorAll('.carousel-item');
-            
-            items.forEach((item, index) => {
-                if (carouselData[index]) {
-                    const data = carouselData[index];
-                    const placeholder = item.querySelector('.carousel-placeholder');
-                    
-                    if (placeholder) {
-                        if (data.image_url) {
-                            // Load GIF directly - autoplay without hover
-                            placeholder.innerHTML = `
-                                <div class="carousel-gif-placeholder" data-gif="${data.image_url}">
-                                    <img src="${data.image_url}" 
-                                         alt="${data.title}" 
-                                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
-                                    <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 12px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); border-radius: 0 0 12px 12px;">
-                                        <div class="carousel-placeholder-text">${data.title}</div>
-                                    </div>
-                                </div>
-                            `;
-                        } else {
-                            placeholder.innerHTML = `
-                                <div class="carousel-placeholder-icon">${data.icon}</div>
-                                <div class="carousel-placeholder-text">${data.title}</div>
-                                <div class="carousel-placeholder-subtext">${data.subtitle}</div>
-                            `;
-                        }
-                    }
-                    
-                    const overlayText = item.querySelector('.carousel-overlay-text');
-                    if (overlayText) {
-                        overlayText.textContent = data.label || 'Motion Capture';
-                    }
-                }
-            });
-        }
-
-        // Rotate to specific item
-        function rotateToItem(index) {
-            const track = document.getElementById('carouselTrack');
-            if (!track) {
-                console.error('[Carousel] Track not found!');
-                return;
-            }
-            
-            // Stop CSS animation - we're taking manual control
-            track.style.animation = 'none';
-            
-            const rotation = -index * ROTATION_PER_ITEM;
-            track.style.transition = 'transform 0.6s cubic-bezier(0.77, 0, 0.175, 1)';
-            track.style.transform = `translateZ(-280px) rotateY(${rotation}deg)`;
-            
-            currentIndex = index;
-            totalRotation = rotation; // Sync totalRotation with current position
-        }
-        
-        // Rotate by one step (always same direction)
-        function rotateOneStep() {
-            const track = document.getElementById('carouselTrack');
-            if (!track) return;
-            
-            track.style.animation = 'none';
-            totalRotation -= ROTATION_PER_ITEM; // Always subtract (rotate same direction)
-            currentIndex = (currentIndex + 1) % TOTAL_ITEMS;
-            
-            track.style.transition = 'transform 0.6s cubic-bezier(0.77, 0, 0.175, 1)';
-            track.style.transform = `translateZ(-280px) rotateY(${totalRotation}deg)`;
-        }
-
-        // Start auto-rotation using setInterval
-        function startAutoRotation() {
-            
-            // Clear any existing interval
-            if (carouselInterval) {
-                clearInterval(carouselInterval);
-            }
-            
-            carouselInterval = setInterval(() => {
-                rotateOneStep();
-            }, AUTO_ROTATE_DELAY);
-            
-        }
-
-        // Stop auto-rotation
-        function stopAutoRotation() {
-            if (carouselInterval) {
-                clearInterval(carouselInterval);
-                carouselInterval = null;
-            }
-        }
-
-        // Rotate to next item
-        function rotateNext() {
-            stopAutoRotation();
-            rotateOneStep();
-            startAutoRotation();
-        }
-
-        // Rotate to previous item
-        function rotatePrev() {
-            stopAutoRotation();
-            const track = document.getElementById('carouselTrack');
-            if (!track) return;
-            
-            track.style.animation = 'none';
-            totalRotation += ROTATION_PER_ITEM; // Add for reverse direction
-            currentIndex = (currentIndex - 1 + TOTAL_ITEMS) % TOTAL_ITEMS;
-            
-            track.style.transition = 'transform 0.6s cubic-bezier(0.77, 0, 0.175, 1)';
-            track.style.transform = `translateZ(-280px) rotateY(${totalRotation}deg)`;
-            startAutoRotation();
-        }
-
-        // Initialize carousel
-        async function initCarousel() {
-            
-            await loadCarouselData();
-            
-            const track = document.getElementById('carouselTrack');
-            const carousel = document.querySelector('.hero-preview-carousel');
-            const prevBtn = document.getElementById('carouselPrev');
-            const nextBtn = document.getElementById('carouselNext');
-            const items = document.querySelectorAll('.carousel-item');
-
-            // Disable CSS animation - we'll use JS interval instead
-            if (track) {
-                track.style.animation = 'none';
-                rotateToItem(0); // Start at first item
-            }
-
-            // Arrow click handlers
-            if (prevBtn) {
-                prevBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    rotatePrev();
-                });
-            }
-
-            if (nextBtn) {
-                nextBtn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    rotateNext();
-                });
-            }
-
-            // Item click handlers
-            items.forEach((item, index) => {
-                item.addEventListener('click', () => {
-                    const data = carouselData[index];
-                    if (data && data.link_url) {
-                        window.location.href = data.link_url;
-                    }
-                });
-            });
-
-            // Pause on hover
-            if (carousel) {
-                carousel.addEventListener('mouseenter', () => {
-                    stopAutoRotation();
-                });
-                carousel.addEventListener('mouseleave', () => {
-                    startAutoRotation();
-                });
-            }
-
-            // Pause when tab inactive
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) {
-                    stopAutoRotation();
-                } else {
-                    startAutoRotation();
-                }
-            });
-
-            // Fade in carousel
-            setTimeout(() => {
-                if (carousel) {
-                    carousel.classList.add('loaded');
-                }
-            }, 100);
-            
-            // Start auto-rotation
-            startAutoRotation();
-            
-        }
-
-        // Initialize when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initCarousel);
-        } else {
-            initCarousel();
-        }
-    </script>
 
     <!-- Mobile Sticky CTA Bar (only on mobile) -->
     <div class="mobile-sticky-cta" id="mobileStickyCta">
