@@ -2337,10 +2337,16 @@
         
         .hero-buttons .btn-cta:hover {
             background: #000000;
-            border-color: rgba(126, 211, 33, 0.4);
+            border-color: transparent;
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
-            box-shadow: none;
+            box-shadow: 0 0 25px rgba(126, 211, 33, 0.4);
+            transform: scale(1.03);
+        }
+        
+        .hero-buttons .btn-cta:hover::before {
+            opacity: 1;
+            animation-play-state: running;
         }
         
         .hero-buttons .btn-cta:hover::after {
@@ -2363,10 +2369,16 @@
         
         .hero-buttons .btn-primary:hover {
             background: #000000;
-            border-color: rgba(126, 211, 33, 0.4);
+            border-color: transparent;
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
-            box-shadow: none;
+            box-shadow: 0 0 25px rgba(126, 211, 33, 0.4);
+            transform: scale(1.03);
+        }
+        
+        .hero-buttons .btn-primary:hover::before {
+            opacity: 1;
+            animation-play-state: running;
         }
         
         .hero-buttons .btn-primary:hover::after {
@@ -2414,11 +2426,16 @@
 
         .hero-buttons .btn-secondary:hover {
             background: #000000;
-            border-color: rgba(126, 211, 33, 0.4);
+            border-color: transparent;
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
-            box-shadow: none;
-            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(126, 211, 33, 0.4);
+            transform: scale(1.03);
+        }
+        
+        .hero-buttons .btn-secondary:hover::before {
+            opacity: 1;
+            animation-play-state: running;
         }
         
         .hero-buttons .btn-secondary:hover::after {
