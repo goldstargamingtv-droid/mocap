@@ -339,7 +339,7 @@
         /* Purchase Panel */
         .purchase-panel {
             position: fixed;
-            right: 90px;
+            right: 280px;
             bottom: 24px;
             z-index: 100;
             background: var(--glass-bg);
@@ -2516,6 +2516,8 @@
 
         // State
         let currentModel = null;
+        let modelFloorY = 0; // Store consistent floor position
+        let floorCalculated = false; // Track if floor has been auto-detected
         let sourceFileType = null; // Track animation file type ('fbx' or 'glb')
         let mixer = null;
         let animations = [];
@@ -2576,8 +2578,12 @@
         }
 
         // Load model
-        function loadModel(url, fileName) {
+        let isUserUploadedFile = false; // Track if file came from user upload vs site
+        
+        function loadModel(url, fileName, isUserUpload = false) {
             loadingScreen.classList.remove('hidden');
+            floorCalculated = false; // Reset floor detection for new model
+            isUserUploadedFile = isUserUpload; // Store for floor calculation
             
             if (currentModel) {
                 scene.remove(currentModel);
@@ -2698,12 +2704,10 @@
                             currentModel.position.z = -scaledCenter.z;
                         }
                         
-                        // Put feet on ground (add offset to prevent sinking)
-                        currentModel.updateMatrixWorld(true);
-                        const finalBox = new THREE.Box3().setFromObject(currentModel);
-                        currentModel.position.y = -finalBox.min.y + 0.15; // Extra offset to raise above floor
-                        
-                        console.log(`[Loader] Final position: ${currentModel.position.x.toFixed(2)}, ${currentModel.position.y.toFixed(2)}, ${currentModel.position.z.toFixed(2)}`);
+                        // Auto-detect floor position after animation starts
+                        // (rest pose may be different from animated pose)
+                        currentModel.position.y = 0;
+                        modelFloorY = 0; // Will be calculated after first animation frame
                     }
 
                     scene.add(currentModel);
@@ -2753,16 +2757,19 @@
                     if (animations.length > 0) {
                         playAnimation(0);
                     } else {
-                        // For models without animations, recalculate floor position
-                        setTimeout(() => {
-                            if (currentModel) {
-                                currentModel.position.y = 0;
-                                const animBox = new THREE.Box3().setFromObject(currentModel);
-                                if (isFinite(animBox.min.y)) {
-                                    currentModel.position.y = -animBox.min.y;
-                                }
+                        // For models without animations, calculate floor now
+                        if (currentModel) {
+                            currentModel.position.y = 0;
+                            currentModel.updateMatrixWorld(true);
+                            const box = new THREE.Box3().setFromObject(currentModel);
+                            if (isFinite(box.min.y)) {
+                                // User uploads: no offset. Site files: apply offset for Vicon exports
+                                const siteOffset = isUserUploadedFile ? 0 : 0.39;
+                                modelFloorY = -box.min.y - siteOffset;
+                                currentModel.position.y = modelFloorY;
+                                console.log(`[Loader] Floor (static, ${isUserUploadedFile ? 'user' : 'site'}): bottom=${box.min.y.toFixed(3)}, offset=${modelFloorY.toFixed(3)}`);
                             }
-                        }, 50);
+                        }
                     }
 
                     modelNameEl.textContent = fileName;
@@ -2818,22 +2825,41 @@
             isPlaying = true;
             playBtn.textContent = '⏸';
 
-            // Fix floor positioning using skeleton helper
-            setTimeout(() => {
-                if (currentModel && skeletonHelper) {
-                    currentModel.position.y = 0;
-                    currentModel.updateMatrixWorld(true);
-                    skeletonHelper.updateMatrixWorld(true);
-                    
-                    // Get lowest point from skeleton helper geometry
-                    const box = new THREE.Box3().setFromObject(skeletonHelper);
-                    
-                    if (isFinite(box.min.y)) {
-                        // Raise above floor
-                        currentModel.position.y = -box.min.y + 0.05;
+            // Calculate floor position once after first animation frame
+            if (!floorCalculated) {
+                setTimeout(() => {
+                    if (currentModel && mixer) {
+                        // Reset position to measure true bottom
+                        currentModel.position.y = 0;
+                        
+                        // Force animation and skeleton update
+                        mixer.update(0.016); // Advance one frame
+                        currentModel.updateMatrixWorld(true);
+                        
+                        // Update all skinned meshes
+                        currentModel.traverse(child => {
+                            if (child.isSkinnedMesh && child.skeleton) {
+                                child.skeleton.update();
+                                if (child.geometry.boundingBox) {
+                                    child.geometry.computeBoundingBox();
+                                }
+                            }
+                        });
+                        
+                        const box = new THREE.Box3().setFromObject(currentModel);
+                        if (isFinite(box.min.y)) {
+                            // User uploads: no offset. Site files: apply offset for Vicon exports
+                            const siteOffset = isUserUploadedFile ? 0 : 0.39;
+                            modelFloorY = -box.min.y - siteOffset;
+                            currentModel.position.y = modelFloorY;
+                            floorCalculated = true;
+                            console.log(`[Loader] Floor auto-detect (${isUserUploadedFile ? 'user' : 'site'}): bottom=${box.min.y.toFixed(3)}, offset=${modelFloorY.toFixed(3)}`);
+                        }
                     }
-                }
-            }, 200);
+                }, 100);
+            } else if (currentModel && modelFloorY !== undefined) {
+                currentModel.position.y = modelFloorY;
+            }
 
             const buttons = animationList.querySelectorAll('.animation-btn');
             buttons.forEach((btn, i) => btn.classList.toggle('active', i === index));
@@ -7989,7 +8015,7 @@ retargetDebug.showBoth()         - Show both side by side
         fileInput.addEventListener('change', e => {
             const file = e.target.files[0];
             if (file) {
-                loadModel(URL.createObjectURL(file), file.name);
+                loadModel(URL.createObjectURL(file), file.name, true); // true = user upload
                 hidePurchasePanel();
             }
         });
@@ -8006,7 +8032,7 @@ retargetDebug.showBoth()         - Show both side by side
             if (file) {
                 const name = file.name.toLowerCase();
                 if (name.endsWith('.fbx') || name.endsWith('.glb') || name.endsWith('.gltf')) {
-                    loadModel(URL.createObjectURL(file), file.name);
+                    loadModel(URL.createObjectURL(file), file.name, true); // true = user upload
                     hidePurchasePanel();
                 } else {
                     showToast('Please use FBX or GLB format', 3000);
