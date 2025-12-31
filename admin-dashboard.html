@@ -147,6 +147,10 @@
             background: var(--bg-secondary);
             border-right: 1px solid rgba(100, 116, 139, 0.1);
             padding: 24px;
+            position: sticky;
+            top: 81px;
+            height: calc(100vh - 81px);
+            overflow-y: auto;
         }
 
         .nav-section {
@@ -194,7 +198,6 @@
         .main-content {
             flex: 1;
             padding: 40px;
-            overflow-y: auto;
         }
 
         .page-header {
@@ -936,6 +939,16 @@
                         <span>User Management</span>
                     </div>
                 </div>
+                
+                <div class="nav-section">
+                    <div class="nav-title">Tools</div>
+                    <div class="nav-item" onclick="showPage('gif-converter')">
+                        <svg class="nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        <span>GIF Converter</span>
+                    </div>
+                </div>
             </aside>
 
             <!-- Main Content -->
@@ -1442,6 +1455,101 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- GIF Converter Page -->
+                <div id="gifConverterPage" class="page hidden">
+                    <div class="page-header">
+                        <h1 class="page-title">GIF Converter</h1>
+                        <p class="page-subtitle">Convert GLB/FBX animations to GIF thumbnails</p>
+                    </div>
+
+                    <div class="content-card">
+                        <h2 class="card-title">Upload Animations</h2>
+                        
+                        <!-- Drop Zone -->
+                        <div id="gifDropZone" style="border: 2px dashed rgba(126, 211, 33, 0.3); border-radius: 12px; padding: 40px; text-align: center; cursor: pointer; transition: all 0.3s; margin-bottom: 24px;">
+                            <img src="pnut.jpg" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 50%; object-fit: cover;">
+                            <p style="color: var(--text-primary); margin-bottom: 8px;">Drag & drop GLB or FBX files here</p>
+                            <p style="color: var(--text-muted); font-size: 14px;">Add up to 20 files at once HELLLLL YEAHHHHHH!! 🔥</p>
+                            <input type="file" id="gifFileInput" accept=".glb,.fbx,.gltf" multiple style="display: none;">
+                        </div>
+
+                        <!-- Background Option -->
+                        <div class="form-group" style="margin-bottom: 24px; max-width: 200px;">
+                            <label class="form-label">Background Color</label>
+                            <select class="form-input" id="gifBackground">
+                                <option value="#0a0a0a" selected>Dark (#0a0a0a)</option>
+                                <option value="#000000">Black</option>
+                                <option value="#ffffff">White</option>
+                                <option value="#1a1a2e">Navy</option>
+                                <option value="#0f0f0f">Near Black</option>
+                            </select>
+                        </div>
+
+                        <!-- File Queue -->
+                        <div id="gifQueue" style="display: none; margin-bottom: 24px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <h3 style="color: var(--text-primary); margin: 0;">Upload Queue</h3>
+                                <div style="display: flex; gap: 12px;">
+                                    <button type="button" class="btn btn-secondary" onclick="clearGifQueue()">Clear All</button>
+                                    <button type="button" class="btn btn-primary" id="convertAllBtn" onclick="convertAllGifs()">
+                                        <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                        </svg>
+                                        Convert All
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div id="gifQueueList" style="display: flex; flex-direction: column; gap: 12px;"></div>
+                        </div>
+
+                        <!-- Batch Progress -->
+                        <div id="batchProgress" style="display: none; margin-bottom: 24px;">
+                            <div style="background: rgba(126, 211, 33, 0.1); border: 1px solid rgba(126, 211, 33, 0.2); border-radius: 12px; padding: 20px;">
+                                <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+                                    <div class="gif-loader" style="width: 40px; height: 40px; border: 3px solid rgba(126, 211, 33, 0.2); border-top-color: var(--green); border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                                    <div>
+                                        <div id="batchProgressLabel" style="color: var(--text-primary); font-weight: 500;">Starting conversion...</div>
+                                        <div id="batchProgressDetail" style="color: var(--text-muted); font-size: 13px; margin-top: 4px;">Preparing files...</div>
+                                    </div>
+                                    <div style="margin-left: auto; text-align: right;">
+                                        <div id="batchProgressPercent" style="color: var(--green); font-size: 24px; font-weight: 600;">0%</div>
+                                        <div id="batchProgressCount" style="color: var(--text-muted); font-size: 13px;">0/0 files</div>
+                                    </div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); border-radius: 4px; height: 8px; overflow: hidden;">
+                                    <div id="batchProgressBar" style="background: linear-gradient(90deg, var(--green), #9be654); height: 100%; width: 0%; transition: width 0.3s; position: relative;">
+                                        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: shimmer 1.5s infinite;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <style>
+                                @keyframes spin { to { transform: rotate(360deg); } }
+                                @keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+                            </style>
+                        </div>
+
+                        <!-- Hidden Preview Canvas -->
+                        <div id="gifPreviewContainer" style="width: 400px; height: 400px; position: absolute; left: -9999px; background: #0a0a0a;">
+                            <div id="gifPreviewPlaceholder"></div>
+                        </div>
+
+                        <!-- Results -->
+                        <div id="gifResults" style="display: none;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <h3 style="color: var(--text-primary); margin: 0;">Generated GIFs</h3>
+                                <button type="button" class="btn btn-primary" onclick="downloadAllGifs()">
+                                    <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+                                    Download All
+                                </button>
+                            </div>
+                            <div id="gifResultsList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px;"></div>
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
     </div>
@@ -1720,7 +1828,8 @@
                 'carousel': 'carouselPage',
                 'tags': 'tagsPage',
                 'offers': 'offersPage',
-                'users': 'usersPage'
+                'users': 'usersPage',
+                'gif-converter': 'gifConverterPage'
             };
             
             document.getElementById(pageMap[pageName]).classList.remove('hidden');
@@ -2728,6 +2837,525 @@
 
         // Initialize app
         init();
+    </script>
+
+    <!-- GIF Converter Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.js"></script>
+    <script type="module">
+        import * as THREE from 'https://esm.sh/three@0.160.0';
+        import { GLTFLoader } from 'https://esm.sh/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+        import { FBXLoader } from 'https://esm.sh/three@0.160.0/examples/jsm/loaders/FBXLoader.js';
+        import { OrbitControls } from 'https://esm.sh/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+
+        // Bulk queue state
+        let gifQueue = [];
+        let gifResults = [];
+        let gifWorkerBlob = null;
+
+        // Fetch and create worker blob for local file support
+        async function initGifWorker() {
+            try {
+                const response = await fetch('https://cdnjs.cloudflare.com/ajax/libs/gif.js/0.2.0/gif.worker.js');
+                const text = await response.text();
+                gifWorkerBlob = URL.createObjectURL(new Blob([text], { type: 'application/javascript' }));
+            } catch (e) {
+                console.warn('Could not fetch GIF worker, using default');
+            }
+        }
+
+        // Initialize GIF Converter
+        async function initGifConverter() {
+            await initGifWorker();
+            
+            const dropZone = document.getElementById('gifDropZone');
+            const fileInput = document.getElementById('gifFileInput');
+            
+            if (!dropZone || !fileInput) return;
+            
+            dropZone.addEventListener('click', () => fileInput.click());
+            
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.style.borderColor = 'var(--green)';
+                dropZone.style.background = 'rgba(126, 211, 33, 0.1)';
+            });
+            
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.style.borderColor = 'rgba(126, 211, 33, 0.3)';
+                dropZone.style.background = 'transparent';
+            });
+            
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.style.borderColor = 'rgba(126, 211, 33, 0.3)';
+                dropZone.style.background = 'transparent';
+                
+                const files = Array.from(e.dataTransfer.files).filter(f => 
+                    f.name.endsWith('.glb') || f.name.endsWith('.fbx') || f.name.endsWith('.gltf')
+                );
+                if (files.length > 0) addFilesToQueue(files);
+            });
+            
+            fileInput.addEventListener('change', (e) => {
+                const files = Array.from(e.target.files);
+                if (files.length > 0) addFilesToQueue(files);
+                fileInput.value = '';
+            });
+            
+            // Update all preview backgrounds when color changes
+            document.getElementById('gifBackground').addEventListener('change', (e) => {
+                const color = e.target.value;
+                // Update all Three.js scenes
+                gifQueue.forEach(item => {
+                    if (item.scene) {
+                        item.scene.background = new THREE.Color(color);
+                    }
+                });
+                // Update preview container CSS backgrounds
+                document.querySelectorAll('.item-preview').forEach(el => {
+                    el.style.background = color;
+                });
+            });
+        }
+
+        // Add files to queue
+        async function addFilesToQueue(files) {
+            document.getElementById('gifQueue').style.display = 'block';
+            
+            for (const file of files) {
+                const id = Date.now() + Math.random();
+                const item = {
+                    id,
+                    file,
+                    name: file.name.replace(/\.(glb|fbx|gltf)$/i, ''),
+                    status: 'loading',
+                    scene: null,
+                    camera: null,
+                    renderer: null,
+                    controls: null,
+                    mixer: null,
+                    duration: 2,
+                    blob: null
+                };
+                
+                gifQueue.push(item);
+                renderQueueItem(item);
+                await setupItemPreview(item);
+            }
+        }
+
+        // Render queue item card
+        function renderQueueItem(item) {
+            const list = document.getElementById('gifQueueList');
+            
+            const card = document.createElement('div');
+            card.id = `queue-item-${item.id}`;
+            card.style.cssText = 'background: rgba(255,255,255,0.05); border-radius: 12px; padding: 16px; display: flex; gap: 16px; align-items: flex-start;';
+            
+            card.innerHTML = `
+                <div class="item-preview" style="width: 250px; height: 250px; background: ${document.getElementById('gifBackground').value}; border-radius: 8px; overflow: hidden; flex-shrink: 0;">
+                    <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                        <div class="spinner"></div>
+                    </div>
+                </div>
+                <div style="flex: 1; min-width: 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+                        <div>
+                            <h4 style="color: var(--text-primary); margin: 0 0 4px 0; word-break: break-all;">${item.name}</h4>
+                            <p class="item-status" style="color: var(--text-muted); font-size: 13px; margin: 0;">Loading...</p>
+                        </div>
+                        <button onclick="removeFromQueue(${item.id})" style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px;">
+                            <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="item-controls" style="display: none; gap: 6px; flex-wrap: wrap;">
+                        <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="setItemAngle(${item.id}, 0)">Front</button>
+                        <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="setItemAngle(${item.id}, 45)">45°</button>
+                        <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="setItemAngle(${item.id}, 90)">Side</button>
+                        <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="setItemAngle(${item.id}, 135)">135°</button>
+                        <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="setItemAngle(${item.id}, 180)">Back</button>
+                        <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="zoomInItem(${item.id})">+</button>
+                        <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="zoomOutItem(${item.id})">-</button>
+                        <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 11px;" onclick="resetItemCamera(${item.id})">Reset</button>
+                    </div>
+                </div>
+            `;
+            
+            list.appendChild(card);
+        }
+
+        // Setup preview for queue item
+        async function setupItemPreview(item) {
+            const card = document.getElementById(`queue-item-${item.id}`);
+            const previewContainer = card.querySelector('.item-preview');
+            const statusEl = card.querySelector('.item-status');
+            const controlsEl = card.querySelector('.item-controls');
+            
+            // Create Three.js scene for this item
+            const scene = new THREE.Scene();
+            const bgColor = document.getElementById('gifBackground').value;
+            scene.background = new THREE.Color(bgColor);
+            
+            const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+            camera.position.set(0, 1.5, 4);
+            
+            const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+            renderer.setSize(250, 250);
+            renderer.setPixelRatio(1);
+            renderer.outputColorSpace = THREE.SRGBColorSpace;
+            renderer.toneMapping = THREE.ACESFilmicToneMapping;
+            renderer.toneMappingExposure = 1.2;
+            
+            // Lighting
+            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+            const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+            hemiLight.position.set(0, 20, 0);
+            scene.add(hemiLight);
+            const dirLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            dirLight.position.set(5, 10, 7);
+            scene.add(dirLight);
+            const backLight = new THREE.DirectionalLight(0x7ED321, 0.4);
+            backLight.position.set(-5, 5, -5);
+            scene.add(backLight);
+            
+            // Controls
+            const controls = new OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.target.set(0, 1, 0);
+            
+            item.scene = scene;
+            item.camera = camera;
+            item.renderer = renderer;
+            item.controls = controls;
+            
+            // Load model
+            const url = URL.createObjectURL(item.file);
+            const ext = item.file.name.split('.').pop().toLowerCase();
+            const loader = ext === 'fbx' ? new FBXLoader() : new GLTFLoader();
+            
+            try {
+                const result = await new Promise((resolve, reject) => {
+                    loader.load(url, resolve, undefined, reject);
+                });
+                
+                const model = ext === 'fbx' ? result : result.scene;
+                const anims = result.animations || [];
+                
+                model.traverse(child => {
+                    if (child.isMesh) {
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                        child.frustumCulled = false;
+                    }
+                });
+                
+                // Center and scale
+                const box = new THREE.Box3().setFromObject(model);
+                const center = box.getCenter(new THREE.Vector3());
+                const size = box.getSize(new THREE.Vector3());
+                
+                model.position.x = -center.x;
+                model.position.z = -center.z;
+                model.position.y = -box.min.y;
+                
+                const maxDim = Math.max(size.x, size.y, size.z);
+                if (maxDim > 2) {
+                    model.scale.setScalar(2 / maxDim);
+                }
+                
+                scene.add(model);
+                item.model = model;
+                
+                // Animation
+                if (anims.length > 0) {
+                    item.duration = anims[0].duration;
+                    item.mixer = new THREE.AnimationMixer(model);
+                    item.animations = anims;
+                    const action = item.mixer.clipAction(anims[0]);
+                    action.play();
+                }
+                
+                // Show preview
+                previewContainer.innerHTML = '';
+                previewContainer.appendChild(renderer.domElement);
+                
+                item.status = 'ready';
+                statusEl.textContent = `Ready - ${item.duration.toFixed(1)}s`;
+                statusEl.style.color = 'var(--green)';
+                controlsEl.style.display = 'flex';
+                
+                // Start animation loop for this item
+                const clock = new THREE.Clock();
+                item.clock = clock;
+                
+                function animate() {
+                    if (!item.renderer) return;
+                    item.animId = requestAnimationFrame(animate);
+                    const delta = clock.getDelta();
+                    if (item.mixer) item.mixer.update(delta);
+                    controls.update();
+                    renderer.render(scene, camera);
+                }
+                animate();
+                
+                URL.revokeObjectURL(url);
+                
+            } catch (error) {
+                console.error('Error loading:', error);
+                item.status = 'error';
+                statusEl.textContent = 'Error loading file';
+                statusEl.style.color = '#ef4444';
+            }
+        }
+
+        // Remove from queue
+        window.removeFromQueue = function(id) {
+            const idx = gifQueue.findIndex(i => i.id === id);
+            if (idx > -1) {
+                const item = gifQueue[idx];
+                if (item.animId) cancelAnimationFrame(item.animId);
+                if (item.renderer) item.renderer.dispose();
+                gifQueue.splice(idx, 1);
+            }
+            document.getElementById(`queue-item-${id}`)?.remove();
+            
+            if (gifQueue.length === 0) {
+                document.getElementById('gifQueue').style.display = 'none';
+            }
+        };
+
+        // Clear queue
+        window.clearGifQueue = function() {
+            gifQueue.forEach(item => {
+                if (item.animId) cancelAnimationFrame(item.animId);
+                if (item.renderer) item.renderer.dispose();
+            });
+            gifQueue = [];
+            document.getElementById('gifQueueList').innerHTML = '';
+            document.getElementById('gifQueue').style.display = 'none';
+        };
+
+        // Camera controls for items
+        window.setItemAngle = function(id, degrees) {
+            const item = gifQueue.find(i => i.id === id);
+            if (item) {
+                const radians = degrees * (Math.PI / 180);
+                const distance = item.camera.position.length();
+                const height = item.camera.position.y;
+                
+                item.camera.position.x = Math.sin(radians) * distance * 0.8;
+                item.camera.position.z = Math.cos(radians) * distance * 0.8;
+                item.camera.position.y = height;
+                item.controls.update();
+            }
+        };
+
+        window.resetItemCamera = function(id) {
+            const item = gifQueue.find(i => i.id === id);
+            if (item) {
+                item.camera.position.set(0, 1.5, 4);
+                item.controls.target.set(0, 1, 0);
+                item.controls.update();
+            }
+        };
+
+        window.zoomInItem = function(id) {
+            const item = gifQueue.find(i => i.id === id);
+            if (item) {
+                item.camera.position.multiplyScalar(0.8);
+                item.controls.update();
+            }
+        };
+
+        window.zoomOutItem = function(id) {
+            const item = gifQueue.find(i => i.id === id);
+            if (item) {
+                item.camera.position.multiplyScalar(1.25);
+                item.controls.update();
+            }
+        };
+
+        // Convert all GIFs
+        window.convertAllGifs = async function() {
+            const readyItems = gifQueue.filter(i => i.status === 'ready');
+            if (readyItems.length === 0) return;
+            
+            const bgColor = document.getElementById('gifBackground').value;
+            
+            document.getElementById('batchProgress').style.display = 'block';
+            document.getElementById('convertAllBtn').disabled = true;
+            document.getElementById('batchProgressPercent').textContent = '0%';
+            document.getElementById('batchProgressCount').textContent = `0/${readyItems.length} files`;
+            document.getElementById('batchProgressLabel').textContent = 'Starting conversion...';
+            document.getElementById('batchProgressDetail').textContent = 'Preparing files...';
+            
+            gifResults = [];
+            
+            for (let i = 0; i < readyItems.length; i++) {
+                const item = readyItems[i];
+                const overallPercent = Math.round((i / readyItems.length) * 100);
+                
+                // Update progress
+                document.getElementById('batchProgressLabel').textContent = `Converting: ${item.name}`;
+                document.getElementById('batchProgressDetail').textContent = 'Capturing frames...';
+                document.getElementById('batchProgressPercent').textContent = `${overallPercent}%`;
+                document.getElementById('batchProgressCount').textContent = `${i + 1}/${readyItems.length} files`;
+                document.getElementById('batchProgressBar').style.width = `${overallPercent}%`;
+                
+                // Update item status
+                const card = document.getElementById(`queue-item-${item.id}`);
+                const statusEl = card.querySelector('.item-status');
+                statusEl.innerHTML = '<span style="display: inline-flex; align-items: center; gap: 6px;"><span class="mini-spinner" style="width: 12px; height: 12px; border: 2px solid rgba(126, 211, 33, 0.2); border-top-color: var(--green); border-radius: 50%; animation: spin 1s linear infinite;"></span> Converting...</span>';
+                statusEl.style.color = 'var(--amber)';
+                
+                try {
+                    const blob = await convertItemToGif(item, bgColor, (phase, frameProgress) => {
+                        // Update detail text during conversion
+                        if (phase === 'capturing') {
+                            document.getElementById('batchProgressDetail').textContent = `Capturing frame ${frameProgress}...`;
+                        } else if (phase === 'encoding') {
+                            document.getElementById('batchProgressDetail').textContent = `Encoding GIF... ${frameProgress}%`;
+                        }
+                    });
+                    gifResults.push({ name: item.name, blob, url: URL.createObjectURL(blob) });
+                    
+                    statusEl.textContent = '✓ Done!';
+                    statusEl.style.color = 'var(--green)';
+                } catch (error) {
+                    console.error('Convert error:', error);
+                    statusEl.textContent = '✗ Failed';
+                    statusEl.style.color = '#ef4444';
+                }
+            }
+            
+            document.getElementById('batchProgressBar').style.width = '100%';
+            document.getElementById('batchProgressPercent').textContent = '100%';
+            document.getElementById('batchProgressLabel').textContent = '🎉 Complete!';
+            document.getElementById('batchProgressDetail').textContent = `Successfully converted ${gifResults.length} files`;
+            document.getElementById('convertAllBtn').disabled = false;
+            
+            // Show results
+            showResults();
+        };
+
+        // Convert single item to GIF
+        async function convertItemToGif(item, bgColor, onProgress) {
+            return new Promise(async (resolve, reject) => {
+                const width = 400;
+                const height = 400;
+                const fps = 30;
+                const frameCount = Math.ceil(item.duration * fps);
+                const delay = Math.round(1000 / fps);
+                
+                // Resize renderer
+                item.renderer.setSize(width, height);
+                item.camera.aspect = 1;
+                item.camera.updateProjectionMatrix();
+                
+                // Set background
+                item.scene.background = new THREE.Color(bgColor);
+                
+                // Stop animation loop
+                if (item.animId) cancelAnimationFrame(item.animId);
+                
+                // Create GIF
+                const gifOptions = {
+                    workers: 4,
+                    quality: 1,
+                    width,
+                    height,
+                    dither: false
+                };
+                if (gifWorkerBlob) gifOptions.workerScript = gifWorkerBlob;
+                
+                const gif = new GIF(gifOptions);
+                
+                // Reset animation
+                if (item.mixer) item.mixer.setTime(0);
+                
+                // Capture frames
+                const timeStep = item.duration / frameCount;
+                
+                for (let i = 0; i < frameCount; i++) {
+                    if (item.mixer) item.mixer.setTime(i * timeStep);
+                    item.renderer.render(item.scene, item.camera);
+                    gif.addFrame(item.renderer.domElement, { copy: true, delay });
+                    
+                    // Report progress
+                    if (onProgress) onProgress('capturing', `${i + 1}/${frameCount}`);
+                    
+                    await new Promise(r => setTimeout(r, 5));
+                }
+                
+                gif.on('progress', (p) => {
+                    if (onProgress) onProgress('encoding', Math.round(p * 100));
+                });
+                
+                gif.on('finished', (blob) => {
+                    // Reset renderer size
+                    item.renderer.setSize(250, 250);
+                    item.camera.aspect = 1;
+                    item.camera.updateProjectionMatrix();
+                    
+                    // Restart animation
+                    item.clock.getDelta();
+                    function animate() {
+                        if (!item.renderer) return;
+                        item.animId = requestAnimationFrame(animate);
+                        const delta = item.clock.getDelta();
+                        if (item.mixer) item.mixer.update(delta);
+                        item.controls.update();
+                        item.renderer.render(item.scene, item.camera);
+                    }
+                    animate();
+                    
+                    resolve(blob);
+                });
+                
+                gif.on('error', reject);
+                gif.render();
+            });
+        }
+
+        // Show results
+        function showResults() {
+            const resultsDiv = document.getElementById('gifResults');
+            const resultsList = document.getElementById('gifResultsList');
+            
+            resultsDiv.style.display = 'block';
+            resultsList.innerHTML = '';
+            
+            gifResults.forEach(result => {
+                const card = document.createElement('div');
+                card.style.cssText = 'background: rgba(255,255,255,0.05); border-radius: 8px; padding: 12px; text-align: center;';
+                card.innerHTML = `
+                    <img src="${result.url}" style="width: 100%; border-radius: 6px; margin-bottom: 8px;">
+                    <p style="color: var(--text-primary); font-size: 13px; margin: 0 0 8px 0; word-break: break-all;">${result.name}</p>
+                    <a href="${result.url}" download="${result.name}.gif" class="btn btn-secondary" style="width: 100%; padding: 6px 12px; font-size: 13px;">Download</a>
+                `;
+                resultsList.appendChild(card);
+            });
+        }
+
+        // Download all GIFs
+        window.downloadAllGifs = function() {
+            gifResults.forEach(result => {
+                const link = document.createElement('a');
+                link.href = result.url;
+                link.download = `${result.name}.gif`;
+                link.click();
+            });
+        };
+
+        // Initialize when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initGifConverter);
+        } else {
+            initGifConverter();
+        }
     </script>
 </body>
 </html>
