@@ -339,7 +339,7 @@
         /* Purchase Panel */
         .purchase-panel {
             position: fixed;
-            left: 20px;
+            right: 90px;
             bottom: 24px;
             z-index: 100;
             background: var(--glass-bg);
@@ -816,6 +816,145 @@
             padding: 12px;
         }
 
+        /* Lighting Panel */
+        .lighting-panel {
+            position: fixed;
+            right: 90px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 280px;
+            max-height: 80vh;
+            overflow-y: auto;
+            display: none;
+            z-index: 150;
+        }
+        
+        .lighting-panel.visible {
+            display: block;
+        }
+        
+        .lighting-section {
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .lighting-section:last-of-type {
+            border-bottom: none;
+        }
+        
+        .lighting-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+        
+        .lighting-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .lighting-row-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            min-width: 60px;
+        }
+        
+        .lighting-slider {
+            flex: 1;
+            height: 4px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        
+        .lighting-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+        
+        .lighting-value {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            min-width: 32px;
+            text-align: right;
+            font-family: 'Sora', monospace;
+        }
+        
+        .lighting-color {
+            width: 32px;
+            height: 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background: transparent;
+        }
+        
+        .lighting-color::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+        
+        .lighting-color::-webkit-color-swatch {
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+        
+        .lighting-presets {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        
+        .lighting-preset-btn {
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .lighting-preset-btn:hover {
+            background: rgba(126, 211, 33, 0.15);
+            border-color: var(--accent);
+            color: var(--text-white);
+        }
+        
+        .reset-defaults-btn {
+            width: 100%;
+            padding: 10px 12px;
+            margin-top: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-family: 'DM Sans', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .reset-defaults-btn:hover {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: #EF4444;
+            color: #EF4444;
+        }
+
         .tool-btn {
             width: 44px;
             height: 44px;
@@ -1231,7 +1370,8 @@
         body.fullscreen .tools-panel,
         body.fullscreen .info-panel,
         body.fullscreen .fps-counter,
-        body.fullscreen .purchase-panel {
+        body.fullscreen .purchase-panel,
+        body.fullscreen .lighting-panel {
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s;
@@ -1242,7 +1382,8 @@
         body.fullscreen:hover .tools-panel,
         body.fullscreen:hover .info-panel,
         body.fullscreen:hover .fps-counter,
-        body.fullscreen:hover .purchase-panel {
+        body.fullscreen:hover .purchase-panel,
+        body.fullscreen:hover .lighting-panel {
             opacity: 1;
             pointer-events: all;
         }
@@ -1271,7 +1412,7 @@
 
             .playback-btn { width: 36px; height: 36px; }
             .playback-btn.primary { width: 44px; height: 44px; }
-            .speed-control, .info-panel, .tools-panel, .fps-counter { display: none; }
+            .speed-control, .info-panel, .tools-panel, .fps-counter, .lighting-panel { display: none; }
             .header { padding: 12px 16px; }
             .section { display: none; }
             
@@ -1569,6 +1710,8 @@
                 <button class="camera-btn" data-view="reset">Reset</button>
             </div>
         </div>
+        
+        <button class="reset-defaults-btn" id="reset-options">↺ Reset All to Default</button>
     </div>
 
     <!-- Right Tools -->
@@ -1588,6 +1731,80 @@
         <button class="tool-btn" id="btn-postfx">
             ✨<span class="tooltip">Post FX (P)</span>
         </button>
+        <button class="tool-btn" id="btn-lighting">
+            🔆<span class="tooltip">Lighting</span>
+        </button>
+    </div>
+
+    <!-- Lighting Panel -->
+    <div class="panel lighting-panel" id="lighting-panel">
+        <div class="panel-title">Lighting</div>
+        
+        <div class="lighting-section">
+            <div class="lighting-label">Key Light</div>
+            <div class="lighting-row">
+                <span class="lighting-row-label">Intensity</span>
+                <input type="range" class="lighting-slider" id="key-intensity" min="0" max="3" step="0.1" value="1.5">
+                <span class="lighting-value" id="key-intensity-val">1.5</span>
+            </div>
+            <div class="lighting-row">
+                <span class="lighting-row-label">Height</span>
+                <input type="range" class="lighting-slider" id="key-height" min="0" max="20" step="0.5" value="10">
+                <span class="lighting-value" id="key-height-val">10</span>
+            </div>
+            <div class="lighting-row">
+                <span class="lighting-row-label">Angle</span>
+                <input type="range" class="lighting-slider" id="key-angle" min="0" max="360" step="5" value="45">
+                <span class="lighting-value" id="key-angle-val">45°</span>
+            </div>
+            <div class="lighting-row">
+                <span class="lighting-row-label">Color</span>
+                <input type="color" class="lighting-color" id="key-color" value="#ffffff">
+            </div>
+        </div>
+        
+        <div class="lighting-section">
+            <div class="lighting-label">Fill Light</div>
+            <div class="lighting-row">
+                <span class="lighting-row-label">Intensity</span>
+                <input type="range" class="lighting-slider" id="fill-intensity" min="0" max="2" step="0.1" value="0.2">
+                <span class="lighting-value" id="fill-intensity-val">0.2</span>
+            </div>
+            <div class="lighting-row">
+                <span class="lighting-row-label">Color</span>
+                <input type="color" class="lighting-color" id="fill-color" value="#4488ff">
+            </div>
+        </div>
+        
+        <div class="lighting-section">
+            <div class="lighting-label">Back Light</div>
+            <div class="lighting-row">
+                <span class="lighting-row-label">Intensity</span>
+                <input type="range" class="lighting-slider" id="back-intensity" min="0" max="2" step="0.1" value="0.4">
+                <span class="lighting-value" id="back-intensity-val">0.4</span>
+            </div>
+            <div class="lighting-row">
+                <span class="lighting-row-label">Color</span>
+                <input type="color" class="lighting-color" id="back-color" value="#7ED321">
+            </div>
+        </div>
+        
+        <div class="lighting-section">
+            <div class="lighting-label">Ambient</div>
+            <div class="lighting-row">
+                <span class="lighting-row-label">Intensity</span>
+                <input type="range" class="lighting-slider" id="ambient-intensity" min="0" max="2" step="0.1" value="0.5">
+                <span class="lighting-value" id="ambient-intensity-val">0.5</span>
+            </div>
+        </div>
+        
+        <div class="lighting-presets">
+            <button class="lighting-preset-btn" data-preset="studio">Studio</button>
+            <button class="lighting-preset-btn" data-preset="dramatic">Dramatic</button>
+            <button class="lighting-preset-btn" data-preset="soft">Soft</button>
+            <button class="lighting-preset-btn" data-preset="neon">Neon</button>
+        </div>
+        <button class="reset-defaults-btn" id="reset-lighting">↺ Reset to Default</button>
     </div>
 
     <!-- Timeline -->
@@ -2240,6 +2457,213 @@
             this.classList.toggle('active');
             postProcessingEnabled = this.classList.contains('active');
             showToast(postProcessingEnabled ? 'Post FX enabled' : 'Post FX disabled');
+        });
+
+        // Lighting Panel
+        const lightingPanel = document.getElementById('lighting-panel');
+        document.getElementById('btn-lighting').addEventListener('click', function() {
+            this.classList.toggle('active');
+            lightingPanel.classList.toggle('visible');
+        });
+
+        // Lighting Controls
+        document.getElementById('key-intensity').addEventListener('input', function() {
+            dirLight.intensity = parseFloat(this.value);
+            document.getElementById('key-intensity-val').textContent = this.value;
+        });
+
+        document.getElementById('key-height').addEventListener('input', function() {
+            const height = parseFloat(this.value);
+            const angle = parseFloat(document.getElementById('key-angle').value) * Math.PI / 180;
+            const radius = 8;
+            dirLight.position.set(
+                Math.cos(angle) * radius,
+                height,
+                Math.sin(angle) * radius
+            );
+            document.getElementById('key-height-val').textContent = this.value;
+        });
+
+        document.getElementById('key-angle').addEventListener('input', function() {
+            const angle = parseFloat(this.value) * Math.PI / 180;
+            const height = parseFloat(document.getElementById('key-height').value);
+            const radius = 8;
+            dirLight.position.set(
+                Math.cos(angle) * radius,
+                height,
+                Math.sin(angle) * radius
+            );
+            document.getElementById('key-angle-val').textContent = this.value + '°';
+        });
+
+        document.getElementById('key-color').addEventListener('input', function() {
+            dirLight.color.set(this.value);
+        });
+
+        document.getElementById('fill-intensity').addEventListener('input', function() {
+            fillLight.intensity = parseFloat(this.value);
+            document.getElementById('fill-intensity-val').textContent = this.value;
+        });
+
+        document.getElementById('fill-color').addEventListener('input', function() {
+            fillLight.color.set(this.value);
+        });
+
+        document.getElementById('back-intensity').addEventListener('input', function() {
+            backLight.intensity = parseFloat(this.value);
+            document.getElementById('back-intensity-val').textContent = this.value;
+        });
+
+        document.getElementById('back-color').addEventListener('input', function() {
+            backLight.color.set(this.value);
+        });
+
+        document.getElementById('ambient-intensity').addEventListener('input', function() {
+            ambientLight.intensity = parseFloat(this.value);
+            document.getElementById('ambient-intensity-val').textContent = this.value;
+        });
+
+        // Lighting Presets
+        document.querySelectorAll('.lighting-preset-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const preset = this.dataset.preset;
+                applyLightingPreset(preset);
+            });
+        });
+
+        function applyLightingPreset(preset) {
+            const presets = {
+                studio: {
+                    key: { intensity: 1.5, height: 10, angle: 45, color: '#ffffff' },
+                    fill: { intensity: 0.3, color: '#aabbff' },
+                    back: { intensity: 0.4, color: '#ffffff' },
+                    ambient: 0.5
+                },
+                dramatic: {
+                    key: { intensity: 2.5, height: 8, angle: 30, color: '#ffddaa' },
+                    fill: { intensity: 0.1, color: '#334466' },
+                    back: { intensity: 0.8, color: '#ff6633' },
+                    ambient: 0.2
+                },
+                soft: {
+                    key: { intensity: 0.8, height: 15, angle: 60, color: '#ffffff' },
+                    fill: { intensity: 0.5, color: '#ffffff' },
+                    back: { intensity: 0.3, color: '#aaddff' },
+                    ambient: 0.8
+                },
+                neon: {
+                    key: { intensity: 1.2, height: 6, angle: 0, color: '#ff00ff' },
+                    fill: { intensity: 0.6, color: '#00ffff' },
+                    back: { intensity: 1.0, color: '#7ED321' },
+                    ambient: 0.3
+                }
+            };
+
+            const p = presets[preset];
+            if (!p) return;
+
+            // Apply key light
+            dirLight.intensity = p.key.intensity;
+            dirLight.color.set(p.key.color);
+            const angle = p.key.angle * Math.PI / 180;
+            dirLight.position.set(Math.cos(angle) * 8, p.key.height, Math.sin(angle) * 8);
+
+            // Apply fill light
+            fillLight.intensity = p.fill.intensity;
+            fillLight.color.set(p.fill.color);
+
+            // Apply back light
+            backLight.intensity = p.back.intensity;
+            backLight.color.set(p.back.color);
+
+            // Apply ambient
+            ambientLight.intensity = p.ambient;
+
+            // Update UI
+            document.getElementById('key-intensity').value = p.key.intensity;
+            document.getElementById('key-intensity-val').textContent = p.key.intensity;
+            document.getElementById('key-height').value = p.key.height;
+            document.getElementById('key-height-val').textContent = p.key.height;
+            document.getElementById('key-angle').value = p.key.angle;
+            document.getElementById('key-angle-val').textContent = p.key.angle + '°';
+            document.getElementById('key-color').value = p.key.color;
+
+            document.getElementById('fill-intensity').value = p.fill.intensity;
+            document.getElementById('fill-intensity-val').textContent = p.fill.intensity;
+            document.getElementById('fill-color').value = p.fill.color;
+
+            document.getElementById('back-intensity').value = p.back.intensity;
+            document.getElementById('back-intensity-val').textContent = p.back.intensity;
+            document.getElementById('back-color').value = p.back.color;
+
+            document.getElementById('ambient-intensity').value = p.ambient;
+            document.getElementById('ambient-intensity-val').textContent = p.ambient;
+
+            showToast(`${preset.charAt(0).toUpperCase() + preset.slice(1)} lighting applied`);
+        }
+
+        // Reset Lighting to Default
+        document.getElementById('reset-lighting').addEventListener('click', function() {
+            // Default lighting values
+            dirLight.intensity = 1.5;
+            dirLight.color.set('#ffffff');
+            dirLight.position.set(5, 10, 7);
+
+            fillLight.intensity = 0.2;
+            fillLight.color.set('#4488ff');
+
+            backLight.intensity = 0.4;
+            backLight.color.set('#7ED321');
+
+            ambientLight.intensity = 0.5;
+
+            // Reset UI
+            document.getElementById('key-intensity').value = 1.5;
+            document.getElementById('key-intensity-val').textContent = '1.5';
+            document.getElementById('key-height').value = 10;
+            document.getElementById('key-height-val').textContent = '10';
+            document.getElementById('key-angle').value = 45;
+            document.getElementById('key-angle-val').textContent = '45°';
+            document.getElementById('key-color').value = '#ffffff';
+
+            document.getElementById('fill-intensity').value = 0.2;
+            document.getElementById('fill-intensity-val').textContent = '0.2';
+            document.getElementById('fill-color').value = '#4488ff';
+
+            document.getElementById('back-intensity').value = 0.4;
+            document.getElementById('back-intensity-val').textContent = '0.4';
+            document.getElementById('back-color').value = '#7ED321';
+
+            document.getElementById('ambient-intensity').value = 0.5;
+            document.getElementById('ambient-intensity-val').textContent = '0.5';
+
+            showToast('Lighting reset to default');
+        });
+
+        // Reset Options Panel to Default
+        document.getElementById('reset-options').addEventListener('click', function() {
+            // Post Processing defaults
+            bloomPass.strength = 0.3;
+            document.getElementById('slider-bloom').value = 0.3;
+            document.getElementById('bloom-value').textContent = '0.3';
+
+            vignettePass.uniforms.darkness.value = 0.4;
+            document.getElementById('slider-vignette').value = 0.4;
+            document.getElementById('vignette-value').textContent = '0.4';
+
+            renderer.toneMappingExposure = 1.2;
+            document.getElementById('slider-exposure').value = 1.2;
+            document.getElementById('exposure-value').textContent = '1.2';
+
+            // Retarget Preview defaults
+            document.getElementById('slider-height').value = 100;
+            document.getElementById('height-value').textContent = '100%';
+            document.getElementById('slider-arms').value = 100;
+            document.getElementById('arms-value').textContent = '100%';
+            document.getElementById('slider-legs').value = 100;
+            document.getElementById('legs-value').textContent = '100%';
+
+            showToast('Options reset to default');
         });
 
         // Screenshot
