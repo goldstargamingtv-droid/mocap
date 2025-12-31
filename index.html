@@ -2060,30 +2060,19 @@
             pointer-events: none;
         }
 
-        /* Floating shapes - animated gradient blobs */
+        /* Floating shapes - animated gradient blobs (hidden to reduce visual noise) */
         .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            animation: float 8s ease-in-out infinite;
-            z-index: 3;
+            display: none;
         }
-
-        .shape-1 {
-            top: 20%;
-            left: 15%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(0, 0, 0, 0.4), transparent);
+        
+        /* Hero badge hidden to reduce visual noise */
+        .hero-badge {
+            display: none !important;
         }
-
-        .shape-2 {
-            bottom: 20%;
-            right: 15%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(0, 0, 0, 0.4), transparent);
-            animation-delay: 4s;
+        
+        /* Trust badge hidden to reduce visual noise */
+        .hero-content > .trust-badge {
+            display: none !important;
         }
 
         .hero-content {
@@ -2190,20 +2179,23 @@
             flex-direction: row;
             align-items: center;
             text-align: left;
-            padding: 12px 18px;
-            background: rgba(10, 10, 10, 0.6);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50px;
+            padding: 8px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 0;
             gap: 12px;
             position: relative;
-            backdrop-filter: blur(10px);
-            overflow: hidden;
+        }
+        
+        /* Hide the glow blob in hero steps */
+        .hero-step .panel-glow-blob {
+            display: none;
         }
         
         .hero-step-icon {
             width: 36px;
             height: 36px;
-            background: rgba(126, 211, 33, 0.1);
+            background: rgba(126, 211, 33, 0.15);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -2268,7 +2260,7 @@
             }
             
             .hero-step {
-                padding: 10px 14px;
+                padding: 6px 8px;
             }
             
             .hero-step-connector {
@@ -2378,7 +2370,7 @@
             transform-origin: center;
             transform-style: preserve-3d;
             transform: translateZ(-200px) rotateY(0);
-            animation: carouselRotate 18s infinite cubic-bezier(0.77, 0, 0.175, 1) forwards;
+            animation: carouselRotate 84s linear infinite;
         }
 
         .carousel-track.paused {
@@ -2418,16 +2410,10 @@
         .carousel-item:nth-child(6) { transform: rotateY(257.14deg) translateZ(280px); }
         .carousel-item:nth-child(7) { transform: rotateY(308.57deg) translateZ(280px); }
 
-        /* Carousel rotation animation - 7 stops for 7 items */
+        /* Carousel rotation animation - 7 items, 12s each = 84s total, continuous rotation */
         @keyframes carouselRotate {
-            0%, 10%      { transform: translateZ(-280px) rotateY(0deg); }
-            14.28%, 24.28%  { transform: translateZ(-280px) rotateY(-51.43deg); }
-            28.57%, 38.57%  { transform: translateZ(-280px) rotateY(-102.86deg); }
-            42.86%, 52.86%  { transform: translateZ(-280px) rotateY(-154.29deg); }
-            57.14%, 67.14%  { transform: translateZ(-280px) rotateY(-205.71deg); }
-            71.43%, 81.43%  { transform: translateZ(-280px) rotateY(-257.14deg); }
-            85.71%, 95.71%  { transform: translateZ(-280px) rotateY(-308.57deg); }
-            100%         { transform: translateZ(-280px) rotateY(-360deg); }
+            0%      { transform: translateZ(-280px) rotateY(0deg); }
+            100%    { transform: translateZ(-280px) rotateY(-360deg); }
         }
 
         .carousel-item-content {
@@ -7438,6 +7424,30 @@
                 <span>Instant download with <span style="color: var(--amber); font-weight: 600;">royalty-free</span> licenses</span>
             </div>
             
+            <div class="hero-buttons">
+                <a href="#library" class="btn-cta">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                    Browse Library
+                </a>
+                <a href="viewer.html" class="btn-cta">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                        <line x1="12" y1="22.08" x2="12" y2="12"/>
+                    </svg>
+                    Free 3D Viewer
+                </a>
+                <a href="#" onclick="showAuthModal('signup'); return false;" class="btn-cta">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    Get Started Free
+                </a>
+            </div>
+            
             <!-- 3-Step Process -->
             <div class="hero-steps">
                 <div class="hero-step panel-glow">
@@ -7503,88 +7513,6 @@
                 <img src="unreal-white.svg" alt="Unreal Engine" class="platform-logo">
                 <img src="unity-white.svg" alt="Unity" class="platform-logo">
                 <img src="blender-white.svg" alt="Blender" class="platform-logo">
-            </div>
-            
-            <div class="hero-buttons">
-                <a href="#library" class="btn-cta">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                    </svg>
-                    Browse Library
-                </a>
-                <a href="viewer.html" class="btn-cta">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                        <line x1="12" y1="22.08" x2="12" y2="12"/>
-                    </svg>
-                    Free 3D Viewer
-                </a>
-                <a href="#" onclick="showAuthModal('signup'); return false;" class="btn-cta">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
-                    Get Started Free
-                </a>
-            </div>
-            
-            <!-- CTA Strip Banner -->
-            <div class="cta-strip-banner panel-glow" style="margin: 24px auto 4px; border-radius: 16px; max-width: 1400px; width: calc(100% - 40px);">
-                <div class="panel-glow-blob"></div>
-                <div class="cta-strip-content">
-                    <div class="cta-strip-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
-                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                        </svg>
-                    </div>
-                    <div class="cta-strip-text">
-                        <strong>Secure</strong> Checkout
-                    </div>
-                    <span class="cta-strip-divider">•</span>
-                    <div class="cta-strip-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                            <polyline points="7,10 12,15 17,10"/>
-                            <line x1="12" y1="15" x2="12" y2="3"/>
-                        </svg>
-                    </div>
-                    <div class="cta-strip-text">
-                        <strong>Instant</strong> Download
-                    </div>
-                    <span class="cta-strip-divider">•</span>
-                    <div class="cta-strip-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
-                            <line x1="9" y1="9" x2="9.01" y2="9"/>
-                            <line x1="15" y1="9" x2="15.01" y2="9"/>
-                        </svg>
-                    </div>
-                    <div class="cta-strip-text">
-                        <strong>100%</strong> Satisfaction
-                    </div>
-                    <span class="cta-strip-divider">•</span>
-                    <div class="cta-strip-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                        </svg>
-                    </div>
-                    <div class="cta-strip-text">
-                        <strong>Royalty-Free</strong> License
-                    </div>
-                    <span class="cta-strip-divider">•</span>
-                    <div class="cta-strip-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                            <polyline points="22,4 12,14.01 9,11.01"/>
-                        </svg>
-                    </div>
-                    <div class="cta-strip-text">
-                        <strong>Professional</strong> Quality
-                    </div>
-                </div>
             </div>
 
         </div>
@@ -7906,6 +7834,64 @@
                         Buy mocap animations and download immediately. No subscription required. 
                         Get lifetime access to your purchased motion capture files with unlimited re-downloads from your dashboard.
                     </p>
+                </div>
+            </div>
+            
+            <!-- CTA Strip Banner -->
+            <div class="cta-strip-banner panel-glow" style="margin: 48px auto 0; border-radius: 16px; max-width: 1400px; width: calc(100% - 40px);">
+                <div class="panel-glow-blob"></div>
+                <div class="cta-strip-content">
+                    <div class="cta-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <div class="cta-strip-text">
+                        <strong>Secure</strong> Checkout
+                    </div>
+                    <span class="cta-strip-divider">•</span>
+                    <div class="cta-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7,10 12,15 17,10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                        </svg>
+                    </div>
+                    <div class="cta-strip-text">
+                        <strong>Instant</strong> Download
+                    </div>
+                    <span class="cta-strip-divider">•</span>
+                    <div class="cta-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                            <line x1="9" y1="9" x2="9.01" y2="9"/>
+                            <line x1="15" y1="9" x2="15.01" y2="9"/>
+                        </svg>
+                    </div>
+                    <div class="cta-strip-text">
+                        <strong>100%</strong> Satisfaction
+                    </div>
+                    <span class="cta-strip-divider">•</span>
+                    <div class="cta-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                        </svg>
+                    </div>
+                    <div class="cta-strip-text">
+                        <strong>Royalty-Free</strong> License
+                    </div>
+                    <span class="cta-strip-divider">•</span>
+                    <div class="cta-strip-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cta-animated-icon">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22,4 12,14.01 9,11.01"/>
+                        </svg>
+                    </div>
+                    <div class="cta-strip-text">
+                        <strong>Professional</strong> Quality
+                    </div>
                 </div>
             </div>
         </div>
@@ -11996,9 +11982,10 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         // Carousel state
         let currentIndex = 0;
         let carouselInterval = null;
+        let totalRotation = 0; // Track cumulative rotation for continuous spinning
         const TOTAL_ITEMS = 7;
         const ROTATION_PER_ITEM = 360 / TOTAL_ITEMS; // 51.43 degrees
-        const AUTO_ROTATE_DELAY = 3000; // 3 seconds between rotations
+        const AUTO_ROTATE_DELAY = 12000; // 12 seconds between rotations
         
         // Carousel data (7 items) - will be loaded from database or use defaults
         let carouselData = [
@@ -12095,6 +12082,20 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             track.style.transform = `translateZ(-280px) rotateY(${rotation}deg)`;
             
             currentIndex = index;
+            totalRotation = rotation; // Sync totalRotation with current position
+        }
+        
+        // Rotate by one step (always same direction)
+        function rotateOneStep() {
+            const track = document.getElementById('carouselTrack');
+            if (!track) return;
+            
+            track.style.animation = 'none';
+            totalRotation -= ROTATION_PER_ITEM; // Always subtract (rotate same direction)
+            currentIndex = (currentIndex + 1) % TOTAL_ITEMS;
+            
+            track.style.transition = 'transform 0.6s cubic-bezier(0.77, 0, 0.175, 1)';
+            track.style.transform = `translateZ(-280px) rotateY(${totalRotation}deg)`;
         }
 
         // Start auto-rotation using setInterval
@@ -12106,8 +12107,7 @@ Focus on diversity while matching user preferences. Prioritize animations the us
             }
             
             carouselInterval = setInterval(() => {
-                const nextIndex = (currentIndex + 1) % TOTAL_ITEMS;
-                rotateToItem(nextIndex);
+                rotateOneStep();
             }, AUTO_ROTATE_DELAY);
             
         }
@@ -12123,16 +12123,22 @@ Focus on diversity while matching user preferences. Prioritize animations the us
         // Rotate to next item
         function rotateNext() {
             stopAutoRotation();
-            const nextIndex = (currentIndex + 1) % TOTAL_ITEMS;
-            rotateToItem(nextIndex);
+            rotateOneStep();
             startAutoRotation();
         }
 
         // Rotate to previous item
         function rotatePrev() {
             stopAutoRotation();
-            const prevIndex = (currentIndex - 1 + TOTAL_ITEMS) % TOTAL_ITEMS;
-            rotateToItem(prevIndex);
+            const track = document.getElementById('carouselTrack');
+            if (!track) return;
+            
+            track.style.animation = 'none';
+            totalRotation += ROTATION_PER_ITEM; // Add for reverse direction
+            currentIndex = (currentIndex - 1 + TOTAL_ITEMS) % TOTAL_ITEMS;
+            
+            track.style.transition = 'transform 0.6s cubic-bezier(0.77, 0, 0.175, 1)';
+            track.style.transform = `translateZ(-280px) rotateY(${totalRotation}deg)`;
             startAutoRotation();
         }
 
