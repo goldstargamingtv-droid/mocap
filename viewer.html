@@ -954,6 +954,268 @@
             border-color: #EF4444;
             color: #EF4444;
         }
+        
+        /* Retarget Panel */
+        .retarget-panel {
+            position: fixed;
+            right: 90px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 320px;
+            max-height: 85vh;
+            overflow-y: auto;
+            display: none;
+            z-index: 150;
+        }
+        
+        .retarget-panel.visible {
+            display: block;
+        }
+        
+        .retarget-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .retarget-close-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .retarget-close-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+        }
+        
+        .retarget-info-box {
+            background: rgba(126, 211, 33, 0.1);
+            border: 1px solid rgba(126, 211, 33, 0.2);
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 16px;
+        }
+        
+        .retarget-info-box p {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.4;
+        }
+        
+        .retarget-step {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .retarget-step:last-of-type {
+            border-bottom: none;
+        }
+        
+        .retarget-step-num {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .retarget-step-content {
+            flex: 1;
+        }
+        
+        .retarget-step-title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-white);
+            margin-bottom: 4px;
+        }
+        
+        .retarget-step-desc {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        
+        .retarget-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 6px;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #EF4444;
+        }
+        
+        .status-dot.ready {
+            background: var(--accent);
+        }
+        
+        #anim-status-text {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+        }
+        
+        .retarget-upload-btn {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.1), rgba(126, 211, 33, 0.05));
+            border: 1px dashed rgba(126, 211, 33, 0.4);
+            border-radius: 8px;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .retarget-upload-btn:hover {
+            background: linear-gradient(135deg, rgba(126, 211, 33, 0.2), rgba(126, 211, 33, 0.1));
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        
+        .retarget-upload-btn svg {
+            stroke: var(--accent);
+        }
+        
+        .retarget-active {
+            margin-top: 10px;
+        }
+        
+        .retarget-character-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 10px;
+            background: rgba(126, 211, 33, 0.15);
+            border: 1px solid rgba(126, 211, 33, 0.3);
+            border-radius: 6px;
+        }
+        
+        .retarget-character-name {
+            font-size: 0.7rem;
+            color: var(--accent);
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 200px;
+        }
+        
+        .retarget-remove-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        
+        .retarget-remove-btn:hover {
+            background: rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+        }
+        
+        .rig-select {
+            width: 100%;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-white);
+            font-size: 0.8rem;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+        
+        .rig-select:hover, .rig-select:focus {
+            border-color: var(--accent);
+        }
+        
+        .rig-select option {
+            background: var(--bg-primary);
+            color: var(--text-white);
+        }
+        
+        .retarget-debug {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .retarget-debug-title {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+        
+        .retarget-debug-content {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            font-family: 'Sora', monospace;
+            white-space: pre-wrap;
+            max-height: 100px;
+            overflow-y: auto;
+        }
+        
+        .retarget-apply-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--accent);
+            border: none;
+            border-radius: 8px;
+            color: var(--bg-primary);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .retarget-apply-btn:hover {
+            background: #8FE832;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(126, 211, 33, 0.4);
+        }
+        
+        .retarget-apply-btn:disabled {
+            background: rgba(126, 211, 33, 0.3);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
 
         .tool-btn {
             width: 44px;
@@ -1371,7 +1633,8 @@
         body.fullscreen .info-panel,
         body.fullscreen .fps-counter,
         body.fullscreen .purchase-panel,
-        body.fullscreen .lighting-panel {
+        body.fullscreen .lighting-panel,
+        body.fullscreen .retarget-panel {
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.3s;
@@ -1383,7 +1646,8 @@
         body.fullscreen:hover .info-panel,
         body.fullscreen:hover .fps-counter,
         body.fullscreen:hover .purchase-panel,
-        body.fullscreen:hover .lighting-panel {
+        body.fullscreen:hover .lighting-panel,
+        body.fullscreen:hover .retarget-panel {
             opacity: 1;
             pointer-events: all;
         }
@@ -1412,7 +1676,7 @@
 
             .playback-btn { width: 36px; height: 36px; }
             .playback-btn.primary { width: 44px; height: 44px; }
-            .speed-control, .info-panel, .tools-panel, .fps-counter, .lighting-panel { display: none; }
+            .speed-control, .info-panel, .tools-panel, .fps-counter, .lighting-panel, .retarget-panel { display: none; }
             .header { padding: 12px 16px; }
             .section { display: none; }
             
@@ -1655,9 +1919,9 @@
             </div>
         </div>
 
-        <!-- Retargeting -->
+        <!-- Retargeting Sliders -->
         <div class="section">
-            <div class="panel-title">Retarget Preview</div>
+            <div class="panel-title">Scale Adjustments</div>
             
             <div class="slider-container">
                 <div class="slider-header">
@@ -1734,6 +1998,9 @@
         <button class="tool-btn" id="btn-lighting">
             🔆<span class="tooltip">Lighting</span>
         </button>
+        <button class="tool-btn" id="btn-retarget">
+            🦴<span class="tooltip">Retarget (T)</span>
+        </button>
     </div>
 
     <!-- Lighting Panel -->
@@ -1805,6 +2072,82 @@
             <button class="lighting-preset-btn" data-preset="neon">Neon</button>
         </div>
         <button class="reset-defaults-btn" id="reset-lighting">↺ Reset to Default</button>
+    </div>
+
+    <!-- Retarget Panel -->
+    <div class="panel retarget-panel" id="retarget-panel">
+        <div class="retarget-panel-header">
+            <div class="panel-title">Retarget Tool</div>
+            <button class="retarget-close-btn" id="retarget-close-btn">✕</button>
+        </div>
+        
+        <div class="retarget-info-box">
+            <p>Preview animations on your own character before purchasing.</p>
+        </div>
+        
+        <div class="retarget-step">
+            <div class="retarget-step-num">1</div>
+            <div class="retarget-step-content">
+                <div class="retarget-step-title">Load an Animation</div>
+                <div class="retarget-step-desc">Use "Browse Library" or load your own GLB</div>
+                <div class="retarget-status" id="anim-status">
+                    <span class="status-dot" id="anim-status-dot"></span>
+                    <span id="anim-status-text">No animation loaded</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="retarget-step">
+            <div class="retarget-step-num">2</div>
+            <div class="retarget-step-content">
+                <div class="retarget-step-title">Upload Your Character</div>
+                <div class="retarget-step-desc">GLB/GLTF with a humanoid skeleton</div>
+                
+                <input type="file" id="character-file-input" accept=".glb,.gltf" style="display:none">
+                
+                <div class="retarget-upload-area" id="retarget-upload-area">
+                    <button class="retarget-upload-btn" id="upload-character-btn">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        Upload Character
+                    </button>
+                </div>
+                
+                <div class="retarget-active" id="retarget-active" style="display:none">
+                    <div class="retarget-character-info">
+                        <span class="retarget-character-name" id="retarget-character-name">Character.glb</span>
+                        <button class="retarget-remove-btn" id="remove-character-btn">✕</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="retarget-step">
+            <div class="retarget-step-num">3</div>
+            <div class="retarget-step-content">
+                <div class="retarget-step-title">Select Rig Type</div>
+                <div class="retarget-step-desc">Match your character's skeleton</div>
+                
+                <select id="rig-type-select" class="rig-select">
+                    <option value="auto">Auto-Detect</option>
+                    <option value="mixamo">Mixamo</option>
+                    <option value="ue5">UE5 Mannequin</option>
+                    <option value="humanik">HumanIK</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="retarget-debug" id="retarget-debug">
+            <div class="retarget-debug-title">Debug Info</div>
+            <div class="retarget-debug-content" id="retarget-debug-content">
+                Waiting for character...
+            </div>
+        </div>
+        
+        <button class="retarget-apply-btn" id="retarget-apply-btn">Apply Retargeting</button>
     </div>
 
     <!-- Timeline -->
@@ -2184,6 +2527,9 @@
                     
                     mixer = new THREE.AnimationMixer(currentModel);
                     buildAnimationUI();
+                    
+                    // Update retarget panel status
+                    if (typeof updateAnimStatus === 'function') updateAnimStatus();
 
                     if (animations.length > 0) {
                         playAnimation(0);
@@ -2268,6 +2614,13 @@
 
             infoDuration.textContent = clip.duration.toFixed(2) + 's';
             timelineTotal.textContent = formatTime(clip.duration);
+            
+            // Apply retargeting if user character is loaded
+            if (typeof userCharacter !== 'undefined' && userCharacter) {
+                setTimeout(() => {
+                    if (typeof applyRetargeting === 'function') applyRetargeting();
+                }, 250);
+            }
         }
 
         // Playback controls
@@ -2666,6 +3019,491 @@
             showToast('Options reset to default');
         });
 
+        // ============================================
+        // RETARGETING SYSTEM
+        // ============================================
+        
+        let userCharacter = null;
+        let userCharacterMixer = null;
+        let sourceSkeletonBones = {};
+        let targetSkeletonBones = {};
+        const debugContent = document.getElementById('retarget-debug-content');
+        const animStatusDot = document.getElementById('anim-status-dot');
+        const animStatusText = document.getElementById('anim-status-text');
+        
+        function logDebug(msg) {
+            console.log('[Retarget]', msg);
+            if (debugContent) {
+                debugContent.textContent = msg + '\n' + debugContent.textContent.slice(0, 500);
+            }
+        }
+        
+        // Update animation status
+        function updateAnimStatus() {
+            if (animations.length > 0 && currentModel) {
+                animStatusDot.classList.add('ready');
+                animStatusText.textContent = `${animations.length} animation(s) loaded`;
+            } else {
+                animStatusDot.classList.remove('ready');
+                animStatusText.textContent = 'No animation loaded';
+            }
+        }
+        
+        // Bone mapping presets
+        const boneMappings = {
+            mixamo: {
+                // Source (our animations) -> Target (Mixamo)
+                'Hips': 'mixamorigHips',
+                'Spine': 'mixamorigSpine',
+                'Spine1': 'mixamorigSpine1',
+                'Spine2': 'mixamorigSpine2',
+                'Neck': 'mixamorigNeck',
+                'Head': 'mixamorigHead',
+                'LeftShoulder': 'mixamorigLeftShoulder',
+                'LeftArm': 'mixamorigLeftArm',
+                'LeftForeArm': 'mixamorigLeftForeArm',
+                'LeftHand': 'mixamorigLeftHand',
+                'RightShoulder': 'mixamorigRightShoulder',
+                'RightArm': 'mixamorigRightArm',
+                'RightForeArm': 'mixamorigRightForeArm',
+                'RightHand': 'mixamorigRightHand',
+                'LeftUpLeg': 'mixamorigLeftUpLeg',
+                'LeftLeg': 'mixamorigLeftLeg',
+                'LeftFoot': 'mixamorigLeftFoot',
+                'LeftToeBase': 'mixamorigLeftToeBase',
+                'RightUpLeg': 'mixamorigRightUpLeg',
+                'RightLeg': 'mixamorigRightLeg',
+                'RightFoot': 'mixamorigRightFoot',
+                'RightToeBase': 'mixamorigRightToeBase'
+            },
+            ue5: {
+                'Hips': 'pelvis',
+                'Spine': 'spine_01',
+                'Spine1': 'spine_02',
+                'Spine2': 'spine_03',
+                'Neck': 'neck_01',
+                'Head': 'head',
+                'LeftShoulder': 'clavicle_l',
+                'LeftArm': 'upperarm_l',
+                'LeftForeArm': 'lowerarm_l',
+                'LeftHand': 'hand_l',
+                'RightShoulder': 'clavicle_r',
+                'RightArm': 'upperarm_r',
+                'RightForeArm': 'lowerarm_r',
+                'RightHand': 'hand_r',
+                'LeftUpLeg': 'thigh_l',
+                'LeftLeg': 'calf_l',
+                'LeftFoot': 'foot_l',
+                'LeftToeBase': 'ball_l',
+                'RightUpLeg': 'thigh_r',
+                'RightLeg': 'calf_r',
+                'RightFoot': 'foot_r',
+                'RightToeBase': 'ball_r'
+            },
+            humanik: {
+                'Hips': 'Hips',
+                'Spine': 'Spine',
+                'Spine1': 'Spine1',
+                'Spine2': 'Spine2',
+                'Neck': 'Neck',
+                'Head': 'Head',
+                'LeftShoulder': 'LeftShoulder',
+                'LeftArm': 'LeftArm',
+                'LeftForeArm': 'LeftForeArm',
+                'LeftHand': 'LeftHand',
+                'RightShoulder': 'RightShoulder',
+                'RightArm': 'RightArm',
+                'RightForeArm': 'RightForeArm',
+                'RightHand': 'RightHand',
+                'LeftUpLeg': 'LeftUpLeg',
+                'LeftLeg': 'LeftLeg',
+                'LeftFoot': 'LeftFoot',
+                'LeftToeBase': 'LeftToeBase',
+                'RightUpLeg': 'RightUpLeg',
+                'RightLeg': 'RightLeg',
+                'RightFoot': 'RightFoot',
+                'RightToeBase': 'RightToeBase'
+            }
+        };
+        
+        // Retarget Panel Toggle
+        const retargetPanel = document.getElementById('retarget-panel');
+        document.getElementById('btn-retarget').addEventListener('click', function() {
+            this.classList.toggle('active');
+            retargetPanel.classList.toggle('visible');
+            // Close lighting panel if open
+            lightingPanel.classList.remove('visible');
+            document.getElementById('btn-lighting').classList.remove('active');
+            updateAnimStatus();
+        });
+        
+        document.getElementById('retarget-close-btn').addEventListener('click', function() {
+            retargetPanel.classList.remove('visible');
+            document.getElementById('btn-retarget').classList.remove('active');
+        });
+        
+        // Character file input
+        const characterFileInput = document.getElementById('character-file-input');
+        const uploadCharacterBtn = document.getElementById('upload-character-btn');
+        const retargetUploadArea = document.getElementById('retarget-upload-area');
+        const retargetActive = document.getElementById('retarget-active');
+        const retargetCharacterName = document.getElementById('retarget-character-name');
+        const removeCharacterBtn = document.getElementById('remove-character-btn');
+        const rigTypeSelect = document.getElementById('rig-type-select');
+        const applyRetargetBtn = document.getElementById('retarget-apply-btn');
+        
+        uploadCharacterBtn.addEventListener('click', () => {
+            logDebug('Upload button clicked');
+            characterFileInput.click();
+        });
+        
+        characterFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                logDebug(`File selected: ${file.name}`);
+                loadUserCharacter(file);
+            }
+        });
+        
+        removeCharacterBtn.addEventListener('click', () => {
+            removeUserCharacter();
+        });
+        
+        rigTypeSelect.addEventListener('change', () => {
+            logDebug(`Rig type changed to: ${rigTypeSelect.value}`);
+        });
+        
+        applyRetargetBtn.addEventListener('click', () => {
+            if (userCharacter && animations.length > 0) {
+                applyRetargeting();
+            } else {
+                showToast('Load animation and character first');
+            }
+        });
+        
+        async function loadUserCharacter(file) {
+            const fileName = file.name;
+            const url = URL.createObjectURL(file);
+            
+            logDebug(`Loading character: ${fileName}`);
+            showToast('Loading character...');
+            
+            const loader = new GLTFLoader();
+            
+            loader.load(url, (gltf) => {
+                logDebug('GLTF loaded successfully');
+                
+                // Remove previous user character if exists
+                if (userCharacter) {
+                    scene.remove(userCharacter);
+                    logDebug('Removed previous character');
+                }
+                
+                userCharacter = gltf.scene;
+                
+                // Log scene contents
+                let meshCount = 0;
+                let boneCount = 0;
+                userCharacter.traverse(child => {
+                    if (child.isMesh) {
+                        meshCount++;
+                        child.castShadow = true;
+                        child.receiveShadow = true;
+                        child.frustumCulled = false;
+                    }
+                    if (child.isBone) boneCount++;
+                });
+                logDebug(`Found ${meshCount} meshes, ${boneCount} bones`);
+                
+                // Scale and position to match
+                const box = new THREE.Box3().setFromObject(userCharacter);
+                const size = box.getSize(new THREE.Vector3());
+                const center = box.getCenter(new THREE.Vector3());
+                
+                logDebug(`Character size: ${size.x.toFixed(2)} x ${size.y.toFixed(2)} x ${size.z.toFixed(2)}`);
+                
+                // Match height with current model
+                if (currentModel) {
+                    const sourceBox = new THREE.Box3().setFromObject(currentModel);
+                    const sourceSize = sourceBox.getSize(new THREE.Vector3());
+                    const scale = sourceSize.y / size.y;
+                    userCharacter.scale.setScalar(scale);
+                    logDebug(`Scaled by ${scale.toFixed(2)} to match source`);
+                }
+                
+                // Recalculate bounds after scaling
+                box.setFromObject(userCharacter);
+                
+                userCharacter.position.x = 0;
+                userCharacter.position.z = 0;
+                userCharacter.position.y = -box.min.y;
+                
+                // Build bone map for user character
+                buildTargetBoneMap(userCharacter);
+                
+                // Hide original model, show user character
+                if (currentModel) {
+                    currentModel.visible = false;
+                    logDebug('Hid original model');
+                }
+                scene.add(userCharacter);
+                logDebug('Added character to scene');
+                
+                // Create mixer for user character
+                userCharacterMixer = new THREE.AnimationMixer(userCharacter);
+                
+                // Update UI
+                retargetUploadArea.style.display = 'none';
+                retargetActive.style.display = 'block';
+                retargetCharacterName.textContent = fileName;
+                
+                showToast('Character loaded! Click Apply Retargeting.');
+                
+                URL.revokeObjectURL(url);
+            }, 
+            (progress) => {
+                const percent = (progress.loaded / progress.total * 100).toFixed(0);
+                logDebug(`Loading: ${percent}%`);
+            },
+            (error) => {
+                console.error('Error loading character:', error);
+                logDebug(`ERROR: ${error.message}`);
+                showToast('Error loading character');
+                URL.revokeObjectURL(url);
+            });
+        }
+        
+        function removeUserCharacter() {
+            if (userCharacter) {
+                scene.remove(userCharacter);
+                userCharacter = null;
+                userCharacterMixer = null;
+                targetSkeletonBones = {};
+                logDebug('Character removed');
+            }
+            
+            // Show original model
+            if (currentModel) {
+                currentModel.visible = true;
+            }
+            
+            // Update UI
+            retargetUploadArea.style.display = 'block';
+            retargetActive.style.display = 'none';
+            
+            showToast('Character removed');
+        }
+        
+        function buildSourceBoneMap(model) {
+            sourceSkeletonBones = {};
+            model.traverse((child) => {
+                if (child.isBone) {
+                    sourceSkeletonBones[child.name] = child;
+                }
+            });
+            logDebug(`Source bones: ${Object.keys(sourceSkeletonBones).join(', ')}`);
+        }
+        
+        function buildTargetBoneMap(model) {
+            targetSkeletonBones = {};
+            model.traverse((child) => {
+                if (child.isBone) {
+                    targetSkeletonBones[child.name] = child;
+                }
+            });
+            const boneNames = Object.keys(targetSkeletonBones);
+            logDebug(`Target bones (${boneNames.length}): ${boneNames.slice(0, 10).join(', ')}...`);
+        }
+        
+        function normalizeBoneName(name) {
+            // Remove common prefixes
+            let normalized = name
+                .replace(/^mixamorig:?/i, '')
+                .replace(/^Bip001\s*/i, '')
+                .replace(/^Bip01\s*/i, '')
+                .replace(/^Character1_/i, '')
+                .replace(/^SK_/i, '');
+            return normalized;
+        }
+        
+        function applyRetargeting() {
+            logDebug('--- Starting Retargeting ---');
+            
+            if (!userCharacter) {
+                logDebug('ERROR: No user character loaded');
+                return;
+            }
+            
+            if (!currentModel) {
+                logDebug('ERROR: No source model loaded');
+                return;
+            }
+            
+            if (animations.length === 0) {
+                logDebug('ERROR: No animations loaded');
+                return;
+            }
+            
+            const rigType = rigTypeSelect.value;
+            logDebug(`Using rig type: ${rigType}`);
+            
+            let mapping = boneMappings[rigType] || boneMappings.mixamo;
+            
+            // If auto-detect, try to guess
+            if (rigType === 'auto') {
+                mapping = autoDetectMapping();
+            }
+            
+            // Build source bone map from current model
+            buildSourceBoneMap(currentModel);
+            
+            // Get current animation
+            const currentClip = animations[currentAnimIndex];
+            if (!currentClip) {
+                logDebug('ERROR: No current animation clip');
+                return;
+            }
+            
+            logDebug(`Animation: ${currentClip.name}, ${currentClip.tracks.length} tracks, ${currentClip.duration.toFixed(2)}s`);
+            
+            // Create retargeted animation clip
+            const retargetedTracks = [];
+            const mappedBones = [];
+            const unmappedBones = [];
+            
+            currentClip.tracks.forEach(track => {
+                // Parse track name (e.g., "Hips.position" or "mixamorigHips.quaternion")
+                const trackParts = track.name.split('.');
+                const boneName = trackParts[0];
+                const property = trackParts[1];
+                
+                // Find normalized source bone name
+                const normalizedSource = normalizeBoneName(boneName);
+                
+                // Find target bone name from mapping
+                let targetBoneName = null;
+                
+                // First check if the bone exists directly in target
+                if (targetSkeletonBones[boneName]) {
+                    targetBoneName = boneName;
+                }
+                
+                // Then try mapping
+                if (!targetBoneName) {
+                    for (const [src, tgt] of Object.entries(mapping)) {
+                        if (normalizedSource.toLowerCase() === src.toLowerCase() || 
+                            boneName.toLowerCase().includes(src.toLowerCase())) {
+                            if (targetSkeletonBones[tgt]) {
+                                targetBoneName = tgt;
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                // Try reverse mapping (target names in source)
+                if (!targetBoneName) {
+                    for (const [src, tgt] of Object.entries(mapping)) {
+                        if (targetSkeletonBones[src]) {
+                            if (normalizedSource.toLowerCase() === src.toLowerCase()) {
+                                targetBoneName = src;
+                                break;
+                            }
+                        }
+                    }
+                }
+                
+                if (targetBoneName) {
+                    // Clone track with new target bone name
+                    const newTrackName = targetBoneName + '.' + property;
+                    let newTrack;
+                    
+                    if (track instanceof THREE.QuaternionKeyframeTrack) {
+                        newTrack = new THREE.QuaternionKeyframeTrack(
+                            newTrackName,
+                            track.times,
+                            track.values.slice()
+                        );
+                    } else if (track instanceof THREE.VectorKeyframeTrack) {
+                        newTrack = new THREE.VectorKeyframeTrack(
+                            newTrackName,
+                            track.times,
+                            track.values.slice()
+                        );
+                    } else {
+                        newTrack = track.clone();
+                        newTrack.name = newTrackName;
+                    }
+                    
+                    retargetedTracks.push(newTrack);
+                    if (!mappedBones.includes(targetBoneName)) {
+                        mappedBones.push(targetBoneName);
+                    }
+                } else {
+                    if (!unmappedBones.includes(boneName)) {
+                        unmappedBones.push(boneName);
+                    }
+                }
+            });
+            
+            logDebug(`Mapped ${mappedBones.length} bones: ${mappedBones.slice(0, 5).join(', ')}...`);
+            if (unmappedBones.length > 0) {
+                logDebug(`Unmapped ${unmappedBones.length}: ${unmappedBones.slice(0, 5).join(', ')}...`);
+            }
+            
+            if (retargetedTracks.length > 0) {
+                const retargetedClip = new THREE.AnimationClip(
+                    currentClip.name + '_retargeted',
+                    currentClip.duration,
+                    retargetedTracks
+                );
+                
+                // Stop previous action
+                if (userCharacterMixer) {
+                    userCharacterMixer.stopAllAction();
+                    
+                    // Play retargeted animation
+                    const action = userCharacterMixer.clipAction(retargetedClip);
+                    action.reset().play();
+                    action.setLoop(isLooping ? THREE.LoopRepeat : THREE.LoopOnce);
+                    action.clampWhenFinished = !isLooping;
+                    action.timeScale = playbackSpeed;
+                    
+                    logDebug(`Playing ${retargetedTracks.length} retargeted tracks`);
+                }
+                
+                showToast(`Retargeted ${mappedBones.length} bones`);
+            } else {
+                logDebug('ERROR: No tracks could be retargeted');
+                showToast('No matching bones found. Try different rig type.');
+            }
+        }
+        
+        function autoDetectMapping() {
+            const boneNames = Object.keys(targetSkeletonBones);
+            const lowerNames = boneNames.map(n => n.toLowerCase());
+            
+            logDebug(`Auto-detecting from ${boneNames.length} bones...`);
+            
+            // Check for Mixamo
+            if (lowerNames.some(n => n.includes('mixamorig'))) {
+                logDebug('Auto-detected: Mixamo');
+                return boneMappings.mixamo;
+            }
+            
+            // Check for UE5
+            if (lowerNames.some(n => n.includes('pelvis')) && lowerNames.some(n => n.includes('_l'))) {
+                logDebug('Auto-detected: UE5 Mannequin');
+                return boneMappings.ue5;
+            }
+            
+            // Default to HumanIK-style names
+            logDebug('Auto-detected: HumanIK/Generic');
+            return boneMappings.humanik;
+        }
+        
+        // Update user character mixer in the main animation loop - see animate() function
+
         // Screenshot
         function takeScreenshot() {
             const flash = document.getElementById('screenshot-flash');
@@ -2785,6 +3623,7 @@
                 case 'KeyW': document.getElementById('toggle-wireframe').click(); break;
                 case 'KeyP': document.getElementById('btn-postfx').click(); break;
                 case 'KeyB': document.getElementById('toggle-bones').click(); break;
+                case 'KeyT': document.getElementById('btn-retarget').click(); break;
             }
         });
 
@@ -2825,6 +3664,11 @@
                     const currentFrame = Math.floor((currentAction.time % clip.duration) * 30);
                     infoFrame.textContent = `${currentFrame} / ${totalFrames}`;
                 }
+            }
+            
+            // Update retargeted character animation
+            if (userCharacterMixer && isPlaying) {
+                userCharacterMixer.update(delta);
             }
             
             controls.update();
