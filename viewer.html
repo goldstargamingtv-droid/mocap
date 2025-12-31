@@ -2763,11 +2763,23 @@
                             currentModel.updateMatrixWorld(true);
                             const box = new THREE.Box3().setFromObject(currentModel);
                             if (isFinite(box.min.y)) {
-                                // User uploads: no offset. Site files: apply offset for Vicon exports
-                                const siteOffset = isUserUploadedFile ? 0 : 0.39;
-                                modelFloorY = -box.min.y - siteOffset;
+                                let offset = 0;
+                                
+                                if (!isUserUploadedFile) {
+                                    // Site files: always apply offset
+                                    offset = 0.39;
+                                } else if (box.min.y > -0.5 && box.min.y < -0.2) {
+                                    // Auto-detect floating animations
+                                    // Reference: bottom Y of -0.38 needs offset of 0.39
+                                    // Formula: offset = 0.77 + box.min.y
+                                    offset = 0.77 + box.min.y;
+                                    if (offset < 0) offset = 0; // Don't push into ground
+                                    console.log(`[Loader] Auto-detected floating animation, calculated offset: ${offset.toFixed(3)}`);
+                                }
+                                
+                                modelFloorY = -box.min.y - offset;
                                 currentModel.position.y = modelFloorY;
-                                console.log(`[Loader] Floor (static, ${isUserUploadedFile ? 'user' : 'site'}): bottom=${box.min.y.toFixed(3)}, offset=${modelFloorY.toFixed(3)}`);
+                                console.log(`[Loader] Floor (static, ${isUserUploadedFile ? 'user' : 'site'}): bottom=${box.min.y.toFixed(3)}, offset=${offset.toFixed(3)}, final=${modelFloorY.toFixed(3)}`);
                             }
                         }
                     }
@@ -2848,12 +2860,48 @@
                         
                         const box = new THREE.Box3().setFromObject(currentModel);
                         if (isFinite(box.min.y)) {
-                            // User uploads: no offset. Site files: apply offset for Vicon exports
-                            const siteOffset = isUserUploadedFile ? 0 : 0.39;
-                            modelFloorY = -box.min.y - siteOffset;
+                            let offset = 0;
+                            
+                            if (!isUserUploadedFile) {
+                                // Site files: always apply offset
+                                offset = 0.39;
+                            } else if (box.min.y > -0.5 && box.min.y < -0.2) {
+                                // Auto-detect floating animations
+                                // Reference: bottom Y of -0.38 needs offset of 0.39
+                                // Formula: offset = 0.77 + box.min.y
+                                offset = 0.77 + box.min.y;
+                                if (offset < 0) offset = 0;
+                                console.log(`[Loader] Auto-detected floating animation, calculated offset: ${offset.toFixed(3)}`);
+                            }
+                            
+                            modelFloorY = -box.min.y - offset;
                             currentModel.position.y = modelFloorY;
+                            
+                            // Fallback: if Hips bone is way too high, use Hips position to calculate floor
+                            let hipsBone = null;
+                            currentModel.traverse(child => {
+                                if (child.isBone && child.name === 'Hips') {
+                                    hipsBone = child;
+                                }
+                            });
+                            
+                            if (hipsBone && isUserUploadedFile) {
+                                const hipsWorld = new THREE.Vector3();
+                                hipsBone.getWorldPosition(hipsWorld);
+                                console.log(`[Loader] Hips world position: Y=${hipsWorld.y.toFixed(3)}`);
+                                // Hips should be around Y=1 for a standing human-scale character
+                                // If Hips is higher than 1.5, the model is likely floating
+                                if (hipsWorld.y > 1.5) {
+                                    // Place Hips at Y=1 (typical standing height)
+                                    const correction = hipsWorld.y - 0.85;
+                                    modelFloorY = modelFloorY - correction;
+                                    currentModel.position.y = modelFloorY;
+                                    console.log(`[Loader] Hips fallback: hipsY=${hipsWorld.y.toFixed(3)}, correction=${correction.toFixed(3)}`);
+                                }
+                            }
+                            
                             floorCalculated = true;
-                            console.log(`[Loader] Floor auto-detect (${isUserUploadedFile ? 'user' : 'site'}): bottom=${box.min.y.toFixed(3)}, offset=${modelFloorY.toFixed(3)}`);
+                            console.log(`[Loader] Floor auto-detect (${isUserUploadedFile ? 'user' : 'site'}): bottom=${box.min.y.toFixed(3)}, offset=${offset.toFixed(3)}, final=${modelFloorY.toFixed(3)}`);
                         }
                     }
                 }, 100);
